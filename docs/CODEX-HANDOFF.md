@@ -7,11 +7,11 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 已正式关闭（PASS / Ready for Release）；Phase 2.0 Contract Gate = CONDITIONAL PASS（最终修订已完成，等待 Final Gate）。** Release baseline：commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`；ISSUE-012A Closed；ISSUE-012B Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog；**Phase 2 唯一主要产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（修订版）；Phase 2 coding **未授权**。
+**当前状态：Phase 1 已关闭；Phase 2.0 Contract Gate = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation 已实现并提交 Gate Review（执行数据见 `docs/PHASE-2-1-ACCEPTANCE.md`，建议 CONDITIONAL PASS，未自行宣布通过）。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 新增 `/api/profile/analyze` ＋ `/profile` 页面（独立 route/service，Profile 与 JD 事实空间隔离）；Phase 2.2 Match Engine **未授权**。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待 Product Owner / QA 对 **Phase 2.0 Contract Gate 最终确认**（修订版已提交：Candidate Fact/Derived 分离、partial 重冻结、推荐矩阵 criticality-aware、confidence 不输出、14 TC、Gate F 冻结、四类 fallback 指标、Greeting 禁 profile_inferred）；批准后才可进入 Phase 2.1 实现；不得开始 Phase 2 实现、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
+- 新 thread 的下一步：等待 Product Owner / QA 对 **Phase 2.1 Gate Review**（评审 `docs/PHASE-2-1-ACCEPTANCE.md`：27 次真实请求数据、OBS-001 事实完整性波动、零 facts fail-closed guard、near-verbatim 降级行为）；批准后才可进入 Phase 2.2；不得开始 Match Engine/Recommendation/Strength/Gap/Greeting；不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
 - **不进入 Phase 2 开发（coding 未授权，当前仅 Contract 设计）、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
@@ -189,7 +189,7 @@ TikTok生活服务业务在国际化布局早期阶段，我们聚焦生服领�
 
 ## 10. 当前绝对不能做的事情
 
-- 不进入 Phase 2 开发（coding 未授权，当前仅 Phase 2.0 Contract 设计）；
+- 不进入 Phase 2.2 开发（Match Engine / Recommendation / Strength / Gap / Personalized Greeting 未授权）；
 - 不开始 Phase 2 coding（当前仅 PLANNING / CONTRACT DESIGN）；
 - 不修改冻结 JD（TC-01～TC-09 全部冻结输入；TC-09 836 字符 / `99083d98…a70fd0`；TC-08 416 字符 / `06567ac6…eff8f`；TC-07 520 字符 / `dd49ed52…cfc38` 等）；
 - 不重构整个 JD parser；不新增 requirementType；不放宽 evidence / Schema / hallucination 约束；

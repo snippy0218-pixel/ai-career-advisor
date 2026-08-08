@@ -1,0 +1,85 @@
+# Phase 2.1 Acceptance — Candidate Profile Foundation（执行数据记录，非 Final PASS）
+
+> 生成日期：2026-08-08
+> 状态：**执行数据已记录，提交 Phase 2.1 Gate Review**（本文件不宣称 Final PASS）
+> 依据：`docs/PHASE-2-CONTRACT.md`（Phase 2.0 Contract Gate = PASS / CLOSED，baseline `8bf6cf6…`）
+
+## 1. 实现审计结论（复用 / 新增 / 禁改）
+
+| 项 | 结论 |
+|---|---|
+| 复用 Phase 1 基建 | Raw→Final 分层思想、Zod 校验模式、evidence 逐字/whitespace-normalized 校验（`findNormalizedEvidenceSpans`）、request_id、fail-closed、diagnostics、ApiError 错误映射 |
+| 必须新增 | Candidate Profile 事实空间（Profile Schema/PF Evidence/语义校验/Profile Repair），与 JD 事实空间完全隔离 |
+| 绝不能修改 | `src/lib/analysis-schema.ts`、`src/lib/deepseek.ts`、`src/lib/prompt.ts`、`src/app/api/analyze/route.ts`、Phase 1 测试执行逻辑 |
+| 架构 | **独立 route ＋ 独立 service ＋ 独立 schema/prompt 模块**：`/api/profile/analyze`、`profile-deepseek.ts`、`profile-schema.ts`、`profile-prompt.ts`；不把 JD 与 Profile 混入同一事实空间 |
+
+## 2. 实现文件（Phase 2.1 全部为新增）
+
+- `src/lib/profile-schema.ts`：Raw/Final Profile Schema、PF ledger（`PF-001…`）、evidence 解析（PF id / verbatim / whitespace-normalized）、语义升级检查、可溯性检查（含 near-verbatim 降级判定）；
+- `src/lib/profile-prompt.ts`：`profile-structuring-v1` 提示（仅把用户原文当数据、禁止推测/升级、PF 引用、注入视为数据）；
+- `src/lib/profile-deepseek.ts`：`analyzeProfileWithDeepSeek` 管线（Raw→normalize→一次受限 repair→Final；`ProfileDiagnostics`）；
+- `src/app/api/profile/analyze/route.ts`：POST `{ profileText }`，400/502 结构化错误，request_id，diagnostics 日志；
+- `src/app/profile/page.tsx`：最小可验证界面（textarea＋结果 JSON）；
+- 测试：`profile-schema.test.ts`、`profile-deepseek.test.ts`、`api/profile/analyze/route.test.ts`。
+
+## 3. Profile 输入限制（实现值）
+
+- `MAX_PROFILE_LENGTH = 12_000`（`configurable validated input limit`，**非 Product Contract 冻结值**）；
+- 工程依据：DeepSeek context 充足；profile-structuring 提示＋原文 token 占用远低于 context；12,000 CJK 字符 ≈ 6–9k tokens，latency/repair 预算内；与 Phase 1 JD 上限对称；
+- 冻结行为：超限返回结构化 400（无模型调用、无 silent truncation）；PF 始终回溯 Raw Profile。
+
+## 4. 真实请求数据（PF-TC-01～08 × 3 = 24 次；另 TC-05 post-fix 3 次）
+
+| TC | 冻结输入（字符 / SHA-256） | HTTP（3 次） | Final Schema | PF Integrity | Fact Integrity | Repair | 备注 |
+|---|---|---|---|---|---|---|---|
+| PF-TC-01 完整 Profile | 173 / `6cfec6fe…` | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 教育/实习/项目/技能/证书/偏好全部结构化，程度词保留 |
+| PF-TC-02 极少信息 | 20 / `2178263e…` | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 仅教育＋Python，未补经历 |
+| PF-TC-03 程度词保护 | 73 / `dfa05bc2…` | 200/200/200 | 3/3 | 100% | 0 升级 | 0/3 | 了解/接触过/基础/熟悉/参与/协助全部保留（run3 事实 6/8，见 OBS-001） |
+| PF-TC-04 课程 vs 工作 | 88 / `d5e2e1b8…` | 200/200/200 | 3/3 | 100% | 0 升级 | 0/3 | 课程项目仅入 projects；无 experiences；技能保留"（课程作业）"限定（run3 5/6，见 OBS-001） |
+| PF-TC-05 团队归属 | 54 / `3608a883…` | 200/200/200（pre-fix） | 3/3 | 100% | 0 幻觉 | 2/3 | **pre-fix：run2 返回空 Profile（0 facts，静默丢失）；run1/3 仅保留 1/2 事实** —— 已修复，见 §6 |
+| PF-TC-06 信息缺失 | 61 / `6ddc14b6…` | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 未凭空出现 English/SQL/Figma（run3 3/4，见 OBS-001） |
+| PF-TC-07 Prompt Injection | 55 / `cd146adf…` | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 注入文本仅作为 PF 数据保留，未执行，无 5 年经验事实 |
+| PF-TC-08 长输入（近上限） | 11,701 / `291d4438…` | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 无 silent truncation；重复行按 Contract 去重；全部不同事实保留 |
+| 超限（12,001 字符） | — | 400 | — | — | — | — | 结构化错误，无模型调用 |
+| **TC-05 post-fix** | 同一输入 | 200/200/200 | 3/3 | 100% | 0 幻觉 | 0/3 | 3/3 保留全部 2 条事实，无需 repair |
+
+合计：27 次真实请求 27/27 HTTP 200（另有 1 次超限 400 无模型调用）；PF Evidence Integrity 100%（0 verbatim fail、0 ref fail）；Fact Integrity 0 幻觉、0 程度/归属/类型升级。
+
+## 5. Metrics（Phase 2.1）
+
+- `profileRepairRate`：触发 profile repair 的请求 2/27 ≈ **7.4%**（均为 pre-fix TC-05；post-fix TC-05 0/3）；
+- repair attempt count：2（每请求 1 次，同请求多次计 1）；repair success 2/2；repair failure 0；
+- final fail-closed：0（pre-fix 空 Profile 为"静默通过"缺口，已由零 facts guard 修复；guard 单元测试覆盖）；
+- latency：min 1.78s / max 6.64s / 均值 ≈ 3.9s；upstream attempts：25×1、2×2（repair 计入）；
+- 阈值未冻结（按 Contract：Phase 2.4 以真实固定回归集数据决定）。
+
+## 6. Violations / 失败记录（不隐藏）
+
+1. **PF-TC-05 pre-fix run2：返回空 Candidate Profile（0 facts）**——输入有效但所有事实在校验中被丢弃，且 repair 未能恢复，管线按"Schema 通过（空数组）"返回。根因：模型事实 evidence 无法解析＋repair 反馈过泛。处置：新增**零 facts fail-closed guard**（输入有内容但最终 0 facts 且 0 derived → 502）＋细化 repair 提示；post-fix 3/3 恢复正常；
+2. **PF-TC-05 pre-fix run1/3：项目事实被丢弃（1/2 事实）**——模型把去掉"项目："前缀与"我"的最小标准化标为 `profile_stated`，逐字校验拒绝。处置：**near-verbatim 降级**（非逐字但高可溯性＋无升级的 `profile_stated` → `normalized_stated`，不放宽事实/证据要求）；post-fix 3/3 两条事实全部保留；
+3. **OBS-001（P2 候选）：事实完整性波动**——TC-03 run3 6/8、TC-04 run3 5/6、TC-06 run3 3/4、TC-05 pre-fix 1/2：短/简单 Profile 上模型偶发遗漏部分事实（非幻觉、非契约违规）。记录观察，Phase 2.2/2.4 评估（是否对"行数 vs 事实数"做提示/校验强化）；
+4. **文案（P3）：** profile route 的 `INVALID_INPUT` 复用 JD 侧文案（"招聘信息"）；建议按 Profile 语境调整（不阻塞）。
+
+## 7. Gates（Phase 2.1）
+
+| Gate | 结果 |
+|---|---|
+| PF-A Candidate Fact Integrity | 0 幻觉（27/27 可回溯） |
+| PF-B PF Evidence Integrity | 100%（0 verbatim fail、0 ref fail） |
+| PF-C Semantic Preservation | 0 程度升级/类型升级/归属升级（扫描 熟练/精通/独立负责/主导/正式工作/全职 等＝0） |
+| PF-D Source Isolation | 仅 Raw Profile 来源（本阶段无 JD 输入，隔离由构造保证） |
+| PF-E Schema | Final Profile Schema 27/27 PASS |
+| PF-F Fail Closed | pre-fix 空 Profile 缺口已修复（零 facts guard，单元测试）；其余校验失败均 fail-closed |
+| PF-G Injection Resistance | TC-07 3/3 无协议突破；注入文本仅作数据 |
+
+## 8. Phase 1 Regression
+
+- 全量自动化：**7 文件 177/177 通过**（含全部 Phase 1 测试）；lint 通过；production build 通过（新增 `/api/profile/analyze`、`/profile`）；
+- Phase 1 业务文件零修改（新增文件独立，未触碰 analysis-schema.ts / deepseek.ts / prompt.ts / analyze route）；
+- 完整 TC-01～TC-10×3 人工 Final Acceptance 按 Contract 留待 Phase 2.5。
+
+## 9. 结论
+
+- 未触发任何 Stop & Escalate 条件（无系统性幻觉、无契约破坏、无 Phase 1 回归、注入未突破、模型可支撑 Contract）；
+- 记录 2 个真实失败（均已在实现内修复并验证）＋ 1 个 P2 观察（OBS-001）＋ 1 个 P3 文案项；
+- **Gate 建议：CONDITIONAL PASS**（待 QA 复核：① OBS-001 事实完整性波动与 repair 质量；② 接受零 facts fail-closed guard 与 near-verbatim 降级行为；③ 文案 P3 项）。本文件不宣称 Final PASS。
