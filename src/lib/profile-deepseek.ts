@@ -1,12 +1,18 @@
+import { z } from "zod";
+
 import { ApiError } from "./api-errors";
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
-import { buildProfileStructuringMessages } from "./profile-prompt";
+import {
+  buildCompletenessRepairMessages,
+  buildProfileStructuringMessages,
+} from "./profile-prompt";
 import {
   buildProfileEvidenceLedger,
   finalProfileStructureSchema,
   findSemanticUpgradeViolations,
   hasFactTraceability,
-  hasHighTraceability,
+  isAllowlistedNormalization,
+  pfIdPattern,
   PROFILE_SCHEMA_VERSION,
   rawProfileAnalysisSchema,
   resolveEvidenceToPf,
@@ -31,6 +37,10 @@ export interface ProfileDiagnostics {
   semanticUpgradeViolationCount: number;
   untraceableFactCount: number;
   layeringViolationCount: number;
+  unusedPfCount: number;
+  completenessRepairUsed: boolean;
+  completenessRepairSucceeded: boolean;
+  droppedCandidateFactCount: number;
   profileRepairAttempted: boolean;
   profileRepairSucceeded: boolean;
   finalSchemaValidationPassed: boolean;
@@ -260,7 +270,10 @@ function normalizeFact(
       // fact as normalized_stated only when it is a near-verbatim normalization
       // with no semantic upgrade. This does not relax fact/evidence rules.
       const upgrades = findSemanticUpgradeViolations(item.value, pfTexts);
-      if (upgrades.length === 0 && hasHighTraceability(item.value, pfTexts)) {
+      if (
+        upgrades.length === 0 &&
+        pfTexts.some((pfText) => isAllowlistedNormalization(item.value, pfText))
+      ) {
         return {
           value: item.value,
           sourceType: "normalized_stated",
@@ -476,6 +489,146 @@ function finalizeProfile(
   return { ok: true, value: result.data };
 }
 
+const completenessAdditionItemSchema = z
+  .object({
+    category: z.enum([
+      "careerTarget",
+      "education",
+      "experiences",
+      "projects",
+      "skills",
+      "certificates",
+      "portfolio",
+      "preferences",
+    ]),
+    value: z.string().trim().min(1).max(200),
+    sourceType: z
+      .enum(["profile_stated", "normalized_stated"])
+      .optional()
+      .default("normalized_stated"),
+    pfEvidence: z.array(z.string()).min(1).max(3),
+    verificationQuestion: z
+      .string()
+      .max(200)
+      .nullable()
+      .optional()
+      .default(null),
+  })
+  .strict();
+
+const completenessLinesSchema = z
+  .object({
+    lines: z
+      .array(
+        z
+          .object({
+            pfId: z.string().regex(pfIdPattern),
+            status: z.enum(["covered", "missing", "not_fact"]),
+            additions: z
+              .array(completenessAdditionItemSchema)
+              .max(8)
+              .optional()
+              .default([]),
+          })
+          .strict(),
+      )
+      .max(30),
+  })
+  .passthrough();
+
+type CandidateProfileShape = ReturnType<typeof prepareCandidateProfile>;
+
+const categoryCaps: Record<string, number> = {
+  careerTarget: 1,
+  education: 6,
+  experiences: 8,
+  projects: 8,
+  skills: 12,
+  certificates: 6,
+  portfolio: 6,
+  preferences: 4,
+};
+
+function referencedPfIds(profile: CandidateProfileShape): Set<string> {
+  const ids = new Set<string>();
+  const groups: Array<Array<{ pfEvidence: string[] }>> = [
+    profile.careerTarget ? [profile.careerTarget] : [],
+    profile.education,
+    profile.experiences,
+    profile.projects,
+    profile.skills,
+    profile.certificates,
+    profile.portfolio,
+    profile.preferences,
+    profile.derivedObservations,
+  ];
+  for (const group of groups) {
+    for (const item of group) {
+      for (const ref of item.pfEvidence) ids.add(ref);
+    }
+  }
+  return ids;
+}
+
+function appendFactToCategory(
+  profile: CandidateProfileShape,
+  category: string,
+  fact: NormalizedFact,
+) {
+  if (category === "careerTarget") {
+    if (profile.careerTarget === null) profile.careerTarget = fact;
+    return;
+  }
+  const cap = categoryCaps[category];
+  const list = profile[category as "education"] as NormalizedFact[];
+  if (!Array.isArray(list) || list.length >= cap) return;
+  if (list.some((item) => item.value === fact.value)) return;
+  list.push(fact);
+}
+
+async function repairCompleteness(
+  ledger: ProfileEvidence[],
+  currentFacts: Array<{ category: string; value: string; pfEvidence: string[] }>,
+  configuration: CompletionConfig,
+  deadline: number,
+  diagnostics: ProfileDiagnostics,
+) {
+  const remaining = deadline - Date.now();
+  if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
+  diagnostics.upstreamAttempts += 1;
+  return requestCompletion(
+    buildCompletenessRepairMessages(ledger, currentFacts),
+    configuration,
+    remaining,
+    diagnostics,
+  );
+}
+
+function collectCurrentFacts(profile: CandidateProfileShape) {
+  const facts: Array<{ category: string; value: string; pfEvidence: string[] }> = [];
+  if (profile.careerTarget) {
+    facts.push({
+      category: "careerTarget",
+      value: profile.careerTarget.value,
+      pfEvidence: profile.careerTarget.pfEvidence,
+    });
+  }
+  for (const category of [
+    "education",
+    "experiences",
+    "projects",
+    "skills",
+    "certificates",
+    "portfolio",
+    "preferences",
+  ]) {
+    for (const item of profile[category as "education"] as NormalizedFact[]) {
+      facts.push({ category, value: item.value, pfEvidence: item.pfEvidence });
+    }
+  }
+  return facts;
+}
+
 function buildRepairMessages(
   request: AnalyzeProfileRequest,
   ledger: ProfileEvidence[],
@@ -549,6 +702,10 @@ export async function analyzeProfileWithDeepSeek(
     semanticUpgradeViolationCount: 0,
     untraceableFactCount: 0,
     layeringViolationCount: 0,
+    unusedPfCount: 0,
+    completenessRepairUsed: false,
+    completenessRepairSucceeded: false,
+    droppedCandidateFactCount: 0,
     profileRepairAttempted: false,
     profileRepairSucceeded: false,
     finalSchemaValidationPassed: false,
@@ -605,6 +762,43 @@ export async function analyzeProfileWithDeepSeek(
         finalized = finalizeProfile(candidateProfile, ledger, rawText);
       }
       diagnostics.profileRepairSucceeded = finalized.ok;
+    }
+
+    if (finalized.ok && finalized.value && candidateProfile) {
+      diagnostics.completenessRepairUsed = true;
+      const used = referencedPfIds(candidateProfile);
+      const unused = ledger.filter((item) => !used.has(item.id));
+      diagnostics.unusedPfCount = unused.length;
+      const completenessContent = await repairCompleteness(
+        ledger,
+        collectCurrentFacts(candidateProfile),
+        configuration,
+        deadline,
+        diagnostics,
+      );
+      const completenessParsed = parseJson(
+        completenessContent,
+        "invalid JSON output (completeness repair)",
+      );
+      const lines = completenessLinesSchema.safeParse(completenessParsed);
+      diagnostics.completenessRepairSucceeded = lines.success;
+      if (lines.success) {
+        for (const line of lines.data.lines) {
+          if (line.status !== "missing") continue;
+          for (const addition of line.additions) {
+            const fact = normalizeFact(addition, rawText, ledger, diagnostics);
+            if (!fact) {
+              diagnostics.droppedCandidateFactCount += 1;
+              continue;
+            }
+            appendFactToCategory(candidateProfile, addition.category, fact);
+          }
+        }
+      }
+      finalized = finalizeProfile(candidateProfile, ledger, rawText);
+      if (!finalized.ok) {
+        throw new ApiError("AI_OUTPUT_INVALID", 502);
+      }
     }
 
     if (!finalized.ok || !finalized.value) {

@@ -7,11 +7,11 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 已关闭；Phase 2.0 Contract Gate = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation 已实现并提交 Gate Review（执行数据见 `docs/PHASE-2-1-ACCEPTANCE.md`，建议 CONDITIONAL PASS，未自行宣布通过）。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 新增 `/api/profile/analyze` ＋ `/profile` 页面（独立 route/service，Profile 与 JD 事实空间隔离）；Phase 2.2 Match Engine **未授权**。
+**当前状态：Phase 1 已关闭；Phase 2.0 Contract Gate = PASS / CLOSED；Phase 2.1 Stabilization 完成 → STOP & ESCALATE（ISSUE-025 Open / P1 / Gate Blocker，Gate PF-H 未达标：profileFactRecall 84.2% < 100%）。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 已实现 `/api/profile/analyze` ＋ `/profile`（独立 route/service，Profile 与 JD 事实空间隔离）；Phase 2.2 Match Engine **未授权**；完整证据与升级包见 `docs/PHASE-2-1-ACCEPTANCE.md` §10–§17。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待 Product Owner / QA 对 **Phase 2.1 Gate Review**（评审 `docs/PHASE-2-1-ACCEPTANCE.md`：27 次真实请求数据、OBS-001 事实完整性波动、零 facts fail-closed guard、near-verbatim 降级行为）；批准后才可进入 Phase 2.2；不得开始 Match Engine/Recommendation/Strength/Gap/Greeting；不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
+- 新 thread 的下一步：等待人工 Product/QA 决策 **ISSUE-025 / PF-H**（Stop & Escalate 已触发，升级包见 `docs/PHASE-2-1-ACCEPTANCE.md` §16）——候选方向：模型能力评估/换模型、completeness 机制重新设计、manifest"负向事实"条目裁定、或经人工批准放宽 PF-H；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；不得开始 Phase 2.2、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；
 - **不进入 Phase 2 开发（coding 未授权，当前仅 Contract 设计）、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界

@@ -1,7 +1,7 @@
 # Phase 2.1 Acceptance — Candidate Profile Foundation（执行数据记录，非 Final PASS）
 
 > 生成日期：2026-08-08
-> 状态：**执行数据已记录，提交 Phase 2.1 Gate Review**（本文件不宣称 Final PASS）
+> 状态：**Phase 2.1 Stabilization 完成 → STOP & ESCALATE**（PF-H 未达标，详见 §10–§17；本文件不宣称 Final PASS）
 > 依据：`docs/PHASE-2-CONTRACT.md`（Phase 2.0 Contract Gate = PASS / CLOSED，baseline `8bf6cf6…`）
 
 ## 1. 实现审计结论（复用 / 新增 / 禁改）
@@ -83,3 +83,66 @@
 - 未触发任何 Stop & Escalate 条件（无系统性幻觉、无契约破坏、无 Phase 1 回归、注入未突破、模型可支撑 Contract）；
 - 记录 2 个真实失败（均已在实现内修复并验证）＋ 1 个 P2 观察（OBS-001）＋ 1 个 P3 文案项；
 - **Gate 建议：CONDITIONAL PASS**（待 QA 复核：① OBS-001 事实完整性波动与 repair 质量；② 接受零 facts fail-closed guard 与 near-verbatim 降级行为；③ 文案 P3 项）。本文件不宣称 Final PASS。
+
+## 10. ISSUE-025（OBS-001 正式升级，P1 / Phase 2.1 Gate Blocker）
+
+- **定义**：Candidate Profile Fact Completeness / Silent Omission——Raw Profile 存在真实候选人事实 → Profile Structuring 未输出 → 最终 Match Engine 不可见 → 可能产生错误 `unknown`/`partial`/recommendation。
+- **统计口径核验（2026-08-09）**：Gate 引用的"PF-TC-03 6/8、PF-TC-04 5/6、PF-TC-06 3/4"经真实记录核验为**含 derived observations 的总输出数**口径；按候选事实（不含 derived）重算，TC-03/04/06 在原始 24 次矩阵中候选事实均为 100% 保留（6/6、4/4、3/3）。真实的候选事实遗漏证据为：TC-05 pre-fix（1/2、0/2，已修复）、TC-02 run2（Python）、TC-08（Figma/校园活动部分提取）、TC-04（"没有正式工作经历"未入候选事实）。ISSUE-025 升级成立（遗漏风险模式真实存在），引用数字以本核验为准。
+- **状态**：Open / P1 / Gate Blocker（Stabilization 未达到 PF-H）。
+
+## 11. expected manifest（PF-TC-01～08 冻结）
+
+每个 must-preserve fact 记录：类别 / 原始片段 / 关键语义限定 / 是否允许 normalized_stated / 禁止升级。
+
+| TC | manifest（category | 语义限定） |
+|---|---|
+| PF-TC-01 | education|计算机+本科；experiences|产品运营实习生；projects|推荐系统；skills|Python+了解；skills|Excel+熟悉；skills|Figma+接触；certificates|CET；preferences|杭州；careerTarget|产品运营 |
+| PF-TC-02 | education|计算机本科；skills|Python+了解 |
+| PF-TC-03 | skills|Python+了解；skills|SQL+接触；skills|HTML+基础；skills|Excel+熟悉；projects|校园活动策划；experiences|课程资料整理 |
+| PF-TC-04 | education|信息管理本科；projects|推荐系统课程项目；projects|数据分析课程作业；skills|Python+课程作业；experiences|没有正式工作经历（负向事实） |
+| PF-TC-05 | projects|校园二手平台（保留团队/负责限定，禁止独立/主导）；experiences|数学建模（保留队伍归属） |
+| PF-TC-06 | education|市场营销本科；skills|Python+了解；experiences|市场部实习生 |
+| PF-TC-07 | education|计算机本科；skills|Python+了解；projects|课程项目（注入行 NOT must-preserve） |
+| PF-TC-08 | education|计算机本科；skills|Python+了解；projects|推荐系统课程项目；experiences|运营实习生；projects|校园活动；skills|SQL+接触；skills|Figma+接触；experiences|协助老师 |
+
+均允许 `normalized_stated`；禁止程度/经历类型/归属升级（了解→熟练、参与→负责、团队→独立、课程→工作等）。
+
+## 12. profileFactRecall 与 Gate PF-H
+
+- 定义：numerator = 最终 Validated Candidate Profile 中保留的 must-preserve facts 数量；denominator = 冻结 manifest 总数；Gate = **100%**；仅用于人工冻结 QA 集，生产环境不自动认定全部真实事实。
+- 双重口径：content recall（事实内容保留于任一候选事实类别）与 category recall（内容保留且类别正确）。
+
+## 13. Normalization 审计（near-verbatim）
+
+- **最终机制**：严格 allowlisted normalization——仅允许删除字段标签、空白、标点与主语代词（我/我们）后的 substring 校验；无替换、无编辑距离、无 similarity threshold。
+- **曾评估 token-containment**（允许程度词重排，如"了解 Python"→"Python：了解"）：因同一 PF 行其他片段含"负责"时"参与→负责"可通过包含检查（跨片段替换回门），无法证明语义安全，**已拒绝**；保留严格 substring 版本（paired 单测：合法标签剥离/空白/标点/代词删除通过；参与→负责、协助→主导、了解→熟练、团队→独立、课程→工作、约1年→2年、未明确→确定全部拒绝）。
+- 代价：程度词重排且被模型误标 `profile_stated` 时会被保守丢弃（触发 repair；repair 不稳定）。
+
+## 14. 修复尝试与结果轨迹（recall = content 口径）
+
+| 版本 | 机制 | HTTP | content recall | 备注 |
+|---|---|---|---|---|
+| 原始 24＋TC-05 fix | 无 completeness 机制 | 27 次含 pre-fix 失败 | — | 不作为最终矩阵 |
+| v2 | PF-unused 触发 repair | 24/24 | 91.2% | TC-05 completeness schema 失败 |
+| v3 | always-on 二次核对＋prompt 强化 | 19/24（5×瞬时上游 502，重试 6/6 200） | — | 上游故障，非代码失败 |
+| v4 | always-on 自由二次核对 | 24/24 | 93.9% | TC-04/05/08 残留 |
+| v5 | 逐行 verdict | 24/24 | 85.1% | 严格 allowlist 丢弃 profile_stated 技能 |
+| **v6（最终代码）** | 逐行 verdict＋严格 allowlist | **24/24** | **84.2%** | **PF-H 未达标 → Stop & Escalate** |
+
+## 15. Final Clean Matrix（v6，同一最终 commit 代码）
+
+- 24/24 HTTP 200；Final Schema 24/24；PF Evidence Integrity 100%（0 verbatim fail、0 ref fail）；Fact Integrity 0 幻觉、0 语义升级（扫描 熟练/精通/独立/主导/正式工作/全职＝0）；Prompt Injection 3/3 未突破；
+- **profileFactRecall：content 96/114 = 84.2%；category 89/114 = 78.1%**；
+- 稳定遗漏：TC-04 "没有正式工作经历" 3/3；TC-08 Figma 3/3（部分 run 还缺 校园活动/协助老师）；TC-01 技能 2/3 runs；TC-02 Python 2/3 runs；
+- Metrics：profileRepairRate 11/24 ≈ **45.8%**；completenessRepairSucceeded 18/24 = 75%；droppedCandidateFactCount 8；upstream 每请求 2–3 次调用；latency 2.9–9.1s；final fail-closed 0。
+
+## 16. Gate PF-H 结论与 Stop & Escalate
+
+- **PF-H = FAIL**（84.2% < 100%）。
+- 触发条件：Gate §十五 **#3**（near-verbatim 无法在不引入语义回门的前提下达到所需 recall——程度词重排需 token-containment，存在跨片段替换风险，无法证明安全）与 **#4**（冻结短 Profile 在最终版本稳定遗漏 must-preserve fact：TC-04/TC-08/TC-01/TC-02）。
+- 未选择绕过：未放宽 PF evidence、未放宽 semantic preservation、未强制 Raw 行转 Fact、未把注入当 Fact、未降 PF-H。
+- 升级包：① 根因——模型提取/分类随机性与严格校验的互斥（首轮偶发遗漏＋sourceType 误标，repair 不稳定，二次核对仍残留）；② 影响——recall<100% 时后续 Match Engine 可能得到错误 unknown/partial；③ 建议人工决策方向——模型能力评估/换模型、completeness 机制重新设计（per-fact 分段提取或 checklist 融合）、对 manifest"负向事实"条目（TC-04"没有正式工作经历"）的产品裁定、或经人工批准接受有界 recall 目标（即放宽 PF-H，需人工 Gate）。
+
+## 17. 历史失败保留
+
+- pre-fix 证据（TC-05 空 Profile、TC-05 1/2）与 v1–v6 各版本矩阵原始响应/日志均保留于 `%TEMP%\p21-regression\`；不删除、不替换、不弱化。

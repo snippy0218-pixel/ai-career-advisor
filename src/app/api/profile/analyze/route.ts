@@ -39,6 +39,12 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     const publicError = toPublicError(error, requestId);
+    if (publicError.body.error.code === "INVALID_INPUT") {
+      // P3: profile-specific wording (local to this route; shared ApiError
+      // message stays untouched for the Phase 1 route).
+      publicError.body.error.message =
+        "请粘贴完整且长度合适的候选人资料。";
+    }
     console.warn("[profile] request failed", {
       requestId,
       code: publicError.body.error.code,

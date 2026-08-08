@@ -77,8 +77,10 @@ describe("POST /api/profile/analyze", () => {
     process.env.DEEPSEEK_API_KEY = "test-key";
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue(
-        new Response(JSON.stringify(validProfileResponse), { status: 200 }),
+      vi.fn().mockImplementation(() =>
+        Promise.resolve(
+          new Response(JSON.stringify(validProfileResponse), { status: 200 }),
+        ),
       ),
     );
 

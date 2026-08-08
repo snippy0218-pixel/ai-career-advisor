@@ -228,24 +228,25 @@ export function hasFactTraceability(factValue: string, pfTexts: string[]): boole
 }
 
 /**
- * Stronger traceability used when re-classifying a mislabeled profile_stated
- * fact as normalized_stated: at least `threshold` of the meaningful 2-char
- * tokens of the fact must appear in the PF texts (near-verbatim minimal
- * normalization only; heavy paraphrases are rejected).
+ * Strict allowlisted normalization check (ISSUE-025 / normalization audit).
+ *
+ * A mislabeled `profile_stated` value may only be re-classified as
+ * `normalized_stated` when it is obtainable from the PF text by DELETION ONLY
+ * of: field labels, whitespace, punctuation, and the subject pronoun
+ * 我/我们. No substitution is allowed, so 参与→负责, 协助→主导,
+ * 了解→熟练, 团队→独立, 课程项目→工作项目, 约1年→2年, 未明确→确定 all fail.
+ * This is provably semantic-preserving (no fuzzy similarity / edit-distance
+ * backdoor).
  */
-export function hasHighTraceability(
+export function isAllowlistedNormalization(
   factValue: string,
-  pfTexts: string[],
-  threshold = 0.6,
+  pfText: string,
 ): boolean {
-  const combined = pfTexts.join("");
-  const tokens: string[] = [];
-  for (let index = 0; index < factValue.length - 1; index += 1) {
-    const token = factValue.slice(index, index + 2);
-    if (/\s/.test(token) || PROFILE_STOP_TOKENS.has(token)) continue;
-    tokens.push(token);
-  }
-  if (tokens.length === 0) return false;
-  const matched = tokens.filter((token) => combined.includes(token)).length;
-  return matched / tokens.length >= threshold;
+  const normalize = (text: string) =>
+    text
+      .replace(/我们|我/g, "")
+      .replace(/[\s，。、；：:！？!?（）()「」『』]/g, "");
+  const value = normalize(factValue);
+  const source = normalize(pfText);
+  return value.length > 0 && source.includes(value);
 }

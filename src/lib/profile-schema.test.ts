@@ -5,7 +5,7 @@ import {
   findSemanticUpgradeViolations,
   finalProfileStructureSchema,
   hasFactTraceability,
-  hasHighTraceability,
+  isAllowlistedNormalization,
   resolveEvidenceToPf,
 } from "./profile-schema";
 
@@ -87,21 +87,27 @@ describe("hasFactTraceability", () => {
     expect(hasFactTraceability("掌握 SQL", ["技能：了解 Python"])).toBe(false);
   });
 
-  it("returns true for near-verbatim minimal normalization", () => {
-    expect(
-      hasHighTraceability(
-        "团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分",
-        ["项目：团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分"],
-      ),
-    ).toBe(true);
+});
+
+describe("isAllowlistedNormalization (strict semantic-preserving)", () => {
+  it.each([
+    ["项目：参与推荐系统开发", "参与推荐系统开发"],
+    ["技能：Python（了解）", "Python（了解）"],
+    ["团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分", "团队项目「校园二手平台」获得校赛三等奖，负责用户调研部分"],
+  ])("accepts legal label/whitespace/punct/pronoun normalization: %s", (pf, value) => {
+    expect(isAllowlistedNormalization(value, pf)).toBe(true);
   });
 
-  it("returns false for a heavy paraphrase", () => {
-    expect(
-      hasHighTraceability("我有数据分析能力", [
-        "参与团队推荐系统课程项目，负责数据分析",
-      ]),
-    ).toBe(false);
+  it.each([
+    ["参与推荐系统开发", "负责推荐系统开发"],
+    ["协助需求整理", "主导需求分析"],
+    ["了解 Python", "熟练 Python"],
+    ["团队完成", "独立完成"],
+    ["课程项目", "工作项目"],
+    ["约 1 年", "2 年"],
+    ["未明确", "确定"],
+  ])("rejects semantic substitution: %s → %s", (pf, value) => {
+    expect(isAllowlistedNormalization(value, pf)).toBe(false);
   });
 });
 
