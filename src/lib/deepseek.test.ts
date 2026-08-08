@@ -911,29 +911,19 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it("repairs requirement evidence via targeted repair when the model corrected a JD typo", async () => {
+  it("remaps a unique single-character JD typo back to the JD original without a targeted repair (ISSUE-012A)", async () => {
     const diagnostics = vi.fn();
     const jdLine =
       "1.本科及以上，2026.9-2027.8 期间己获得或即将获得博士/硕士学位";
     const evidence =
       "本科及以上，2026.9-2027.8 期间已获得或即将获得博士/硕士学位";
-    const repairedEvidence =
+    const jdOriginalEvidence =
       "本科及以上，2026.9-2027.8 期间己获得或即将获得博士/硕士学位";
     const jdText = requirementJd(jdLine);
     const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
-    fetchMock
-      .mockResolvedValueOnce(successfulResponse(analysisWithRequirement(jdText, evidence)))
-      .mockResolvedValueOnce(
-        successfulResponse({
-          items: [
-            {
-              index: 0,
-              action: "replace_evidence",
-              evidence: [repairedEvidence],
-            },
-          ],
-        }),
-      );
+    fetchMock.mockResolvedValueOnce(
+      successfulResponse(analysisWithRequirement(jdText, evidence)),
+    );
 
     const result = await analyzeJobWithDeepSeek(
       { jdText },
@@ -946,22 +936,17 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     );
     const requirement = result.roleProfile.requirements[0];
 
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(requirement.requirementType).toBe("hard_requirement");
-    expect(requirement.evidence).toEqual([repairedEvidence]);
-    expect(requirement.content).toBe(repairedEvidence);
+    expect(requirement.evidence).toEqual([jdOriginalEvidence]);
     expect(diagnostics).toHaveBeenCalledWith(
       expect.objectContaining({
         recoveredEvidenceCount: 0,
-        requirementTargetedRepairAttempted: true,
-        requirementTargetedRepairSucceeded: true,
+        remappedEvidenceCount: 1,
+        requirementTargetedRepairAttempted: false,
         finalValidationPassed: true,
       }),
     );
-
-    const repairBody = JSON.parse(String(fetchMock.mock.calls[1][1]?.body));
-    expect(repairBody.messages[1].content).toContain("<candidates>");
-    expect(repairBody.messages[1].content).toContain("己获得");
   });
 
   it("does not silently delete a hard requirement when the targeted repair returns delete", async () => {
@@ -1363,6 +1348,74 @@ describe("ISSUE-022 qualifier + core compound split", () => {
       expect(requirement.sourceType).toBe("jd_explicit");
       expect(requirement.verificationQuestion).toBeNull();
     });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("ISSUE-024 explicit eligibility/age hard classification", () => {
+  it.each([
+    ["1、具有驾驶证", "具有驾驶证"],
+    ["1、40岁以下", "40岁以下"],
+    ["1、年龄不超过40岁", "年龄不超过40岁"],
+    ["1、年龄不低于22岁", "年龄不低于22岁"],
+  ])("classifies %s as hard_requirement", async (jdLine, evidence) => {
+    const { result, fetchMock } = await classifyRequirement(jdLine, evidence);
+    const requirements = result.roleProfile.requirements;
+    expect(requirements).toHaveLength(1);
+    expect(requirements[0].requirementType).toBe("hard_requirement");
+    expect(requirements[0].evidence).toEqual([evidence]);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps an ordinary core requirement as core_requirement", async () => {
+    const { result, fetchMock } = await classifyRequirement(
+      "1、有主人翁意识，能够对项目结果负责、保持积极乐观的工作心态",
+      "有主人翁意识，能够对项目结果负责、保持积极乐观的工作心态",
+    );
+    const requirements = result.roleProfile.requirements;
+    expect(requirements).toHaveLength(1);
+    expect(requirements[0].requirementType).toBe("core_requirement");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps preferred counterexamples as preferred_requirement", async () => {
+    for (const evidence of [
+      "有5年以上销售经验者优先",
+      "两年以上商务洽谈及开发区或园区招商运营经验优先",
+    ]) {
+      const { result, fetchMock } = await classifyRequirement(
+        `1、${evidence}`,
+        evidence,
+      );
+      const requirements = result.roleProfile.requirements;
+      expect(requirements).toHaveLength(1);
+      expect(requirements[0].requirementType).toBe("preferred_requirement");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    }
+  });
+});
+
+describe("ISSUE-012A single-character typo evidence remap", () => {
+  it("remaps corrected evidence back to the JD original and keeps final evidence verbatim", async () => {
+    const jdLine = "1、根据企业的选址需求提供专业的选址方案及咨询服乐";
+    const correctedEvidence = "根据企业的选址需求提供专业的选址方案及咨询服务";
+    const { result, fetchMock } = await classifyRequirement(
+      jdLine,
+      correctedEvidence,
+    );
+    const requirement = result.roleProfile.requirements[0];
+    expect(requirement.evidence).toEqual([
+      "根据企业的选址需求提供专业的选址方案及咨询服乐",
+    ]);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps exact-match evidence unchanged (no remap, no repair)", async () => {
+    const jdLine = "1、根据企业的选址需求提供专业的选址方案及咨询服乐";
+    const evidence = "根据企业的选址需求提供专业的选址方案及咨询服乐";
+    const { result, fetchMock } = await classifyRequirement(jdLine, evidence);
+    const requirement = result.roleProfile.requirements[0];
+    expect(requirement.evidence).toEqual([evidence]);
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

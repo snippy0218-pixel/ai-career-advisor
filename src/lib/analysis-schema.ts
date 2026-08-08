@@ -163,7 +163,23 @@ export function hasHardQualifier(value: string) {
     /(?:本科|大专|专科|硕士|博士).{0,10}(?:及以上|以上)/.test(value) ||
     /(?:必须|须要?|需要持有|须持有|至少\s*有?\s*[一二三四五六七八九十\d]+\s*年|[一二三四五六七八九十\d]+\s*年(?:以上|及以上))/.test(
       value,
-    )
+    ) ||
+    // ISSUE-024: explicit license/qualification holding requirements
+    // (e.g. 具有驾驶证). Requires an explicit holding verb plus a concrete
+    // qualification noun; a bare "证书" keyword is deliberately NOT matched,
+    // and negative phrasings (没有/未持有/不具备) are excluded.
+    /(?:^|[^没未不无持])(?:具有|具备|持有|有|需要|需|须)\s*[^，。；、\s]{0,8}?(?:驾驶证|驾照|资格证|从业资格|执业资格|职业资格|上岗证|操作证|执业证)/.test(
+      value,
+    ) ||
+    // ISSUE-024: explicit numeric age bounds (upper/lower), e.g. 40岁以下,
+    // 年龄不超过40岁, 年龄不低于22岁, 年满18周岁.
+    /(?:年龄)?\s*(?:不超过|不大于|不高于|不低于|不小于|不少于|至少|小于|低于|以上|以下|以内|及以下)\s*[一二三四五六七八九十\d]+\s*岁/.test(
+      value,
+    ) ||
+    /[一二三四五六七八九十\d]+\s*岁(?:以下|以内|及以下|以上|及以上)/.test(
+      value,
+    ) ||
+    /(?:年满|满)\s*[一二三四五六七八九十\d]+\s*(?:周岁|岁)/.test(value)
   );
 }
 
@@ -828,6 +844,45 @@ export function recoverEvidenceFromJd(
 ): string | null {
   const spans = findNormalizedEvidenceSpans(evidence, jdText);
   return spans.length === 1 ? spans[0] : null;
+}
+
+/**
+ * ISSUE-012A: returns the unique JD original substring that differs from the
+ * trimmed evidence by exactly ONE Unicode character substitution at the same
+ * length. No insertion/deletion, no fuzzy or semantic matching. Returns null
+ * when the candidate is absent or ambiguous (fail-closed). The returned value
+ * is always verbatim JD text; callers must re-verify it with isEvidenceInJd.
+ */
+export function findSingleSubstitutionEvidenceSpan(
+  evidence: string,
+  jdText: string,
+): string | null {
+  const trimmed = evidence.trim();
+  if (trimmed.length === 0) return null;
+
+  const evidenceChars = Array.from(trimmed);
+  const jdChars = Array.from(jdText);
+  let candidate: string | null = null;
+
+  for (
+    let index = 0;
+    index + evidenceChars.length <= jdChars.length;
+    index += 1
+  ) {
+    let substitutions = 0;
+    for (let offset = 0; offset < evidenceChars.length; offset += 1) {
+      if (jdChars[index + offset] !== evidenceChars[offset]) {
+        substitutions += 1;
+        if (substitutions > 1) break;
+      }
+    }
+    if (substitutions === 1) {
+      if (candidate !== null) return null;
+      candidate = jdChars.slice(index, index + evidenceChars.length).join("");
+    }
+  }
+
+  return candidate;
 }
 
 export function findInvalidEvidence(analysis: JobAnalysis, jdText: string): string[] {

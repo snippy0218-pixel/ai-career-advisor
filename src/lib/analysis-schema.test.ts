@@ -4,6 +4,7 @@ import {
   analyzeJobRequestSchema,
   findInvalidEvidence,
   findRequirementSectionContext,
+  findSingleSubstitutionEvidenceSpan,
   hasHardQualifier,
   hasPreferredQualifier,
   jobAnalysisSchema,
@@ -277,6 +278,32 @@ describe("hasHardQualifier minimum work-year coverage", () => {
   });
 });
 
+describe("hasHardQualifier eligibility/age coverage (ISSUE-024)", () => {
+  it.each([
+    ["具有驾驶证", true],
+    ["具备驾驶证", true],
+    ["持有C1驾照", true],
+    ["有驾驶证", true],
+    ["需要驾驶证", true],
+    ["须持有上岗证", true],
+    ["40岁以下", true],
+    ["年龄不超过40岁", true],
+    ["年龄不低于22岁", true],
+    ["年满18周岁", true],
+    ["22岁以上", true],
+    ["没有驾驶证", false],
+    ["未持有驾驶证", false],
+    ["不具备驾驶证", false],
+    ["具备预测、计划制定及活动策划背景", false],
+    ["有主人翁意识，能够对项目结果负责", false],
+    ["能流利使用英语进行专业交流", false],
+    ["抗压能力强，适应高频商务拜访", false],
+    ["有相关工作经验", false],
+  ])("recognizes %s as hard qualifier = %s", (value, expected) => {
+    expect(hasHardQualifier(value)).toBe(expected);
+  });
+});
+
 describe("hasPreferredQualifier explicit qualifier coverage", () => {
   it.each([
     ["有炸鸡、小吃、快餐等品类经验者尤佳", true],
@@ -320,6 +347,45 @@ describe("recoverEvidenceFromJd whitespace-normalized span recovery", () => {
     const jd = "负责活动策划、执行与复盘";
     expect(recoverEvidenceFromJd("负责活动策划、执行与复盘", jd)).toBe(
       "负责活动策划、执行与复盘",
+    );
+  });
+});
+
+describe("findSingleSubstitutionEvidenceSpan single-char remap (ISSUE-012A)", () => {
+  it("returns the unique JD span for a single Unicode character substitution", () => {
+    const jd = "根据企业的选址需求提供专业的选址方案及咨询服乐";
+    expect(
+      findSingleSubstitutionEvidenceSpan(
+        "根据企业的选址需求提供专业的选址方案及咨询服务",
+        jd,
+      ),
+    ).toBe("根据企业的选址需求提供专业的选址方案及咨询服乐");
+  });
+
+  it("returns null when multiple candidates exist at distance one", () => {
+    const jd = "AC AD";
+    expect(findSingleSubstitutionEvidenceSpan("AB", jd)).toBeNull();
+  });
+
+  it("returns null when two characters differ", () => {
+    const jd = "提供专业的选址方案及咨询务服";
+    expect(
+      findSingleSubstitutionEvidenceSpan("提供专业的选址方案及咨询服务", jd),
+    ).toBeNull();
+  });
+
+  it("returns null for insertion/deletion differences", () => {
+    expect(findSingleSubstitutionEvidenceSpan("咨询服务X", "咨询服务")).toBeNull();
+    expect(findSingleSubstitutionEvidenceSpan("咨询服务", "咨询服务X")).toBeNull();
+  });
+
+  it("returns null for exact evidence (handled earlier in the pipeline)", () => {
+    expect(findSingleSubstitutionEvidenceSpan("咨询服务", "咨询服务")).toBeNull();
+  });
+
+  it("trims the evidence before matching", () => {
+    expect(findSingleSubstitutionEvidenceSpan(" 咨询服务 ", "咨询服乐")).toBe(
+      "咨询服乐",
     );
   });
 });

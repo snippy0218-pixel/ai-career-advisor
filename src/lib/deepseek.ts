@@ -8,6 +8,7 @@ import {
   findHrGreetingBoundaryViolations,
   findNormalizedEvidenceSpans,
   findRequirementSectionContext,
+  findSingleSubstitutionEvidenceSpan,
   findUnsupportedGrowthClaims,
   hasCautiousInferenceLanguage,
   hasHardQualifier,
@@ -93,6 +94,7 @@ export interface AnalysisDiagnostics {
   evidenceOverLimitCount: number;
   truncatedEvidenceCount: number;
   recoveredEvidenceCount: number;
+  remappedEvidenceCount: number;
   removedInvalidEvidenceCount: number;
   removedDuplicateEvidenceCount: number;
   removedEvidenceSamples: Array<{
@@ -246,15 +248,37 @@ function normalizeEvidence(
     );
 
     if (normalizedSpans.length !== 1) {
-      diagnostics.removedInvalidEvidenceCount += 1;
-      if (diagnostics.removedEvidenceSamples.length < 10) {
-        diagnostics.removedEvidenceSamples.push({
-          path,
-          evidence: trimmedEvidence.slice(0, 100),
-          reason:
-            normalizedSpans.length === 0 ? "no_exact_match" : "ambiguous_span",
-        });
+      // ISSUE-012A: only when no whitespace-normalized candidate exists, try
+      // the unique single-character-substitution remap; otherwise fail-closed.
+      let recovered: string | null = null;
+      if (normalizedSpans.length === 0) {
+        recovered = findSingleSubstitutionEvidenceSpan(
+          trimmedEvidence,
+          jdText,
+        );
       }
+
+      if (recovered === null) {
+        diagnostics.removedInvalidEvidenceCount += 1;
+        if (diagnostics.removedEvidenceSamples.length < 10) {
+          diagnostics.removedEvidenceSamples.push({
+            path,
+            evidence: trimmedEvidence.slice(0, 100),
+            reason:
+              normalizedSpans.length === 0 ? "no_exact_match" : "ambiguous_span",
+          });
+        }
+        continue;
+      }
+
+      diagnostics.remappedEvidenceCount += 1;
+      if (seen.has(recovered)) {
+        diagnostics.removedDuplicateEvidenceCount += 1;
+        continue;
+      }
+
+      seen.add(recovered);
+      validEvidence.push(recovered);
       continue;
     }
 
@@ -1479,6 +1503,7 @@ export async function analyzeJobWithDeepSeek(
     evidenceOverLimitCount: 0,
     truncatedEvidenceCount: 0,
     recoveredEvidenceCount: 0,
+    remappedEvidenceCount: 0,
     removedInvalidEvidenceCount: 0,
     removedDuplicateEvidenceCount: 0,
     removedEvidenceSamples: [],

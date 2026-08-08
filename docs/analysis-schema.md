@@ -24,7 +24,7 @@
 
 | 值 | 规则 |
 |---|---|
-| `hard_requirement` | 明确学历、证书、最低年限或“必须”等限制 |
+| `hard_requirement` | 明确学历、证书、最低年限、明确证照/资格持有要求（如“具有驾驶证”）、明确数值年龄上下限（如“40岁以下”“年龄不低于22岁”）或“必须”等限制 |
 | `core_requirement` | 完成核心工作的能力要求，但非机械一票否决 |
 | `preferred_requirement` | 原文明确出现优先、加分、有则更佳、尤佳等限定词；或该条所属章节为明确加分/优先类章节（`加分项`、`加分条件`、`优先条件`、`优先项`）且条目自身无更强冲突限定词 |
 | `unclear` | 语句粘连或限定范围不清，须向 HR 确认 |
@@ -129,6 +129,16 @@
 5. 去重并保持模型原顺序；
 6. 先过滤有效性，再保留前 3 条。
 
+ISSUE-012A（单字符 typo 回落）：当 evidence 无法与 JD 原文 exact-match、且空白归一化后仍无唯一候选时，允许执行一次**高置信 source remapping**，约束如下：
+
+- 候选 substring 与模型 evidence **同长度**；
+- 最多仅 **1 个 Unicode 字符 substitution**；
+- JD 中必须**只有唯一候选**；
+- **不支持 insertion/deletion**，不做通用 fuzzy/semantic matching；
+- 多候选或低置信**直接保持 fail-closed**（移除该 evidence）；
+- remap 后的 evidence 必须再次通过原文 exact-match，**Final evidence 始终为 JD 原文**；
+- 模型纠正后的非原文 evidence（如“咨询服务”对应 JD“咨询服乐”）一律不得作为 Final evidence 输出。
+
 Raw AI Output Schema 只检查字段类型和基础结构，允许 evidence 为空或超过 3 条；Raw 结果绝不能直接返回。Final Analysis Schema 的 `min(1)/max(3)` 保持不变。
 
 ## 6. 分类与语义约束
@@ -136,7 +146,7 @@ Raw AI Output Schema 只检查字段类型和基础结构，允许 evidence 为�
 - `preferred_requirement` 必须有明确优先/加分证据（限定词示例：优先、加分、有则更佳、尤佳、相关经历优先）；
 - 章节级 preferred 作用域：`加分项` / `加分条件` / `优先条件` / `优先项` 章节标题对其直接条目施加 preferred 语义，作用域至下一个同级章节标题结束，后续内容不得继续继承；条目自身存在明确 hard 限定词时，hard 语义优先（该冲突场景另行记录观察）；
 - 章节级 preferred 的 evidence 可同时包含条目原文与章节标题原文（两者均须是 JD 中逐字存在的 substring）；不得把章节标题人为拼接进条目正文，不得制造 JD 中不存在的新 evidence；
-- 明确学历、证书、最低年限等限制必须为 `hard_requirement`；
+- 明确学历、证书、证照/资格持有要求（如“具有驾驶证”）、最低年限、明确数值年龄上下限（如“40岁以下”“年龄不低于22岁”）等限制必须为 `hard_requirement`；
 - 粘连或限定范围不清必须为 `unclear + to_verify`；
 - 非 `unclear` 任职要求来自 JD 原句，使用 `jd_explicit`；
 - 画像、风险和建议如不是原文直接结论，不得标 `jd_explicit`；
