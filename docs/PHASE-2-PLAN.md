@@ -1,6 +1,6 @@
 # Phase 2 产品规划与 Contract 设计（PHASE-2-PLAN）
 
-> 状态：**PLANNING / CONTRACT DESIGN**（Phase 2 coding 未授权）
+> 状态：**PLANNING / CONTRACT DESIGN — Phase 2.0 Contract Gate = CONDITIONAL PASS（修订版已完成，等待最终 Gate）**（Phase 2 coding 未授权）
 > 生成日期：2026-08-08
 > 前置基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`）；TC-01～TC-10 Contract 冻结。
 > 性质：产品规划与流程文档；**产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（Phase 2 唯一主要协议，2026-08-08 草案，待 Phase 2.0 Contract Gate Review）；本文件本身不构成实现授权。
@@ -360,8 +360,8 @@ Final Gate 目标（暂定，待 Phase 2.0 评审确认）：
 
 ## 11. 待 PO / QA 确认事项
 
-1. Contract 冻结与 Phase 2.0 评审时间点；
-2. `docs/PHASE-2-CONTRACT.md` 的冻结评审（含 §21 Open Questions）；
-3. Gate D 综合门槛 4.0 / 最低 3.0（是否沿用 Phase 1 口径）；
-4. ISSUE-019 fallback ≤20% 目标确认（Contract §17 建议 provisional）；
-5. Phase 2 TC 冻结集（Contract §15 建议 14 个）与真实脱敏输入来源。
+1. Phase 2.0 Contract Gate 最终确认（修订版已提交：Candidate Fact/Derived 分离、partial 重冻结、推荐矩阵去数量阈值、confidence 不输出、14 TC、Gate F 冻结、四类 fallback 指标、Greeting 禁 profile_inferred）；
+2. Contract 已决项见 `docs/PHASE-2-CONTRACT.md` §21；仅存未决项见 §22；
+3. Gate F 综合 ≥4.0 / 最低 ≥3.0：**已冻结**；
+4. fallback ≤20%：仅 `hrSafeFallbackRate provisional quality target`；
+5. Phase 2 TC 冻结集 = **14 个**；待 PO 提供 14 个 TC 的真实脱敏 JD/Profile 输入素材。
