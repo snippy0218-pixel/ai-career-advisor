@@ -3,7 +3,7 @@
 > 状态：**PLANNING / CONTRACT DESIGN**（Phase 2 coding 未授权）
 > 生成日期：2026-08-08
 > 前置基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`）；TC-01～TC-10 Contract 冻结。
-> 性质：产品规划草案，供 Product Owner / QA Gate Review 批准 Contract 后授权实现；本文件本身不构成实现授权。
+> 性质：产品规划与流程文档；**产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（Phase 2 唯一主要协议，2026-08-08 草案，待 Phase 2.0 Contract Gate Review）；本文件本身不构成实现授权。
 
 ## 1. Product Goal
 
@@ -361,7 +361,7 @@ Final Gate 目标（暂定，待 Phase 2.0 评审确认）：
 ## 11. 待 PO / QA 确认事项
 
 1. Contract 冻结与 Phase 2.0 评审时间点；
-2. Gate D 综合门槛 4.0 / 最低 3.0（是否沿用 Phase 1 口径）；
-3. ISSUE-019 fallback ≤20% 目标确认；
-4. ISSUE-017 / ISSUE-023 的 Review 结论（Committed vs Deferred）；
-5. 12 个 Phase 2 TC 的冻结 JD/Profile 来源（真实脱敏输入）。
+2. `docs/PHASE-2-CONTRACT.md` 的冻结评审（含 §21 Open Questions）；
+3. Gate D 综合门槛 4.0 / 最低 3.0（是否沿用 Phase 1 口径）；
+4. ISSUE-019 fallback ≤20% 目标确认（Contract §17 建议 provisional）；
+5. Phase 2 TC 冻结集（Contract §15 建议 14 个）与真实脱敏输入来源。

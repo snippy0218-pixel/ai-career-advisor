@@ -7,11 +7,11 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 已正式关闭（PASS / Ready for Release，2026-08-08 人工 Final Release Gate 批准）。** Release baseline：commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`；ISSUE-012A Closed；ISSUE-012B Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog；Phase 2 = PLANNING / CONTRACT DESIGN（**coding 未授权**）；Phase 2 产品规划见 **`docs/PHASE-2-PLAN.md`**。
+**当前状态：Phase 1 已正式关闭（PASS / Ready for Release，2026-08-08 人工 Final Release Gate 批准）；Phase 2.0 Contract Gate IN PROGRESS。** Release baseline：commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`；ISSUE-012A Closed；ISSUE-012B Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog；**Phase 2 唯一主要产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（草案，待 Contract Gate Review）；Phase 2 coding **未授权**。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：Phase 2.0 Product / Contract Design（仅文档）——完善 `docs/PHASE-2-PLAN.md`（Product Goal / Core Flow / Scope / Gates），等待 Product Owner / QA Gate Review 批准 Contract 后才可授权 coding；不得开始 Phase 2 实现、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
+- 新 thread 的下一步：等待 Product Owner / QA 批准 **Phase 2.0 Contract Gate**（评审 `docs/PHASE-2-CONTRACT.md`：Candidate Profile / PF Evidence / Match Status / Recommendation Matrix / Strength / Gap / Unknown / Modifier / Greeting / Contamination / TC 冻结 / QA Gates）；批准后才可进入 Phase 2.1 实现；不得开始 Phase 2 实现、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
 - **不进入 Phase 2 开发（coding 未授权，当前仅 Contract 设计）、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
