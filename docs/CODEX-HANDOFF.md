@@ -7,12 +7,12 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 总验收审计完成，建议 Conditional PASS（待人工 Final Release Gate）。** TC-01～TC-10 全部 PASS；ISSUE-022、ISSUE-024 已 Closed；ISSUE-012A 已修复（建议关闭）；ISSUE-012B 有范围决策建议（不属于 Phase 1 支持范围、fail-closed、转 Phase 2/robustness backlog）；总验收快照见 **`docs/PHASE-1-ACCEPTANCE.md`**。
+**当前状态：Phase 1 已正式关闭（PASS / Ready for Release，2026-08-08 人工 Final Release Gate 批准）。** Release baseline：commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`；ISSUE-012A Closed；ISSUE-012B Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog；Phase 2 = PLANNING / CONTRACT DESIGN（**coding 未授权**）；Phase 2 产品规划见 **`docs/PHASE-2-PLAN.md`**。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待人工 Final Release Gate 确认——① ISSUE-012B 范围决策与 ISSUE-012A 关闭；② P2 ledger 与 ISSUE-021 维持 P2 的理由；③ 放行后转 Phase 1 PASS / Ready for Release；Phase 2 按后续人工指令执行；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
-- **不进入 Phase 2、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
+- 新 thread 的下一步：Phase 2.0 Product / Contract Design（仅文档）——完善 `docs/PHASE-2-PLAN.md`（Product Goal / Core Flow / Scope / Gates），等待 Product Owner / QA Gate Review 批准 Contract 后才可授权 coding；不得开始 Phase 2 实现、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；按 `docs/CODEX-OPERATING-PROTOCOL.md` 执行；
+- **不进入 Phase 2 开发（coding 未授权，当前仅 Contract 设计）、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 
@@ -95,13 +95,13 @@
 
 | Issue | 等级 | 状态 | 观察/处置规则 |
 |---|---|---|---|
-| ISSUE-012A | P1 | Fixed（建议关闭，待人工确认） | 标准 JD 中局部可恢复 typo 被模型纠错导致 evidence 无法 exact-match：唯一单字符替换高置信回落（同长度、1 个 Unicode 字符替换、JD 唯一候选；不支持 insertion/deletion/fuzzy；多候选 fail-closed；Final evidence 仍为 JD 原文）；经 TC-10 修复后回归验证（run2 remap 回落原文、3/3 HTTP 200）；总验收核验全部通过 |
-| ISSUE-012B | P1 | Open（隔离 robustness 项） | 语义截断/字符缺失/片段乱序等真损坏输入的 evidence 鲁棒性；范围决策建议：不属于 Phase 1 支持范围、fail-closed（输入门禁＋502）、转 Phase 2/robustness backlog，不阻塞 Phase 1 Release（待人工确认）；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
-| ISSUE-014 | P2 | Open / Observe | 信息不足场景 recommendation level 缺少判定边界（TC-04 3/3 `worth_exploring`）；每案例记录 level/basicInfo 完整度/unknowns/questions/summary/reasons/limitations/一致性；跨案例累计，Phase 1 总验收前统一设计协议 |
-| ISSUE-017 | P2 | Open / Observe | Requirement extraction completeness：仅统计 content 片段化 + 独立要求整条遗漏（当前累计：片段化 2 次＋整条遗漏 1 次）；不得扩大定义容纳其他复合句错误 |
-| ISSUE-019 | P2 | Open / Observe | HR safeGreeting fallback 高频（跨案例累计 15 次，含 TC-10 修复后回归 run2 1/3）；统计 fallback 次数/总请求数/rate/自然度/信息损失/upstreamAttempts 相关性 |
-| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（frequency amplification）：TC-03 2/3、TC-08 6/6、TC-10 有效请求 5/5，跨案例累计 13 次；全部为审慎推断措辞、未进 riskSignals、未影响 level；维持 P2 理由与升级阈值见 `docs/PHASE-1-ACCEPTANCE.md` §5.4 |
-| ISSUE-023 | P2 | Open / Observe | 任职要求偶发重复（TC-09 第1次"英语交流""熟悉印尼语者优先"各重复 1 次；分类与 evidence 均正确，仅冗余）；当前不修复；跨案例累计，稳定复现或影响分类/证据再评估升级 |
+| ISSUE-012A | P1 | **Closed（2026-08-08 人工确认）** | 标准 JD 中局部可恢复 typo 被模型纠错导致 evidence 无法 exact-match：唯一单字符替换高置信回落（同长度、1 个 Unicode 字符替换、JD 唯一候选；不支持 insertion/deletion/fuzzy；多候选 fail-closed；Final evidence 仍为 JD 原文）；经 TC-10 修复后回归验证（run2 remap 回落原文、3/3 HTTP 200）；总验收核验全部通过 |
+| ISSUE-012B | P1 | **Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog（已批准）** | 语义截断/字符缺失/片段乱序等真损坏输入的 evidence 鲁棒性；不属于 Phase 1 支持范围，fail-closed（输入门禁＋502）；转入 Phase 2 Robustness Track；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
+| ISSUE-014 | P2 | Open / Accepted Backlog | 信息不足场景 recommendation level 缺少判定边界（TC-04 3/3 `worth_exploring`）；Phase 2.0 Contract 设计前置输入 |
+| ISSUE-017 | P2 | Open / Accepted Backlog | Requirement extraction completeness：仅统计 content 片段化 + 独立要求整条遗漏（累计：片段化 2 次＋整条遗漏 1 次，均 TC-06）；Phase 2.4 复评 |
+| ISSUE-019 | P2 | Open / Accepted Backlog / Phase 2 Quality Optimization Priority | HR safeGreeting fallback 高频（累计 15 次 / 33 有效请求 ≈45.5%）；Phase 2 目标：固定回归集 fallback rate ≤20%，禁止放宽约束达成 |
+| ISSUE-021 | P2 | Open / P2 High Priority / Phase 2 Committed Review | 工作特征强度无依据升级（frequency amplification）：TC-03 2/3、TC-08 6/6、TC-10 有效请求 5/5，跨案例累计 13 次；全部为审慎推断措辞、未进 riskSignals、未影响 level；维持 P2 理由与升级阈值见 `docs/PHASE-1-ACCEPTANCE.md` §5.4 |
+| ISSUE-023 | P2 | Open / Accepted Backlog | 任职要求偶发重复（TC-09 第1次 1 次）；当前不修复；Phase 2.4 复评 |
 
 ## 8. ISSUE-022 详情（已 Closed，2026-08-08）
 
@@ -189,7 +189,8 @@ TikTok生活服务业务在国际化布局早期阶段，我们聚焦生服领�
 
 ## 10. 当前绝对不能做的事情
 
-- 不进入 Phase 2；TC-10 为下一主线，但在收到真实 JD 前不启动测试、不自行生成 JD；
+- 不进入 Phase 2 开发（coding 未授权，当前仅 Phase 2.0 Contract 设计）；
+- 不开始 Phase 2 coding（当前仅 PLANNING / CONTRACT DESIGN）；
 - 不修改冻结 JD（TC-01～TC-09 全部冻结输入；TC-09 836 字符 / `99083d98…a70fd0`；TC-08 416 字符 / `06567ac6…eff8f`；TC-07 520 字符 / `dd49ed52…cfc38` 等）；
 - 不重构整个 JD parser；不新增 requirementType；不放宽 evidence / Schema / hallucination 约束；
 - 不因八维高分忽略确定性协议错误（P0/P1 按问题处理，不用平均分掩盖）；

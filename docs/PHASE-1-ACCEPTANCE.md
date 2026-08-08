@@ -7,13 +7,14 @@
 
 ## 1. 结论摘要
 
-**建议输出：Phase 1 Conditional PASS**（非自动 PASS）。
+**最终输出：Phase 1 PASS / Ready for Release**（2026-08-08 人工 Product Owner / QA Final Release Gate 批准，非 Conditional）。
 
 - TC-01～TC-10 全部最终 PASS（10/10）；
-- 所有 P0 已关闭；P1 除 ISSUE-012B 外全部关闭或已修复（ISSUE-012B 给出明确范围决策建议，不属于 Phase 1 Release blocker）；
+- 所有 P0 已关闭；所有 P1 已关闭或存在明确范围决策（ISSUE-012B：**Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog**，已批准）；
+- ISSUE-012A：**Closed**（人工确认）；
+- P2 Ledger 已接受：ISSUE-014 / 017 / 019 / 023 = Accepted Backlog；ISSUE-021 = P2 / High Priority / Phase 2 Committed Review（维持 P2 的理由与升级阈值已接受）；
 - candidate hallucination 安全约束、Final Schema/evidence 协议无未解决确定性问题；
-- 剩余 P2 均有风险说明、升级阈值与归属（见 §6）；
-- 待人工 Final Release Gate 确认三项条件后转为 Phase 1 PASS / Ready for Release（见 §7）。
+- **Phase 1 正式关闭**；Phase 2：PLANNING / CONTRACT DESIGN（coding 未授权，见 `docs/PHASE-2-PLAN.md`）。
 
 ## 2. Phase 1 最终 TC 矩阵
 
@@ -56,20 +57,28 @@
 | 009 | P1 | TC-01 | 1 案例 | coreResponsibilities evidence 空致 502 | 回归 3/3 | 已关闭 | 无 | Closed |
 | 010 | P0 | TC-02 | 1 案例 | 列表编号"."被当粘连字符 | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
 | 011 | P2 | TC-02 | 1 案例 | "X年及以上"未识别 hard | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
-| 012A | P1 | TC-10 | 1 真实样本 | 标准 JD 局部 typo 被模型 evidence 纠错→exact-match 失败→502 | 单测＋管线测试＋回归 | 已修复（建议关闭） | 无（已修复） | **Closed（建议）** |
-| 012B | P1 | TC-03/TC-05 | 2 真实样本 | 语义截断/字符缺失/片段乱序致 evidence 无法逐字回落 | span recovery 单测 | 打开（隔离 robustness） | 有范围决策即不阻塞（见 §4） | **Deferred（Phase 2/robustness backlog）** |
+| 012A | P1 | TC-10 | 1 真实样本 | 标准 JD 局部 typo 被模型 evidence 纠错→exact-match 失败→502 | 单测＋管线测试＋回归 | **Closed（2026-08-08 人工确认）** | 无 | **Closed** |
+| 012B | P1 | TC-03/TC-05 | 2 真实样本 | 语义截断/字符缺失/片段乱序致 evidence 无法逐字回落 | span recovery 单测 | **Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog（已批准）** | 无（范围决策已批准） | **Deferred（Phase 2 Robustness Track）** |
 | 013 | P2 | TC-03 | 1 案例 | max_tokens 截断 | 无专项测试 | 已关闭 | 无 | Closed |
-| 014 | P2 | TC-04 | TC-04 3/3 等 | recommendation level 无确定性判定边界 | 无（观察） | 打开 | 低（无逻辑矛盾，见 §6） | Open Observe（Phase 2 协议设计） |
+| 014 | P2 | TC-04 | TC-04 3/3 等 | recommendation level 无确定性判定边界 | 无（观察） | Open / Accepted Backlog | 低（无逻辑矛盾，见 §6） | Accepted Backlog（Phase 2.0 协议设计） |
 | 015 | P1 | TC-05 | 1 案例 | "至少X年"未识别 | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
 | 016 | P1 | TC-06 | 1 案例 | 章节级加分项作用域缺失 | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
-| 017 | P2 | TC-06 | 3 次（TC-06 3/3） | requirement 片段化/整条遗漏（stochastic） | 无（观察） | 打开 | 低（未影响 hard，见 §6） | Open Observe |
+| 017 | P2 | TC-06 | 3 次（TC-06 3/3） | requirement 片段化/整条遗漏（stochastic） | 无（观察） | Open / Accepted Backlog | 低（未影响 hard，见 §6） | Accepted Backlog（Phase 2.4 Review） |
 | 018 | P1 | TC-07 | 1 案例 | "尤佳"未识别 preferred | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
-| 019 | P2 | TC-02～TC-10 | 15 次 / 33 有效请求（≈45%） | HR 初稿越界→固定安全兜底 | 无（观察） | 打开 | 低（仅自然度，见 §6） | Open Observe |
+| 019 | P2 | TC-02～TC-10 | 15 次 / 33 有效请求（≈45.5%） | HR 初稿越界→固定安全兜底 | 无（观察） | Open / Accepted Backlog / Phase 2 Quality Optimization Priority | 低（仅自然度，见 §6） | Accepted Backlog（Phase 2.3/2.4，fallback ≤20% 目标） |
 | 020 | P1 | TC-08 | 1 案例（3/3 失败样本） | hard＋preferred 复合句整句 preferred 覆盖 hard | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
-| 021 | P2 | TC-03 | 13 次（TC-03 2/3、TC-08 6/6、TC-10 5/5；TC-09/TC-04 0） | workCharacteristics 推断无依据添加"频繁"频率限定 | 无（观察） | 打开 | 低（仅画像/一致性扣分，见 §5） | Open Observe（维持 P2，理由见 §5） |
+| 021 | P2 | TC-03 | 13 次（TC-03 2/3、TC-08 6/6、TC-10 5/5；TC-09/TC-04 0） | workCharacteristics 推断无依据添加"频繁"频率限定 | 无（观察） | Open / P2 High Priority / Phase 2 Committed Review | 低（仅画像/一致性扣分，见 §5） | Committed Review（Phase 2 Contract 约束＋2.4 质量指标） |
 | 022 | P1 | TC-09 | 1 案例（2 触发句） | qualifier＋core 复合句整句分类污染 | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
-| 023 | P2 | TC-09 | 1 次（TC-09 第1次） | requirement 偶发重复输出（模型拆分项＋整句并存） | 无（观察） | 打开 | 低（未影响展示/建议，见 §6） | Open Observe |
+| 023 | P2 | TC-09 | 1 次（TC-09 第1次） | requirement 偶发重复输出（模型拆分项＋整句并存） | 无（观察） | Open / Accepted Backlog | 低（未影响展示/建议，见 §6） | Accepted Backlog（Phase 2.4 Review） |
 | 024 | P1 | TC-10 | 1 案例（2/2 复现） | hasHardQualifier 缺证书/年龄边界分支 | 单测＋回归 3/3 | 已关闭 | 无 | Closed |
+
+**Issue 统计口径（统一口径，后续所有文档沿用）：**
+
+- 编号数量：ISSUE-001～ISSUE-024 共 **24 个编号**；
+- Ledger 状态项数量：**25 项**（ISSUE-012 拆分为 ISSUE-012A / ISSUE-012B 两个独立子项统计）；
+- Closed：**18 项**＝17 个编号（001/002/003/004/005/006/008/009/010/011/013/015/016/018/020/022/024）＋ ISSUE-012A 子项；
+- Open / Deferred：**7 项**（007 Deferred；012B Deferred / Out of Phase 1 Scope；014 / 017 / 019 / 021 / 023 Accepted / Committed Backlog）；
+- 校验：18＋7＝25 ✓；此前摘要"Closed 19 项"为错误计数（实际为 17 个编号），已按本口径修正。
 
 ## 4. ISSUE-012A / ISSUE-012B 最终决策审计
 
@@ -86,14 +95,14 @@
 | TC-10 真实触发 咨询服务→咨询服乐 后 200 | 通过（`a0a3d5b6…`，remappedEvidenceCount=1，HTTP 200） |
 | 149/149 自动化覆盖 | 通过（全量 4 文件 149 项） |
 
-→ **建议：ISSUE-012A → Closed**（待人工 Final Release Gate 确认）。
+→ **ISSUE-012A → Closed**（2026-08-08 人工 Final Release Gate 批准）。
 
 ### ISSUE-012B（明确产品范围决策）
 
 - **是否属于 Phase 1 支持范围**：**否**。Phase 1 标准单案例仅面向结构基本完整、可通过输入资格检查的真实 JD（`docs/测试案例.md` 执行规则第 8 条）；语义截断、关键字符缺失、片段乱序等无法可靠恢复的损坏输入不属于 Phase 1 标准验收范围。
 - **产品应如何 fail-closed**：双保险——① 输入资格门禁：此类 JD 在资格检查阶段转入 robustness 样本，不与标准案例混测；② 若损坏文本进入管线且 evidence 无法逐字回落，服务端按既有机制 fail-closed（`AI_OUTPUT_INVALID` 502），绝不返回未经验证的模型原文或非原文 evidence。
 - **归属**：转入 Phase 2 / robustness backlog（ISSUE-012B 保持 Open；现有 span recovery 与一次受限修复能力保留，不再扩展）。
-- **当前行为是否允许 Phase 1 Release**：允许——前提是人工确认上述范围决策（本快照建议即为该决策的工程建议稿）。
+- **当前行为是否允许 Phase 1 Release**：允许——范围决策已由人工 Final Release Gate 批准，ISSUE-012B = Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog。
 
 ## 5. ISSUE-021 专项升级审计（本轮重点）
 
@@ -173,13 +182,15 @@ TC-09（JD 明写“愿意**定期**进行国际出差”）0/3、TC-04 0/3：�
 | 无被高平均分掩盖的协议错误 | 满足 | 各案例专项与确定性检查均独立核对 |
 | 剩余 P2 有风险说明、升级阈值与归属 | 满足 | 见 §5/§6 |
 
-**建议：Phase 1 Conditional PASS**——待人工 Final Release Gate 确认：
-1. ISSUE-012B 范围决策（不属于 Phase 1 范围＋fail-closed＋backlog）与 ISSUE-012A 关闭；
-2. P2 ledger（含 ISSUE-021 维持 P2 的理由与升级阈值）被接受；
-3. 正式放行后即转 Phase 1 PASS / Ready for Release。
+**最终输出：Phase 1 PASS / Ready for Release**（2026-08-08 人工 Final Release Gate 批准）。
+
+已批准事项：① ISSUE-012B 范围决策（Deferred / Out of Phase 1 Scope / Phase 2 Robustness Backlog）与 ISSUE-012A 关闭；② P2 Ledger 接受（ISSUE-014/017/019/023 Accepted Backlog；ISSUE-021 P2 / High Priority / Phase 2 Committed Review，维持 P2 的理由与升级阈值接受）；③ 正式放行。
+
+Phase 1 正式关闭；Phase 2：PLANNING / CONTRACT DESIGN；Phase 2 coding 未授权。Phase 1 release baseline：commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`。
 
 ## 8. 记录修正（本轮）
 
 - ISSUE-021 涉及案例修正为 TC-03 / TC-08 / TC-10（此前误记为 TC-04 / TC-08）；
 - ISSUE-021 累计次数修正为 **13**（此前记 12；补计 TC-10 r1 run1“频繁外出拜访客户和项目考察”1 次，并核对 TC-03 2 次）；
 - 删除“适应高频商务拜访”错误引用：TC-10 冻结 JD **不含任何频率词**（高频/频繁/出差/拜访均无）；TC-10 的“频繁使用驾驶证/频繁出差或外出”为无依据频率添加，非修饰语转移。
+- **2026-08-08 人工 Final Release Gate 批准**：Phase 1 = PASS / Ready for Release；ISSUE-012A Closed；ISSUE-012B 范围决策批准；P2 Ledger 接受；ISSUE-021 维持 P2 接受；Phase 1 关闭；Phase 2 = PLANNING / CONTRACT DESIGN。
