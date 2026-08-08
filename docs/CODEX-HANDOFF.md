@@ -7,11 +7,11 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 十案例（案例01、案例02、TC-03～TC-10）全部 PASS。** TC-10 已于 2026-08-08 经 ISSUE-024/ISSUE-012A 修复后回归通过（3/3 HTTP 200、八维综合 4.50、隐含风险岗位专项 4.77）；ISSUE-022、ISSUE-024 已 Closed；ISSUE-012A 已修复（待 Phase 1 总验收确认）；ISSUE-012B 保持打开（robustness）。
+**当前状态：Phase 1 总验收审计完成，建议 Conditional PASS（待人工 Final Release Gate）。** TC-01～TC-10 全部 PASS；ISSUE-022、ISSUE-024 已 Closed；ISSUE-012A 已修复（建议关闭）；ISSUE-012B 有范围决策建议（不属于 Phase 1 支持范围、fail-closed、转 Phase 2/robustness backlog）；总验收快照见 **`docs/PHASE-1-ACCEPTANCE.md`**。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待人工确认 Phase 1 总验收；ISSUE-012B（P1）与 ISSUE-014/017/019/021/023（P2）及错别字类输入边界在总验收前决策；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
+- 新 thread 的下一步：等待人工 Final Release Gate 确认——① ISSUE-012B 范围决策与 ISSUE-012A 关闭；② P2 ledger 与 ISSUE-021 维持 P2 的理由；③ 放行后转 Phase 1 PASS / Ready for Release；Phase 2 按后续人工指令执行；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
 - **不进入 Phase 2、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
@@ -95,12 +95,12 @@
 
 | Issue | 等级 | 状态 | 观察/处置规则 |
 |---|---|---|---|
-| ISSUE-012A | P1 | Fixed（待 Phase 1 总验收确认） | 标准 JD 中局部可恢复 typo 被模型纠错导致 evidence 无法 exact-match：唯一单字符替换高置信回落（同长度、1 个 Unicode 字符替换、JD 唯一候选；不支持 insertion/deletion/fuzzy；多候选 fail-closed；Final evidence 仍为 JD 原文）；经 TC-10 修复后回归验证（run2 remap 回落原文、3/3 HTTP 200） |
-| ISSUE-012B | P1 | Open（隔离 robustness 项） | 语义截断/字符缺失/片段乱序等真损坏输入的 evidence 鲁棒性；不阻塞标准单案例；Phase 1 总验收前决策；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
+| ISSUE-012A | P1 | Fixed（建议关闭，待人工确认） | 标准 JD 中局部可恢复 typo 被模型纠错导致 evidence 无法 exact-match：唯一单字符替换高置信回落（同长度、1 个 Unicode 字符替换、JD 唯一候选；不支持 insertion/deletion/fuzzy；多候选 fail-closed；Final evidence 仍为 JD 原文）；经 TC-10 修复后回归验证（run2 remap 回落原文、3/3 HTTP 200）；总验收核验全部通过 |
+| ISSUE-012B | P1 | Open（隔离 robustness 项） | 语义截断/字符缺失/片段乱序等真损坏输入的 evidence 鲁棒性；范围决策建议：不属于 Phase 1 支持范围、fail-closed（输入门禁＋502）、转 Phase 2/robustness backlog，不阻塞 Phase 1 Release（待人工确认）；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
 | ISSUE-014 | P2 | Open / Observe | 信息不足场景 recommendation level 缺少判定边界（TC-04 3/3 `worth_exploring`）；每案例记录 level/basicInfo 完整度/unknowns/questions/summary/reasons/limitations/一致性；跨案例累计，Phase 1 总验收前统一设计协议 |
 | ISSUE-017 | P2 | Open / Observe | Requirement extraction completeness：仅统计 content 片段化 + 独立要求整条遗漏（当前累计：片段化 2 次＋整条遗漏 1 次）；不得扩大定义容纳其他复合句错误 |
 | ISSUE-019 | P2 | Open / Observe | HR safeGreeting fallback 高频（跨案例累计 15 次，含 TC-10 修复后回归 run2 1/3）；统计 fallback 次数/总请求数/rate/自然度/信息损失/upstreamAttempts 相关性 |
-| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（如"适应出差→可能频繁出差"，跨案例累计 12 次，含 TC-10 两轮 4/6"频繁使用驾驶证/频繁出差或外出"）；累计 frequency/intensity/duration/scope/workload amplification；升级为确定性事实、进 riskSignals、影响 level 或更多稳定复现时再评估 P1 |
+| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（frequency amplification）：TC-03 2/3、TC-08 6/6、TC-10 有效请求 5/5，跨案例累计 13 次；全部为审慎推断措辞、未进 riskSignals、未影响 level；维持 P2 理由与升级阈值见 `docs/PHASE-1-ACCEPTANCE.md` §5.4 |
 | ISSUE-023 | P2 | Open / Observe | 任职要求偶发重复（TC-09 第1次"英语交流""熟悉印尼语者优先"各重复 1 次；分类与 evidence 均正确，仅冗余）；当前不修复；跨案例累计，稳定复现或影响分类/证据再评估升级 |
 
 ## 8. ISSUE-022 详情（已 Closed，2026-08-08）
