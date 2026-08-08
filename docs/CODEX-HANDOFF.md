@@ -7,12 +7,12 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前唯一主线：TC-10（隐含风险岗位）启动准备。** TC-01～TC-09 已全部 PASS，ISSUE-022 已 Closed。
+**当前唯一主线：TC-10（隐含风险岗位）。** TC-01～TC-09 已全部 PASS，ISSUE-022 已 Closed；TC-10 候选2 已执行但**未通过冻结 Pass Gate**（2/3 HTTP 200），并升级候选 ISSUE-024（P1）等待人工 Gate Review。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待用户提供 TC-10 真实 JD（**不自行生成**），按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行 TC-10 三次真实回归与完整验收流程（启动分析见下文“TC-10 启动分析”一节）；
-- **不进入 Phase 2、不修改冻结 JD（TC-01～TC-09）、不修复 ISSUE-023、不做无关重构**。
+- 新 thread 的下一步：等待人工 Product / QA Gate Review 决策——① TC-10 判定与新 JD/修复路径；② 候选 ISSUE-024（证书/年龄硬性识别，建议 P1）修复授权；③ ISSUE-012 与错别字类输入边界处置（TC-10 候选2 第2次 502 为 ISSUE-012 第三次真实样本，见 `docs/验收执行报告.md` §13.8）；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
+- **不进入 Phase 2、不修改冻结 JD（TC-01～TC-09）、不修复 ISSUE-023/ISSUE-024、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 
@@ -97,8 +97,9 @@
 | ISSUE-014 | P2 | Open / Observe | 信息不足场景 recommendation level 缺少判定边界（TC-04 3/3 `worth_exploring`）；每案例记录 level/basicInfo 完整度/unknowns/questions/summary/reasons/limitations/一致性；跨案例累计，Phase 1 总验收前统一设计协议 |
 | ISSUE-017 | P2 | Open / Observe | Requirement extraction completeness：仅统计 content 片段化 + 独立要求整条遗漏（当前累计：片段化 2 次＋整条遗漏 1 次）；不得扩大定义容纳其他复合句错误 |
 | ISSUE-019 | P2 | Open / Observe | HR safeGreeting fallback 高频（跨案例累计 14 次，含 TC-09 第2次 1/3）；统计 fallback 次数/总请求数/rate/自然度/信息损失/upstreamAttempts 相关性 |
-| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（如"适应出差→可能频繁出差"，跨案例累计 8 次；TC-09 0/3）；累计 frequency/intensity/duration/scope/workload amplification；升级为确定性事实、进 riskSignals、影响 level 或更多稳定复现时再评估 P1 |
+| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（如"适应出差→可能频繁出差"，跨案例累计 9 次，含 TC-10 run3"频繁使用驾驶证"）；累计 frequency/intensity/duration/scope/workload amplification；升级为确定性事实、进 riskSignals、影响 level 或更多稳定复现时再评估 P1 |
 | ISSUE-023 | P2 | Open / Observe | 任职要求偶发重复（TC-09 第1次"英语交流""熟悉印尼语者优先"各重复 1 次；分类与 evidence 均正确，仅冗余）；当前不修复；跨案例累计，稳定复现或影响分类/证据再评估升级 |
+| ISSUE-024（候选） | P1 | 待人工 Gate | 确定性协议错误：协议 hard=“明确学历、证书、最低年限或必须等限制”，但“具有驾驶证”“40岁以下”被 `hasHardQualifier` 确定性归为 `core_requirement`（TC-10 候选2 成功两轮 2/2 复现）；升级包见 `docs/验收执行报告.md` §13.8 |
 
 ## 8. ISSUE-022 详情（已 Closed，2026-08-08）
 
