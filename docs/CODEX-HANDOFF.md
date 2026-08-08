@@ -7,12 +7,12 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前唯一主线：TC-10（隐含风险岗位）。** TC-01～TC-09 已全部 PASS，ISSUE-022 已 Closed；TC-10 候选2 已执行但**未通过冻结 Pass Gate**（2/3 HTTP 200），并升级候选 ISSUE-024（P1）等待人工 Gate Review。
+**当前状态：Phase 1 十案例（案例01、案例02、TC-03～TC-10）全部 PASS。** TC-10 已于 2026-08-08 经 ISSUE-024/ISSUE-012A 修复后回归通过（3/3 HTTP 200、八维综合 4.50、隐含风险岗位专项 4.77）；ISSUE-022、ISSUE-024 已 Closed；ISSUE-012A 已修复（待 Phase 1 总验收确认）；ISSUE-012B 保持打开（robustness）。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待人工 Product / QA Gate Review 决策——① TC-10 判定与新 JD/修复路径；② 候选 ISSUE-024（证书/年龄硬性识别，建议 P1）修复授权；③ ISSUE-012 与错别字类输入边界处置（TC-10 候选2 第2次 502 为 ISSUE-012 第三次真实样本，见 `docs/验收执行报告.md` §13.8）；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
-- **不进入 Phase 2、不修改冻结 JD（TC-01～TC-09）、不修复 ISSUE-023/ISSUE-024、不做无关重构**。
+- 新 thread 的下一步：等待人工确认 Phase 1 总验收；ISSUE-012B（P1）与 ISSUE-014/017/019/021/023（P2）及错别字类输入边界在总验收前决策；决策后按 `docs/CODEX-OPERATING-PROTOCOL.md` 自主执行；
+- **不进入 Phase 2、不修改冻结 JD（TC-01～TC-10）、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 
@@ -86,6 +86,8 @@
 | ISSUE-016 | P1 | 章节级 preferred 作用域：`findRequirementSectionContext`（加分项/加分条件/优先条件/优先项），章节标题并入 evidence；协议见 `analysis-schema.md` |
 | ISSUE-018 | P1 | `hasPreferredQualifier` 增加"尤佳"；协议/Prompt 规则10 示例同步 |
 | ISSUE-020 | P1 | 复合句 hard＋preferred 拆分：`findSeparableQualifierSplit`（现为通用 helper 前身 `findMixedQualifierSplit`）；协议新增混合限定词复合句规则 |
+| ISSUE-022 | P1 | 复合句 qualifier＋core 拆分：`findSeparableQualifierSplit` 覆盖 hard＋core / core＋preferred，`并/且/以及/并且` 组合条件保护；经 TC-09 回归验证后关闭（见 §8） |
+| ISSUE-024 | P1 | `hasHardQualifier` 增加明确证照/资格持有（驾驶证/驾照/资格证/从业/执业/职业资格/上岗证/操作证/执业证）与明确数值年龄上下限（X岁以下/年龄不超过X岁/年龄不低于X岁/年满X周岁）分支，排除否定表述；协议同步 `analysis-schema.md` §2.2；经 TC-10 修复后回归 3/3 验证后关闭 |
 
 其余已关闭：ISSUE-001/002/003（P0）、ISSUE-004/005/009（P1）、ISSUE-006/008（P2），详见 `docs/更新日志.md` 与 `docs/验收执行报告.md` §15。
 
@@ -93,13 +95,13 @@
 
 | Issue | 等级 | 状态 | 观察/处置规则 |
 |---|---|---|---|
-| ISSUE-012 | P1 | Open（隔离 robustness 项） | 严重破损/乱序/截断 JD 的 evidence 鲁棒性；不阻塞标准单案例；Phase 1 总验收前决策；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
+| ISSUE-012A | P1 | Fixed（待 Phase 1 总验收确认） | 标准 JD 中局部可恢复 typo 被模型纠错导致 evidence 无法 exact-match：唯一单字符替换高置信回落（同长度、1 个 Unicode 字符替换、JD 唯一候选；不支持 insertion/deletion/fuzzy；多候选 fail-closed；Final evidence 仍为 JD 原文）；经 TC-10 修复后回归验证（run2 remap 回落原文、3/3 HTTP 200） |
+| ISSUE-012B | P1 | Open（隔离 robustness 项） | 语义截断/字符缺失/片段乱序等真损坏输入的 evidence 鲁棒性；不阻塞标准单案例；Phase 1 总验收前决策；已有两个真实样本（TC-03 1149 字符、TC-05 1284 字符） |
 | ISSUE-014 | P2 | Open / Observe | 信息不足场景 recommendation level 缺少判定边界（TC-04 3/3 `worth_exploring`）；每案例记录 level/basicInfo 完整度/unknowns/questions/summary/reasons/limitations/一致性；跨案例累计，Phase 1 总验收前统一设计协议 |
 | ISSUE-017 | P2 | Open / Observe | Requirement extraction completeness：仅统计 content 片段化 + 独立要求整条遗漏（当前累计：片段化 2 次＋整条遗漏 1 次）；不得扩大定义容纳其他复合句错误 |
-| ISSUE-019 | P2 | Open / Observe | HR safeGreeting fallback 高频（跨案例累计 14 次，含 TC-09 第2次 1/3）；统计 fallback 次数/总请求数/rate/自然度/信息损失/upstreamAttempts 相关性 |
-| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（如"适应出差→可能频繁出差"，跨案例累计 9 次，含 TC-10 run3"频繁使用驾驶证"）；累计 frequency/intensity/duration/scope/workload amplification；升级为确定性事实、进 riskSignals、影响 level 或更多稳定复现时再评估 P1 |
+| ISSUE-019 | P2 | Open / Observe | HR safeGreeting fallback 高频（跨案例累计 15 次，含 TC-10 修复后回归 run2 1/3）；统计 fallback 次数/总请求数/rate/自然度/信息损失/upstreamAttempts 相关性 |
+| ISSUE-021 | P2 | Open / Observe | 工作特征强度无依据升级（如"适应出差→可能频繁出差"，跨案例累计 12 次，含 TC-10 两轮 4/6"频繁使用驾驶证/频繁出差或外出"）；累计 frequency/intensity/duration/scope/workload amplification；升级为确定性事实、进 riskSignals、影响 level 或更多稳定复现时再评估 P1 |
 | ISSUE-023 | P2 | Open / Observe | 任职要求偶发重复（TC-09 第1次"英语交流""熟悉印尼语者优先"各重复 1 次；分类与 evidence 均正确，仅冗余）；当前不修复；跨案例累计，稳定复现或影响分类/证据再评估升级 |
-| ISSUE-024（候选） | P1 | 待人工 Gate | 确定性协议错误：协议 hard=“明确学历、证书、最低年限或必须等限制”，但“具有驾驶证”“40岁以下”被 `hasHardQualifier` 确定性归为 `core_requirement`（TC-10 候选2 成功两轮 2/2 复现）；升级包见 `docs/验收执行报告.md` §13.8 |
 
 ## 8. ISSUE-022 详情（已 Closed，2026-08-08）
 
