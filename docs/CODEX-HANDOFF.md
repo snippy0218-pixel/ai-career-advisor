@@ -205,3 +205,11 @@ npm run dev       # 本地开发
 - 环境变量：`DEEPSEEK_API_KEY`（服务端，用户级环境变量，`.env.local` 不存在）、`DEEPSEEK_MODEL`（默认 deepseek-v4-flash）、`DEEPSEEK_BASE_URL`（默认 https://api.deepseek.com）；
 - 真实回归方式：`npm run build` 后启动生产服务器（`node node_modules/next/dist/bin/next start`，端口 3000），向 `POST /api/analyze` 发送冻结 JD（UTF-8），服务端日志包含逐请求 diagnostics（evidence 恢复/删除、各类修复、Final Schema/evidence、output tokens、truncatedByLength 等）；
 - 历史回归样本与日志保存在 `%TEMP%\tc0X-regression\`（临时目录，勿作为唯一证据；正式记录以 `docs/验收执行报告.md` 为准）。
+
+## 12. 版本控制基线（Phase 1 baseline）
+
+- 仓库于 2026-08-08 初始化 Git，首次 baseline commit：`chore: establish Phase 1 baseline after TC-09`；
+- branch：`main`；commit hash：`8b4df69cd34b9b76ff10bf67a9124db2a3b6bd4e`（41 文件，20,660 行）；工作区状态：clean；
+- 被忽略的主要内容：`node_modules/`、`.next/`、`tsconfig.tsbuildinfo`（`.gitignore` 同时覆盖 `.env*`（保留 `.env.example`）、`/build`、`/out/`、npm/yarn/pnpm 日志、编辑器/OS 文件）；
+- 敏感信息扫描：真实 `DEEPSEEK_API_KEY` 值反查 0 命中；41 个待提交文件凭据模式扫描 0 命中；`.env.example` 为占位模板（`DEEPSEEK_API_KEY=` 为空值），可安全提交；
+- 后续提交规则：业务变更与文档变更按常规提交；`.env*`（除 `.env.example`）与回归临时文件永不提交；TC 临时响应与 server logs 保存在 `%TEMP%\tc0X-regression\`，不进仓库。
