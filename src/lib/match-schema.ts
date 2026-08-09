@@ -7,6 +7,7 @@ import {
 import type { JobAnalysis, RequirementType } from "./analysis-schema";
 import {
   finalProfileStructureSchema,
+  type FinalCanonicalCandidateFact,
   type FinalProfileStructure,
 } from "./profile-schema";
 
@@ -189,6 +190,34 @@ function sameStringSet(left: string[], right: string[]) {
   return left.every((item) => rightSet.has(item));
 }
 
+const CONSERVATIVE_DOMAIN_TERMS = [
+  "产品",
+  "数据分析",
+  "运营",
+  "销售",
+  "前端",
+  "后端",
+  "测试",
+  "设计",
+] as const;
+
+function explicitSameDimensionPositiveFacts(
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  facts: FinalCanonicalCandidateFact[],
+) {
+  if (dimension.dimensionType !== "domain") return [];
+  const terms = CONSERVATIVE_DOMAIN_TERMS.filter((term) =>
+    dimension.requirementFragment.includes(term),
+  );
+  if (terms.length === 0) return [];
+  return facts.filter(
+    (fact) =>
+      fact.semanticTags.some((tag) =>
+        ["experience", "project_experience"].includes(tag),
+      ) && terms.some((term) => fact.statement.includes(term)),
+  );
+}
+
 const INSTRUCTION_TEXT_PATTERN =
   /忽略.{0,16}(?:规则|提示|之前|以上)|把我描述成|虚构|编造.{0,12}(?:经历|经验|技能)|system\s*prompt|developer\s*message/i;
 
@@ -288,6 +317,22 @@ export function finalizeRawMatchCore(
             ? "unknown cannot carry candidate evidence or contradiction"
             : `${dimension.status} requires explicit ${requiredRole} candidate evidence`,
         );
+      }
+
+      if (dimension.status === "unknown") {
+        const explicitPositiveFacts = explicitSameDimensionPositiveFacts(
+          dimension,
+          profile.canonicalFacts,
+        );
+        if (explicitPositiveFacts.length > 0) {
+          addIssue(
+            issues,
+            `${dimensionPath}.status`,
+            `unknown omitted explicit same-domain positive evidence: ${explicitPositiveFacts
+              .map((fact) => fact.factId)
+              .join(", ")}`,
+          );
+        }
       }
 
       const pfEvidence: string[] = [];

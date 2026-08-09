@@ -368,6 +368,37 @@ describe("match-core schema and status contract", () => {
     );
   });
 
+  it("rejects unknown that silently omits explicit same-domain project evidence", () => {
+    const result = finalize(4, {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unknown",
+          dimensions: [
+            dimension({
+              dimensionType: "duration",
+              requirementFragment: "2年以上",
+              jdEvidence: ["2年以上产品相关经验"],
+              missingInformation: "产品相关经历的累计时长",
+              verificationQuestion: "你的产品相关经历累计多久？",
+            }),
+            dimension({
+              dimensionType: "domain",
+              requirementFragment: "产品相关经验",
+              jdEvidence: ["2年以上产品相关经验"],
+              missingInformation: "产品相关经历",
+              verificationQuestion: "请补充产品相关经历。",
+            }),
+          ],
+        },
+      ],
+    });
+    expect(result.data).toBeNull();
+    expect(result.issues.map((item) => item.message).join(" ")).toContain(
+      "unknown omitted explicit same-domain positive evidence: CF-001",
+    );
+  });
+
   it("rejects unmet without counter-evidence and unknown with contradiction", () => {
     const unmet = finalize(1, {
       matchItems: [

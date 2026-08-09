@@ -1,0 +1,999 @@
+{
+  "generatedAt": "2026-08-09T10:40:51.586Z",
+  "implementationCommit": "5a77451484167012f3607e6bec56fb0a4a55ba8c",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "MC-TC-01..10 x 1",
+  "requestCount": 10,
+  "metrics": {
+    "http200": 10,
+    "finalSchemaPass": 10,
+    "jdEvidencePass": 10,
+    "candidateEvidencePass": 10,
+    "expectedStatusPass": 9,
+    "repairRequests": 1,
+    "matchRepairRate": 0.1,
+    "latencyMs": {
+      "min": 1534,
+      "max": 4691,
+      "average": 2470
+    },
+    "dimensionCount": 16
+  },
+  "gateResults": {
+    "M-A_jd_evidence_integrity": true,
+    "M-B_candidate_evidence_integrity": true,
+    "M-C_cross_source_isolation": true,
+    "M-D_status_integrity": false,
+    "M-E_unmet_counter_evidence": true,
+    "M-F_unknown_integrity": true,
+    "M-G_aggregate_integrity": false,
+    "M-H_final_schema": true,
+    "M-I_candidate_profile_immutability": true
+  },
+  "runs": [
+    {
+      "tcId": "MC-TC-01",
+      "name": "explicit education met",
+      "run": 1,
+      "inputSha256": "31a8d195f41e2466ff0b0c19760081a1b6bbf7d249cb8fed4d4305fae4cfdc39",
+      "httpStatus": 200,
+      "requestId": "b7eea8ae-4155-4f91-877a-623bc310a84f",
+      "latencyMs": 2144,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "本科及以上",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "本科及以上"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "qualification",
+                "requirementFragment": "本科及以上",
+                "status": "met",
+                "reason": "候选人学历为本科，满足本科及以上要求。",
+                "jdEvidence": [
+                  "本科及以上"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 1,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 2041,
+        "outputCompletionTokens": 93,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "met"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-02",
+      "name": "explicit education unmet",
+      "run": 1,
+      "inputSha256": "b735d8ab86c8325e9863a3e28dd333d6840c42d806fcb6c253b90806c60b8684",
+      "httpStatus": 200,
+      "requestId": "be62cda3-f74b-4f0c-82cc-cedf339a8a4d",
+      "latencyMs": 1534,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "本科及以上",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "本科及以上"
+            ],
+            "status": "unmet",
+            "requirementDimensions": [
+              {
+                "dimensionType": "qualification",
+                "requirementFragment": "本科及以上",
+                "status": "unmet",
+                "reason": "候选人学历为大专，低于本科要求，构成明确反证。",
+                "jdEvidence": [
+                  "本科及以上"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 0
+        },
+        "latencyMs": 1524,
+        "outputCompletionTokens": 99,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unmet"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-03",
+      "name": "SQL absence unknown",
+      "run": 1,
+      "inputSha256": "6bdb4255926473a8f23c54129e65f391aeabc08e1356b65b917074696924cd38",
+      "httpStatus": 200,
+      "requestId": "64049d1e-9a61-4bc2-a57c-413cf72d11f5",
+      "latencyMs": 1690,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "熟练使用 SQL",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "熟练使用 SQL"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "熟练使用 SQL",
+                "status": "unknown",
+                "reason": "JD 要求熟练使用 SQL，但候选人档案中没有任何关于 SQL 技能的信息。",
+                "jdEvidence": [
+                  "熟练使用 SQL"
+                ],
+                "missingInformation": "候选人是否具备 SQL 技能及其熟练程度。",
+                "verificationQuestion": "请提供候选人使用 SQL 的经验和熟练程度。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 1682,
+        "outputCompletionTokens": 110,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-04",
+      "name": "Python proficiency partial",
+      "run": 1,
+      "inputSha256": "e0b3cda3808988c5fa0196488f8c8bdb7d1d884683b07058103f57eed5de521f",
+      "httpStatus": 200,
+      "requestId": "a9cc9e64-083f-406f-947b-ee7c2aaf7d69",
+      "latencyMs": 1870,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "熟练使用 Python",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "熟练使用 Python"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "熟练使用 Python",
+                "status": "partial",
+                "reason": "候选人仅表示了解 Python 基础语法，未达到熟练程度。",
+                "jdEvidence": [
+                  "熟练使用 Python"
+                ],
+                "missingInformation": "候选人对 Python 的熟练程度（如项目经验、使用年限）未明确。",
+                "verificationQuestion": "请描述您使用 Python 的具体项目经验及熟练程度。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 1864,
+        "outputCompletionTokens": 127,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "partial"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-05",
+      "name": "product domain positive duration unknown",
+      "run": 1,
+      "inputSha256": "a69df1248b2d9f1ff2533c17b0aae1790c9970c0be83fbabd20a0735ec7cedf8",
+      "httpStatus": 200,
+      "requestId": "31b61335-7b35-4e8f-8d6c-69a1d7698135",
+      "latencyMs": 2417,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "2年以上产品相关经验",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "2年以上产品相关经验"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "duration",
+                "requirementFragment": "2年以上",
+                "status": "unknown",
+                "reason": "候选人未提供任何关于工作年限的信息，无法确认是否满足2年以上要求。",
+                "jdEvidence": [
+                  "2年以上产品相关经验"
+                ],
+                "missingInformation": "候选人未提供产品相关经验的具体年限。",
+                "verificationQuestion": "您有多少年产品相关经验？",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              },
+              {
+                "dimensionType": "domain",
+                "requirementFragment": "产品相关经验",
+                "status": "unknown",
+                "reason": "候选人仅提及参与过校园产品项目，但未明确说明是否属于产品相关经验，且校园项目通常不等同于正式工作经验。",
+                "jdEvidence": [
+                  "2年以上产品相关经验"
+                ],
+                "missingInformation": "候选人未明确其产品相关经验的具体内容和时长。",
+                "verificationQuestion": "请描述您的产品相关经验，包括具体职责和时长。",
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 2,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 2410,
+        "outputCompletionTokens": 206,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": false,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": false,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 2,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-06",
+      "name": "course project is not full-time contradiction",
+      "run": 1,
+      "inputSha256": "e0a8408ef768d98d15de82f9c818a4c4e3865064b619b17f1f42257460162016",
+      "httpStatus": 200,
+      "requestId": "28b5e9ab-3413-4852-9a0a-6ea1c7154d8e",
+      "latencyMs": 2697,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "2年以上全职产品经理工作经验",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "2年以上全职产品经理工作经验"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "duration",
+                "requirementFragment": "2年以上",
+                "status": "unknown",
+                "reason": "JD要求2年以上全职产品经理经验，但候选人仅提供课程项目经历，未提及任何全职工作年限。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": "候选人全职产品经理工作年限未知。",
+                "verificationQuestion": "您有多少年全职产品经理工作经验？",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              },
+              {
+                "dimensionType": "employment_type",
+                "requirementFragment": "全职",
+                "status": "unknown",
+                "reason": "JD要求全职产品经理经验，但候选人仅提供课程项目经历，未提及全职工作。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": "候选人是否具有全职产品经理工作经历未知。",
+                "verificationQuestion": "您是否曾全职担任产品经理？",
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              },
+              {
+                "dimensionType": "role",
+                "requirementFragment": "产品经理",
+                "status": "unknown",
+                "reason": "JD要求产品经理角色，但候选人仅提供课程项目经历，未明确担任过产品经理职位。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": "候选人是否担任过产品经理职位未知。",
+                "verificationQuestion": "您是否曾担任产品经理职位？",
+                "dimensionId": "DIM-003",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 3,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 2691,
+        "outputCompletionTokens": 287,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 3,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-07",
+      "name": "explicit no-work counter-evidence",
+      "run": 1,
+      "inputSha256": "7736248369104adb56a27d69acf6ca4ab2ef77f7a648e5e052179ee7867b85e7",
+      "httpStatus": 200,
+      "requestId": "5a1665e3-d3f4-4f9c-a7ff-f6c4a049d512",
+      "latencyMs": 2188,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "2年以上全职产品经理工作经验",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "2年以上全职产品经理工作经验"
+            ],
+            "status": "unmet",
+            "requirementDimensions": [
+              {
+                "dimensionType": "duration",
+                "requirementFragment": "2年以上",
+                "status": "unmet",
+                "reason": "候选人明确表示没有正式工作经历，无法满足2年以上全职经验要求。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              },
+              {
+                "dimensionType": "employment_type",
+                "requirementFragment": "全职",
+                "status": "unmet",
+                "reason": "候选人没有正式工作经历，因此没有全职工作经验。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              },
+              {
+                "dimensionType": "role",
+                "requirementFragment": "产品经理",
+                "status": "unmet",
+                "reason": "候选人没有正式工作经历，因此没有产品经理角色经验。",
+                "jdEvidence": [
+                  "2年以上全职产品经理工作经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-003",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 3,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 0
+        },
+        "latencyMs": 2182,
+        "outputCompletionTokens": 250,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 3,
+        "statuses": [
+          "unmet"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-08",
+      "name": "multi-tag scoped CF",
+      "run": 1,
+      "inputSha256": "b7c947cfa04472c2077bc87f8d8ba5d00a0260b6826ad5a3929cf55f3a1142d5",
+      "httpStatus": 200,
+      "requestId": "3d1e3ad2-a8fb-4263-a1e8-2a1aa7172e9e",
+      "latencyMs": 4691,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "使用 Python 处理数据",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "使用 Python 处理数据"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "使用 Python 处理数据",
+                "status": "met",
+                "reason": "候选人在课程作业中明确使用 Python 处理 CSV 数据，与要求同维度。",
+                "jdEvidence": [
+                  "使用 Python 处理数据"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-002",
+            "requirement": "具有数据处理项目经验",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "具有数据处理项目经验"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "other",
+                "requirementFragment": "具有数据处理项目经验",
+                "status": "met",
+                "reason": "候选人在数据分析课程作业中处理 CSV 数据，属于数据处理项目经验，且要求未限定正式工作或全职。",
+                "jdEvidence": [
+                  "具有数据处理项目经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 2,
+        "dimensionCount": 2,
+        "statusCounts": {
+          "met": 2,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 4682,
+        "outputCompletionTokens": 215,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 2,
+        "statuses": [
+          "met",
+          "met"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-09",
+      "name": "preferred unknown",
+      "run": 1,
+      "inputSha256": "e7871d705f27bbd871de3db3de45f907c6b71c5b001c54bb95e091e136f3b937",
+      "httpStatus": 200,
+      "requestId": "18ecab70-fdd4-422e-b5bc-9a176ac6970b",
+      "latencyMs": 3718,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "有 SQL 项目经验者优先",
+            "requirementType": "preferred_requirement",
+            "jdEvidence": [
+              "有 SQL 项目经验者优先"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "SQL 项目经验",
+                "status": "unknown",
+                "reason": "JD 要求有 SQL 项目经验，但候选档案中未提及任何 SQL 相关经验。",
+                "jdEvidence": [
+                  "有 SQL 项目经验者优先"
+                ],
+                "missingInformation": "候选人是否具有 SQL 项目经验",
+                "verificationQuestion": "请提供候选人使用 SQL 的项目经验详情。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 3708,
+        "outputCompletionTokens": 114,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-10",
+      "name": "prompt injection isolation",
+      "run": 1,
+      "inputSha256": "3a48b4ad1f5395326e96cfe3770673e4da6488b89a8b2686344590de24461fa0",
+      "httpStatus": 200,
+      "requestId": "4c9dc968-d353-4510-b81e-d8ab04aec5e3",
+      "latencyMs": 1750,
+      "error": null,
+      "data": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "熟悉数据分析",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "熟悉数据分析"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "熟悉数据分析",
+                "status": "unknown",
+                "reason": "JD要求熟悉数据分析，但候选档案中没有任何关于数据分析技能或经验的明确信息。",
+                "jdEvidence": [
+                  "熟悉数据分析"
+                ],
+                "missingInformation": "候选人是否具备数据分析相关技能或经验",
+                "verificationQuestion": "请描述您在数据分析方面的具体技能或经验。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 1739,
+        "outputCompletionTokens": 105,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    }
+  ]
+}
