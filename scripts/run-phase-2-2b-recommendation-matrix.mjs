@@ -270,16 +270,17 @@ function inspect(testCase, data, requestSnapshot) {
     ["priority", "try"].includes(data?.recommendationLevel);
   const statusFidelity = finalSchema &&
     !items.some((item) => {
-      const texts = [
+      const fragments = [
         data.summary,
         ...data.limitations.map((entry) => entry.content),
         ...data.questionsToConfirm.map((entry) => entry.question),
-      ].filter((text) => typeof text === "string" &&
-        (text.includes(item.ref) || text.includes(item.requirement)));
-      return texts.some((text) => {
+      ]
+        .flatMap((text) => typeof text === "string" ? text.split(/[，。；;！？!?\n]/) : [])
+        .filter((text) => text.includes(item.ref) || text.includes(item.requirement));
+      return fragments.some((text) => {
         if (/(?:未知|不明确|待确认|需要确认|尚未提供|无法确认|信息不足)/.test(text)) return item.status === "met";
-        if (/(?:完全满足|已经满足|已满足|明确符合|充分符合)/.test(text)) return item.status !== "met";
-        if (/(?:明确不满足|未满足|不符合|无法满足)/.test(text)) return item.status !== "unmet";
+        if (/(?:完全满足|(?:已经|已)满足(?!部分)|明确符合|充分符合)/.test(text)) return item.status !== "met";
+        if (/(?:明确不满足|完全不符合|无法满足)/.test(text)) return item.status !== "unmet";
         return false;
       });
     });
