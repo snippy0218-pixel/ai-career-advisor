@@ -67,6 +67,19 @@ describe("Recommendation Core deterministic contract", () => {
     expect(result.issues.some((issue) => issue.message.includes("contradicts"))).toBe(true);
   });
 
+  it("R-C scopes mixed-status prose to the referenced MI clause", () => {
+    const fixture = RECOMMENDATION_FIXTURES[8];
+    const result = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        summary: "MI-001 已满足核心要求，MI-002 信息未知，仍需确认。",
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.recommendationLevel).toBe("try");
+  });
+
   it("R-D rejects silent omission of a critical unknown", () => {
     const fixture = RECOMMENDATION_FIXTURES[5];
     const result = finalizeRawRecommendation(
@@ -134,5 +147,23 @@ describe("Recommendation Core deterministic contract", () => {
     );
     expect(result.data).toBeNull();
     expect(result.issues.some((issue) => issue.message.includes("Candidate facts"))).toBe(true);
+  });
+
+  it("R-J permits an explicit verification question without treating it as fact", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const result = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        questionsToConfirm: [
+          {
+            question: "请确认候选人是否拥有 MI-001 所需的资格信息？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.recommendationLevel).toBe("cautious");
   });
 });

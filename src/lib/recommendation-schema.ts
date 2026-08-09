@@ -248,17 +248,20 @@ function textClaimsContradictStatus(
   raw: RawRecommendation,
   item: RecommendationMatchLedgerItem,
 ) {
-  const texts = [
+  const fragments = [
     raw.summary,
     ...raw.limitations.map((entry) => entry.content),
     ...raw.questionsToConfirm.map((entry) => entry.question),
-  ].filter(
-    (text) => text.includes(item.matchItemRef) || text.includes(item.requirement),
-  );
+  ]
+    .flatMap((text) => text.split(/[，。；;！？!?\n]/))
+    .filter(
+      (text) =>
+        text.includes(item.matchItemRef) || text.includes(item.requirement),
+    );
   const unknownPattern = /(?:未知|不明确|待确认|需要确认|尚未提供|无法确认|信息不足)/;
-  const positivePattern = /(?:完全满足|已经满足|已满足|明确符合|充分符合)/;
-  const negativePattern = /(?:明确不满足|未满足|不符合|无法满足)/;
-  return texts.some((text) => {
+  const positivePattern = /(?:完全满足|(?:已经|已)满足(?!部分)|明确符合|充分符合)/;
+  const negativePattern = /(?:明确不满足|完全不符合|无法满足)/;
+  return fragments.some((text) => {
     if (unknownPattern.test(text)) return item.status === "met";
     if (positivePattern.test(text)) return item.status !== "met";
     if (negativePattern.test(text)) return item.status !== "unmet";
@@ -267,7 +270,16 @@ function textClaimsContradictStatus(
 }
 
 const UNGROUNDED_CANDIDATE_FACT_PATTERN =
-  /候选人.{0,20}(?:拥有|具备|掌握|熟悉|从事|毕业于|获得了?|持有)(?!.{0,18}(?:证据|匹配|信息))/;
+  /候选人.{0,20}(?:拥有|具备|掌握|熟悉|从事|毕业于|获得了?|持有)/;
+
+function containsUngroundedCandidateFact(text: string) {
+  if (!UNGROUNDED_CANDIDATE_FACT_PATTERN.test(text)) return false;
+  if (/(?:是否|请确认|无法确认|不能确认|尚未确认|待确认|未知|未提供)/.test(text)) {
+    return false;
+  }
+  if (/(?:匹配证据|正向证据|反证)/.test(text)) return false;
+  return true;
+}
 
 export function finalizeRawRecommendation(
   raw: RawRecommendation,
@@ -411,7 +423,7 @@ export function finalizeRawRecommendation(
     ...raw.limitations.map((entry) => entry.content),
     ...raw.questionsToConfirm.map((entry) => entry.question),
   ];
-  if (freeTexts.some((text) => UNGROUNDED_CANDIDATE_FACT_PATTERN.test(text))) {
+  if (freeTexts.some(containsUngroundedCandidateFact)) {
     addIssue(
       issues,
       "summary",
