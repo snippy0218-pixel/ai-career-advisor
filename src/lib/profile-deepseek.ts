@@ -3,22 +3,29 @@ import { z } from "zod";
 import { ApiError } from "./api-errors";
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
 import {
-  buildCompletenessRepairMessages,
+  buildCoverageRepairMessages,
   buildProfileStructuringMessages,
 } from "./profile-prompt";
 import {
   buildProfileEvidenceLedger,
   finalProfileStructureSchema,
   findSemanticUpgradeViolations,
-  hasFactTraceability,
   isAllowlistedNormalization,
-  pfIdPattern,
+  isSafeSharedQualifierEnumeration,
+  PF_DISPOSITIONS,
   PROFILE_SCHEMA_VERSION,
-  rawProfileAnalysisSchema,
+  rawPfCoverageItemSchema,
   resolveEvidenceToPf,
   resolvePfText,
 } from "./profile-schema";
-import type { AnalyzeProfileRequest, FinalProfileStructure, ProfileEvidence } from "./profile-schema";
+import type {
+  AnalyzeProfileRequest,
+  FinalProfileStructure,
+  PfDisposition,
+  ProfileEvidence,
+  ProfileFactCategory,
+  RawAtomicClaim,
+} from "./profile-schema";
 
 const DEFAULT_BASE_URL = "https://api.deepseek.com";
 const DEFAULT_MODEL = "deepseek-v4-flash";
@@ -27,11 +34,23 @@ const MAX_ATTEMPTS = 2;
 const RETRY_DELAY_MS = 500;
 const MAX_OUTPUT_TOKENS = 4096;
 
+type DispositionCounts = Record<PfDisposition, number>;
+
 export interface ProfileDiagnostics {
   upstreamAttempts: number;
   jsonParsePassed: boolean;
   rawSchemaValidationPassed: boolean;
   pfLedgerCount: number;
+  pfTotal: number;
+  pfDispositionCounts: DispositionCounts;
+  candidateFactPfCount: number;
+  atomicClaimCount: number;
+  unprocessedPfCount: number;
+  completenessRepairRequestCount: number;
+  atomicClaimRepairCount: number;
+  finalFactCount: number;
+  profileFactRecall: number | null;
+  latencyMs: number;
   removedFactCount: number;
   invalidEvidenceCount: number;
   semanticUpgradeViolationCount: number;
@@ -60,8 +79,52 @@ interface ProfileOptions {
   onDiagnostics?: (diagnostics: ProfileDiagnostics) => void;
 }
 
-type CompletionConfig = Required<Pick<ProfileOptions, "fetchImpl" | "apiKey" | "model" | "baseUrl">>;
+type CompletionConfig = Required<
+  Pick<ProfileOptions, "fetchImpl" | "apiKey" | "model" | "baseUrl">
+>;
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
+
+interface NormalizedFact {
+  value: string;
+  sourceType: "profile_stated" | "normalized_stated";
+  pfEvidence: string[];
+  verificationQuestion: null;
+}
+
+interface ValidatedAtomicClaim extends NormalizedFact {
+  category: ProfileFactCategory;
+}
+
+interface ValidatedCoverageItem {
+  pfId: string;
+  disposition: PfDisposition;
+  atomicClaims: ValidatedAtomicClaim[];
+  duplicateOf: string | null;
+}
+
+interface CoverageValidation {
+  accepted: Map<string, ValidatedCoverageItem>;
+  problems: Map<string, string[]>;
+}
+
+const coverageEnvelopeSchema = z
+  .object({ coverage: z.array(z.unknown()).max(30) })
+  .strict();
+
+const categoryCaps: Record<ProfileFactCategory, number> = {
+  careerTarget: 1,
+  education: 6,
+  experiences: 8,
+  projects: 8,
+  skills: 12,
+  certificates: 6,
+  portfolio: 6,
+  preferences: 4,
+};
+
+function emptyDispositionCounts(): DispositionCounts {
+  return Object.fromEntries(PF_DISPOSITIONS.map((item) => [item, 0])) as DispositionCounts;
+}
 
 function wait(milliseconds: number) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -129,7 +192,13 @@ async function requestCompletion(
 
     if (!response.ok) throw mapHttpError(response.status);
 
-    let payload: { choices?: Array<{ finish_reason?: string; message?: { content?: string } }>; usage?: { completion_tokens?: number } };
+    let payload: {
+      choices?: Array<{
+        finish_reason?: string;
+        message?: { content?: string };
+      }>;
+      usage?: { completion_tokens?: number };
+    };
     try {
       payload = (await response.json()) as typeof payload;
     } catch {
@@ -156,7 +225,9 @@ async function requestCompletion(
       choice.finish_reason !== "stop" &&
       choice.finish_reason !== "insufficient_system_resource"
     ) {
-      console.warn("[profile] abnormal finish reason", { finishReason: choice.finish_reason });
+      console.warn("[profile] abnormal finish reason", {
+        finishReason: choice.finish_reason,
+      });
     }
     return content;
   } catch (error) {
@@ -170,7 +241,7 @@ async function requestCompletion(
   }
 }
 
-async function requestStructuring(
+async function requestInitialCoverage(
   request: AnalyzeProfileRequest,
   ledger: ProfileEvidence[],
   configuration: CompletionConfig,
@@ -190,28 +261,20 @@ async function requestStructuring(
         diagnostics,
       );
     } catch (error) {
-      const apiError = error instanceof ApiError ? error : new ApiError("AI_SERVICE_UNAVAILABLE", 503);
+      const apiError =
+        error instanceof ApiError
+          ? error
+          : new ApiError("AI_SERVICE_UNAVAILABLE", 503);
       lastError = apiError;
-      const canRetry = attempt === 0 && apiError.autoRetryable && deadline - Date.now() > RETRY_DELAY_MS;
+      const canRetry =
+        attempt === 0 &&
+        apiError.autoRetryable &&
+        deadline - Date.now() > RETRY_DELAY_MS;
       if (!canRetry) throw apiError;
       await wait(RETRY_DELAY_MS);
     }
   }
   throw lastError ?? new ApiError("AI_SERVICE_UNAVAILABLE", 503);
-}
-
-interface NormalizedFact {
-  value: string;
-  sourceType: "profile_stated" | "normalized_stated";
-  pfEvidence: string[];
-  verificationQuestion: null;
-}
-
-interface NormalizedDerived {
-  content: string;
-  sourceType: "profile_inferred";
-  pfEvidence: string[];
-  verificationQuestion: string | null;
 }
 
 function resolveEvidenceIds(
@@ -229,459 +292,447 @@ function resolveEvidenceIds(
   return ids.slice(0, 3);
 }
 
-function normalizeFact(
-  item: {
-    value: string;
-    sourceType?: string;
-    pfEvidence?: string[];
-    verificationQuestion?: string | null;
-  },
+function normalizeAtomicClaim(
+  item: RawAtomicClaim,
+  primaryPf: ProfileEvidence,
   rawText: string,
   ledger: ProfileEvidence[],
   diagnostics: ProfileDiagnostics,
-): NormalizedFact | null {
-  const sourceType = item.sourceType ?? "normalized_stated";
-  if (sourceType === "profile_inferred" || sourceType === "to_verify") {
-    diagnostics.layeringViolationCount += 1;
-    return null;
-  }
-  if (item.verificationQuestion != null) {
-    diagnostics.layeringViolationCount += 1;
-    return null;
-  }
-
-  const pfEvidence = resolveEvidenceIds(item.pfEvidence ?? [], rawText, ledger, diagnostics);
-  if (pfEvidence.length === 0) {
+): ValidatedAtomicClaim | null {
+  const pfEvidence = resolveEvidenceIds(
+    item.pfEvidence,
+    rawText,
+    ledger,
+    diagnostics,
+  );
+  if (!pfEvidence.includes(primaryPf.id)) {
     diagnostics.invalidEvidenceCount += 1;
     return null;
   }
 
   const pfTexts = pfEvidence
     .map((id) => resolvePfText(ledger, id) ?? "")
-    .filter((text) => text.length > 0);
-
-  if (sourceType === "profile_stated") {
-    if (isEvidenceInJd(item.value, rawText)) {
-      return { value: item.value, sourceType, pfEvidence, verificationQuestion: null };
-    }
-    const spans = findNormalizedEvidenceSpans(item.value, rawText);
-    if (spans.length !== 1) {
-      // Mislabeled minimal normalization (e.g. label prefix stripped): keep the
-      // fact as normalized_stated only when it is a near-verbatim normalization
-      // with no semantic upgrade. This does not relax fact/evidence rules.
-      const upgrades = findSemanticUpgradeViolations(item.value, pfTexts);
-      if (
-        upgrades.length === 0 &&
-        pfTexts.some((pfText) => isAllowlistedNormalization(item.value, pfText))
-      ) {
-        return {
-          value: item.value,
-          sourceType: "normalized_stated",
-          pfEvidence,
-          verificationQuestion: null,
-        };
-      }
-      diagnostics.invalidEvidenceCount += 1;
-      return null;
-    }
-    return { value: spans[0], sourceType, pfEvidence, verificationQuestion: null };
-  }
-
+    .filter(Boolean);
   const upgrades = findSemanticUpgradeViolations(item.value, pfTexts);
   if (upgrades.length > 0) {
     diagnostics.semanticUpgradeViolationCount += upgrades.length;
     return null;
   }
-  if (!hasFactTraceability(item.value, pfTexts)) {
-    diagnostics.untraceableFactCount += 1;
-    return null;
-  }
-  return { value: item.value, sourceType: "normalized_stated", pfEvidence, verificationQuestion: null };
-}
 
-function normalizeDerived(
-  item: {
-    content: string;
-    sourceType?: string;
-    pfEvidence?: string[];
-    verificationQuestion?: string | null;
-  },
-  rawText: string,
-  ledger: ProfileEvidence[],
-  diagnostics: ProfileDiagnostics,
-): NormalizedDerived | null {
-  if (item.sourceType !== "profile_inferred") {
+  // Preserve material scope: a tool used only in a course context must not be
+  // emitted as an unqualified skill. The complete PF clause is a safe value.
+  const exactValueIndex = primaryPf.text.indexOf(item.value);
+  const valueSentence =
+    exactValueIndex >= 0
+      ? primaryPf.text
+          .slice(0, exactValueIndex)
+          .split(/[。；;！？!?]/)
+          .at(-1)! +
+        primaryPf.text.slice(exactValueIndex).split(/[。；;！？!?]/, 1)[0]
+      : primaryPf.text;
+  if (
+    item.category === "skills" &&
+    /课程项目|课程作业/.test(valueSentence) &&
+    !/课程项目|课程作业/.test(item.value)
+  ) {
     diagnostics.layeringViolationCount += 1;
     return null;
   }
-  const pfEvidence = resolveEvidenceIds(item.pfEvidence ?? [], rawText, ledger, diagnostics);
-  if (pfEvidence.length === 0) {
-    diagnostics.invalidEvidenceCount += 1;
+
+  // Generic category boundary for standalone project/activity participation.
+  // Work/internship/assistant/competition facts remain experiences. This is a
+  // taxonomy guard, not a frozen-case text special case.
+  if (
+    item.category === "experiences" &&
+    /(?:参与过|参加过|完成|参与).{0,20}(?:项目|活动)/.test(item.value) &&
+    !/实习|工作|协助|助理|比赛/.test(item.value)
+  ) {
+    diagnostics.layeringViolationCount += 1;
     return null;
   }
+
+  let value = item.value.trim();
+  let sourceType = item.sourceType;
+  if (isEvidenceInJd(value, primaryPf.text)) {
+    // Keep the model's explicit source type. normalized_stated is still safe
+    // when the value is itself verbatim.
+  } else {
+    const normalizedSpans = findNormalizedEvidenceSpans(value, primaryPf.text);
+    if (normalizedSpans.length === 1) {
+      value = normalizedSpans[0];
+      sourceType = "normalized_stated";
+    } else if (
+      isAllowlistedNormalization(value, primaryPf.text) ||
+      isSafeSharedQualifierEnumeration(value, primaryPf.text)
+    ) {
+      sourceType = "normalized_stated";
+    } else {
+      diagnostics.untraceableFactCount += 1;
+      return null;
+    }
+  }
+
   return {
-    content: item.content,
-    sourceType: "profile_inferred",
+    category: item.category,
+    value,
+    sourceType,
     pfEvidence,
-    verificationQuestion: item.verificationQuestion ?? null,
+    verificationQuestion: null,
   };
 }
 
-function normalizeCategory(
-  items: Array<{
-    value: string;
-    sourceType?: string;
-    pfEvidence?: string[];
-    verificationQuestion?: string | null;
-  }>,
+const INSTRUCTION_PATTERN =
+  /忽略.{0,12}(?:规则|提示|之前)|把我描述成|虚构|编造.{0,8}(?:经历|经验|技能)|system\s*prompt|developer\s*message/i;
+const EXPLICIT_NEGATIVE_FACT_PATTERN =
+  /没有正式工作经历|无正式工作经历|无相关实习|无驾照|没有驾照|未取得.{0,12}(?:证|资格)|未使用.{0,20}(?:工具|软件|SQL|Python)|不接受.{0,20}(?:城市|异地|出差)/;
+
+function requiredAtomicCategories(pfText: string): Set<ProfileFactCategory> {
+  const required = new Set<ProfileFactCategory>();
+  if (/^教育|本科|硕士|博士|学历|专业/.test(pfText)) required.add("education");
+  if (
+    /^技能|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z]/i.test(
+      pfText,
+    )
+  ) {
+    required.add("skills");
+  }
+  if (
+    /^项目|项目经历|团队项目|课程项目|课程作业|(?:参与过|参加过|完成|参与).{0,24}(?:项目|活动)/.test(
+      pfText,
+    )
+  ) {
+    required.add("projects");
+  }
+  if (
+    /^实习|^经历|实习生|工作经历|正式工作|应届生|协助|助理|参加.{0,16}比赛/.test(
+      pfText,
+    )
+  ) {
+    required.add("experiences");
+  }
+  if (/^证书|CET|资格证|驾驶证|驾照/.test(pfText)) required.add("certificates");
+  if (/期望城市|意向城市|不接受.{0,12}(?:城市|异地)/.test(pfText)) {
+    required.add("preferences");
+  }
+  if (/求职方向|职业方向|目标岗位/.test(pfText)) required.add("careerTarget");
+  return required;
+}
+
+function addProblem(
+  problems: Map<string, string[]>,
+  pfId: string,
+  reason: string,
+) {
+  const current = problems.get(pfId) ?? [];
+  if (!current.includes(reason)) current.push(reason);
+  problems.set(pfId, current);
+}
+
+function validateCoverageResponse(
+  parsed: unknown,
+  expectedPfs: ProfileEvidence[],
   rawText: string,
-  ledger: ProfileEvidence[],
+  fullLedger: ProfileEvidence[],
   diagnostics: ProfileDiagnostics,
-  max: number,
-): NormalizedFact[] {
-  const facts: NormalizedFact[] = [];
-  const seen = new Set<string>();
-  for (const item of items) {
-    const fact = normalizeFact(item, rawText, ledger, diagnostics);
-    if (!fact) {
-      diagnostics.removedFactCount += 1;
+): CoverageValidation {
+  const accepted = new Map<string, ValidatedCoverageItem>();
+  const problems = new Map<string, string[]>();
+  const expectedIds = new Set(expectedPfs.map((item) => item.id));
+  const envelope = coverageEnvelopeSchema.safeParse(parsed);
+
+  if (!envelope.success) {
+    for (const pf of expectedPfs) {
+      addProblem(problems, pf.id, "coverage envelope/schema invalid");
+    }
+    return { accepted, problems };
+  }
+
+  const occurrences = new Map<string, unknown[]>();
+  for (const rawItem of envelope.data.coverage) {
+    const pfId =
+      typeof rawItem === "object" &&
+      rawItem !== null &&
+      "pfId" in rawItem &&
+      typeof rawItem.pfId === "string"
+        ? rawItem.pfId
+        : null;
+    if (!pfId || !expectedIds.has(pfId)) continue;
+    const list = occurrences.get(pfId) ?? [];
+    list.push(rawItem);
+    occurrences.set(pfId, list);
+  }
+
+  for (const pf of expectedPfs) {
+    const candidates = occurrences.get(pf.id) ?? [];
+    if (candidates.length !== 1) {
+      addProblem(
+        problems,
+        pf.id,
+        candidates.length === 0
+          ? "PF has no disposition"
+          : "PF has duplicate dispositions",
+      );
       continue;
     }
-    if (seen.has(fact.value)) continue; // dedupe: benign normalization, not a defect
-    seen.add(fact.value);
-    facts.push(fact);
-    if (facts.length >= max) break;
+
+    const itemResult = rawPfCoverageItemSchema.safeParse(candidates[0]);
+    if (!itemResult.success) {
+      addProblem(problems, pf.id, "PF disposition/atomicClaims schema invalid");
+      continue;
+    }
+    const item = itemResult.data;
+
+    if (
+      item.disposition === "duplicate" &&
+      (item.duplicateOf === pf.id ||
+        !fullLedger.some((entry) => entry.id === item.duplicateOf))
+    ) {
+      addProblem(problems, pf.id, "duplicateOf does not reference another PF");
+      continue;
+    }
+    if (INSTRUCTION_PATTERN.test(pf.text) && item.disposition !== "instruction_text") {
+      addProblem(problems, pf.id, "instruction text must use instruction_text disposition");
+      continue;
+    }
+    if (
+      EXPLICIT_NEGATIVE_FACT_PATTERN.test(pf.text) &&
+      item.disposition !== "candidate_fact_source"
+    ) {
+      addProblem(problems, pf.id, "explicit negative candidate fact was not extracted");
+      continue;
+    }
+
+    const requiredCategories = requiredAtomicCategories(pf.text);
+    if (
+      requiredCategories.size > 0 &&
+      item.disposition !== "candidate_fact_source"
+    ) {
+      addProblem(
+        problems,
+        pf.id,
+        `PF contains explicit candidate fact categories: ${[...requiredCategories].join(", ")}`,
+      );
+      continue;
+    }
+
+    const claims: ValidatedAtomicClaim[] = [];
+    let claimInvalid = false;
+    for (const rawClaim of item.atomicClaims) {
+      const claim = normalizeAtomicClaim(
+        rawClaim,
+        pf,
+        rawText,
+        fullLedger,
+        diagnostics,
+      );
+      if (!claim) {
+        claimInvalid = true;
+        diagnostics.droppedCandidateFactCount += 1;
+        continue;
+      }
+      const key = `${claim.category}\u0000${claim.value}`;
+      if (!claims.some((existing) => `${existing.category}\u0000${existing.value}` === key)) {
+        claims.push(claim);
+      }
+    }
+    if (claimInvalid || claims.length !== item.atomicClaims.length) {
+      for (const rawClaim of item.atomicClaims) {
+        if (
+          rawClaim.category === "skills" &&
+          /课程项目|课程作业/.test(pf.text) &&
+          !/课程项目|课程作业/.test(rawClaim.value)
+        ) {
+          addProblem(
+            problems,
+            pf.id,
+            "course-context skill claim must preserve 课程项目/课程作业 in its value; copy the complete supporting PF clause",
+          );
+        }
+        if (
+          rawClaim.category === "experiences" &&
+          /(?:参与过|参加过|完成|参与).{0,20}(?:项目|活动)/.test(
+            rawClaim.value,
+          ) &&
+          !/实习|工作|协助|助理|比赛/.test(rawClaim.value)
+        ) {
+          addProblem(
+            problems,
+            pf.id,
+            "standalone project/activity participation must use category=projects",
+          );
+        }
+      }
+      addProblem(problems, pf.id, "one or more atomic claims failed strict validation");
+      continue;
+    }
+    if (item.disposition === "candidate_fact_source" && claims.length === 0) {
+      addProblem(problems, pf.id, "candidate-fact PF has no validated atomic claims");
+      continue;
+    }
+
+    const extractedCategories = new Set(claims.map((claim) => claim.category));
+    const missingCategories = [...requiredCategories].filter(
+      (category) => !extractedCategories.has(category),
+    );
+    if (missingCategories.length > 0) {
+      addProblem(
+        problems,
+        pf.id,
+        `atomic claims omitted explicit categories: ${missingCategories.join(", ")}; add one strictly supported claim per category`,
+      );
+      continue;
+    }
+
+    accepted.set(pf.id, {
+      pfId: pf.id,
+      disposition: item.disposition,
+      atomicClaims: claims,
+      duplicateOf: item.duplicateOf,
+    });
   }
-  return facts;
+
+  return { accepted, problems };
 }
 
-function prepareCandidateProfile(
-  raw: {
-    careerTarget?: {
-      value: string;
-      sourceType?: string;
-      pfEvidence?: string[];
-      verificationQuestion?: string | null;
-    } | null;
-    education?: unknown[];
-    experiences?: unknown[];
-    projects?: unknown[];
-    skills?: unknown[];
-    certificates?: unknown[];
-    portfolio?: unknown[];
-    preferences?: unknown[];
-    derivedObservations?: unknown[];
-    unknowns?: string[];
-    questionsToConfirm?: Array<{ question: string; reason: string }>;
-  },
-  rawText: string,
-  ledger: ProfileEvidence[],
+async function requestCoverageRepair(
+  problemPfs: ProfileEvidence[],
+  reasons: string[],
+  configuration: CompletionConfig,
+  deadline: number,
   diagnostics: ProfileDiagnostics,
 ) {
-  const categories: Array<keyof Pick<typeof raw, "education" | "experiences" | "projects" | "skills" | "certificates" | "portfolio" | "preferences">> =
-    ["education", "experiences", "projects", "skills", "certificates", "portfolio", "preferences"];
-  const maxes: Record<string, number> = {
-    education: 6,
-    experiences: 8,
-    projects: 8,
-    skills: 12,
-    certificates: 6,
-    portfolio: 6,
-    preferences: 4,
-  };
-  const normalized: Record<string, NormalizedFact[]> = {};
-  for (const category of categories) {
-    normalized[category] = normalizeCategory(
-      (raw[category] ?? []) as Array<{
-        value: string;
-        sourceType?: string;
-        pfEvidence?: string[];
-        verificationQuestion?: string | null;
-      }>,
-      rawText,
-      ledger,
-      diagnostics,
-      maxes[category],
-    );
-  }
-  const derivedObservations = ((raw.derivedObservations ?? []) as Array<{
-    content: string;
-    sourceType?: string;
-    pfEvidence?: string[];
-    verificationQuestion?: string | null;
-  }>)
-    .map((item) => normalizeDerived(item, rawText, ledger, diagnostics))
-    .filter((item): item is NormalizedDerived => item !== null)
-    .slice(0, 6);
+  const remaining = deadline - Date.now();
+  if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
+  diagnostics.upstreamAttempts += 1;
+  diagnostics.completenessRepairRequestCount += 1;
+  diagnostics.atomicClaimRepairCount += problemPfs.length;
+  return requestCompletion(
+    buildCoverageRepairMessages(problemPfs, reasons),
+    configuration,
+    remaining,
+    diagnostics,
+  );
+}
 
-  const careerTarget =
-    raw.careerTarget == null
-      ? null
-      : normalizeFact(raw.careerTarget, rawText, ledger, diagnostics);
+function buildCandidateProfile(
+  coverage: ValidatedCoverageItem[],
+  ledger: ProfileEvidence[],
+) {
+  const factsByCategory: Record<ProfileFactCategory, NormalizedFact[]> = {
+    careerTarget: [],
+    education: [],
+    experiences: [],
+    projects: [],
+    skills: [],
+    certificates: [],
+    portfolio: [],
+    preferences: [],
+  };
+
+  for (const item of coverage) {
+    for (const claim of item.atomicClaims) {
+      const list = factsByCategory[claim.category];
+      if (
+        list.some(
+          (fact) =>
+            fact.value === claim.value &&
+            fact.pfEvidence.join("\u0000") === claim.pfEvidence.join("\u0000"),
+        )
+      ) {
+        continue;
+      }
+      if (list.length >= categoryCaps[claim.category]) return null;
+      list.push({
+        value: claim.value,
+        sourceType: claim.sourceType,
+        pfEvidence: claim.pfEvidence,
+        verificationQuestion: null,
+      });
+    }
+  }
 
   return {
-    careerTarget,
-    education: normalized.education,
-    experiences: normalized.experiences,
-    projects: normalized.projects,
-    skills: normalized.skills,
-    certificates: normalized.certificates,
-    portfolio: normalized.portfolio,
-    preferences: normalized.preferences,
-    derivedObservations,
-    unknowns: (raw.unknowns ?? []).slice(0, 8),
-    questionsToConfirm: (raw.questionsToConfirm ?? []).slice(0, 8),
+    careerTarget: factsByCategory.careerTarget[0] ?? null,
+    education: factsByCategory.education,
+    experiences: factsByCategory.experiences,
+    projects: factsByCategory.projects,
+    skills: factsByCategory.skills,
+    certificates: factsByCategory.certificates,
+    portfolio: factsByCategory.portfolio,
+    preferences: factsByCategory.preferences,
+    derivedObservations: [],
+    unknowns: [],
+    questionsToConfirm: [],
     evidence: ledger.map(({ id, text }) => ({ id, text })),
   };
 }
 
 function finalizeProfile(
-  candidateProfile: ReturnType<typeof prepareCandidateProfile>,
+  candidateProfile: NonNullable<ReturnType<typeof buildCandidateProfile>>,
   ledger: ProfileEvidence[],
   rawText: string,
-): { ok: boolean; value?: FinalProfileStructure } {
+): FinalProfileStructure | null {
   const result = finalProfileStructureSchema.safeParse({
     schemaVersion: PROFILE_SCHEMA_VERSION,
     profileProvided: true,
     candidateProfile,
   });
-  if (!result.success) return { ok: false };
+  if (!result.success) return null;
+
+  const totalFacts =
+    (result.data.candidateProfile.careerTarget ? 1 : 0) +
+    result.data.candidateProfile.education.length +
+    result.data.candidateProfile.experiences.length +
+    result.data.candidateProfile.projects.length +
+    result.data.candidateProfile.skills.length +
+    result.data.candidateProfile.certificates.length +
+    result.data.candidateProfile.portfolio.length +
+    result.data.candidateProfile.preferences.length;
+  if (ledger.length > 0 && totalFacts === 0) return null;
 
   const ids = new Set(ledger.map((item) => item.id));
-  const profile = result.data.candidateProfile;
-  const totalFacts =
-    (profile.careerTarget ? 1 : 0) +
-    profile.education.length +
-    profile.experiences.length +
-    profile.projects.length +
-    profile.skills.length +
-    profile.certificates.length +
-    profile.portfolio.length +
-    profile.preferences.length;
-  // Fail-closed when the input had content but no fact survived validation:
-  // a silently empty profile is not a valid result (Phase 2.1 gate: no silent
-  // loss of user-provided facts).
-  if (ledger.length > 0 && totalFacts === 0 && profile.derivedObservations.length === 0) {
-    return { ok: false };
-  }
-
-  const factGroups = [
-    profile.careerTarget ? [profile.careerTarget] : [],
-    profile.education,
-    profile.experiences,
-    profile.projects,
-    profile.skills,
-    profile.certificates,
-    profile.portfolio,
-    profile.preferences,
-    profile.derivedObservations,
-  ];
-  for (const group of factGroups) {
-    for (const fact of group) {
-      for (const ref of fact.pfEvidence) {
-        if (!ids.has(ref)) return { ok: false };
-      }
-    }
-  }
-  for (const evidence of ledger) {
-    if (!isEvidenceInJd(evidence.text, rawText)) return { ok: false };
-  }
-  return { ok: true, value: result.data };
-}
-
-const completenessAdditionItemSchema = z
-  .object({
-    category: z.enum([
-      "careerTarget",
-      "education",
-      "experiences",
-      "projects",
-      "skills",
-      "certificates",
-      "portfolio",
-      "preferences",
-    ]),
-    value: z.string().trim().min(1).max(200),
-    sourceType: z
-      .enum(["profile_stated", "normalized_stated"])
-      .optional()
-      .default("normalized_stated"),
-    pfEvidence: z.array(z.string()).min(1).max(3),
-    verificationQuestion: z
-      .string()
-      .max(200)
-      .nullable()
-      .optional()
-      .default(null),
-  })
-  .strict();
-
-const completenessLinesSchema = z
-  .object({
-    lines: z
-      .array(
-        z
-          .object({
-            pfId: z.string().regex(pfIdPattern),
-            status: z.enum(["covered", "missing", "not_fact"]),
-            additions: z
-              .array(completenessAdditionItemSchema)
-              .max(8)
-              .optional()
-              .default([]),
-          })
-          .strict(),
-      )
-      .max(30),
-  })
-  .passthrough();
-
-type CandidateProfileShape = ReturnType<typeof prepareCandidateProfile>;
-
-const categoryCaps: Record<string, number> = {
-  careerTarget: 1,
-  education: 6,
-  experiences: 8,
-  projects: 8,
-  skills: 12,
-  certificates: 6,
-  portfolio: 6,
-  preferences: 4,
-};
-
-function referencedPfIds(profile: CandidateProfileShape): Set<string> {
-  const ids = new Set<string>();
-  const groups: Array<Array<{ pfEvidence: string[] }>> = [
-    profile.careerTarget ? [profile.careerTarget] : [],
-    profile.education,
-    profile.experiences,
-    profile.projects,
-    profile.skills,
-    profile.certificates,
-    profile.portfolio,
-    profile.preferences,
-    profile.derivedObservations,
+  const groups = [
+    result.data.candidateProfile.careerTarget
+      ? [result.data.candidateProfile.careerTarget]
+      : [],
+    result.data.candidateProfile.education,
+    result.data.candidateProfile.experiences,
+    result.data.candidateProfile.projects,
+    result.data.candidateProfile.skills,
+    result.data.candidateProfile.certificates,
+    result.data.candidateProfile.portfolio,
+    result.data.candidateProfile.preferences,
   ];
   for (const group of groups) {
-    for (const item of group) {
-      for (const ref of item.pfEvidence) ids.add(ref);
+    for (const fact of group) {
+      if (fact.pfEvidence.some((id) => !ids.has(id))) return null;
     }
   }
-  return ids;
+  if (ledger.some((item) => !isEvidenceInJd(item.text, rawText))) return null;
+  return result.data;
 }
 
-function appendFactToCategory(
-  profile: CandidateProfileShape,
-  category: string,
-  fact: NormalizedFact,
-) {
-  if (category === "careerTarget") {
-    if (profile.careerTarget === null) profile.careerTarget = fact;
-    return;
-  }
-  const cap = categoryCaps[category];
-  const list = profile[category as "education"] as NormalizedFact[];
-  if (!Array.isArray(list) || list.length >= cap) return;
-  if (list.some((item) => item.value === fact.value)) return;
-  list.push(fact);
-}
-
-async function repairCompleteness(
-  ledger: ProfileEvidence[],
-  currentFacts: Array<{ category: string; value: string; pfEvidence: string[] }>,
-  configuration: CompletionConfig,
-  deadline: number,
+function updateCoverageDiagnostics(
   diagnostics: ProfileDiagnostics,
+  coverage: ValidatedCoverageItem[],
 ) {
-  const remaining = deadline - Date.now();
-  if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
-  diagnostics.upstreamAttempts += 1;
-  return requestCompletion(
-    buildCompletenessRepairMessages(ledger, currentFacts),
-    configuration,
-    remaining,
-    diagnostics,
-  );
-}
-
-function collectCurrentFacts(profile: CandidateProfileShape) {
-  const facts: Array<{ category: string; value: string; pfEvidence: string[] }> = [];
-  if (profile.careerTarget) {
-    facts.push({
-      category: "careerTarget",
-      value: profile.careerTarget.value,
-      pfEvidence: profile.careerTarget.pfEvidence,
-    });
-  }
-  for (const category of [
-    "education",
-    "experiences",
-    "projects",
-    "skills",
-    "certificates",
-    "portfolio",
-    "preferences",
-  ]) {
-    for (const item of profile[category as "education"] as NormalizedFact[]) {
-      facts.push({ category, value: item.value, pfEvidence: item.pfEvidence });
+  diagnostics.pfDispositionCounts = emptyDispositionCounts();
+  diagnostics.candidateFactPfCount = 0;
+  diagnostics.atomicClaimCount = 0;
+  for (const item of coverage) {
+    diagnostics.pfDispositionCounts[item.disposition] += 1;
+    if (item.disposition === "candidate_fact_source") {
+      diagnostics.candidateFactPfCount += 1;
     }
+    diagnostics.atomicClaimCount += item.atomicClaims.length;
   }
-  return facts;
-}
-
-function buildRepairMessages(
-  request: AnalyzeProfileRequest,
-  ledger: ProfileEvidence[],
-  errors: string[],
-): ChatMessage[] {
-  const ledgerText = ledger.map((item) => `${item.id}：${item.text}`).join("\n");
-  const system = [
-    "你是候选人资料结构化引擎的修复器。上一次结构化结果未通过校验，请重新输出完整、正确的结构化 JSON。",
-    "必须遵守：事实只能来自用户原文并引用 PF；sourceType 只允许 profile_stated/normalized_stated；禁止程度/经历/归属升级；derivedObservations 独立且可留空。",
-  ].join("\n");
-  const user = [
-    "校验错误：",
-    ...errors,
-    "",
-    "=== PF Evidence 列表 ===",
-    ledgerText,
-    "",
-    "=== 候选人原始资料 ===",
-    "<<<PROFILE_START>>>",
-    request.profileText,
-    "<<<PROFILE_END>>>",
-    "",
-    "请输出修正后的完整结构化结果 JSON。",
-  ].join("\n");
-  return [
-    { role: "system" as const, content: system },
-    { role: "user" as const, content: user },
-  ];
-}
-
-async function repairProfile(
-  request: AnalyzeProfileRequest,
-  ledger: ProfileEvidence[],
-  errors: string[],
-  configuration: CompletionConfig,
-  deadline: number,
-  diagnostics: ProfileDiagnostics,
-) {
-  const remaining = deadline - Date.now();
-  if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
-  diagnostics.upstreamAttempts += 1;
-  return requestCompletion(
-    buildRepairMessages(request, ledger, errors),
-    configuration,
-    remaining,
-    diagnostics,
-  );
 }
 
 export async function analyzeProfileWithDeepSeek(
   request: AnalyzeProfileRequest,
   options: ProfileOptions = {},
 ): Promise<FinalProfileStructure> {
+  const startedAt = Date.now();
   const apiKey = options.apiKey ?? process.env.DEEPSEEK_API_KEY;
   if (!apiKey) throw new ApiError("AI_AUTH_FAILED", 503);
 
@@ -697,6 +748,16 @@ export async function analyzeProfileWithDeepSeek(
     jsonParsePassed: false,
     rawSchemaValidationPassed: false,
     pfLedgerCount: 0,
+    pfTotal: 0,
+    pfDispositionCounts: emptyDispositionCounts(),
+    candidateFactPfCount: 0,
+    atomicClaimCount: 0,
+    unprocessedPfCount: 0,
+    completenessRepairRequestCount: 0,
+    atomicClaimRepairCount: 0,
+    finalFactCount: 0,
+    profileFactRecall: null,
+    latencyMs: 0,
     removedFactCount: 0,
     invalidEvidenceCount: 0,
     semanticUpgradeViolationCount: 0,
@@ -719,97 +780,96 @@ export async function analyzeProfileWithDeepSeek(
     const rawText = request.profileText;
     const ledger = buildProfileEvidenceLedger(rawText);
     diagnostics.pfLedgerCount = ledger.length;
+    diagnostics.pfTotal = ledger.length;
 
-    const content = await requestStructuring(request, ledger, configuration, deadline, diagnostics);
-    const parsed = parseJson(content, "invalid JSON output");
+    const content = await requestInitialCoverage(
+      request,
+      ledger,
+      configuration,
+      deadline,
+      diagnostics,
+    );
+    const parsed = parseJson(content, "invalid JSON output (coverage)");
     diagnostics.jsonParsePassed = true;
+    const validation = validateCoverageResponse(
+      parsed,
+      ledger,
+      rawText,
+      ledger,
+      diagnostics,
+    );
+    diagnostics.rawSchemaValidationPassed = validation.problems.size === 0;
 
-    const raw = rawProfileAnalysisSchema.safeParse(parsed);
-    diagnostics.rawSchemaValidationPassed = raw.success;
-    let candidateProfile = raw.success
-      ? prepareCandidateProfile(raw.data, rawText, ledger, diagnostics)
-      : null;
-    let finalized = candidateProfile
-      ? finalizeProfile(candidateProfile, ledger, rawText)
-      : { ok: false as const };
-
-    const hasProfileProblems =
-      !raw.success ||
-      !finalized.ok ||
-      diagnostics.layeringViolationCount > 0 ||
-      diagnostics.semanticUpgradeViolationCount > 0 ||
-      diagnostics.untraceableFactCount > 0 ||
-      diagnostics.invalidEvidenceCount > 0;
-
-    if (hasProfileProblems) {
+    if (validation.problems.size > 0) {
       diagnostics.profileRepairAttempted = true;
-      const errors = [
-        "原始结果未通过结构化/证据校验。重点检查：① 每个事实必须引用 PF 列表中存在的编号，且可回溯原文；② profile_stated 必须是原文逐字子串，最小标准化（如去掉“项目：”等标签前缀）必须使用 normalized_stated；③ 禁止程度/经历/归属升级；④ 事实中禁止 profile_inferred/to_verify。",
-        "请重新输出完整结构化结果，并确保每个事实可回溯到 PF Evidence。",
-      ];
-      const repairContent = await repairProfile(
-        request,
-        ledger,
-        errors,
-        configuration,
-        deadline,
-        diagnostics,
-      );
-      const repairParsed = parseJson(repairContent, "invalid JSON output (profile repair)");
-      const repairRaw = rawProfileAnalysisSchema.safeParse(repairParsed);
-      if (repairRaw.success) {
-        candidateProfile = prepareCandidateProfile(repairRaw.data, rawText, ledger, diagnostics);
-        finalized = finalizeProfile(candidateProfile, ledger, rawText);
-      }
-      diagnostics.profileRepairSucceeded = finalized.ok;
-    }
-
-    if (finalized.ok && finalized.value && candidateProfile) {
       diagnostics.completenessRepairUsed = true;
-      const used = referencedPfIds(candidateProfile);
-      const unused = ledger.filter((item) => !used.has(item.id));
-      diagnostics.unusedPfCount = unused.length;
-      const completenessContent = await repairCompleteness(
-        ledger,
-        collectCurrentFacts(candidateProfile),
+      const problemPfs = ledger.filter((item) => validation.problems.has(item.id));
+      const reasons = problemPfs.flatMap((pf) =>
+        (validation.problems.get(pf.id) ?? []).map(
+          (reason) => `${pf.id}: ${reason}`,
+        ),
+      );
+      const repairContent = await requestCoverageRepair(
+        problemPfs,
+        reasons,
         configuration,
         deadline,
         diagnostics,
       );
-      const completenessParsed = parseJson(
-        completenessContent,
-        "invalid JSON output (completeness repair)",
+      const repairParsed = parseJson(
+        repairContent,
+        "invalid JSON output (coverage repair)",
       );
-      const lines = completenessLinesSchema.safeParse(completenessParsed);
-      diagnostics.completenessRepairSucceeded = lines.success;
-      if (lines.success) {
-        for (const line of lines.data.lines) {
-          if (line.status !== "missing") continue;
-          for (const addition of line.additions) {
-            const fact = normalizeFact(addition, rawText, ledger, diagnostics);
-            if (!fact) {
-              diagnostics.droppedCandidateFactCount += 1;
-              continue;
-            }
-            appendFactToCategory(candidateProfile, addition.category, fact);
-          }
-        }
-      }
-      finalized = finalizeProfile(candidateProfile, ledger, rawText);
-      if (!finalized.ok) {
+      const repaired = validateCoverageResponse(
+        repairParsed,
+        problemPfs,
+        rawText,
+        ledger,
+        diagnostics,
+      );
+      diagnostics.completenessRepairSucceeded = repaired.problems.size === 0;
+      diagnostics.profileRepairSucceeded = repaired.problems.size === 0;
+      if (repaired.problems.size > 0) {
+        diagnostics.unprocessedPfCount = repaired.problems.size;
+        diagnostics.unusedPfCount = repaired.problems.size;
         throw new ApiError("AI_OUTPUT_INVALID", 502);
       }
+      for (const [pfId, item] of repaired.accepted) {
+        validation.accepted.set(pfId, item);
+      }
+      for (const pfId of repaired.accepted.keys()) {
+        validation.problems.delete(pfId);
+      }
     }
 
-    if (!finalized.ok || !finalized.value) {
+    diagnostics.unprocessedPfCount = ledger.length - validation.accepted.size;
+    diagnostics.unusedPfCount = diagnostics.unprocessedPfCount;
+    if (diagnostics.unprocessedPfCount !== 0) {
       throw new ApiError("AI_OUTPUT_INVALID", 502);
     }
 
+    const orderedCoverage = ledger.map((pf) => validation.accepted.get(pf.id)!);
+    updateCoverageDiagnostics(diagnostics, orderedCoverage);
+    const candidateProfile = buildCandidateProfile(orderedCoverage, ledger);
+    if (!candidateProfile) throw new ApiError("AI_OUTPUT_INVALID", 502);
+    const final = finalizeProfile(candidateProfile, ledger, rawText);
+    if (!final) throw new ApiError("AI_OUTPUT_INVALID", 502);
+
+    diagnostics.finalFactCount =
+      (final.candidateProfile.careerTarget ? 1 : 0) +
+      final.candidateProfile.education.length +
+      final.candidateProfile.experiences.length +
+      final.candidateProfile.projects.length +
+      final.candidateProfile.skills.length +
+      final.candidateProfile.certificates.length +
+      final.candidateProfile.portfolio.length +
+      final.candidateProfile.preferences.length;
     diagnostics.finalSchemaValidationPassed = true;
     diagnostics.finalEvidenceValidationPassed = true;
     diagnostics.finalValidationPassed = true;
-    return finalized.value;
+    return final;
   } finally {
+    diagnostics.latencyMs = Date.now() - startedAt;
     options.onDiagnostics?.({ ...diagnostics });
   }
 }

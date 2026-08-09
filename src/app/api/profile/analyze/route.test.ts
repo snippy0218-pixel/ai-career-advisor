@@ -6,6 +6,7 @@ import { POST } from "./route";
 afterEach(() => {
   vi.unstubAllGlobals();
   delete process.env.DEEPSEEK_API_KEY;
+  delete process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS;
 });
 
 const validProfileResponse = {
@@ -14,24 +15,39 @@ const validProfileResponse = {
       finish_reason: "stop",
       message: {
         content: JSON.stringify({
-          careerTarget: null,
-          education: [],
-          experiences: [],
-          projects: [],
-          skills: [
+          coverage: [
             {
-              value: "Python：了解",
-              sourceType: "normalized_stated",
-              pfEvidence: ["PF-001"],
-              verificationQuestion: null,
+              pfId: "PF-001",
+              disposition: "candidate_fact_source",
+              atomicClaims: [
+                {
+                  category: "education",
+                  value: "计算机本科",
+                  sourceType: "profile_stated",
+                  pfEvidence: ["PF-001"],
+                },
+                {
+                  category: "experiences",
+                  value: "应届生",
+                  sourceType: "profile_stated",
+                  pfEvidence: ["PF-001"],
+                },
+                {
+                  category: "skills",
+                  value: "了解 Python",
+                  sourceType: "profile_stated",
+                  pfEvidence: ["PF-001"],
+                },
+                {
+                  category: "projects",
+                  value: "参与过课程项目",
+                  sourceType: "profile_stated",
+                  pfEvidence: ["PF-001"],
+                },
+              ],
+              duplicateOf: null,
             },
           ],
-          certificates: [],
-          portfolio: [],
-          preferences: [],
-          derivedObservations: [],
-          unknowns: [],
-          questionsToConfirm: [],
         }),
       },
     },
@@ -98,12 +114,46 @@ describe("POST /api/profile/analyze", () => {
     const payload = await response.json();
     expect(payload.error).toBeNull();
     expect(payload.data.profileProvided).toBe(true);
-    expect(payload.data.candidateProfile.skills[0].value).toBe("Python：了解");
+    expect(payload.data.candidateProfile.skills[0].value).toBe("了解 Python");
     expect(payload.data.candidateProfile.evidence).toEqual([
       {
         id: "PF-001",
         text: "计算机本科，应届生，了解 Python。参与过课程项目。",
       },
     ]);
+  });
+
+  it("emits machine-readable diagnostics only in explicit acceptance mode", async () => {
+    process.env.DEEPSEEK_API_KEY = "test-key";
+    process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS = "1";
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify(validProfileResponse), { status: 200 }),
+      ),
+    );
+
+    const response = await POST(
+      new Request("http://localhost/api/profile/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profileText: "计算机本科，应届生，了解 Python。参与过课程项目。",
+        }),
+      }),
+    );
+
+    const encoded = response.headers.get("X-Profile-Acceptance-Diagnostics");
+    expect(encoded).not.toBeNull();
+    const diagnostics = JSON.parse(
+      Buffer.from(encoded!, "base64url").toString("utf8"),
+    );
+    expect(diagnostics).toEqual(
+      expect.objectContaining({
+        pfTotal: 1,
+        unprocessedPfCount: 0,
+        finalValidationPassed: true,
+      }),
+    );
   });
 });

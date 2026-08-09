@@ -2,13 +2,27 @@ import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
 import { analyzeProfileWithDeepSeek } from "@/lib/profile-deepseek";
+import type { ProfileDiagnostics } from "@/lib/profile-deepseek";
 import { analyzeProfileRequestSchema } from "@/lib/profile-schema";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
-  const responseHeaders = { "X-Request-ID": requestId };
+  let diagnosticsForAcceptance: ProfileDiagnostics | null = null;
+  const responseHeaders = () => {
+    const headers: Record<string, string> = { "X-Request-ID": requestId };
+    if (
+      process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS === "1" &&
+      diagnosticsForAcceptance !== null
+    ) {
+      headers["X-Profile-Acceptance-Diagnostics"] = Buffer.from(
+        JSON.stringify(diagnosticsForAcceptance),
+        "utf8",
+      ).toString("base64url");
+    }
+    return headers;
+  };
 
   try {
     let body: unknown;
@@ -26,6 +40,7 @@ export async function POST(request: Request) {
     const profile = await analyzeProfileWithDeepSeek(parsedRequest.data, {
       requestId,
       onDiagnostics: (diagnostics) => {
+        diagnosticsForAcceptance = diagnostics;
         console.info("[profile] request diagnostics", {
           requestId,
           ...diagnostics,
@@ -35,7 +50,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { data: profile, error: null },
-      { headers: responseHeaders },
+      { headers: responseHeaders() },
     );
   } catch (error) {
     const publicError = toPublicError(error, requestId);
@@ -53,7 +68,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(publicError.body, {
       status: publicError.status,
-      headers: responseHeaders,
+      headers: responseHeaders(),
     });
   }
 }

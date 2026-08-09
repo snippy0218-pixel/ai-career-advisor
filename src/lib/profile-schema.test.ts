@@ -6,6 +6,8 @@ import {
   finalProfileStructureSchema,
   hasFactTraceability,
   isAllowlistedNormalization,
+  isSafeSharedQualifierEnumeration,
+  rawPfCoverageItemSchema,
   resolveEvidenceToPf,
 } from "./profile-schema";
 
@@ -108,6 +110,56 @@ describe("isAllowlistedNormalization (strict semantic-preserving)", () => {
     ["未明确", "确定"],
   ])("rejects semantic substitution: %s → %s", (pf, value) => {
     expect(isAllowlistedNormalization(value, pf)).toBe(false);
+  });
+});
+
+describe("isSafeSharedQualifierEnumeration", () => {
+  it("allows a qualifier to project only inside its bounded enumeration", () => {
+    expect(
+      isSafeSharedQualifierEnumeration(
+        "接触过 Figma",
+        "技能：接触过 SQL 与 Figma；协助老师整理资料",
+      ),
+    ).toBe(true);
+  });
+
+  it.each([
+    ["负责校园活动", "参与过校园活动，负责宣传物料"],
+    ["熟练 Python", "了解 Python，与同学完成课程项目"],
+    ["独立完成项目", "团队完成项目，与老师独立沟通"],
+  ])("rejects cross-clause qualifier borrowing: %s", (value, pf) => {
+    expect(isSafeSharedQualifierEnumeration(value, pf)).toBe(false);
+  });
+});
+
+describe("rawPfCoverageItemSchema", () => {
+  it("requires atomic claims for candidate_fact_source", () => {
+    expect(
+      rawPfCoverageItemSchema.safeParse({
+        pfId: "PF-001",
+        disposition: "candidate_fact_source",
+        atomicClaims: [],
+        duplicateOf: null,
+      }).success,
+    ).toBe(false);
+  });
+
+  it("forbids Candidate Facts on instruction_text", () => {
+    expect(
+      rawPfCoverageItemSchema.safeParse({
+        pfId: "PF-001",
+        disposition: "instruction_text",
+        atomicClaims: [
+          {
+            category: "experiences",
+            value: "5 年经验",
+            sourceType: "profile_stated",
+            pfEvidence: ["PF-001"],
+          },
+        ],
+        duplicateOf: null,
+      }).success,
+    ).toBe(false);
   });
 });
 

@@ -31,6 +31,30 @@ export interface ProfileEvidence {
   text: string;
 }
 
+export const PROFILE_FACT_CATEGORIES = [
+  "careerTarget",
+  "education",
+  "experiences",
+  "projects",
+  "skills",
+  "certificates",
+  "portfolio",
+  "preferences",
+] as const;
+
+export type ProfileFactCategory = (typeof PROFILE_FACT_CATEGORIES)[number];
+
+export const PF_DISPOSITIONS = [
+  "candidate_fact_source",
+  "context_only",
+  "duplicate",
+  "non_candidate_fact",
+  "instruction_text",
+  "unsupported_or_ambiguous",
+] as const;
+
+export type PfDisposition = (typeof PF_DISPOSITIONS)[number];
+
 export const pfIdPattern = /^PF-\d{3,}$/;
 
 /**
@@ -132,6 +156,72 @@ export const rawProfileAnalysisSchema = z
   .strict();
 
 export type RawProfileAnalysis = z.infer<typeof rawProfileAnalysisSchema>;
+
+// ---- Coverage-driven model output (Phase 2.1 / ISSUE-025) ----
+// This is an internal extraction contract. The public Final Profile Contract
+// remains candidate-profile-v1 and is built only from validated atomic claims.
+export const rawAtomicClaimSchema = z
+  .object({
+    category: z.enum(PROFILE_FACT_CATEGORIES),
+    value: z.string().trim().min(1).max(200),
+    sourceType: z.enum(["profile_stated", "normalized_stated"]),
+    pfEvidence: z.array(z.string()).min(1).max(3),
+  })
+  .strict();
+
+export const rawPfCoverageItemSchema = z
+  .object({
+    pfId: z.string().regex(pfIdPattern),
+    disposition: z.enum(PF_DISPOSITIONS),
+    atomicClaims: z.array(rawAtomicClaimSchema).max(12),
+    duplicateOf: z.string().regex(pfIdPattern).nullable().optional().default(null),
+  })
+  .strict()
+  .superRefine((item, context) => {
+    if (
+      item.disposition === "candidate_fact_source" &&
+      item.atomicClaims.length === 0
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "candidate_fact_source requires at least one atomic claim",
+        path: ["atomicClaims"],
+      });
+    }
+    if (
+      item.disposition !== "candidate_fact_source" &&
+      item.atomicClaims.length > 0
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "non-candidate dispositions cannot contain atomic claims",
+        path: ["atomicClaims"],
+      });
+    }
+    if (item.disposition === "duplicate" && item.duplicateOf === null) {
+      context.addIssue({
+        code: "custom",
+        message: "duplicate disposition requires duplicateOf",
+        path: ["duplicateOf"],
+      });
+    }
+    if (item.disposition !== "duplicate" && item.duplicateOf !== null) {
+      context.addIssue({
+        code: "custom",
+        message: "duplicateOf is only allowed for duplicate disposition",
+        path: ["duplicateOf"],
+      });
+    }
+  });
+
+export const rawProfileCoverageSchema = z
+  .object({
+    coverage: z.array(rawPfCoverageItemSchema).max(30),
+  })
+  .strict();
+
+export type RawAtomicClaim = z.infer<typeof rawAtomicClaimSchema>;
+export type RawPfCoverageItem = z.infer<typeof rawPfCoverageItemSchema>;
 
 // ---- Final candidate fact / derived observation schema ----
 const finalCandidateFactSchema = z
@@ -249,4 +339,55 @@ export function isAllowlistedNormalization(
   const value = normalize(factValue);
   const source = normalize(pfText);
   return value.length > 0 && source.includes(value);
+}
+
+/**
+ * Allows one narrow normalization in addition to the deletion-only allowlist:
+ * projecting a shared, explicit qualifier onto one member of a coordinated
+ * enumeration in the same continuous PF text.
+ *
+ * Example: "接触过 SQL 与 Figma" -> "接触过 Figma".
+ * This is not token-containment: the qualifier must immediately introduce the
+ * bounded enumeration and the selected item must be an exact member. It cannot
+ * borrow a qualifier from another clause, so "参与 A，负责 B" cannot validate
+ * "负责 A".
+ */
+export function isSafeSharedQualifierEnumeration(
+  factValue: string,
+  pfText: string,
+): boolean {
+  const compact = (text: string) => text.replace(/\s+/g, "").trim();
+  const value = compact(factValue).replace(/[。；;]$/, "");
+  const source = compact(pfText);
+  const qualifiers = [
+    "没有使用",
+    "未使用",
+    "不接受",
+    "接触过",
+    "了解",
+    "熟悉",
+    "掌握",
+    "使用过",
+    "会使用",
+    "基础",
+  ];
+
+  for (const qualifier of qualifiers) {
+    if (!value.startsWith(qualifier) || value.length === qualifier.length) continue;
+    const subject = value.slice(qualifier.length).replace(/^[：:]/, "");
+    let searchFrom = 0;
+    while (searchFrom < source.length) {
+      const qualifierIndex = source.indexOf(qualifier, searchFrom);
+      if (qualifierIndex < 0) break;
+      const tail = source.slice(qualifierIndex + qualifier.length);
+      const bounded = tail.split(/[，,；;。！？!?]/, 1)[0];
+      const members = bounded
+        .split(/(?:、|以及|并且|和|与|及)/)
+        .map((item) => item.replace(/^[：:]/, "").trim())
+        .filter(Boolean);
+      if (members.length >= 2 && members.includes(subject)) return true;
+      searchFrom = qualifierIndex + qualifier.length;
+    }
+  }
+  return false;
 }
