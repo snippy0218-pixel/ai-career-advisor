@@ -171,20 +171,22 @@ export function computeAllowedRecommendationLevels(
   }
   if (otherNegative) return ["cautious", "not_recommended"];
 
-  const hasCriticalUncertainty = substantive.some(
-    (item) =>
-      item.requirementType === "unclear" ||
-      hasDimensionStatus(item, "unknown") ||
-      hasDimensionStatus(item, "partial"),
-  );
-  if (hasCriticalUncertainty) return ["try", "cautious"];
-
   const hasCorePositive = substantive.some(
     (item) =>
       (item.requirementType === "hard_requirement" ||
         item.requirementType === "core_requirement") &&
       hasPositiveEvidence(item),
   );
+  const hasCriticalUncertainty = substantive.some(
+    (item) =>
+      item.requirementType === "unclear" ||
+      hasDimensionStatus(item, "unknown") ||
+      hasDimensionStatus(item, "partial"),
+  );
+  if (hasCriticalUncertainty) {
+    return hasCorePositive ? ["try", "cautious"] : ["cautious"];
+  }
+
   return hasCorePositive ? ["priority", "try"] : ["try", "cautious"];
 }
 
