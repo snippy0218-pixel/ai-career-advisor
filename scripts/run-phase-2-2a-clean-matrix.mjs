@@ -436,6 +436,7 @@ for (const testCase of cases) {
       requestId: response.headers.get("x-request-id"),
       latencyMs: Date.now() - startedAt,
       error: body.error,
+      data: body.data,
       diagnostics,
       gates,
     });

@@ -344,6 +344,30 @@ describe("match-core schema and status contract", () => {
     );
   });
 
+  it("rejects a duration requirement that was not decomposed", () => {
+    const result = finalize(4, {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unknown",
+          dimensions: [
+            dimension({
+              dimensionType: "other",
+              requirementFragment: "2年以上产品相关经验",
+              jdEvidence: ["2年以上产品相关经验"],
+              missingInformation: "完整要求的满足情况",
+              verificationQuestion: "请补充产品经验与年限信息。",
+            }),
+          ],
+        },
+      ],
+    });
+    expect(result.data).toBeNull();
+    expect(result.issues.map((item) => item.message).join(" ")).toMatch(
+      /duration dimension|separate duration/,
+    );
+  });
+
   it("rejects unmet without counter-evidence and unknown with contradiction", () => {
     const unmet = finalize(1, {
       matchItems: [

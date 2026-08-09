@@ -1,0 +1,431 @@
+{
+  "generatedAt": "2026-08-09T10:32:39.955Z",
+  "implementationCommit": "3211eb03b8f348b29406017979813e57f04ea0cb",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "MC-TC-01..10 x 1",
+  "requestCount": 10,
+  "metrics": {
+    "http200": 0,
+    "finalSchemaPass": 0,
+    "jdEvidencePass": 0,
+    "candidateEvidencePass": 0,
+    "expectedStatusPass": 0,
+    "repairRequests": 0,
+    "matchRepairRate": null,
+    "latencyMs": null,
+    "dimensionCount": 0
+  },
+  "gateResults": {
+    "M-A_jd_evidence_integrity": false,
+    "M-B_candidate_evidence_integrity": false,
+    "M-C_cross_source_isolation": false,
+    "M-D_status_integrity": false,
+    "M-E_unmet_counter_evidence": false,
+    "M-F_unknown_integrity": false,
+    "M-G_aggregate_integrity": false,
+    "M-H_final_schema": false,
+    "M-I_candidate_profile_immutability": false
+  },
+  "runs": [
+    {
+      "tcId": "MC-TC-01",
+      "name": "explicit education met",
+      "run": 1,
+      "inputSha256": "31a8d195f41e2466ff0b0c19760081a1b6bbf7d249cb8fed4d4305fae4cfdc39",
+      "httpStatus": 503,
+      "requestId": "412a22a4-0e42-42a0-b91e-d7a59398b6ae",
+      "latencyMs": 108,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "412a22a4-0e42-42a0-b91e-d7a59398b6ae",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 24,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-02",
+      "name": "explicit education unmet",
+      "run": 1,
+      "inputSha256": "b735d8ab86c8325e9863a3e28dd333d6840c42d806fcb6c253b90806c60b8684",
+      "httpStatus": 503,
+      "requestId": "65b4169b-4db5-4816-b90a-a41a140eb2df",
+      "latencyMs": 12,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "65b4169b-4db5-4816-b90a-a41a140eb2df",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-03",
+      "name": "SQL absence unknown",
+      "run": 1,
+      "inputSha256": "6bdb4255926473a8f23c54129e65f391aeabc08e1356b65b917074696924cd38",
+      "httpStatus": 503,
+      "requestId": "542f6da5-d45a-47ce-b8cd-169830c15b2a",
+      "latencyMs": 9,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "542f6da5-d45a-47ce-b8cd-169830c15b2a",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-04",
+      "name": "Python proficiency partial",
+      "run": 1,
+      "inputSha256": "e0b3cda3808988c5fa0196488f8c8bdb7d1d884683b07058103f57eed5de521f",
+      "httpStatus": 503,
+      "requestId": "52046df2-9403-4b7b-a4ca-6e6f2105b892",
+      "latencyMs": 9,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "52046df2-9403-4b7b-a4ca-6e6f2105b892",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-05",
+      "name": "product domain positive duration unknown",
+      "run": 1,
+      "inputSha256": "a69df1248b2d9f1ff2533c17b0aae1790c9970c0be83fbabd20a0735ec7cedf8",
+      "httpStatus": 503,
+      "requestId": "52520a74-caa0-4d03-a7fb-48883db1dc0d",
+      "latencyMs": 8,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "52520a74-caa0-4d03-a7fb-48883db1dc0d",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-06",
+      "name": "course project is not full-time contradiction",
+      "run": 1,
+      "inputSha256": "e0a8408ef768d98d15de82f9c818a4c4e3865064b619b17f1f42257460162016",
+      "httpStatus": 503,
+      "requestId": "58d5b9b9-d6a2-43c1-9a88-82dc2b80b10b",
+      "latencyMs": 9,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "58d5b9b9-d6a2-43c1-9a88-82dc2b80b10b",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-07",
+      "name": "explicit no-work counter-evidence",
+      "run": 1,
+      "inputSha256": "7736248369104adb56a27d69acf6ca4ab2ef77f7a648e5e052179ee7867b85e7",
+      "httpStatus": 503,
+      "requestId": "fcb92a0e-e45d-4910-a7b3-b1b1e9d09970",
+      "latencyMs": 10,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "fcb92a0e-e45d-4910-a7b3-b1b1e9d09970",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-08",
+      "name": "multi-tag scoped CF",
+      "run": 1,
+      "inputSha256": "b7c947cfa04472c2077bc87f8d8ba5d00a0260b6826ad5a3929cf55f3a1142d5",
+      "httpStatus": 503,
+      "requestId": "628a4b2f-45c4-4241-9dc1-57beeea67fdf",
+      "latencyMs": 11,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "628a4b2f-45c4-4241-9dc1-57beeea67fdf",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 4,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-09",
+      "name": "preferred unknown",
+      "run": 1,
+      "inputSha256": "e7871d705f27bbd871de3db3de45f907c6b71c5b001c54bb95e091e136f3b937",
+      "httpStatus": 503,
+      "requestId": "e0e1e019-95be-4655-ac7e-7258f24b5bec",
+      "latencyMs": 9,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "e0e1e019-95be-4655-ac7e-7258f24b5bec",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 2,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "MC-TC-10",
+      "name": "prompt injection isolation",
+      "run": 1,
+      "inputSha256": "3a48b4ad1f5395326e96cfe3770673e4da6488b89a8b2686344590de24461fa0",
+      "httpStatus": 503,
+      "requestId": "203c44be-86af-41b2-adb4-129ccbaad3b6",
+      "latencyMs": 9,
+      "error": {
+        "code": "AI_SERVICE_UNAVAILABLE",
+        "message": "分析服务暂时不可用，请稍后重试。",
+        "request_id": "203c44be-86af-41b2-adb4-129ccbaad3b6",
+        "retryable": true
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 3,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false
+      },
+      "gates": null
+    }
+  ]
+}

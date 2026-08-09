@@ -140,6 +140,41 @@ export function aggregateDimensionStatuses(statuses: MatchStatus[]): MatchStatus
   return "unknown";
 }
 
+function addRequiredDimensionIssues(
+  requirement: MatchRequirementLedgerItem,
+  dimensions: RawMatchCore["matchItems"][number]["dimensions"],
+  itemPath: string,
+  issues: MatchValidationIssue[],
+) {
+  const text = `${requirement.requirement} ${requirement.jdEvidence.join(" ")}`;
+  const dimensionTypes = new Set(dimensions.map((item) => item.dimensionType));
+  const hasDurationRequirement =
+    /(?:[一二三四五六七八九十\d]+)\s*年(?:以上|及以上)/.test(text);
+  if (hasDurationRequirement) {
+    if (!dimensionTypes.has("duration")) {
+      addIssue(
+        issues,
+        `${itemPath}.dimensions`,
+        "explicit duration requirement requires a duration dimension",
+      );
+    }
+    if (dimensions.length < 2) {
+      addIssue(
+        issues,
+        `${itemPath}.dimensions`,
+        "duration requirement must separate duration from the related role/domain/experience dimension",
+      );
+    }
+  }
+  if (/(?:全职|正式工作)/.test(text) && !dimensionTypes.has("employment_type")) {
+    addIssue(
+      issues,
+      `${itemPath}.dimensions`,
+      "explicit full-time/formal-work requirement requires an employment_type dimension",
+    );
+  }
+}
+
 function addIssue(
   issues: MatchValidationIssue[],
   path: string,
@@ -193,6 +228,8 @@ export function finalizeRawMatchCore(
       addIssue(issues, `${itemPath}.requirementId`, "unknown requirement reference");
       return;
     }
+
+    addRequiredDimensionIssues(requirement, item.dimensions, itemPath, issues);
 
     const computedAggregate = aggregateDimensionStatuses(
       item.dimensions.map((dimension) => dimension.status),

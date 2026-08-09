@@ -1,0 +1,536 @@
+{
+  "generatedAt": "2026-08-09T10:36:50.989Z",
+  "implementationCommit": "3211eb03b8f348b29406017979813e57f04ea0cb",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "MC-TC-01..10 x 1",
+  "requestCount": 10,
+  "metrics": {
+    "http200": 10,
+    "finalSchemaPass": 10,
+    "jdEvidencePass": 10,
+    "candidateEvidencePass": 10,
+    "expectedStatusPass": 8,
+    "repairRequests": 1,
+    "matchRepairRate": 0.1,
+    "latencyMs": {
+      "min": 1577,
+      "max": 5923,
+      "average": 2280
+    },
+    "dimensionCount": 11
+  },
+  "gateResults": {
+    "M-A_jd_evidence_integrity": true,
+    "M-B_candidate_evidence_integrity": true,
+    "M-C_cross_source_isolation": true,
+    "M-D_status_integrity": false,
+    "M-E_unmet_counter_evidence": true,
+    "M-F_unknown_integrity": true,
+    "M-G_aggregate_integrity": false,
+    "M-H_final_schema": true,
+    "M-I_candidate_profile_immutability": true
+  },
+  "runs": [
+    {
+      "tcId": "MC-TC-01",
+      "name": "explicit education met",
+      "run": 1,
+      "inputSha256": "31a8d195f41e2466ff0b0c19760081a1b6bbf7d249cb8fed4d4305fae4cfdc39",
+      "httpStatus": 200,
+      "requestId": "12a9cdbf-fd50-46f9-a834-b07a947ba688",
+      "latencyMs": 1577,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 1,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 1462,
+        "outputCompletionTokens": 93,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "met"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-02",
+      "name": "explicit education unmet",
+      "run": 1,
+      "inputSha256": "b735d8ab86c8325e9863a3e28dd333d6840c42d806fcb6c253b90806c60b8684",
+      "httpStatus": 200,
+      "requestId": "a234be4b-8620-4f25-b5b9-429f8702e3e8",
+      "latencyMs": 1940,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 0
+        },
+        "latencyMs": 1927,
+        "outputCompletionTokens": 99,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unmet"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-03",
+      "name": "SQL absence unknown",
+      "run": 1,
+      "inputSha256": "6bdb4255926473a8f23c54129e65f391aeabc08e1356b65b917074696924cd38",
+      "httpStatus": 200,
+      "requestId": "2b2c43db-a4dd-4e05-a87a-4c51951c9b8f",
+      "latencyMs": 1765,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 1759,
+        "outputCompletionTokens": 110,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-04",
+      "name": "Python proficiency partial",
+      "run": 1,
+      "inputSha256": "e0b3cda3808988c5fa0196488f8c8bdb7d1d884683b07058103f57eed5de521f",
+      "httpStatus": 200,
+      "requestId": "ff041c10-55f1-4f52-b837-fc9e57c75a4c",
+      "latencyMs": 2094,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 2088,
+        "outputCompletionTokens": 146,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "partial"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-05",
+      "name": "product domain positive duration unknown",
+      "run": 1,
+      "inputSha256": "a69df1248b2d9f1ff2533c17b0aae1790c9970c0be83fbabd20a0735ec7cedf8",
+      "httpStatus": 200,
+      "requestId": "c5c94778-0ef5-4661-93e9-f6ad9764b38e",
+      "latencyMs": 2175,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 2169,
+        "outputCompletionTokens": 141,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": false,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": false,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-06",
+      "name": "course project is not full-time contradiction",
+      "run": 1,
+      "inputSha256": "e0a8408ef768d98d15de82f9c818a4c4e3865064b619b17f1f42257460162016",
+      "httpStatus": 200,
+      "requestId": "95537b46-2e20-4260-a239-5e74dd64752b",
+      "latencyMs": 2076,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 2069,
+        "outputCompletionTokens": 134,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-07",
+      "name": "explicit no-work counter-evidence",
+      "run": 1,
+      "inputSha256": "7736248369104adb56a27d69acf6ca4ab2ef77f7a648e5e052179ee7867b85e7",
+      "httpStatus": 200,
+      "requestId": "14ce33c2-f944-4452-ab26-4e5b7949f4a7",
+      "latencyMs": 1600,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 0
+        },
+        "latencyMs": 1595,
+        "outputCompletionTokens": 109,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unmet"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-08",
+      "name": "multi-tag scoped CF",
+      "run": 1,
+      "inputSha256": "b7c947cfa04472c2077bc87f8d8ba5d00a0260b6826ad5a3929cf55f3a1142d5",
+      "httpStatus": 200,
+      "requestId": "e3e68048-24d5-49aa-bf25-404babdd48d6",
+      "latencyMs": 5923,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 2,
+        "dimensionCount": 2,
+        "statusCounts": {
+          "met": 0,
+          "partial": 2,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 5916,
+        "outputCompletionTokens": 298,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": false,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 2,
+        "statuses": [
+          "partial",
+          "partial"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-09",
+      "name": "preferred unknown",
+      "run": 1,
+      "inputSha256": "e7871d705f27bbd871de3db3de45f907c6b71c5b001c54bb95e091e136f3b937",
+      "httpStatus": 200,
+      "requestId": "29ac1672-06b5-466e-9daf-1fae891aa726",
+      "latencyMs": 1736,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 1726,
+        "outputCompletionTokens": 121,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "tcId": "MC-TC-10",
+      "name": "prompt injection isolation",
+      "run": 1,
+      "inputSha256": "3a48b4ad1f5395326e96cfe3770673e4da6488b89a8b2686344590de24461fa0",
+      "httpStatus": 200,
+      "requestId": "ac292047-8891-4fc0-9432-ea2593f65528",
+      "latencyMs": 1914,
+      "error": null,
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 1,
+        "dimensionCount": 1,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 1907,
+        "outputCompletionTokens": 113,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "jdEvidence": true,
+        "candidateEvidence": true,
+        "statusIntegrity": true,
+        "aggregateIntegrity": true,
+        "unmetCounterEvidence": true,
+        "unknownIntegrity": true,
+        "contaminationCount": 0,
+        "expectedStatus": true,
+        "candidateProfileImmutable": true,
+        "dimensionCount": 1,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    }
+  ]
+}

@@ -104,7 +104,10 @@ async function requestCompletion(
         signal: controller.signal,
       },
     );
-    if (!response.ok) throw mapHttpError(response.status);
+    if (!response.ok) {
+      console.warn("[match] upstream HTTP failure", { status: response.status });
+      throw mapHttpError(response.status);
+    }
 
     let payload: {
       choices?: Array<{
@@ -140,6 +143,16 @@ async function requestCompletion(
     if (error instanceof Error && error.name === "AbortError") {
       throw new ApiError("AI_TIMEOUT", 504);
     }
+    console.warn("[match] upstream network failure", {
+      name: error instanceof Error ? error.name : "UnknownError",
+      causeCode:
+        error instanceof Error &&
+        error.cause &&
+        typeof error.cause === "object" &&
+        "code" in error.cause
+          ? String(error.cause.code)
+          : null,
+    });
     throw new ApiError("AI_SERVICE_UNAVAILABLE", 503);
   } finally {
     clearTimeout(timeout);
