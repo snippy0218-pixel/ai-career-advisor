@@ -190,6 +190,38 @@ export function computeAllowedRecommendationLevels(
   return hasCorePositive ? ["priority", "try"] : ["try", "cautious"];
 }
 
+export function buildRecommendationDeterministicConstraints(
+  matchCore: FinalMatchCore,
+) {
+  const ledger = buildRecommendationMatchLedger(matchCore);
+  return {
+    allowedRecommendationLevels: computeAllowedRecommendationLevels(matchCore),
+    eligibleSupportingMatchRefs: ledger
+      .filter(hasPositiveEvidence)
+      .map((item) => item.matchItemRef),
+    eligibleCounterMatchRefs: ledger
+      .filter((item) => !isPreferred(item) && hasExplicitCounterEvidence(item))
+      .map((item) => item.matchItemRef),
+    requiredUnknownMatchRefs: ledger
+      .filter((item) => !isPreferred(item) && hasDimensionStatus(item, "unknown"))
+      .map((item) => item.matchItemRef),
+    hardUnknownMatchRefs: ledger
+      .filter(
+        (item) =>
+          item.requirementType === "hard_requirement" &&
+          hasDimensionStatus(item, "unknown"),
+      )
+      .map((item) => item.matchItemRef),
+    hardUnmetMatchRefs: ledger
+      .filter(
+        (item) =>
+          item.requirementType === "hard_requirement" &&
+          hasDimensionStatus(item, "unmet"),
+      )
+      .map((item) => item.matchItemRef),
+  };
+}
+
 function addIssue(
   issues: RecommendationValidationIssue[],
   path: string,

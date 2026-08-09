@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildRecommendationDeterministicConstraints,
   computeAllowedRecommendationLevels,
   finalizeRawRecommendation,
   finalRecommendationSchema,
@@ -100,6 +101,11 @@ describe("Recommendation Core deterministic contract", () => {
       "priority",
       "try",
     ]);
+    expect(buildRecommendationDeterministicConstraints(fixture.matchCore)).toMatchObject({
+      eligibleSupportingMatchRefs: ["MI-001"],
+      eligibleCounterMatchRefs: [],
+      requiredUnknownMatchRefs: [],
+    });
   });
 
   it("R-G rejects fabricated and role-ineligible references", () => {
