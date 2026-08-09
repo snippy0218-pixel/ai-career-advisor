@@ -160,3 +160,38 @@
 - v4 API 边界因 fail-closed 表现为 Case A；诊断同时证明一次 Case C course-scope violation；历史同输入输出曾完整保留 PF-003 语义但只在 projects 中，证明 Case B 路径存在；因此当前失败不能定性为纯 runtime-model semantic omission；
 - 当前 category 数组同时承担 canonical storage、UI projection 与未来 Match Engine evidence index，且 atomic claim 只允许单 category，记录为 architecture concern；
 - 建议先由 Product/QA 裁定 Contract amendment：canonical atomic semantic fact 与 typed/multi-label projection 是否分离。runtime model benchmark 暂停；完整逐事实映射见 `docs/acceptance-artifacts/phase-2-1/TC04-TAXONOMY-AUDIT.md`。
+
+## 20. Contract Amendment 2.0.1 与 canonical implementation
+
+- Product Owner / QA 批准 Candidate Fact Canonicalization Amendment：`Raw → PF → Validated Atomic Claim → Canonical Candidate Fact → Semantic Classification → Typed Projection`；完整协议见 `docs/PHASE-2-CONTRACT.md` §3.3/§16.1；
+- implementation commit：`cfdd13c46b9fa9cb297597481dee0ddc337a664a`；`candidate-profile-v2` 以 `canonicalFacts[]` 为唯一 Candidate Fact truth layer，`CF-001…` 由服务端稳定生成；
+- atomic claim 改为一份 `statement` ＋ 多值 `semanticTags[]`；typed category arrays 只保存 CF references，projection 不再生成 statement/evidence/qualifier；
+- PF-H 正式澄清为 `semanticContentRecall = 100%`；新增 PF-I `categoryProjectionRecall = 100%`。冻结 Raw Profile、38 条 expected semantic facts、负向事实与历史失败均未删除或改写；仅显式增加 39 个 expected projections。
+
+## 21. Static / deterministic validation
+
+- TC04 fixture 证明：`完成数据分析课程作业，使用 Python 处理 CSV 数据` 确定性成为唯一一条 canonical fact，同时带 `project_experience + skill_usage`，projects/skills 均引用同一 CF；
+- schema tests 覆盖 stable CF IDs、multi-tag、projection/tag 双向完整性、无第二事实源、`profile_inferred` 禁入 CF；normalization 与 injection/negative/fail-closed tests 保持；
+- 完整自动化：8 files / **199/199 PASS**；lint PASS；production build PASS；Phase 1 protected pipeline 未修改。
+
+## 22. Canonical 8×1 preflight（同 implementation commit）
+
+- artifact：`docs/acceptance-artifacts/phase-2-1/canonical-preflight.json`；commit `cfdd13c…`；8/8 HTTP 200、Final Schema 8/8、PF Evidence 8/8；
+- `semanticContentRecall = 38/38 = 100%`；`categoryProjectionRecall = 39/39 = 100%`；0 hallucination、0 semantic upgrade、0 source contamination；Injection PASS；
+- TC04：semantic 5/5、projection 6/6；课程工具事实为一条 CF，多标签且同时投影到 projects/skills；
+- repair：profile/semantic repair 0；deterministic projection corrections 4；course-tool canonicalization 1；upstream attempts 8；平均 latency 2735 ms；
+- PF-A～PF-I 全绿，满足继续 24-request matrix 的前置条件。
+
+## 23. Canonical Final Clean Matrix（8×3 = 24）
+
+- artifact：`docs/acceptance-artifacts/phase-2-1/canonical-final-matrix.json`；同一 implementation commit `cfdd13c…`；24 个 request_id 全部保存；
+- HTTP 24/24；Final Schema 24/24；PF Evidence 24/24；Candidate Fact hallucination 0；semantic upgrade 0；source contamination 0；Injection 3/3 PASS；
+- **PF-H：semanticContentRecall = 114/114 = 100%**；
+- **PF-I：categoryProjectionRecall = 117/117 = 100%**；
+- TC04 三轮均为 semantic 5/5、projection 6/6；每轮只有一条课程工具 canonical fact `CF-003`，statement 完整保留课程作用域，tags=`project_experience + skill_usage`，projects/skills 引用同一 CF；
+- Metrics：profile/semantic repair 0/24；deterministic projection corrections 11（7/24 requests）；course-tool canonicalization 3；upstream attempts 24（每请求 1 次）；平均 latency 2532 ms。
+
+## 24. Gate recommendation（不自行宣布 PASS）
+
+- 当前工程证据：PF-A～PF-I 全部达到冻结目标，Phase 1 tests/lint/build 无回归；ISSUE-025 的 semantic completeness 与 category projection failure mode 在冻结集上均得到覆盖；
+- **建议 Product Owner / QA 进行 Phase 2.1 Final Gate Review**。本文件仍不宣称 Phase 2.1 PASS；ISSUE-025 在人工 Gate 前保持 Open / P1 / Gate Blocker；Phase 2.2 仍未授权。

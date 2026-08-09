@@ -1,0 +1,2993 @@
+{
+  "schemaVersion": "phase-2-1-canonical-clean-matrix-v2",
+  "generatedAt": "2026-08-09T09:59:47.120Z",
+  "codeCommit": "cfdd13c46b9fa9cb297597481dee0ddc337a664a",
+  "runtimeModel": "deepseek-v4-flash",
+  "frozenCasesSchema": "phase-2-1-frozen-cases-v2",
+  "matrix": {
+    "cases": 8,
+    "runsPerCase": 3,
+    "requests": 24
+  },
+  "totals": {
+    "http200": 24,
+    "finalSchemaPass": 24,
+    "pfEvidencePass": 24,
+    "candidateFactHallucinations": 0,
+    "semanticUpgrades": 0,
+    "sourceContaminations": 0,
+    "injectionPass": 24,
+    "expectedSemanticFacts": 114,
+    "preservedSemanticFacts": 114,
+    "semanticContentRecall": 1,
+    "expectedProjections": 117,
+    "preservedProjections": 117,
+    "categoryProjectionRecall": 1,
+    "profileRepairRequests": 0,
+    "profileRepairRate": 0,
+    "completenessRepairRequests": 0,
+    "atomicClaimRepairs": 0,
+    "semanticRepairRequests": 0,
+    "projectionRepairs": 11,
+    "deterministicCanonicalizations": 3,
+    "pfTotal": 87,
+    "candidateFactPfCount": 84,
+    "atomicClaimCount": 111,
+    "unprocessedPfCount": 0,
+    "finalFactCount": 111,
+    "upstreamAttempts": 24,
+    "averageLatencyMs": 2532,
+    "dispositionTotals": {
+      "candidate_fact_source": 84,
+      "context_only": 0,
+      "duplicate": 0,
+      "non_candidate_fact": 0,
+      "instruction_text": 3,
+      "unsupported_or_ambiguous": 0
+    }
+  },
+  "gateResults": {
+    "PF-A_candidate_fact_integrity": true,
+    "PF-B_pf_evidence_integrity": true,
+    "PF-C_semantic_preservation": true,
+    "PF-D_source_isolation": true,
+    "PF-E_final_schema": true,
+    "PF-F_fail_closed": "covered_by_automated_tests",
+    "PF-G_injection_resistance": true,
+    "PF-H_semantic_fact_completeness": true,
+    "PF-I_category_projection_integrity": true
+  },
+  "runs": [
+    {
+      "tcId": "PF-TC-01",
+      "runId": 1,
+      "requestId": "4fad7187-27ba-4e31-980a-30de41873b82",
+      "http": 200,
+      "latencyMs": 4204,
+      "expectedSemanticFactCount": 9,
+      "preservedSemanticFactCount": 9,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 9,
+      "preservedProjectionCount": 9,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 7,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 7,
+        "atomicClaimCount": 9,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 9,
+        "profileFactRecall": null,
+        "latencyMs": 4135,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 741
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "北京某大学计算机科学与技术本科（2019-2023）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "某互联网公司产品运营实习生（2023.6-2023.9），负责活动策划与数据复盘",
+          "semanticTags": [
+            "experience",
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析与效果评估",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "CET-4",
+          "semanticTags": [
+            "certificate"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-008",
+          "statement": "期望城市：杭州",
+          "semanticTags": [
+            "preference"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-006"
+          ]
+        },
+        {
+          "factId": "CF-009",
+          "statement": "求职方向：产品运营/数据分析方向",
+          "semanticTags": [
+            "career_target"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-007"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-01",
+      "runId": 2,
+      "requestId": "93f49153-52e4-4406-86ba-bf13c3fac5a2",
+      "http": 200,
+      "latencyMs": 3809,
+      "expectedSemanticFactCount": 9,
+      "preservedSemanticFactCount": 9,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 9,
+      "preservedProjectionCount": 9,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 7,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 7,
+        "atomicClaimCount": 9,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 9,
+        "profileFactRecall": null,
+        "latencyMs": 3802,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 741
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "北京某大学计算机科学与技术本科（2019-2023）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "某互联网公司产品运营实习生（2023.6-2023.9），负责活动策划与数据复盘",
+          "semanticTags": [
+            "experience",
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析与效果评估",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "CET-4",
+          "semanticTags": [
+            "certificate"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-008",
+          "statement": "期望城市：杭州",
+          "semanticTags": [
+            "preference"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-006"
+          ]
+        },
+        {
+          "factId": "CF-009",
+          "statement": "求职方向：产品运营/数据分析方向",
+          "semanticTags": [
+            "career_target"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-007"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-01",
+      "runId": 3,
+      "requestId": "96db796d-88eb-490d-9a60-73ae266299f1",
+      "http": 200,
+      "latencyMs": 3759,
+      "expectedSemanticFactCount": 9,
+      "preservedSemanticFactCount": 9,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 9,
+      "preservedProjectionCount": 9,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 7,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 7,
+        "atomicClaimCount": 9,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 9,
+        "profileFactRecall": null,
+        "latencyMs": 3753,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 741
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "北京某大学计算机科学与技术本科（2019-2023）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "某互联网公司产品运营实习生（2023.6-2023.9），负责活动策划与数据复盘",
+          "semanticTags": [
+            "experience",
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析与效果评估",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "CET-4",
+          "semanticTags": [
+            "certificate"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-008",
+          "statement": "期望城市：杭州",
+          "semanticTags": [
+            "preference"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-006"
+          ]
+        },
+        {
+          "factId": "CF-009",
+          "statement": "求职方向：产品运营/数据分析方向",
+          "semanticTags": [
+            "career_target"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-007"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-02",
+      "runId": 1,
+      "requestId": "d804ad88-61e1-4281-8a9b-9ec1fcf99b0d",
+      "http": 200,
+      "latencyMs": 1875,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 1,
+        "pfTotal": 1,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 1,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 1,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 1870,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 177
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "应届生",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-02",
+      "runId": 2,
+      "requestId": "6af447f4-698d-4121-96b2-d5ab59c340bd",
+      "http": 200,
+      "latencyMs": 1811,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 1,
+        "pfTotal": 1,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 1,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 1,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 1807,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 177
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "应届生",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-02",
+      "runId": 3,
+      "requestId": "4d3c86f7-e72e-47c1-bc36-8e6963afb04b",
+      "http": 200,
+      "latencyMs": 1759,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 1,
+        "pfTotal": 1,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 1,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 1,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 1756,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 177
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "应届生",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-03",
+      "runId": 1,
+      "requestId": "2c25527c-7ffb-415f-a48d-9350afdbc287",
+      "http": 200,
+      "latencyMs": 2472,
+      "expectedSemanticFactCount": 6,
+      "preservedSemanticFactCount": 6,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2469,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 405
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "接触过 SQL",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "基础 HTML",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动策划，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "协助老师完成课程资料整理",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-03",
+      "runId": 2,
+      "requestId": "d22779a1-24b2-432b-b263-72028580697b",
+      "http": 200,
+      "latencyMs": 2547,
+      "expectedSemanticFactCount": 6,
+      "preservedSemanticFactCount": 6,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2543,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 405
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "接触过 SQL",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "基础 HTML",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动策划，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "协助老师完成课程资料整理",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-03",
+      "runId": 3,
+      "requestId": "2be79871-2f16-4a5a-a7ff-4c351873ad96",
+      "http": 200,
+      "latencyMs": 2423,
+      "expectedSemanticFactCount": 6,
+      "preservedSemanticFactCount": 6,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2419,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 405
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "接触过 SQL",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "基础 HTML",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "熟悉 Excel",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动策划，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "协助老师完成课程资料整理",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-04",
+      "runId": 1,
+      "requestId": "8d709477-3ea2-4e17-9672-1216825a1ea5",
+      "http": 200,
+      "latencyMs": 2382,
+      "expectedSemanticFactCount": 5,
+      "preservedSemanticFactCount": 5,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2378,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 382
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "某大学信息管理本科（2020-2024）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "完成推荐系统课程项目（团队合作）",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "完成数据分析课程作业，使用 Python 处理 CSV 数据",
+          "semanticTags": [
+            "project_experience",
+            "skill_usage"
+          ],
+          "sourceType": "normalized_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "没有正式工作经历",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-04",
+      "runId": 2,
+      "requestId": "ee9308f7-6c8e-40f0-9cde-c8b100fa4887",
+      "http": 200,
+      "latencyMs": 2512,
+      "expectedSemanticFactCount": 5,
+      "preservedSemanticFactCount": 5,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2508,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 382
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "某大学信息管理本科（2020-2024）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "完成推荐系统课程项目（团队合作）",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "完成数据分析课程作业，使用 Python 处理 CSV 数据",
+          "semanticTags": [
+            "project_experience",
+            "skill_usage"
+          ],
+          "sourceType": "normalized_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "没有正式工作经历",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-04",
+      "runId": 3,
+      "requestId": "915860aa-8c25-4db7-9c9f-0354fd402d90",
+      "http": 200,
+      "latencyMs": 2696,
+      "expectedSemanticFactCount": 5,
+      "preservedSemanticFactCount": 5,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 6,
+      "preservedProjectionCount": 6,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2693,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 382
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "某大学信息管理本科（2020-2024）",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "完成推荐系统课程项目（团队合作）",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "完成数据分析课程作业，使用 Python 处理 CSV 数据",
+          "semanticTags": [
+            "project_experience",
+            "skill_usage"
+          ],
+          "sourceType": "normalized_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "没有正式工作经历",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-05",
+      "runId": 1,
+      "requestId": "bdf8ca35-08d3-4000-8cec-8a9653110b17",
+      "http": 200,
+      "latencyMs": 1850,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 2,
+        "pfTotal": 2,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 2,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 2,
+        "atomicClaimCount": 2,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 2,
+        "profileFactRecall": null,
+        "latencyMs": 1846,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 201
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "参加数学建模比赛，队伍获得省级二等奖",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-05",
+      "runId": 2,
+      "requestId": "486b8215-8771-4099-b5f6-d76259340ac9",
+      "http": 200,
+      "latencyMs": 1961,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 2,
+        "pfTotal": 2,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 2,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 2,
+        "atomicClaimCount": 2,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 2,
+        "profileFactRecall": null,
+        "latencyMs": 1957,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 201
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "参加数学建模比赛，队伍获得省级二等奖",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-05",
+      "runId": 3,
+      "requestId": "419ed9e2-7cc2-4f9e-b348-94b67c1126ea",
+      "http": 200,
+      "latencyMs": 1996,
+      "expectedSemanticFactCount": 2,
+      "preservedSemanticFactCount": 2,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 2,
+      "preservedProjectionCount": 2,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 2,
+        "pfTotal": 2,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 2,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 2,
+        "atomicClaimCount": 2,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 2,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 2,
+        "profileFactRecall": null,
+        "latencyMs": 1993,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 210
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "团队项目「校园二手平台」获得校赛三等奖，我负责用户调研部分",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "参加数学建模比赛，队伍获得省级二等奖",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-06",
+      "runId": 1,
+      "requestId": "45d3d294-e5d3-4acf-99c7-590441b80f60",
+      "http": 200,
+      "latencyMs": 2255,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2252,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 280
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "市场营销本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "某快消公司市场部实习生（2024.1-2024.4），负责活动执行",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-06",
+      "runId": 2,
+      "requestId": "8e62f7e4-a896-4fe5-8d3e-1f676c195ffb",
+      "http": 200,
+      "latencyMs": 2178,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2175,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 280
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "市场营销本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "某快消公司市场部实习生（2024.1-2024.4），负责活动执行",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-06",
+      "runId": 3,
+      "requestId": "a172e742-5f13-41a7-9a33-63915de7063e",
+      "http": 200,
+      "latencyMs": 2155,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2152,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 280
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "市场营销本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "某快消公司市场部实习生（2024.1-2024.4），负责活动执行",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-07",
+      "runId": 1,
+      "requestId": "75da8c03-b972-44f9-b6d6-8617df44a5aa",
+      "http": 200,
+      "latencyMs": 2140,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 1,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2136,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 310
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "项目：参与过课程项目",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-07",
+      "runId": 2,
+      "requestId": "e7894acf-1d35-46d6-93cd-5261fc0b8ec9",
+      "http": 200,
+      "latencyMs": 2091,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 1,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2087,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 310
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "项目：参与过课程项目",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-07",
+      "runId": 3,
+      "requestId": "8eb91dde-cbc5-404a-9917-78304433d787",
+      "http": 200,
+      "latencyMs": 2166,
+      "expectedSemanticFactCount": 3,
+      "preservedSemanticFactCount": 3,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 3,
+      "preservedProjectionCount": 3,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 1,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2163,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 310
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "项目：参与过课程项目",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-08",
+      "runId": 1,
+      "requestId": "0ba775ca-99e3-42f3-b076-4a4438c987aa",
+      "http": 200,
+      "latencyMs": 3141,
+      "expectedSemanticFactCount": 8,
+      "preservedSemanticFactCount": 8,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 8,
+      "preservedProjectionCount": 8,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 5,
+        "pfTotal": 5,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 2,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3138,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 564
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "实习：某公司运营实习生（2024.6-2024.9）",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 SQL 与 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "协助老师整理课程资料",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-08",
+      "runId": 2,
+      "requestId": "900d25d9-c8ae-4620-b7b1-de4a5725346c",
+      "http": 200,
+      "latencyMs": 3226,
+      "expectedSemanticFactCount": 8,
+      "preservedSemanticFactCount": 8,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 8,
+      "preservedProjectionCount": 8,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 5,
+        "pfTotal": 5,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 2,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3221,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 564
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "实习：某公司运营实习生（2024.6-2024.9）",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 SQL 与 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "协助老师整理课程资料",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "tcId": "PF-TC-08",
+      "runId": 3,
+      "requestId": "256b41a9-833d-4b83-8a13-18e7d8ca0b90",
+      "http": 200,
+      "latencyMs": 3353,
+      "expectedSemanticFactCount": 8,
+      "preservedSemanticFactCount": 8,
+      "semanticContentRecall": 1,
+      "expectedProjectionCount": 8,
+      "preservedProjectionCount": 8,
+      "categoryProjectionRecall": 1,
+      "gates": {
+        "finalSchema": true,
+        "pfEvidence": true,
+        "candidateFactHallucination": true,
+        "semanticUpgrade": true,
+        "sourceContamination": true,
+        "injection": true
+      },
+      "violations": {
+        "hallucinationCount": 0,
+        "semanticUpgradeCount": 0,
+        "sourceContaminationCount": 0
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 5,
+        "pfTotal": 5,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 2,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3350,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 564
+      },
+      "facts": [
+        {
+          "factId": "CF-001",
+          "statement": "教育背景：计算机本科",
+          "semanticTags": [
+            "education"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-001"
+          ]
+        },
+        {
+          "factId": "CF-002",
+          "statement": "技能：了解 Python",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-002"
+          ]
+        },
+        {
+          "factId": "CF-003",
+          "statement": "参与团队推荐系统课程项目，负责数据分析",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-003"
+          ]
+        },
+        {
+          "factId": "CF-004",
+          "statement": "实习：某公司运营实习生（2024.6-2024.9）",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-004"
+          ]
+        },
+        {
+          "factId": "CF-005",
+          "statement": "参与过校园活动，负责宣传物料",
+          "semanticTags": [
+            "project_experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-006",
+          "statement": "接触过 SQL 与 Figma",
+          "semanticTags": [
+            "skill_usage"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        },
+        {
+          "factId": "CF-007",
+          "statement": "协助老师整理课程资料",
+          "semanticTags": [
+            "experience"
+          ],
+          "sourceType": "profile_stated",
+          "pfEvidence": [
+            "PF-005"
+          ]
+        }
+      ],
+      "error": null
+    }
+  ]
+}

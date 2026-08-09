@@ -7,11 +7,11 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED；ISSUE-025 = Open / P1 / Gate Blocker；Phase 2.2 = NOT AUTHORIZED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；coverage-driven failed-gate diagnostic baseline：`653383e…`（不代表 PASS）。TC04 taxonomy 审计确认当前证据不能归结为纯 semantic omission：存在 category projection 与 semantic-preservation 耦合，详见 `docs/acceptance-artifacts/phase-2-1/TC04-TAXONOMY-AUDIT.md`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED；ISSUE-025 = Open / P1 / Gate Blocker；Phase 2.2 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；failed-gate diagnostic baseline：`653383e…`；Contract Amendment 2.0.1 canonical implementation：`cfdd13c…`。8×1 preflight 与 8×3 final clean matrix 的 PF-A～PF-I 工程证据均为全绿，但**不得自行宣布 Phase 2.1 PASS**，等待 Product Owner / QA Final Gate。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待人工 Product/QA 对 TC04 taxonomy audit 与 Contract amendment 建议作出 Gate 决策；PF-H 保持 100%，runtime model benchmark 暂停；不得开始 Phase 2.2、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；
+- 新 thread 的下一步：等待人工 Product/QA 审核 Contract Amendment 2.0.1、`canonical-preflight.json` 与 `canonical-final-matrix.json` 并作出 Phase 2.1 Final Gate 决策；PF-H/PF-I 均保持 100%，runtime model benchmark 暂停；不得开始 Phase 2.2、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；
 - **不进入 Phase 2.2、不降低 PF-H、不删除负向事实或历史失败、不修改冻结输入、不更换 runtime model、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
