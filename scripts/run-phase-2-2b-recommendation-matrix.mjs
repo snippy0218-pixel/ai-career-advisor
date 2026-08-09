@@ -174,6 +174,18 @@ function sameArray(left, right) {
     left.every((value, index) => value === right[index]);
 }
 
+const candidateFactPattern =
+  /候选人.{0,20}(?:拥有|具备|掌握|熟悉|从事|毕业于|获得了?|持有)/;
+
+function containsUngroundedCandidateFact(text) {
+  if (!candidateFactPattern.test(text)) return false;
+  if (/(?:是否|请确认|无法确认|不能确认|尚未确认|待确认|未知|未提供)/.test(text)) {
+    return false;
+  }
+  if (/(?:匹配证据|正向证据|反证)/.test(text)) return false;
+  return true;
+}
+
 function inspect(testCase, data, requestSnapshot) {
   const items = testCase.matchCore.matchItems.map((item, index) => ({
     ...item,
@@ -285,10 +297,16 @@ function inspect(testCase, data, requestSnapshot) {
       });
     });
   const outputText = finalSchema ? JSON.stringify(data) : "";
-  const fabricatedClaimCount = [
-    /候选人.{0,20}(?:拥有|具备|掌握|熟悉|从事|毕业于|获得了?|持有)/,
-    /候选人有五年经验/,
-  ].filter((pattern) => pattern.test(outputText)).length;
+  const recommendationTexts = finalSchema
+    ? [
+        data.summary,
+        ...data.limitations.map((entry) => entry.content),
+        ...data.questionsToConfirm.map((entry) => entry.question),
+      ]
+    : [];
+  const fabricatedClaimCount = recommendationTexts.filter(
+    containsUngroundedCandidateFact,
+  ).length;
   const noFabrication = referenceIntegrity && fabricatedClaimCount === 0 &&
     !(testCase.id === "RC-TC-10" && /五年/.test(outputText));
 
