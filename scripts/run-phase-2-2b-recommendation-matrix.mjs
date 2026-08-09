@@ -193,7 +193,7 @@ const explicitWaiverPattern =
 const waiverClaimPattern =
   /(?:豁免|放宽|例外|弹性|灵活(?:处理|调整)|具有灵活性|酌情|特殊政策|可不受|可以不受|要求.{0,8}不严格|may be waived|waiver|exception|relaxation|flexibility|flexible)/i;
 const substitutionClaimPattern =
-  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,12}(?:弥补|抵消)(?:学历|学位|年限|资格|证书)?)/i;
+  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,16}(?:弥补|抵消|折算|替代)(?:学历|学位|年限|资格|证书)?|(?:是否接受|能否接受).{0,16}(?:其他|同等|等效).{0,8}(?:学历|学位|资格))/i;
 const unknownToUnmetPattern =
   /(?:未满足|不满足|不符合|未达到|未达标|无法满足|资格不符)/;
 const hardUnmetAdmissionPattern =
@@ -361,7 +361,7 @@ function inspect(testCase, data, requestSnapshot) {
     !(entry.refs.length > 0 && entry.refs.every((ref) => waiverRefs.has(ref)))).length;
   const unsupportedSubstitutionClaimCount = textEntries.filter((entry) =>
     substitutionClaimPattern.test(entry.text) &&
-    !(entry.refs.length > 0 && entry.refs.every((ref) => alternativeRefs.has(ref) || waiverRefs.has(ref)))).length;
+    !(entry.refs.length > 0 && entry.refs.every((ref) => alternativeRefs.has(ref)))).length;
   const unknownToUnmetDriftCount = textEntries.filter((entry) =>
     entry.refs.some((ref) => hardUnknownRefs.includes(ref)) &&
     unknownToUnmetPattern.test(entry.text)).length;

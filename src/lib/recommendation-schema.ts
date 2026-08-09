@@ -149,7 +149,7 @@ const EXPLICIT_WAIVER_EVIDENCE_PATTERN =
 export const WAIVER_CLAIM_PATTERN =
   /(?:豁免|放宽|例外|弹性|灵活(?:处理|调整)|具有灵活性|酌情|特殊政策|可不受|可以不受|要求.{0,8}不严格|may be waived|waiver|exception|relaxation|flexibility|flexible)/i;
 export const SUBSTITUTION_CLAIM_PATTERN =
-  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,12}(?:弥补|抵消)(?:学历|学位|年限|资格|证书)?)/i;
+  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,16}(?:弥补|抵消|折算|替代)(?:学历|学位|年限|资格|证书)?|(?:是否接受|能否接受).{0,16}(?:其他|同等|等效).{0,8}(?:学历|学位|资格))/i;
 const UNKNOWN_TO_UNMET_PATTERN =
   /(?:未满足|不满足|不符合|未达到|未达标|无法满足|资格不符)/;
 const HARD_UNMET_ADMISSION_PATTERN =
@@ -409,9 +409,7 @@ export function inspectWaiverEvidenceIntegrity(
     if (SUBSTITUTION_CLAIM_PATTERN.test(entry.text)) {
       const supported =
         entry.refs.length > 0 &&
-        entry.refs.every(
-          (ref) => alternativeRefs.has(ref) || waiverRefs.has(ref),
-        );
+        entry.refs.every((ref) => alternativeRefs.has(ref));
       if (!supported) {
         fabricatedFlexibilityClaimCount += 1;
         addIssue(

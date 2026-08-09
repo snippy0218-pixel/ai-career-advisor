@@ -133,7 +133,7 @@ Allowed-level 层只决定合法区间，不用简单计数公式替代模型判
 ### 9.2 Implementation 与 Static Gate
 
 - 公开 `recommendation-core-v1` Final Schema 不变；内部新增 explicit waiver / alternative qualification 分类与可追溯 MI constraints；
-- prompt / repair prompt 最终升至 v1.2；hard unknown 优先 Candidate fact，hard unmet 无 waiver 只允许 strictness confirmation，alternative qualification 不称为 waiver；无 evidence 的 MI 连否定式 waiver/substitution 套话也删除，避免 repair 重复违规；
+- prompt / repair prompt 最终升至 v1.3；hard unknown 优先 Candidate fact，hard unmet 无 waiver 只允许 strictness confirmation，alternative qualification 不称为 waiver；无 evidence 的 MI 连否定式 waiver/substitution 套话也删除；generic waiver 只允许开放式询问放宽标准，不得推断具体替代/折算机制；
 - R-E 收敛为 hard gap 明示与结构引用；新增 R-K 服务端 fail-closed validator、diagnostics 与 acceptance runner；
 - 新增 RK-TC-01～06，覆盖 hard unknown、无 waiver hard unmet、明示 waiver、强 Candidate 不推出 waiver、明示 alternative qualification、unknown + JD waiver；
 - 当前静态结果：269/269 PASS（13 files）、lint PASS、production build PASS；Match Core 未修改。
@@ -141,6 +141,8 @@ Allowed-level 层只决定合法区间，不用简单计数公式替代模型判
 ### 9.3 Fresh Runtime Evidence
 
 首轮固定 commit `cd0a0a9…` 的新 preflight 为 9/10：RC-TC-02 request_id `1ea51d98-f80a-40f5-8da0-07799f5981c0` 初稿与一次 repair 均触发 R-K unsupported waiver/substitution，服务端正确 fail-closed；完整失败 artifact 保留。另有一次未开启 diagnostics header 的 runner 假阴性 artifact，及开启 header 后 RC-TC-02 定向 1/1 PASS artifact，均保留不覆盖。针对 repair 重复使用否定套话实施 prompt v1.2 最小修复后，必须固定新 implementation commit 并从头执行新的 RC-TC-01～10 ×1；仅全绿后执行同一 commit 的 ×3。
+
+第二固定 commit `0b44a23…` 的新 preflight 10/10、R-A～R-K 全绿；随后 10×3 deterministic matrix 30/30 全绿，但 internal content review 发现 RC-TC-07 的 generic waiver clause 被扩写为“实际经验折算/其他形式学历”等 JD 未明示具体机制。该矩阵保留为 **deterministic-pass / semantic-review-fail**，不得作为 final clean matrix。根因是 R-K 将 generic waiver ref 错误视为 specific substitution ref；v1.3 收紧为 specific substitution 只能引用 `alternativeQualificationMatchRefs`，随后必须固定新 commit 并从头重跑 10×1→10×3。
 
 ## 10. Regression 与 Gate Recommendation
 

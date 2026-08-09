@@ -240,6 +240,25 @@ describe("Recommendation Core deterministic contract", () => {
     expect(result.issues).toEqual([]);
     expect(result.data?.recommendationLevel).toBe("cautious");
     expect(fixture.matchCore.matchItems[0].status).toBe("unmet");
+
+    const inventedMechanism = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        questionsToConfirm: [
+          {
+            question: "请确认 MI-001 是否接受实际经验折算学历？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(inventedMechanism.data).toBeNull();
+    expect(
+      inventedMechanism.issues.some((issue) =>
+        issue.message.includes("unsupported substitution"),
+      ),
+    ).toBe(true);
   });
 
   it("RK-TC-04 strong Candidate evidence does not imply an unsupported waiver", () => {

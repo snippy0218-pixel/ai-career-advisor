@@ -346,8 +346,8 @@ Recommendation 使用 waiver / exception / flexibility / relaxation、放宽、�
 
 - `hard unknown`：表示 Candidate Evidence 不足，不表示已知不满足；必须优先询问 Candidate 自身事实。可另行引用 JD 明示 waiver clause，但必须保持“Candidate eligibility unknown”与“requirement flexibility”两个语义层，不得询问 Candidate 是否可豁免；
 - `hard unmet + waiverEvidence=none`：必须明确承认硬门槛未满足；可输出 `not_recommended`，也可在 §6.2 已有 allowed set 支持时输出 `cautious`，但 cautious 只能建议确认 requirement 是否为严格筛选门槛/具体口径，不得创造可放宽、可豁免或可例外的招聘政策；
-- `hard unmet + explicit waiverEvidence`：保留原 hard gap 和 counter evidence，可引用同一 `MI-*` 的 JD waiver clause 并询问适用标准；waiver clause 不得把 Match status 从 `unmet` 改为 `partial/met`；
-- JD 明示“本科，或三年以上同类经验”等 alternative qualification 应按 Match Contract 的原始资格逻辑处理，不得称为 waiver；
+- `hard unmet + explicit waiverEvidence`：保留原 hard gap 和 counter evidence，可引用同一 `MI-*` 的 JD waiver clause 并开放式询问适用标准；generic waiver evidence 只证明放宽条款存在，不证明具体替代机制，不得自行举例其他/同等学历、经验折算等 JD 未明示标准；waiver clause 不得把 Match status 从 `unmet` 改为 `partial/met`；
+- JD 明示“本科，或三年以上同类经验”等 alternative qualification 应按 Match Contract 的原始资格逻辑处理，不得称为 waiver；具体替代、弥补、抵消或折算关系只能由此类 explicit alternative evidence 支持，generic waiver evidence 不可替代；
 - 不新增第二事实源。公开 Final Schema 无需新增字段时，由服务端通过 `MI-* → Requirement → JD Evidence` 内部 enforce；
 - 确定性 Gate `R-K — Waiver / Flexibility Evidence Integrity`：unsupported waiver claim = 0、unknown→unmet semantic drift = 0、fabricated flexibility claim = 0。
 
