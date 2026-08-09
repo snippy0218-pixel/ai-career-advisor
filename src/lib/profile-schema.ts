@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
 
-export const PROFILE_SCHEMA_VERSION = "candidate-profile-v1" as const;
+export const PROFILE_SCHEMA_VERSION = "candidate-profile-v2" as const;
 
 // Configurable validated input limit — Phase 2.1 implementation initial value.
 // NOT a frozen product contract (see PHASE-2-CONTRACT.md §2.1): the final value
@@ -31,7 +31,20 @@ export interface ProfileEvidence {
   text: string;
 }
 
-export const PROFILE_FACT_CATEGORIES = [
+export const PROFILE_SEMANTIC_TAGS = [
+  "career_target",
+  "education",
+  "experience",
+  "project_experience",
+  "skill_usage",
+  "certificate",
+  "portfolio",
+  "preference",
+] as const;
+
+export type ProfileSemanticTag = (typeof PROFILE_SEMANTIC_TAGS)[number];
+
+export const PROFILE_PROJECTION_KEYS = [
   "careerTarget",
   "education",
   "experiences",
@@ -42,7 +55,21 @@ export const PROFILE_FACT_CATEGORIES = [
   "preferences",
 ] as const;
 
-export type ProfileFactCategory = (typeof PROFILE_FACT_CATEGORIES)[number];
+export type ProfileProjectionKey = (typeof PROFILE_PROJECTION_KEYS)[number];
+
+export const SEMANTIC_TAG_TO_PROJECTION: Record<
+  ProfileSemanticTag,
+  ProfileProjectionKey
+> = {
+  career_target: "careerTarget",
+  education: "education",
+  experience: "experiences",
+  project_experience: "projects",
+  skill_usage: "skills",
+  certificate: "certificates",
+  portfolio: "portfolio",
+  preference: "preferences",
+};
 
 export const PF_DISPOSITIONS = [
   "candidate_fact_source",
@@ -117,57 +144,26 @@ const questionToConfirmSchema = z
   })
   .strict();
 
-// ---- Raw profile analysis schema (loose; model output entry) ----
-const rawCandidateFactSchema = z
-  .object({
-    value: z.string().trim().min(1).max(200),
-    sourceType: z
-      .enum(["profile_stated", "normalized_stated", "profile_inferred", "to_verify"])
-      .optional()
-      .default("normalized_stated"),
-    pfEvidence: z.array(z.string()).optional().default([]),
-    verificationQuestion: z.string().max(200).nullable().optional().default(null),
-  })
-  .strict();
-
-const rawDerivedObservationSchema = z
-  .object({
-    content: z.string().trim().min(1).max(320),
-    sourceType: z.literal("profile_inferred"),
-    pfEvidence: z.array(z.string()).optional().default([]),
-    verificationQuestion: z.string().max(200).nullable().optional().default(null),
-  })
-  .strict();
-
-export const rawProfileAnalysisSchema = z
-  .object({
-    careerTarget: rawCandidateFactSchema.nullable().optional(),
-    education: z.array(rawCandidateFactSchema).optional().default([]),
-    experiences: z.array(rawCandidateFactSchema).optional().default([]),
-    projects: z.array(rawCandidateFactSchema).optional().default([]),
-    skills: z.array(rawCandidateFactSchema).optional().default([]),
-    certificates: z.array(rawCandidateFactSchema).optional().default([]),
-    portfolio: z.array(rawCandidateFactSchema).optional().default([]),
-    preferences: z.array(rawCandidateFactSchema).optional().default([]),
-    derivedObservations: z.array(rawDerivedObservationSchema).optional().default([]),
-    unknowns: z.array(z.string().trim().min(1).max(200)).optional().default([]),
-    questionsToConfirm: z.array(questionToConfirmSchema).optional().default([]),
-  })
-  .strict();
-
-export type RawProfileAnalysis = z.infer<typeof rawProfileAnalysisSchema>;
-
 // ---- Coverage-driven model output (Phase 2.1 / ISSUE-025) ----
-// This is an internal extraction contract. The public Final Profile Contract
-// remains candidate-profile-v1 and is built only from validated atomic claims.
+// Validated atomic claims become canonical facts deterministically. The model
+// never generates Final category arrays or a second fact representation.
 export const rawAtomicClaimSchema = z
   .object({
-    category: z.enum(PROFILE_FACT_CATEGORIES),
-    value: z.string().trim().min(1).max(200),
+    statement: z.string().trim().min(1).max(200),
+    semanticTags: z.array(z.enum(PROFILE_SEMANTIC_TAGS)).min(1).max(4),
     sourceType: z.enum(["profile_stated", "normalized_stated"]),
     pfEvidence: z.array(z.string()).min(1).max(3),
   })
-  .strict();
+  .strict()
+  .superRefine((claim, context) => {
+    if (new Set(claim.semanticTags).size !== claim.semanticTags.length) {
+      context.addIssue({
+        code: "custom",
+        message: "semanticTags must be unique",
+        path: ["semanticTags"],
+      });
+    }
+  });
 
 export const rawPfCoverageItemSchema = z
   .object({
@@ -223,15 +219,27 @@ export const rawProfileCoverageSchema = z
 export type RawAtomicClaim = z.infer<typeof rawAtomicClaimSchema>;
 export type RawPfCoverageItem = z.infer<typeof rawPfCoverageItemSchema>;
 
-// ---- Final candidate fact / derived observation schema ----
-const finalCandidateFactSchema = z
+// ---- Final canonical candidate fact / typed projection schema ----
+export const candidateFactIdPattern = /^CF-\d{3,}$/;
+
+export const finalCanonicalCandidateFactSchema = z
   .object({
-    value: z.string().trim().min(1).max(200),
+    factId: z.string().regex(candidateFactIdPattern),
+    statement: z.string().trim().min(1).max(200),
     sourceType: z.enum(["profile_stated", "normalized_stated"]),
     pfEvidence: z.array(z.string().regex(pfIdPattern)).min(1).max(3),
-    verificationQuestion: z.null(),
+    semanticTags: z.array(z.enum(PROFILE_SEMANTIC_TAGS)).min(1).max(4),
   })
-  .strict();
+  .strict()
+  .superRefine((fact, context) => {
+    if (new Set(fact.semanticTags).size !== fact.semanticTags.length) {
+      context.addIssue({
+        code: "custom",
+        message: "semanticTags must be unique",
+        path: ["semanticTags"],
+      });
+    }
+  });
 
 const finalDerivedObservationSchema = z
   .object({
@@ -242,16 +250,19 @@ const finalDerivedObservationSchema = z
   })
   .strict();
 
+const projectionRefSchema = z.string().regex(candidateFactIdPattern);
+
 export const finalCandidateProfileSchema = z
   .object({
-    careerTarget: finalCandidateFactSchema.nullable(),
-    education: z.array(finalCandidateFactSchema).max(6),
-    experiences: z.array(finalCandidateFactSchema).max(8),
-    projects: z.array(finalCandidateFactSchema).max(8),
-    skills: z.array(finalCandidateFactSchema).max(12),
-    certificates: z.array(finalCandidateFactSchema).max(6),
-    portfolio: z.array(finalCandidateFactSchema).max(6),
-    preferences: z.array(finalCandidateFactSchema).max(4),
+    canonicalFacts: z.array(finalCanonicalCandidateFactSchema).min(1).max(60),
+    careerTarget: projectionRefSchema.nullable(),
+    education: z.array(projectionRefSchema).max(6),
+    experiences: z.array(projectionRefSchema).max(8),
+    projects: z.array(projectionRefSchema).max(8),
+    skills: z.array(projectionRefSchema).max(12),
+    certificates: z.array(projectionRefSchema).max(6),
+    portfolio: z.array(projectionRefSchema).max(6),
+    preferences: z.array(projectionRefSchema).max(4),
     derivedObservations: z.array(finalDerivedObservationSchema).max(6),
     unknowns: z.array(z.string().trim().min(1).max(200)).max(8),
     questionsToConfirm: z.array(questionToConfirmSchema).max(8),
@@ -259,7 +270,84 @@ export const finalCandidateProfileSchema = z
       .array(z.object({ id: z.string().regex(pfIdPattern), text: z.string().trim().min(1) }))
       .max(30),
   })
-  .strict();
+  .strict()
+  .superRefine((profile, context) => {
+    const factIds = profile.canonicalFacts.map((fact) => fact.factId);
+    const factIdSet = new Set(factIds);
+    if (factIdSet.size !== factIds.length) {
+      context.addIssue({
+        code: "custom",
+        message: "canonical fact IDs must be unique",
+        path: ["canonicalFacts"],
+      });
+    }
+    const expectedIds = profile.canonicalFacts.map(
+      (_, index) => `CF-${String(index + 1).padStart(3, "0")}`,
+    );
+    if (factIds.some((id, index) => id !== expectedIds[index])) {
+      context.addIssue({
+        code: "custom",
+        message: "canonical fact IDs must be stable and sequential",
+        path: ["canonicalFacts"],
+      });
+    }
+
+    const projectionEntries: Array<[ProfileProjectionKey, string[]]> = [
+      ["careerTarget", profile.careerTarget ? [profile.careerTarget] : []],
+      ["education", profile.education],
+      ["experiences", profile.experiences],
+      ["projects", profile.projects],
+      ["skills", profile.skills],
+      ["certificates", profile.certificates],
+      ["portfolio", profile.portfolio],
+      ["preferences", profile.preferences],
+    ];
+    for (const [key, ids] of projectionEntries) {
+      if (new Set(ids).size !== ids.length || ids.some((id) => !factIdSet.has(id))) {
+        context.addIssue({
+          code: "custom",
+          message: `${key} must contain unique canonical fact references`,
+          path: [key],
+        });
+      }
+    }
+
+    for (const fact of profile.canonicalFacts) {
+      for (const tag of fact.semanticTags) {
+        const key = SEMANTIC_TAG_TO_PROJECTION[tag];
+        const ids =
+          key === "careerTarget"
+            ? profile.careerTarget
+              ? [profile.careerTarget]
+              : []
+            : profile[key];
+        if (!ids.includes(fact.factId)) {
+          context.addIssue({
+            code: "custom",
+            message: `${fact.factId} is missing deterministic ${key} projection`,
+            path: [key],
+          });
+        }
+      }
+    }
+    for (const [key, ids] of projectionEntries) {
+      for (const id of ids) {
+        const fact = profile.canonicalFacts.find((item) => item.factId === id);
+        if (
+          fact &&
+          !fact.semanticTags.some(
+            (tag) => SEMANTIC_TAG_TO_PROJECTION[tag] === key,
+          )
+        ) {
+          context.addIssue({
+            code: "custom",
+            message: `${id} cannot be projected to ${key} without a matching semantic tag`,
+            path: [key],
+          });
+        }
+      }
+    }
+  });
 
 export const finalProfileStructureSchema = z
   .object({
@@ -269,7 +357,9 @@ export const finalProfileStructureSchema = z
   })
   .strict();
 
-export type FinalCandidateFact = z.infer<typeof finalCandidateFactSchema>;
+export type FinalCanonicalCandidateFact = z.infer<
+  typeof finalCanonicalCandidateFactSchema
+>;
 export type FinalProfileStructure = z.infer<typeof finalProfileStructureSchema>;
 
 // ---- Semantic preservation checks (Gate PF-C / PF-A heuristics) ----

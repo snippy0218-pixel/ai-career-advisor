@@ -1,6 +1,6 @@
 {
-  "schemaVersion": "phase-2-1-frozen-cases-v1",
-  "description": "PF-TC-01 through PF-TC-08 frozen, synthetic/de-identified Candidate Profile inputs and must-preserve manifests.",
+  "schemaVersion": "phase-2-1-frozen-cases-v2",
+  "description": "PF-TC-01 through PF-TC-08 frozen, synthetic/de-identified Candidate Profile inputs and unchanged must-preserve semantic facts with explicit expectedSemanticTags for PF-I.",
   "cases": [
     {
       "id": "PF-TC-01",
@@ -18,15 +18,15 @@
         ]
       },
       "expectedFacts": [
-        { "category": "education", "terms": ["计算机", "本科"] },
-        { "category": "experiences", "terms": ["产品运营实习生"] },
-        { "category": "projects", "terms": ["推荐系统"] },
-        { "category": "skills", "terms": ["Python", "了解"] },
-        { "category": "skills", "terms": ["Excel", "熟悉"] },
-        { "category": "skills", "terms": ["Figma", "接触"] },
-        { "category": "certificates", "terms": ["CET"] },
-        { "category": "preferences", "terms": ["杭州"] },
-        { "category": "careerTarget", "terms": ["产品运营"] }
+        { "category": "education", "terms": ["计算机", "本科"], "expectedSemanticTags": ["education"] },
+        { "category": "experiences", "terms": ["产品运营实习生"], "expectedSemanticTags": ["experience"] },
+        { "category": "projects", "terms": ["推荐系统"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["Excel", "熟悉"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["Figma", "接触"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "certificates", "terms": ["CET"], "expectedSemanticTags": ["certificate"] },
+        { "category": "preferences", "terms": ["杭州"], "expectedSemanticTags": ["preference"] },
+        { "category": "careerTarget", "terms": ["产品运营"], "expectedSemanticTags": ["career_target"] }
       ]
     },
     {
@@ -35,8 +35,8 @@
       "characters": 20,
       "input": { "lines": ["计算机本科，应届生，了解 Python。"] },
       "expectedFacts": [
-        { "category": "education", "terms": ["计算机本科"] },
-        { "category": "skills", "terms": ["Python", "了解"] }
+        { "category": "education", "terms": ["计算机本科"], "expectedSemanticTags": ["education"] },
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] }
       ]
     },
     {
@@ -51,12 +51,12 @@
         ]
       },
       "expectedFacts": [
-        { "category": "skills", "terms": ["Python", "了解"] },
-        { "category": "skills", "terms": ["SQL", "接触"] },
-        { "category": "skills", "terms": ["HTML", "基础"] },
-        { "category": "skills", "terms": ["Excel", "熟悉"] },
-        { "category": "projects", "terms": ["校园活动策划"] },
-        { "category": "experiences", "terms": ["课程资料整理"] }
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["SQL", "接触"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["HTML", "基础"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["Excel", "熟悉"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "projects", "terms": ["校园活动策划"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "experiences", "terms": ["课程资料整理"], "expectedSemanticTags": ["experience"] }
       ]
     },
     {
@@ -72,11 +72,11 @@
         ]
       },
       "expectedFacts": [
-        { "category": "education", "terms": ["信息管理本科"] },
-        { "category": "projects", "terms": ["推荐系统课程项目"] },
-        { "category": "projects", "terms": ["数据分析课程作业"] },
-        { "category": "skills", "terms": ["Python", "课程作业"] },
-        { "category": "experiences", "terms": ["没有正式工作经历"] }
+        { "category": "education", "terms": ["信息管理本科"], "expectedSemanticTags": ["education"] },
+        { "category": "projects", "terms": ["推荐系统课程项目"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "projects", "terms": ["数据分析课程作业"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "skills", "terms": ["Python", "课程作业"], "expectedSemanticTags": ["project_experience", "skill_usage"] },
+        { "category": "experiences", "terms": ["没有正式工作经历"], "expectedSemanticTags": ["experience"] }
       ]
     },
     {
@@ -90,8 +90,8 @@
         ]
       },
       "expectedFacts": [
-        { "category": "projects", "terms": ["校园二手平台"] },
-        { "category": "experiences", "terms": ["数学建模"] }
+        { "category": "projects", "terms": ["校园二手平台"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "experiences", "terms": ["数学建模"], "expectedSemanticTags": ["experience"] }
       ]
     },
     {
@@ -106,9 +106,9 @@
         ]
       },
       "expectedFacts": [
-        { "category": "education", "terms": ["市场营销本科"] },
-        { "category": "skills", "terms": ["Python", "了解"] },
-        { "category": "experiences", "terms": ["市场部实习生"] }
+        { "category": "education", "terms": ["市场营销本科"], "expectedSemanticTags": ["education"] },
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "experiences", "terms": ["市场部实习生"], "expectedSemanticTags": ["experience"] }
       ]
     },
     {
@@ -124,9 +124,9 @@
         ]
       },
       "expectedFacts": [
-        { "category": "education", "terms": ["计算机本科"] },
-        { "category": "skills", "terms": ["Python", "了解"] },
-        { "category": "projects", "terms": ["课程项目"] }
+        { "category": "education", "terms": ["计算机本科"], "expectedSemanticTags": ["education"] },
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "projects", "terms": ["课程项目"], "expectedSemanticTags": ["project_experience"] }
       ]
     },
     {
@@ -144,14 +144,14 @@
         "repeatCount": 228
       },
       "expectedFacts": [
-        { "category": "education", "terms": ["计算机本科"] },
-        { "category": "skills", "terms": ["Python", "了解"] },
-        { "category": "projects", "terms": ["推荐系统课程项目"] },
-        { "category": "experiences", "terms": ["运营实习生"] },
-        { "category": "projects", "terms": ["校园活动"] },
-        { "category": "skills", "terms": ["SQL", "接触"] },
-        { "category": "skills", "terms": ["Figma", "接触"] },
-        { "category": "experiences", "terms": ["协助老师"] }
+        { "category": "education", "terms": ["计算机本科"], "expectedSemanticTags": ["education"] },
+        { "category": "skills", "terms": ["Python", "了解"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "projects", "terms": ["推荐系统课程项目"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "experiences", "terms": ["运营实习生"], "expectedSemanticTags": ["experience"] },
+        { "category": "projects", "terms": ["校园活动"], "expectedSemanticTags": ["project_experience"] },
+        { "category": "skills", "terms": ["SQL", "接触"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "skills", "terms": ["Figma", "接触"], "expectedSemanticTags": ["skill_usage"] },
+        { "category": "experiences", "terms": ["协助老师"], "expectedSemanticTags": ["experience"] }
       ]
     }
   ]

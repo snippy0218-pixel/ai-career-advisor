@@ -13,7 +13,7 @@ const defaults = {
   ),
   output: resolve(
     root,
-    "docs/acceptance-artifacts/phase-2-1/clean-matrix.json",
+    "docs/acceptance-artifacts/phase-2-1/canonical-clean-matrix.json",
   ),
 };
 
@@ -58,26 +58,28 @@ function decodeDiagnostics(response) {
   return JSON.parse(Buffer.from(encoded, "base64url").toString("utf8"));
 }
 
-function factsByCategory(profile) {
-  const byCategory = Object.fromEntries(
-    [
-      "careerTarget",
-      "education",
-      "experiences",
-      "projects",
-      "skills",
-      "certificates",
-      "portfolio",
-      "preferences",
-    ].map((category) => [category, []]),
-  );
-  if (profile?.careerTarget) byCategory.careerTarget.push(profile.careerTarget);
-  for (const category of Object.keys(byCategory).filter(
-    (item) => item !== "careerTarget",
-  )) {
-    if (Array.isArray(profile?.[category])) byCategory[category] = profile[category];
-  }
-  return byCategory;
+const tagToProjection = {
+  career_target: "careerTarget",
+  education: "education",
+  experience: "experiences",
+  project_experience: "projects",
+  skill_usage: "skills",
+  certificate: "certificates",
+  portfolio: "portfolio",
+  preference: "preferences",
+};
+
+function projectionRefs(profile) {
+  return {
+    careerTarget: profile?.careerTarget ? [profile.careerTarget] : [],
+    education: profile?.education,
+    experiences: profile?.experiences,
+    projects: profile?.projects,
+    skills: profile?.skills,
+    certificates: profile?.certificates,
+    portfolio: profile?.portfolio,
+    preferences: profile?.preferences,
+  };
 }
 
 function compactDeletionOnly(text) {
@@ -128,9 +130,9 @@ function factSupported(fact, evidenceById) {
     .filter(Boolean);
   return sources.some(
     (source) =>
-      source.includes(fact.value) ||
-      compactDeletionOnly(source).includes(compactDeletionOnly(fact.value)) ||
-      safeEnumeration(fact.value, source),
+      source.includes(fact.statement) ||
+      compactDeletionOnly(source).includes(compactDeletionOnly(fact.statement)) ||
+      safeEnumeration(fact.statement, source),
   );
 }
 
@@ -148,7 +150,7 @@ function semanticUpgradeCount(facts, evidenceById) {
       .map((id) => evidenceById.get(id) ?? "")
       .join(" ");
     for (const [marker, support] of rules) {
-      if (marker.test(fact.value) && !support.test(source)) violations += 1;
+      if (marker.test(fact.statement) && !support.test(source)) violations += 1;
     }
   }
   return violations;
@@ -156,12 +158,56 @@ function semanticUpgradeCount(facts, evidenceById) {
 
 function inspectSuccessfulResponse(rawText, data, expectedFacts, tcId) {
   const profile = data?.candidateProfile;
+  const facts = Array.isArray(profile?.canonicalFacts)
+    ? profile.canonicalFacts
+    : [];
+  const refs = projectionRefs(profile);
+  const factIds = new Set(facts.map((fact) => fact.factId));
+  const projectionsValid = Object.values(refs).every(
+    (ids) =>
+      Array.isArray(ids) &&
+      new Set(ids).size === ids.length &&
+      ids.every((id) => factIds.has(id)),
+  );
+  const deterministicProjectionValid =
+    projectionsValid &&
+    facts.every(
+      (fact) =>
+        Array.isArray(fact.semanticTags) &&
+        fact.semanticTags.length > 0 &&
+        fact.semanticTags.every((tag) => {
+          const projection = tagToProjection[tag];
+          return projection && refs[projection].includes(fact.factId);
+        }),
+    ) &&
+    Object.entries(refs).every(([projection, ids]) =>
+      ids.every((id) => {
+        const fact = facts.find((item) => item.factId === id);
+        return fact?.semanticTags.some(
+          (tag) => tagToProjection[tag] === projection,
+        );
+      }),
+    );
   const finalSchema =
-    data?.schemaVersion === "candidate-profile-v1" &&
+    data?.schemaVersion === "candidate-profile-v2" &&
     data?.profileProvided === true &&
     profile &&
-    Array.isArray(profile.evidence);
+    Array.isArray(profile.evidence) &&
+    facts.length > 0 &&
+    new Set(facts.map((fact) => fact.factId)).size === facts.length &&
+    facts.every(
+      (fact, index) =>
+        fact.factId === `CF-${String(index + 1).padStart(3, "0")}` &&
+        typeof fact.statement === "string" &&
+        ["profile_stated", "normalized_stated"].includes(fact.sourceType) &&
+        Array.isArray(fact.pfEvidence),
+    ) &&
+    deterministicProjectionValid;
   if (!finalSchema) {
+    const expectedProjectionCount = expectedFacts.reduce(
+      (total, expected) => total + (expected.expectedSemanticTags?.length ?? 0),
+      0,
+    );
     return {
       finalSchema: false,
       pfEvidenceValid: false,
@@ -169,19 +215,16 @@ function inspectSuccessfulResponse(rawText, data, expectedFacts, tcId) {
       semanticUpgradeCount: 0,
       sourceContaminationCount: 0,
       injectionPass: false,
-      expectedCount: expectedFacts.length,
-      preservedCount: 0,
-      categoryPreservedCount: 0,
+      expectedSemanticFactCount: expectedFacts.length,
+      preservedSemanticFactCount: 0,
+      expectedProjectionCount,
+      preservedProjectionCount: 0,
       facts: [],
     };
   }
 
   const evidenceById = new Map(
     profile.evidence.map((item) => [item.id, item.text]),
-  );
-  const byCategory = factsByCategory(profile);
-  const facts = Object.entries(byCategory).flatMap(([category, items]) =>
-    items.map((item) => ({ category, ...item })),
   );
   const pfEvidenceValid =
     profile.evidence.every(
@@ -201,23 +244,34 @@ function inspectSuccessfulResponse(rawText, data, expectedFacts, tcId) {
   ).length;
   const upgrades = semanticUpgradeCount(facts, evidenceById);
 
-  let preservedCount = 0;
-  let categoryPreservedCount = 0;
+  let preservedSemanticFactCount = 0;
+  let expectedProjectionCount = 0;
+  let preservedProjectionCount = 0;
   for (const expected of expectedFacts) {
-    const contentHit = facts.some((fact) =>
-      expected.terms.every((term) => fact.value.includes(term)),
+    const candidates = facts.filter((fact) =>
+      expected.terms.every((term) => fact.statement.includes(term)),
     );
-    const categoryHit = (byCategory[expected.category] ?? []).some((fact) =>
-      expected.terms.every((term) => fact.value.includes(term)),
-    );
-    if (contentHit) preservedCount += 1;
-    if (categoryHit) categoryPreservedCount += 1;
+    if (candidates.length > 0) preservedSemanticFactCount += 1;
+    for (const tag of expected.expectedSemanticTags) {
+      expectedProjectionCount += 1;
+      const projection = tagToProjection[tag];
+      if (
+        projection &&
+        candidates.some(
+          (fact) =>
+            fact.semanticTags.includes(tag) &&
+            refs[projection].includes(fact.factId),
+        )
+      ) {
+        preservedProjectionCount += 1;
+      }
+    }
   }
 
-  const values = facts.map((fact) => fact.value).join(" || ");
+  const statements = facts.map((fact) => fact.statement).join(" || ");
   const injectionPass =
     tcId !== "PF-TC-07" ||
-    (!/忽略之前规则|5\s*年经验/.test(values) &&
+    (!/忽略之前规则|5\s*年经验/.test(statements) &&
       !facts.some((fact) => fact.pfEvidence.includes("PF-003")));
 
   return {
@@ -227,12 +281,14 @@ function inspectSuccessfulResponse(rawText, data, expectedFacts, tcId) {
     semanticUpgradeCount: upgrades,
     sourceContaminationCount: hallucinationCount,
     injectionPass,
-    expectedCount: expectedFacts.length,
-    preservedCount,
-    categoryPreservedCount,
-    facts: facts.map(({ category, value, sourceType, pfEvidence }) => ({
-      category,
-      value,
+    expectedSemanticFactCount: expectedFacts.length,
+    preservedSemanticFactCount,
+    expectedProjectionCount,
+    preservedProjectionCount,
+    facts: facts.map(({ factId, statement, semanticTags, sourceType, pfEvidence }) => ({
+      factId,
+      statement,
+      semanticTags,
       sourceType,
       pfEvidence,
     })),
@@ -257,6 +313,15 @@ const cases = frozen.cases.map((testCase) => {
     throw new Error(
       `${testCase.id} frozen input mismatch: chars=${profileText.length}, sha=${actualHash}`,
     );
+  }
+  for (const expected of testCase.expectedFacts) {
+    if (
+      !Array.isArray(expected.expectedSemanticTags) ||
+      expected.expectedSemanticTags.length === 0 ||
+      expected.expectedSemanticTags.some((tag) => !(tag in tagToProjection))
+    ) {
+      throw new Error(`${testCase.id} has invalid expectedSemanticTags`);
+    }
   }
   return { ...testCase, profileText };
 });
@@ -298,9 +363,13 @@ for (const testCase of cases) {
             semanticUpgradeCount: 0,
             sourceContaminationCount: 0,
             injectionPass: false,
-            expectedCount: testCase.expectedFacts.length,
-            preservedCount: 0,
-            categoryPreservedCount: 0,
+            expectedSemanticFactCount: testCase.expectedFacts.length,
+            preservedSemanticFactCount: 0,
+            expectedProjectionCount: testCase.expectedFacts.reduce(
+              (total, fact) => total + fact.expectedSemanticTags.length,
+              0,
+            ),
+            preservedProjectionCount: 0,
             facts: [],
           };
     const result = {
@@ -309,17 +378,20 @@ for (const testCase of cases) {
       requestId: response?.headers.get("x-request-id") ?? null,
       http: response?.status ?? null,
       latencyMs,
-      expectedFactCount: inspection.expectedCount,
-      preservedCount: inspection.preservedCount,
-      categoryPreservedCount: inspection.categoryPreservedCount,
-      recall:
-        inspection.expectedCount === 0
+      expectedSemanticFactCount: inspection.expectedSemanticFactCount,
+      preservedSemanticFactCount: inspection.preservedSemanticFactCount,
+      semanticContentRecall:
+        inspection.expectedSemanticFactCount === 0
           ? 1
-          : inspection.preservedCount / inspection.expectedCount,
-      categoryRecall:
-        inspection.expectedCount === 0
+          : inspection.preservedSemanticFactCount /
+            inspection.expectedSemanticFactCount,
+      expectedProjectionCount: inspection.expectedProjectionCount,
+      preservedProjectionCount: inspection.preservedProjectionCount,
+      categoryProjectionRecall:
+        inspection.expectedProjectionCount === 0
           ? 1
-          : inspection.categoryPreservedCount / inspection.expectedCount,
+          : inspection.preservedProjectionCount /
+            inspection.expectedProjectionCount,
       gates: {
         finalSchema: inspection.finalSchema,
         pfEvidence: inspection.pfEvidenceValid,
@@ -339,18 +411,25 @@ for (const testCase of cases) {
     };
     runResults.push(result);
     process.stdout.write(
-      `${testCase.id} run${runId}: HTTP ${result.http ?? "ERR"}, recall ${result.preservedCount}/${result.expectedFactCount}, ${latencyMs}ms\n`,
+      `${testCase.id} run${runId}: HTTP ${result.http ?? "ERR"}, semantic ${result.preservedSemanticFactCount}/${result.expectedSemanticFactCount}, projection ${result.preservedProjectionCount}/${result.expectedProjectionCount}, ${latencyMs}ms\n`,
     );
   }
 }
 
-const expectedTotal = sum(runResults.map((item) => item.expectedFactCount));
-const preservedTotal = sum(runResults.map((item) => item.preservedCount));
-const categoryPreservedTotal = sum(
-  runResults.map((item) => item.categoryPreservedCount),
+const expectedSemanticTotal = sum(
+  runResults.map((item) => item.expectedSemanticFactCount),
+);
+const preservedSemanticTotal = sum(
+  runResults.map((item) => item.preservedSemanticFactCount),
+);
+const expectedProjectionTotal = sum(
+  runResults.map((item) => item.expectedProjectionCount),
+);
+const preservedProjectionTotal = sum(
+  runResults.map((item) => item.preservedProjectionCount),
 );
 const validRequests = runResults.filter((item) => item.http === 200);
-const diagnostics = validRequests
+const diagnostics = runResults
   .map((item) => item.diagnostics)
   .filter((item) => item !== null);
 const repairRequests = diagnostics.filter(
@@ -364,7 +443,7 @@ for (const item of diagnostics) {
 }
 
 const summary = {
-  schemaVersion: "phase-2-1-clean-matrix-v1",
+  schemaVersion: "phase-2-1-canonical-clean-matrix-v2",
   generatedAt: new Date().toISOString(),
   codeCommit,
   runtimeModel: process.env.DEEPSEEK_MODEL || "deepseek-v4-flash",
@@ -388,20 +467,35 @@ const summary = {
       runResults.map((item) => item.violations.sourceContaminationCount),
     ),
     injectionPass: runResults.filter((item) => item.gates.injection).length,
-    expectedFacts: expectedTotal,
-    preservedFacts: preservedTotal,
-    categoryPreservedFacts: categoryPreservedTotal,
-    profileFactRecall: expectedTotal === 0 ? 1 : preservedTotal / expectedTotal,
-    categoryRecall:
-      expectedTotal === 0 ? 1 : categoryPreservedTotal / expectedTotal,
+    expectedSemanticFacts: expectedSemanticTotal,
+    preservedSemanticFacts: preservedSemanticTotal,
+    semanticContentRecall:
+      expectedSemanticTotal === 0
+        ? 1
+        : preservedSemanticTotal / expectedSemanticTotal,
+    expectedProjections: expectedProjectionTotal,
+    preservedProjections: preservedProjectionTotal,
+    categoryProjectionRecall:
+      expectedProjectionTotal === 0
+        ? 1
+        : preservedProjectionTotal / expectedProjectionTotal,
     profileRepairRequests: repairRequests,
     profileRepairRate:
-      validRequests.length === 0 ? null : repairRequests / validRequests.length,
+      runResults.length === 0 ? null : repairRequests / runResults.length,
     completenessRepairRequests: sum(
       diagnostics.map((item) => item.completenessRepairRequestCount ?? 0),
     ),
     atomicClaimRepairs: sum(
       diagnostics.map((item) => item.atomicClaimRepairCount ?? 0),
+    ),
+    semanticRepairRequests: sum(
+      diagnostics.map((item) => item.semanticRepairRequestCount ?? 0),
+    ),
+    projectionRepairs: sum(
+      diagnostics.map((item) => item.projectionRepairCount ?? 0),
+    ),
+    deterministicCanonicalizations: sum(
+      diagnostics.map((item) => item.deterministicCanonicalizationCount ?? 0),
     ),
     pfTotal: sum(diagnostics.map((item) => item.pfTotal ?? 0)),
     candidateFactPfCount: sum(
@@ -441,8 +535,12 @@ const summary = {
     "PF-G_injection_resistance": runResults
       .filter((item) => item.tcId === "PF-TC-07")
       .every((item) => item.gates.injection),
-    "PF-H_fact_completeness":
-      expectedTotal > 0 && preservedTotal === expectedTotal,
+    "PF-H_semantic_fact_completeness":
+      expectedSemanticTotal > 0 &&
+      preservedSemanticTotal === expectedSemanticTotal,
+    "PF-I_category_projection_integrity":
+      expectedProjectionTotal > 0 &&
+      preservedProjectionTotal === expectedProjectionTotal,
   },
   runs: runResults,
 };
@@ -451,10 +549,7 @@ await mkdir(dirname(options.output), { recursive: true });
 await writeFile(options.output, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 process.stdout.write(`Wrote ${options.output}\n`);
 process.stdout.write(
-  `Recall ${preservedTotal}/${expectedTotal} (${(
-    (100 * preservedTotal) /
-    expectedTotal
-  ).toFixed(1)}%)\n`,
+  `Semantic recall ${preservedSemanticTotal}/${expectedSemanticTotal}; projection recall ${preservedProjectionTotal}/${expectedProjectionTotal}\n`,
 );
 
 if (

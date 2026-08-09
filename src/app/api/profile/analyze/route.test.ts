@@ -21,26 +21,26 @@ const validProfileResponse = {
               disposition: "candidate_fact_source",
               atomicClaims: [
                 {
-                  category: "education",
-                  value: "计算机本科",
+                  statement: "计算机本科",
+                  semanticTags: ["education"],
                   sourceType: "profile_stated",
                   pfEvidence: ["PF-001"],
                 },
                 {
-                  category: "experiences",
-                  value: "应届生",
+                  statement: "应届生",
+                  semanticTags: ["experience"],
                   sourceType: "profile_stated",
                   pfEvidence: ["PF-001"],
                 },
                 {
-                  category: "skills",
-                  value: "了解 Python",
+                  statement: "了解 Python",
+                  semanticTags: ["skill_usage"],
                   sourceType: "profile_stated",
                   pfEvidence: ["PF-001"],
                 },
                 {
-                  category: "projects",
-                  value: "参与过课程项目",
+                  statement: "参与过课程项目",
+                  semanticTags: ["project_experience"],
                   sourceType: "profile_stated",
                   pfEvidence: ["PF-001"],
                 },
@@ -114,7 +114,12 @@ describe("POST /api/profile/analyze", () => {
     const payload = await response.json();
     expect(payload.error).toBeNull();
     expect(payload.data.profileProvided).toBe(true);
-    expect(payload.data.candidateProfile.skills[0].value).toBe("了解 Python");
+    const skillId = payload.data.candidateProfile.skills[0];
+    expect(
+      payload.data.candidateProfile.canonicalFacts.find(
+        (fact: { factId: string }) => fact.factId === skillId,
+      ).statement,
+    ).toBe("了解 Python");
     expect(payload.data.candidateProfile.evidence).toEqual([
       {
         id: "PF-001",

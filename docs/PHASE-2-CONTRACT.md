@@ -2,6 +2,7 @@
 
 > 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED（ISSUE-025 Open / P1 / Gate Blocker）；Phase 2.2 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
+> 当前版本：**2.0.1（2026-08-09 Candidate Fact Canonicalization Amendment）**；本 amendment 经 Product Owner / QA 批准，不重新打开 Phase 2.0。
 > 基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406…`）；`docs/analysis-schema.md` 为 Phase 1 唯一业务输出协议，本文件为 **Phase 2 实现、测试、QA 和后续 Codex 执行的唯一主要产品协议基线**（Phase 2 扩展最终将回写 `analysis-schema.md`，但实现前以本文件为冻结依据）。
 > 继承原则：不重新发明 Phase 1 已验证 Contract；优先继承、按需扩展、明确新增（见 §0）。
 
@@ -138,6 +139,82 @@ const finalCandidateProfileSchema = z.object({
 - **`confidence`：Phase 2 MVP 不输出**（数值与 high/medium/low 均 deferred，见 §14）；
 - **输入长度**：`configurable validated input limit`（不冻结具体数值；行为契约见 §2.1）；
 - 与 Phase 1 关系：`candidateProfileProvided=false` 时输出 `candidateProfile=null`，Phase 1 分支完全不变（F2-08 / Gate G）。
+
+### 3.3 Contract Amendment 2.0.1 — Candidate Fact Canonicalization / Semantic Tag / Projection
+
+> 本节在 Candidate Profile 事实存储、分类和 category arrays 语义上取代 §3.1/§3.2 的旧 pseudo-Zod；历史正文保留用于审计。其余 Evidence、Derived、Unknown 与 Match Contract 不变。
+
+**原因（ISSUE-025 TC04 Taxonomy Audit）：**旧结构让 `education[]` / `experiences[]` / `projects[]` / `skills[]` 同时承担 canonical fact storage、UI projection 与未来 Match evidence index，导致 category projection failure 被错误混入 semantic completeness，并诱发同一事实被模型改写成多个版本。
+
+正式数据流：
+
+```text
+Raw Profile
+→ PF Evidence Ledger
+→ Validated Atomic Claim
+→ Canonical Candidate Fact（唯一事实 truth layer）
+→ Semantic Classification
+→ Deterministic Typed Projection
+```
+
+Canonical Candidate Fact：
+
+```ts
+const semanticTagSchema = z.enum([
+  "career_target",
+  "education",
+  "experience",
+  "project_experience",
+  "skill_usage",
+  "certificate",
+  "portfolio",
+  "preference",
+]);
+
+const canonicalCandidateFactSchema = z.object({
+  factId: z.string().regex(/^CF-\d{3,}$/),
+  statement: z.string().trim().min(1).max(200),
+  sourceType: z.enum(["profile_stated", "normalized_stated"]),
+  pfEvidence: z.array(z.string().regex(/^PF-\d{3,}$/)).min(1).max(3),
+  semanticTags: z.array(semanticTagSchema).min(1).max(4),
+}).strict();
+```
+
+- `factId` 依 validated atomic claim 的稳定顺序确定性生成（`CF-001…`）；不由模型生成；
+- `statement` 是该事实唯一 canonical semantic representation；不得因 category 或 UI 需要复制、缩写或改写；
+- 一个事实可以有多个 `semanticTags`。例如“完成数据分析课程作业，使用 Python 处理 CSV 数据”是一条事实，同时具有 `project_experience` 与 `skill_usage`；
+- 禁止 `confidence`；Derived Observation 继续独立，不能成为 Canonical Candidate Fact；
+- 明确负向事实（例如“没有正式工作经历”）仍是 Canonical Candidate Fact；缺失信息不得转换为负向事实；
+- validated atomic claim 直接、确定性转换为 Canonical Candidate Fact，不再经过自由生成 Final Fact。
+
+Typed Projection 只保存 canonical references：
+
+```ts
+const candidateProfile = {
+  canonicalFacts: canonicalCandidateFactSchema.array(),
+  careerTarget: z.string().regex(/^CF-/).nullable(),
+  education: z.array(z.string().regex(/^CF-/)),
+  experiences: z.array(z.string().regex(/^CF-/)),
+  projects: z.array(z.string().regex(/^CF-/)),
+  skills: z.array(z.string().regex(/^CF-/)),
+  certificates: z.array(z.string().regex(/^CF-/)),
+  portfolio: z.array(z.string().regex(/^CF-/)),
+  preferences: z.array(z.string().regex(/^CF-/)),
+};
+```
+
+- projection 不保存或生成第二份 statement/evidence/qualifier；前端通过 `factId` resolve canonical fact；
+- tag→projection 为确定性映射：`career_target→careerTarget`、`education→education`、`experience→experiences`、`project_experience→projects`、`skill_usage→skills`、`certificate→certificates`、`portfolio→portfolio`、`preference→preferences`；
+- Canonical Candidate Fact 是唯一 truth layer；projection、UI display、Derived Observation、Match Engine、Personalized Greeting 均不得成为第二事实源；所有 Candidate Claim 最终必须回到 `CF → PF → Raw Profile`；
+- Repair 分层：semantic content 缺失/损坏才允许对目标 PF 做一次有界 semantic repair；statement 完整但 tag 缺失/错误时只修 semantic classification，禁止改写 statement；projection 完全由 validated tags 确定性生成。
+
+**Gate 澄清（不降低原门槛）：**
+
+- `PF-H — Semantic Fact Completeness`：冻结 manifest 每个 must-preserve semantic fact 必须在 Canonical Candidate Facts 中完整存在；`semanticContentRecall = 100%`。主体、程度、时间、经历类型、团队/个人归属、否定关系、课程/工作作用域均不得丢失；
+- `PF-I — Category Projection Integrity`：冻结 manifest 的全部 `expectedSemanticTags` 必须出现在匹配 canonical fact，并具有相应 deterministic typed projection；`categoryProjectionRecall = 100%`；
+- category 是否投影不再计入 PF-H，但 PF-I 同为 Hard Gate，所以 amendment 不删除冻结事实、不降低完整性要求。
+
+本 amendment 不降低 Evidence Gate、不修改 Phase 2 Product Scope、不授权 Phase 2.2，也不删除或改写历史失败。
 
 ## 4. Match Status Contract（met / partial / unmet / unknown）
 
@@ -464,6 +541,22 @@ Phase 2 落地：Profile 侧推断同样适用本约束（Profile 无依据不�
 | H — Robustness / Fallback | 见 §17 四类指标定义 | 见 §17（≤20% 仅 hrSafeFallbackRate provisional target） |
 
 **硬 Gate 不可被平均分抵消**：Gate A（Candidate Fact Integrity）、B（Profile Evidence Integrity）、D（Cross-source Contamination）等硬 Gate 失败时，**不得以 Gate F 高平均分覆盖**——高平均分不能掩盖协议错误（与 Phase 1 冻结口径一致）。
+
+### 16.1 Phase 2.1 Candidate Profile Hard Gates（PF-A～PF-I）
+
+| Gate | 定义 | Phase 2.1 目标 |
+|---|---|---|
+| PF-A Candidate Fact Integrity | Canonical Candidate Fact 幻觉 | `0` |
+| PF-B Evidence Integrity | `CF → PF → Raw Profile` 可回溯 | `100%` |
+| PF-C Semantic Preservation | 程度/时间/类型/归属/否定/课程作用域不损坏 | `0` violation |
+| PF-D Source Isolation | JD/注入/其他来源不得进入 CF | `0` contamination |
+| PF-E Final Schema | `candidate-profile-v2` 与 canonical/projection schema | 全部请求 PASS |
+| PF-F Fail Closed | 未验证内容不得返回 | PASS |
+| PF-G Injection Resistance | instruction text 不得成为 Candidate Fact | PASS |
+| PF-H Semantic Fact Completeness | must-preserve semantic facts 存在于 canonical truth layer | `semanticContentRecall = 100%` |
+| PF-I Category Projection Integrity | expected tags 与 deterministic projections 完整 | `categoryProjectionRecall = 100%` |
+
+PF-A～PF-I 均为 Hard Gate；任何失败不得被 HTTP 200、平均分或另一个 Gate 的通过覆盖。
 
 ## 17. Phase 2 Fallback / Repair Metrics 正式定义
 

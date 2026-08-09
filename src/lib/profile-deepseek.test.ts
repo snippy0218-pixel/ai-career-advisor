@@ -17,12 +17,25 @@ function successfulProfileResponse(analysis: unknown) {
 }
 
 function claim(
-  category: string,
-  value: string,
+  category: string | string[],
+  statement: string,
   pfId: string,
   sourceType: "profile_stated" | "normalized_stated" = "normalized_stated",
 ) {
-  return { category, value, sourceType, pfEvidence: [pfId] };
+  const tagMap: Record<string, string> = {
+    careerTarget: "career_target",
+    education: "education",
+    experiences: "experience",
+    projects: "project_experience",
+    skills: "skill_usage",
+    certificates: "certificate",
+    portfolio: "portfolio",
+    preferences: "preference",
+  };
+  const semanticTags = (Array.isArray(category) ? category : [category]).map(
+    (tag) => tagMap[tag] ?? tag,
+  );
+  return { statement, semanticTags, sourceType, pfEvidence: [pfId] };
 }
 
 function candidatePf(
@@ -91,6 +104,23 @@ async function run(input: string, fetchMock: ReturnType<typeof vi.fn>) {
   return { result, diagnostics };
 }
 
+function projectedFacts(
+  result: Awaited<ReturnType<typeof run>>["result"],
+  projection:
+    | "education"
+    | "experiences"
+    | "projects"
+    | "skills"
+    | "certificates"
+    | "portfolio"
+    | "preferences",
+) {
+  const ids = new Set(result.candidateProfile[projection]);
+  return result.candidateProfile.canonicalFacts.filter((fact) =>
+    ids.has(fact.factId),
+  );
+}
+
 describe("coverage-driven profile structuring (Phase 2.1)", () => {
   it("builds Final Candidate Facts only from validated atomic claims", async () => {
     const fetchMock = vi
@@ -99,7 +129,7 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     const { result, diagnostics } = await run(profileText, fetchMock);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(result.candidateProfile.skills.map((item) => item.value)).toEqual([
+    expect(projectedFacts(result, "skills").map((item) => item.statement)).toEqual([
       "了解 Python",
       "熟悉 Excel",
     ]);
@@ -167,7 +197,7 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
       .mockResolvedValueOnce(successfulProfileResponse(repaired));
     const { result, diagnostics } = await run(profileText, fetchMock);
 
-    expect(result.candidateProfile.skills[0].value).toBe("了解 Python");
+    expect(projectedFacts(result, "skills")[0].statement).toBe("了解 Python");
     expect(diagnostics).toHaveBeenCalledWith(
       expect.objectContaining({
         semanticUpgradeViolationCount: 1,
@@ -206,9 +236,9 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
       .mockResolvedValueOnce(successfulProfileResponse(coverage));
     const { result } = await run(input, fetchMock);
 
-    expect(result.candidateProfile.education[0].value).toBe("计算机本科");
-    expect(result.candidateProfile.experiences[0].value).toBe("应届生");
-    expect(result.candidateProfile.skills[0].value).toBe("了解 Python");
+    expect(projectedFacts(result, "education")[0].statement).toBe("计算机本科");
+    expect(projectedFacts(result, "experiences")[0].statement).toBe("应届生");
+    expect(projectedFacts(result, "skills")[0].statement).toBe("了解 Python");
   });
 
   it("preserves an explicit negative fact as a Candidate Fact", async () => {
@@ -230,7 +260,7 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
       .fn()
       .mockResolvedValueOnce(successfulProfileResponse(coverage));
     const { result } = await run(input, fetchMock);
-    expect(result.candidateProfile.experiences[0].value).toBe(
+    expect(projectedFacts(result, "experiences")[0].statement).toBe(
       "没有正式工作经历",
     );
   });
@@ -249,13 +279,13 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
       .fn()
       .mockResolvedValueOnce(successfulProfileResponse(coverage));
     const { result } = await run(input, fetchMock);
-    expect(result.candidateProfile.skills.map((item) => item.value)).toEqual([
+    expect(projectedFacts(result, "skills").map((item) => item.statement)).toEqual([
       "接触过 SQL",
       "接触过 Figma",
     ]);
   });
 
-  it("repairs a skill claim that drops its course-work scope", async () => {
+  it("deterministically canonicalizes one course-tool fact with two projections", async () => {
     const input = "项目：完成数据分析课程作业，使用 Python 处理 CSV 数据";
     const initial = {
       coverage: [
@@ -265,33 +295,32 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
         ]),
       ],
     };
-    const repair = {
-      coverage: [
-        candidatePf("PF-001", [
-          claim("projects", "完成数据分析课程作业", "PF-001", "profile_stated"),
-          claim(
-            "skills",
-            "完成数据分析课程作业，使用 Python 处理 CSV 数据",
-            "PF-001",
-            "profile_stated",
-          ),
-        ]),
-      ],
-    };
     const fetchMock = vi
       .fn()
-      .mockResolvedValueOnce(successfulProfileResponse(initial))
-      .mockResolvedValueOnce(successfulProfileResponse(repair));
+      .mockResolvedValueOnce(successfulProfileResponse(initial));
     const { result, diagnostics } = await run(input, fetchMock);
 
-    expect(result.candidateProfile.skills[0].value).toContain("课程作业");
-    expect(result.candidateProfile.skills[0].value).toContain("Python");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(result.candidateProfile.canonicalFacts).toHaveLength(1);
+    const canonical = result.candidateProfile.canonicalFacts[0];
+    expect(canonical.statement).toBe(
+      "完成数据分析课程作业，使用 Python 处理 CSV 数据",
+    );
+    expect(canonical.semanticTags).toEqual([
+      "project_experience",
+      "skill_usage",
+    ]);
+    expect(result.candidateProfile.projects).toEqual([canonical.factId]);
+    expect(result.candidateProfile.skills).toEqual([canonical.factId]);
     expect(diagnostics).toHaveBeenCalledWith(
-      expect.objectContaining({ atomicClaimRepairCount: 1 }),
+      expect.objectContaining({
+        deterministicCanonicalizationCount: 1,
+        semanticRepairRequestCount: 0,
+      }),
     );
   });
 
-  it("repairs standalone project participation misclassified as experience", async () => {
+  it("repairs a standalone project tag without rewriting its statement", async () => {
     const input = "项目补充：参与过校园活动，负责宣传物料";
     const initial = {
       coverage: [
@@ -300,21 +329,15 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
         ]),
       ],
     };
-    const repair = {
-      coverage: [
-        candidatePf("PF-001", [
-          claim("projects", "参与过校园活动", "PF-001", "profile_stated"),
-          claim("projects", "负责宣传物料", "PF-001", "profile_stated"),
-        ]),
-      ],
-    };
     const fetchMock = vi
       .fn()
-      .mockResolvedValueOnce(successfulProfileResponse(initial))
-      .mockResolvedValueOnce(successfulProfileResponse(repair));
-    const { result } = await run(input, fetchMock);
-    expect(result.candidateProfile.projects[0].value).toBe("参与过校园活动");
+      .mockResolvedValueOnce(successfulProfileResponse(initial));
+    const { result, diagnostics } = await run(input, fetchMock);
+    expect(projectedFacts(result, "projects")[0].statement).toBe("参与过校园活动");
     expect(result.candidateProfile.experiences).toHaveLength(0);
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({ projectionRepairCount: 1 }),
+    );
   });
 
   it("keeps Prompt Injection as an explicit instruction_text disposition", async () => {
@@ -360,6 +383,6 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     const { result } = await run(input, fetchMock);
 
     expect(result.candidateProfile.experiences).toHaveLength(0);
-    expect(result.candidateProfile.skills[0].value).toBe("了解 Python");
+    expect(projectedFacts(result, "skills")[0].statement).toBe("了解 Python");
   });
 });

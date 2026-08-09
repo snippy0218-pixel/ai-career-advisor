@@ -14,6 +14,7 @@ import {
   isSafeSharedQualifierEnumeration,
   PF_DISPOSITIONS,
   PROFILE_SCHEMA_VERSION,
+  SEMANTIC_TAG_TO_PROJECTION,
   rawPfCoverageItemSchema,
   resolveEvidenceToPf,
   resolvePfText,
@@ -23,7 +24,8 @@ import type {
   FinalProfileStructure,
   PfDisposition,
   ProfileEvidence,
-  ProfileFactCategory,
+  ProfileProjectionKey,
+  ProfileSemanticTag,
   RawAtomicClaim,
 } from "./profile-schema";
 
@@ -48,6 +50,9 @@ export interface ProfileDiagnostics {
   unprocessedPfCount: number;
   completenessRepairRequestCount: number;
   atomicClaimRepairCount: number;
+  semanticRepairRequestCount: number;
+  projectionRepairCount: number;
+  deterministicCanonicalizationCount: number;
   finalFactCount: number;
   profileFactRecall: number | null;
   latencyMs: number;
@@ -84,15 +89,11 @@ type CompletionConfig = Required<
 >;
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
-interface NormalizedFact {
-  value: string;
+interface ValidatedAtomicClaim {
+  statement: string;
   sourceType: "profile_stated" | "normalized_stated";
   pfEvidence: string[];
-  verificationQuestion: null;
-}
-
-interface ValidatedAtomicClaim extends NormalizedFact {
-  category: ProfileFactCategory;
+  semanticTags: ProfileSemanticTag[];
 }
 
 interface ValidatedCoverageItem {
@@ -111,7 +112,7 @@ const coverageEnvelopeSchema = z
   .object({ coverage: z.array(z.unknown()).max(30) })
   .strict();
 
-const categoryCaps: Record<ProfileFactCategory, number> = {
+const projectionCaps: Record<ProfileProjectionKey, number> = {
   careerTarget: 1,
   education: 6,
   experiences: 8,
@@ -313,57 +314,67 @@ function normalizeAtomicClaim(
   const pfTexts = pfEvidence
     .map((id) => resolvePfText(ledger, id) ?? "")
     .filter(Boolean);
-  const upgrades = findSemanticUpgradeViolations(item.value, pfTexts);
+  const upgrades = findSemanticUpgradeViolations(item.statement, pfTexts);
   if (upgrades.length > 0) {
     diagnostics.semanticUpgradeViolationCount += upgrades.length;
     return null;
   }
 
-  // Preserve material scope: a tool used only in a course context must not be
-  // emitted as an unqualified skill. The complete PF clause is a safe value.
-  const exactValueIndex = primaryPf.text.indexOf(item.value);
-  const valueSentence =
-    exactValueIndex >= 0
+  const inferredTags = inferSemanticTags(item.statement, primaryPf.text);
+  const supportedModelTags = item.semanticTags.filter((tag) =>
+    isSemanticTagSupported(tag, item.statement, primaryPf.text),
+  );
+  const semanticTags = uniqueTags([...supportedModelTags, ...inferredTags]);
+  if (
+    semanticTags.length === 0 ||
+    semanticTags.length !== item.semanticTags.length ||
+    semanticTags.some((tag, index) => tag !== item.semanticTags[index])
+  ) {
+    diagnostics.projectionRepairCount += 1;
+  }
+  if (semanticTags.length === 0) {
+    diagnostics.layeringViolationCount += 1;
+    return null;
+  }
+
+  // Preserve material scope: tool usage in a course clause must keep that
+  // context in the one canonical statement.
+  const exactStatementIndex = primaryPf.text.indexOf(item.statement);
+  const statementSentence =
+    exactStatementIndex >= 0
       ? primaryPf.text
-          .slice(0, exactValueIndex)
+          .slice(0, exactStatementIndex)
           .split(/[。；;！？!?]/)
           .at(-1)! +
-        primaryPf.text.slice(exactValueIndex).split(/[。；;！？!?]/, 1)[0]
+        primaryPf.text
+          .slice(exactStatementIndex)
+          .split(/[。；;！？!?]/, 1)[0]
       : primaryPf.text;
   if (
-    item.category === "skills" &&
-    /课程项目|课程作业/.test(valueSentence) &&
-    !/课程项目|课程作业/.test(item.value)
+    semanticTags.includes("skill_usage") &&
+    /课程项目|课程作业/.test(statementSentence) &&
+    !/课程项目|课程作业/.test(item.statement)
   ) {
     diagnostics.layeringViolationCount += 1;
     return null;
   }
 
-  // Generic category boundary for standalone project/activity participation.
-  // Work/internship/assistant/competition facts remain experiences. This is a
-  // taxonomy guard, not a frozen-case text special case.
-  if (
-    item.category === "experiences" &&
-    /(?:参与过|参加过|完成|参与).{0,20}(?:项目|活动)/.test(item.value) &&
-    !/实习|工作|协助|助理|比赛/.test(item.value)
-  ) {
-    diagnostics.layeringViolationCount += 1;
-    return null;
-  }
-
-  let value = item.value.trim();
+  let statement = item.statement.trim();
   let sourceType = item.sourceType;
-  if (isEvidenceInJd(value, primaryPf.text)) {
+  if (isEvidenceInJd(statement, primaryPf.text)) {
     // Keep the model's explicit source type. normalized_stated is still safe
-    // when the value is itself verbatim.
+    // when the statement is itself verbatim.
   } else {
-    const normalizedSpans = findNormalizedEvidenceSpans(value, primaryPf.text);
+    const normalizedSpans = findNormalizedEvidenceSpans(
+      statement,
+      primaryPf.text,
+    );
     if (normalizedSpans.length === 1) {
-      value = normalizedSpans[0];
+      statement = normalizedSpans[0];
       sourceType = "normalized_stated";
     } else if (
-      isAllowlistedNormalization(value, primaryPf.text) ||
-      isSafeSharedQualifierEnumeration(value, primaryPf.text)
+      isAllowlistedNormalization(statement, primaryPf.text) ||
+      isSafeSharedQualifierEnumeration(statement, primaryPf.text)
     ) {
       sourceType = "normalized_stated";
     } else {
@@ -373,11 +384,10 @@ function normalizeAtomicClaim(
   }
 
   return {
-    category: item.category,
-    value,
+    statement,
     sourceType,
     pfEvidence,
-    verificationQuestion: null,
+    semanticTags,
   };
 }
 
@@ -386,36 +396,113 @@ const INSTRUCTION_PATTERN =
 const EXPLICIT_NEGATIVE_FACT_PATTERN =
   /没有正式工作经历|无正式工作经历|无相关实习|无驾照|没有驾照|未取得.{0,12}(?:证|资格)|未使用.{0,20}(?:工具|软件|SQL|Python)|不接受.{0,20}(?:城市|异地|出差)/;
 
-function requiredAtomicCategories(pfText: string): Set<ProfileFactCategory> {
-  const required = new Set<ProfileFactCategory>();
+function uniqueTags(tags: ProfileSemanticTag[]): ProfileSemanticTag[] {
+  return [...new Set(tags)];
+}
+
+function requiredSemanticTags(pfText: string): Set<ProfileSemanticTag> {
+  const required = new Set<ProfileSemanticTag>();
   if (/^教育|本科|硕士|博士|学历|专业/.test(pfText)) required.add("education");
   if (
     /^技能|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z]/i.test(
       pfText,
     )
   ) {
-    required.add("skills");
+    required.add("skill_usage");
   }
   if (
     /^项目|项目经历|团队项目|课程项目|课程作业|(?:参与过|参加过|完成|参与).{0,24}(?:项目|活动)/.test(
       pfText,
     )
   ) {
-    required.add("projects");
+    required.add("project_experience");
   }
   if (
     /^实习|^经历|实习生|工作经历|正式工作|应届生|协助|助理|参加.{0,16}比赛/.test(
       pfText,
     )
   ) {
-    required.add("experiences");
+    required.add("experience");
   }
-  if (/^证书|CET|资格证|驾驶证|驾照/.test(pfText)) required.add("certificates");
+  if (/^证书|CET|资格证|驾驶证|驾照/.test(pfText)) required.add("certificate");
   if (/期望城市|意向城市|不接受.{0,12}(?:城市|异地)/.test(pfText)) {
-    required.add("preferences");
+    required.add("preference");
   }
-  if (/求职方向|职业方向|目标岗位/.test(pfText)) required.add("careerTarget");
+  if (/求职方向|职业方向|目标岗位/.test(pfText)) required.add("career_target");
+  if (/^作品|作品集|成果|GitHub|仓库链接/i.test(pfText)) required.add("portfolio");
   return required;
+}
+
+function inferSemanticTags(
+  statement: string,
+  pfText: string,
+): ProfileSemanticTag[] {
+  const tags = new Set<ProfileSemanticTag>();
+  if (/教育|本科|硕士|博士|学历|专业|大学|学院/.test(statement)) {
+    tags.add("education");
+  }
+  if (
+    /(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z][A-Za-z0-9.+#-]*/i.test(
+      statement,
+    )
+  ) {
+    tags.add("skill_usage");
+  }
+  if (/项目|课程作业|校园活动|活动策划/.test(statement)) {
+    tags.add("project_experience");
+  }
+  if (
+    /实习|工作经历|正式工作|全职|应届生|协助|助理|比赛|竞赛/.test(
+      statement,
+    )
+  ) {
+    tags.add("experience");
+  }
+  if (/证书|CET|资格证|驾驶证|驾照/.test(statement)) tags.add("certificate");
+  if (/作品|作品集|成果|GitHub|仓库链接/i.test(statement)) tags.add("portfolio");
+  if (/求职方向|职业方向|目标岗位|方向$/.test(statement)) {
+    tags.add("career_target");
+  }
+  if (/期望城市|意向城市|不接受.{0,12}(?:城市|异地)|偏好/.test(statement)) {
+    tags.add("preference");
+  }
+
+  const required = requiredSemanticTags(pfText);
+  if (tags.size === 0 && required.size === 1) tags.add([...required][0]);
+  return [...tags];
+}
+
+function isSemanticTagSupported(
+  tag: ProfileSemanticTag,
+  statement: string,
+  pfText: string,
+) {
+  if (inferSemanticTags(statement, pfText).includes(tag)) return true;
+  const required = requiredSemanticTags(pfText);
+  return required.size === 1 && required.has(tag);
+}
+
+function courseToolCanonicalClaim(
+  pf: ProfileEvidence,
+): RawAtomicClaim | null {
+  const clause = pf.text
+    .split(/[。；;！？!?]/)
+    .map((item) => item.trim())
+    .find(
+      (item) =>
+        /课程项目|课程作业/.test(item) &&
+        /(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z][A-Za-z0-9.+#-]*/i.test(
+          item,
+        ),
+    );
+  if (!clause) return null;
+  const statement = clause.replace(/^[^：:]{1,16}[：:]/, "").trim();
+  return {
+    statement,
+    semanticTags: ["project_experience", "skill_usage"],
+    sourceType: "normalized_stated",
+    pfEvidence: [pf.id],
+  };
 }
 
 function addProblem(
@@ -502,22 +589,51 @@ function validateCoverageResponse(
       continue;
     }
 
-    const requiredCategories = requiredAtomicCategories(pf.text);
+    const requiredTags = requiredSemanticTags(pf.text);
     if (
-      requiredCategories.size > 0 &&
+      requiredTags.size > 0 &&
       item.disposition !== "candidate_fact_source"
     ) {
       addProblem(
         problems,
         pf.id,
-        `PF contains explicit candidate fact categories: ${[...requiredCategories].join(", ")}`,
+        `PF contains explicit candidate fact semantics: ${[...requiredTags].join(", ")}`,
       );
       continue;
     }
 
     const claims: ValidatedAtomicClaim[] = [];
     let claimInvalid = false;
-    for (const rawClaim of item.atomicClaims) {
+    const scopedCourseToolClaim = courseToolCanonicalClaim(pf);
+    const rawClaims = scopedCourseToolClaim
+      ? [
+          ...item.atomicClaims.filter(
+            (claim) =>
+              !claim.semanticTags.some((tag) =>
+                ["project_experience", "skill_usage"].includes(tag),
+              ) &&
+              !/课程项目|课程作业|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z]/i.test(
+                claim.statement,
+              ),
+          ),
+          scopedCourseToolClaim,
+        ]
+      : item.atomicClaims;
+    if (scopedCourseToolClaim) {
+      diagnostics.deterministicCanonicalizationCount += 1;
+      if (
+        !item.atomicClaims.some(
+          (claim) =>
+            claim.statement === scopedCourseToolClaim.statement &&
+            claim.semanticTags.includes("project_experience") &&
+            claim.semanticTags.includes("skill_usage"),
+        )
+      ) {
+        diagnostics.projectionRepairCount += 1;
+      }
+    }
+
+    for (const rawClaim of rawClaims) {
       const claim = normalizeAtomicClaim(
         rawClaim,
         pf,
@@ -530,38 +646,21 @@ function validateCoverageResponse(
         diagnostics.droppedCandidateFactCount += 1;
         continue;
       }
-      const key = `${claim.category}\u0000${claim.value}`;
-      if (!claims.some((existing) => `${existing.category}\u0000${existing.value}` === key)) {
+      const existing = claims.find(
+        (candidate) =>
+          candidate.statement === claim.statement &&
+          candidate.pfEvidence.join("\u0000") === claim.pfEvidence.join("\u0000"),
+      );
+      if (existing) {
+        existing.semanticTags = uniqueTags([
+          ...existing.semanticTags,
+          ...claim.semanticTags,
+        ]);
+      } else {
         claims.push(claim);
       }
     }
-    if (claimInvalid || claims.length !== item.atomicClaims.length) {
-      for (const rawClaim of item.atomicClaims) {
-        if (
-          rawClaim.category === "skills" &&
-          /课程项目|课程作业/.test(pf.text) &&
-          !/课程项目|课程作业/.test(rawClaim.value)
-        ) {
-          addProblem(
-            problems,
-            pf.id,
-            "course-context skill claim must preserve 课程项目/课程作业 in its value; copy the complete supporting PF clause",
-          );
-        }
-        if (
-          rawClaim.category === "experiences" &&
-          /(?:参与过|参加过|完成|参与).{0,20}(?:项目|活动)/.test(
-            rawClaim.value,
-          ) &&
-          !/实习|工作|协助|助理|比赛/.test(rawClaim.value)
-        ) {
-          addProblem(
-            problems,
-            pf.id,
-            "standalone project/activity participation must use category=projects",
-          );
-        }
-      }
+    if (claimInvalid) {
       addProblem(problems, pf.id, "one or more atomic claims failed strict validation");
       continue;
     }
@@ -570,15 +669,15 @@ function validateCoverageResponse(
       continue;
     }
 
-    const extractedCategories = new Set(claims.map((claim) => claim.category));
-    const missingCategories = [...requiredCategories].filter(
-      (category) => !extractedCategories.has(category),
+    const extractedTags = new Set(claims.flatMap((claim) => claim.semanticTags));
+    const missingTags = [...requiredTags].filter(
+      (tag) => !extractedTags.has(tag),
     );
-    if (missingCategories.length > 0) {
+    if (missingTags.length > 0) {
       addProblem(
         problems,
         pf.id,
-        `atomic claims omitted explicit categories: ${missingCategories.join(", ")}; add one strictly supported claim per category`,
+        `canonical atomic claims omitted explicit semantics: ${missingTags.join(", ")}; repair the missing semantic content without duplicating statements`,
       );
       continue;
     }
@@ -606,6 +705,7 @@ async function requestCoverageRepair(
   diagnostics.upstreamAttempts += 1;
   diagnostics.completenessRepairRequestCount += 1;
   diagnostics.atomicClaimRepairCount += problemPfs.length;
+  diagnostics.semanticRepairRequestCount += 1;
   return requestCompletion(
     buildCoverageRepairMessages(problemPfs, reasons),
     configuration,
@@ -618,7 +718,34 @@ function buildCandidateProfile(
   coverage: ValidatedCoverageItem[],
   ledger: ProfileEvidence[],
 ) {
-  const factsByCategory: Record<ProfileFactCategory, NormalizedFact[]> = {
+  const canonicalDrafts: ValidatedAtomicClaim[] = [];
+  for (const item of coverage) {
+    for (const claim of item.atomicClaims) {
+      const existing = canonicalDrafts.find(
+        (fact) =>
+          fact.statement === claim.statement &&
+          fact.pfEvidence.join("\u0000") === claim.pfEvidence.join("\u0000"),
+      );
+      if (existing) {
+        existing.semanticTags = uniqueTags([
+          ...existing.semanticTags,
+          ...claim.semanticTags,
+        ]);
+      } else {
+        canonicalDrafts.push({ ...claim, semanticTags: [...claim.semanticTags] });
+      }
+    }
+  }
+  if (canonicalDrafts.length === 0 || canonicalDrafts.length > 60) return null;
+
+  const canonicalFacts = canonicalDrafts.map((fact, index) => ({
+    factId: `CF-${String(index + 1).padStart(3, "0")}`,
+    statement: fact.statement,
+    sourceType: fact.sourceType,
+    pfEvidence: fact.pfEvidence,
+    semanticTags: fact.semanticTags,
+  }));
+  const projections: Record<ProfileProjectionKey, string[]> = {
     careerTarget: [],
     education: [],
     experiences: [],
@@ -628,38 +755,26 @@ function buildCandidateProfile(
     portfolio: [],
     preferences: [],
   };
-
-  for (const item of coverage) {
-    for (const claim of item.atomicClaims) {
-      const list = factsByCategory[claim.category];
-      if (
-        list.some(
-          (fact) =>
-            fact.value === claim.value &&
-            fact.pfEvidence.join("\u0000") === claim.pfEvidence.join("\u0000"),
-        )
-      ) {
-        continue;
-      }
-      if (list.length >= categoryCaps[claim.category]) return null;
-      list.push({
-        value: claim.value,
-        sourceType: claim.sourceType,
-        pfEvidence: claim.pfEvidence,
-        verificationQuestion: null,
-      });
+  for (const fact of canonicalFacts) {
+    for (const tag of fact.semanticTags) {
+      const key = SEMANTIC_TAG_TO_PROJECTION[tag];
+      if (!projections[key].includes(fact.factId)) projections[key].push(fact.factId);
     }
+  }
+  for (const key of Object.keys(projectionCaps) as ProfileProjectionKey[]) {
+    if (projections[key].length > projectionCaps[key]) return null;
   }
 
   return {
-    careerTarget: factsByCategory.careerTarget[0] ?? null,
-    education: factsByCategory.education,
-    experiences: factsByCategory.experiences,
-    projects: factsByCategory.projects,
-    skills: factsByCategory.skills,
-    certificates: factsByCategory.certificates,
-    portfolio: factsByCategory.portfolio,
-    preferences: factsByCategory.preferences,
+    canonicalFacts,
+    careerTarget: projections.careerTarget[0] ?? null,
+    education: projections.education,
+    experiences: projections.experiences,
+    projects: projections.projects,
+    skills: projections.skills,
+    certificates: projections.certificates,
+    portfolio: projections.portfolio,
+    preferences: projections.preferences,
     derivedObservations: [],
     unknowns: [],
     questionsToConfirm: [],
@@ -679,34 +794,12 @@ function finalizeProfile(
   });
   if (!result.success) return null;
 
-  const totalFacts =
-    (result.data.candidateProfile.careerTarget ? 1 : 0) +
-    result.data.candidateProfile.education.length +
-    result.data.candidateProfile.experiences.length +
-    result.data.candidateProfile.projects.length +
-    result.data.candidateProfile.skills.length +
-    result.data.candidateProfile.certificates.length +
-    result.data.candidateProfile.portfolio.length +
-    result.data.candidateProfile.preferences.length;
+  const totalFacts = result.data.candidateProfile.canonicalFacts.length;
   if (ledger.length > 0 && totalFacts === 0) return null;
 
   const ids = new Set(ledger.map((item) => item.id));
-  const groups = [
-    result.data.candidateProfile.careerTarget
-      ? [result.data.candidateProfile.careerTarget]
-      : [],
-    result.data.candidateProfile.education,
-    result.data.candidateProfile.experiences,
-    result.data.candidateProfile.projects,
-    result.data.candidateProfile.skills,
-    result.data.candidateProfile.certificates,
-    result.data.candidateProfile.portfolio,
-    result.data.candidateProfile.preferences,
-  ];
-  for (const group of groups) {
-    for (const fact of group) {
-      if (fact.pfEvidence.some((id) => !ids.has(id))) return null;
-    }
+  for (const fact of result.data.candidateProfile.canonicalFacts) {
+    if (fact.pfEvidence.some((id) => !ids.has(id))) return null;
   }
   if (ledger.some((item) => !isEvidenceInJd(item.text, rawText))) return null;
   return result.data;
@@ -755,6 +848,9 @@ export async function analyzeProfileWithDeepSeek(
     unprocessedPfCount: 0,
     completenessRepairRequestCount: 0,
     atomicClaimRepairCount: 0,
+    semanticRepairRequestCount: 0,
+    projectionRepairCount: 0,
+    deterministicCanonicalizationCount: 0,
     finalFactCount: 0,
     profileFactRecall: null,
     latencyMs: 0,
@@ -855,15 +951,7 @@ export async function analyzeProfileWithDeepSeek(
     const final = finalizeProfile(candidateProfile, ledger, rawText);
     if (!final) throw new ApiError("AI_OUTPUT_INVALID", 502);
 
-    diagnostics.finalFactCount =
-      (final.candidateProfile.careerTarget ? 1 : 0) +
-      final.candidateProfile.education.length +
-      final.candidateProfile.experiences.length +
-      final.candidateProfile.projects.length +
-      final.candidateProfile.skills.length +
-      final.candidateProfile.certificates.length +
-      final.candidateProfile.portfolio.length +
-      final.candidateProfile.preferences.length;
+    diagnostics.finalFactCount = final.candidateProfile.canonicalFacts.length;
     diagnostics.finalSchemaValidationPassed = true;
     diagnostics.finalEvidenceValidationPassed = true;
     diagnostics.finalValidationPassed = true;

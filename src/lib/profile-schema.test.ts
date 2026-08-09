@@ -151,8 +151,8 @@ describe("rawPfCoverageItemSchema", () => {
         disposition: "instruction_text",
         atomicClaims: [
           {
-            category: "experiences",
-            value: "5 年经验",
+            statement: "5 年经验",
+            semanticTags: ["experience"],
             sourceType: "profile_stated",
             pfEvidence: ["PF-001"],
           },
@@ -161,33 +161,53 @@ describe("rawPfCoverageItemSchema", () => {
       }).success,
     ).toBe(false);
   });
+
+  it("accepts one atomic claim with multiple semantic tags", () => {
+    expect(
+      rawPfCoverageItemSchema.safeParse({
+        pfId: "PF-001",
+        disposition: "candidate_fact_source",
+        atomicClaims: [
+          {
+            statement: "完成数据分析课程作业，使用 Python 处理 CSV 数据",
+            semanticTags: ["project_experience", "skill_usage"],
+            sourceType: "profile_stated",
+            pfEvidence: ["PF-001"],
+          },
+        ],
+        duplicateOf: null,
+      }).success,
+    ).toBe(true);
+  });
 });
 
 describe("finalProfileStructureSchema", () => {
   it("accepts a valid structured profile", () => {
     const profile = {
-      schemaVersion: "candidate-profile-v1",
+      schemaVersion: "candidate-profile-v2",
       profileProvided: true,
       candidateProfile: {
-        careerTarget: null,
-        education: [
+        canonicalFacts: [
           {
-            value: "计算机本科",
+            factId: "CF-001",
+            statement: "计算机本科",
             sourceType: "normalized_stated",
             pfEvidence: ["PF-001"],
-            verificationQuestion: null,
+            semanticTags: ["education"],
           },
-        ],
-        experiences: [],
-        projects: [],
-        skills: [
           {
-            value: "Python：了解",
+            factId: "CF-002",
+            statement: "完成数据分析课程作业，使用 Python 处理 CSV 数据",
             sourceType: "normalized_stated",
             pfEvidence: ["PF-002"],
-            verificationQuestion: null,
+            semanticTags: ["project_experience", "skill_usage"],
           },
         ],
+        careerTarget: null,
+        education: ["CF-001"],
+        experiences: [],
+        projects: ["CF-002"],
+        skills: ["CF-002"],
         certificates: [],
         portfolio: [],
         preferences: [],
@@ -203,23 +223,25 @@ describe("finalProfileStructureSchema", () => {
     expect(finalProfileStructureSchema.safeParse(profile).success).toBe(true);
   });
 
-  it("rejects profile_inferred inside candidate facts", () => {
+  it("rejects profile_inferred inside canonical facts", () => {
     const profile = {
-      schemaVersion: "candidate-profile-v1",
+      schemaVersion: "candidate-profile-v2",
       profileProvided: true,
       candidateProfile: {
+        canonicalFacts: [
+          {
+            factId: "CF-001",
+            statement: "可能具备 Python 开发能力",
+            sourceType: "profile_inferred",
+            pfEvidence: ["PF-001"],
+            semanticTags: ["skill_usage"],
+          },
+        ],
         careerTarget: null,
         education: [],
         experiences: [],
         projects: [],
-        skills: [
-          {
-            value: "可能具备 Python 开发能力",
-            sourceType: "profile_inferred",
-            pfEvidence: ["PF-001"],
-            verificationQuestion: null,
-          },
-        ],
+        skills: ["CF-001"],
         certificates: [],
         portfolio: [],
         preferences: [],
@@ -227,6 +249,37 @@ describe("finalProfileStructureSchema", () => {
         unknowns: [],
         questionsToConfirm: [],
         evidence: [{ id: "PF-001", text: "技能：了解 Python" }],
+      },
+    };
+    expect(finalProfileStructureSchema.safeParse(profile).success).toBe(false);
+  });
+
+  it("rejects a projection that is not backed by the fact semantic tags", () => {
+    const profile = {
+      schemaVersion: "candidate-profile-v2",
+      profileProvided: true,
+      candidateProfile: {
+        canonicalFacts: [
+          {
+            factId: "CF-001",
+            statement: "计算机本科",
+            sourceType: "profile_stated",
+            pfEvidence: ["PF-001"],
+            semanticTags: ["education"],
+          },
+        ],
+        careerTarget: null,
+        education: ["CF-001"],
+        experiences: [],
+        projects: [],
+        skills: ["CF-001"],
+        certificates: [],
+        portfolio: [],
+        preferences: [],
+        derivedObservations: [],
+        unknowns: [],
+        questionsToConfirm: [],
+        evidence: [{ id: "PF-001", text: "计算机本科" }],
       },
     };
     expect(finalProfileStructureSchema.safeParse(profile).success).toBe(false);
