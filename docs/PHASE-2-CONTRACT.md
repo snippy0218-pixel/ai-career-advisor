@@ -1,6 +1,6 @@
-# Phase 2 Contract — Schema / Evidence / Decision（草案，待 Phase 2.0 Contract Gate Review）
+# Phase 2 Contract — Schema / Evidence / Decision（Phase 2.0 冻结基线）
 
-> 状态：**DRAFT for Phase 2.0 Contract Gate Review**（Phase 2 coding 未授权）
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED（ISSUE-025 Open / P1 / Gate Blocker）；Phase 2.2 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406…`）；`docs/analysis-schema.md` 为 Phase 1 唯一业务输出协议，本文件为 **Phase 2 实现、测试、QA 和后续 Codex 执行的唯一主要产品协议基线**（Phase 2 扩展最终将回写 `analysis-schema.md`，但实现前以本文件为冻结依据）。
 > 继承原则：不重新发明 Phase 1 已验证 Contract；优先继承、按需扩展、明确新增（见 §0）。

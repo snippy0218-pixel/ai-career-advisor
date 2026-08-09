@@ -1,9 +1,9 @@
 # Phase 2 产品规划与 Contract 设计（PHASE-2-PLAN）
 
-> 状态：**PLANNING / CONTRACT DESIGN — Phase 2.0 Contract Gate = CONDITIONAL PASS（修订版已完成，等待最终 Gate）**（Phase 2 coding 未授权）
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED（ISSUE-025 Open / P1 / Gate Blocker）；Phase 2.2 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 前置基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`）；TC-01～TC-10 Contract 冻结。
-> 性质：产品规划与流程文档；**产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（Phase 2 唯一主要协议，2026-08-08 草案，待 Phase 2.0 Contract Gate Review）；本文件本身不构成实现授权。
+> 性质：产品规划与流程文档；**产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（Phase 2 唯一主要协议；Phase 2.0 已通过并关闭）；本文件本身不构成跨 Gate 实现授权。
 
 ## 1. Product Goal
 

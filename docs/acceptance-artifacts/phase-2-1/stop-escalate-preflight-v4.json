@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "phase-2-1-stop-escalate-evidence-v1",
+  "artifactType": "failed-gate-diagnostic-baseline",
+  "status": "Phase 2.1 STOP & ESCALATE / FINAL GATE NOT PASSED",
+  "issue": {
+    "id": "ISSUE-025",
+    "priority": "P1",
+    "state": "Open",
+    "gateRole": "Phase 2.1 Gate Blocker"
+  },
+  "execution": {
+    "generatedAt": "2026-08-09T09:11:30.933Z",
+    "runtimeModel": "deepseek-v4-flash",
+    "recordedHeadAtExecution": "58de1b18cd88bed080c9586ee36e81009dbb9361",
+    "workingTreeIncludedUncommittedImplementation": true,
+    "preservedImplementationCommit": "653383e75dafd22e1807799273fc469e9e476769",
+    "additionalRealModelRequestsForTaxonomyAudit": 0,
+    "sourceTemporaryArtifact": "%TEMP%\\p21-coverage-preflight-v4\\preflight-matrix.json",
+    "sourceTemporaryArtifactIsSoleEvidence": false
+  },
+  "matrixSummary": {
+    "cases": 8,
+    "runsPerCase": 1,
+    "requests": 8,
+    "http200": 7,
+    "finalSchemaPass": 7,
+    "pfEvidencePass": 7,
+    "candidateFactHallucinations": 0,
+    "semanticUpgrades": 0,
+    "sourceContaminations": 0,
+    "expectedFacts": 38,
+    "preservedFacts": 33,
+    "semanticContentRecall": 0.868421052631579,
+    "categoryProjectionRecall": 0.868421052631579
+  },
+  "tc04": {
+    "tcId": "PF-TC-04",
+    "runId": 1,
+    "requestId": "b7d361d5-45a9-4887-b87d-9e877e89beff",
+    "inputSha256": "d5e2e1b8bd259ea23a7a88d3cb01bb03abb7c3566ea2fbcecf90878a5bada570",
+    "http": 502,
+    "errorCode": "AI_OUTPUT_INVALID",
+    "expectedFactCount": 5,
+    "preservedFactCountInFinalResponse": 0,
+    "droppedExpectedFactsAtFinalBoundary": [
+      { "category": "education", "terms": ["信息管理本科"], "pfId": "PF-001" },
+      { "category": "projects", "terms": ["推荐系统课程项目"], "pfId": "PF-002" },
+      { "category": "projects", "terms": ["数据分析课程作业"], "pfId": "PF-003" },
+      { "category": "skills", "terms": ["Python", "课程作业"], "pfId": "PF-003" },
+      { "category": "experiences", "terms": ["没有正式工作经历"], "pfId": "PF-004" }
+    ],
+    "pfLedger": [
+      { "id": "PF-001", "text": "教育背景：某大学信息管理本科（2020-2024）", "expectedAuditDisposition": "candidate_fact_source" },
+      { "id": "PF-002", "text": "项目：完成推荐系统课程项目（团队合作）", "expectedAuditDisposition": "candidate_fact_source" },
+      { "id": "PF-003", "text": "项目：完成数据分析课程作业，使用 Python 处理 CSV 数据", "expectedAuditDisposition": "candidate_fact_source" },
+      { "id": "PF-004", "text": "没有正式工作经历", "expectedAuditDisposition": "candidate_fact_source" }
+    ],
+    "observedValidatedDispositionCounts": {
+      "candidate_fact_source": 0,
+      "context_only": 0,
+      "duplicate": 0,
+      "non_candidate_fact": 0,
+      "instruction_text": 0,
+      "unsupported_or_ambiguous": 0
+    },
+    "atomicClaimDiagnostics": {
+      "pfTotal": 4,
+      "pfLedgerCount": 4,
+      "candidateFactPfCountAfterFinalValidation": 0,
+      "atomicClaimCountAfterFinalValidation": 0,
+      "unprocessedPfCount": 1,
+      "droppedCandidateFactCount": 2,
+      "layeringViolationCount": 1,
+      "untraceableFactCount": 1,
+      "rawSchemaValidationPassed": false,
+      "finalFactCount": 0
+    },
+    "repairDiagnostics": {
+      "upstreamAttempts": 2,
+      "completenessRepairRequestCount": 1,
+      "atomicClaimRepairCount": 1,
+      "profileRepairAttempted": true,
+      "profileRepairSucceeded": false,
+      "completenessRepairSucceeded": false
+    },
+    "rawCoverageOutputPreserved": false,
+    "rawRepairOutputPreserved": false,
+    "evidenceLimitation": "The v4 diagnostic path retained counters and the fail-closed response, but not the model's raw initial or repair JSON. Their exact dispositions and claim text cannot be reconstructed and are not guessed in this artifact.",
+    "gateOutcome": {
+      "PF-A_candidate_fact_integrity": true,
+      "PF-B_pf_evidence_integrity": false,
+      "PF-C_semantic_preservation": true,
+      "PF-D_source_isolation": true,
+      "PF-E_final_schema": false,
+      "PF-F_fail_closed": true,
+      "PF-G_injection_resistance": true,
+      "PF-H_fact_completeness": false
+    }
+  },
+  "auditConclusion": {
+    "surfaceFinalOutcome": "Case A at the API boundary because fail-closed returned no Candidate Profile",
+    "proximateEvidence": "Case C was observed through one course-scope layering violation; one repaired claim was also untraceable",
+    "historicalTaxonomyEvidence": "A prior same-input run preserved the complete PF-003 semantic sentence in projects while omitting a separate skills projection, which is Case B. That run used a stale pre-guard server and is taxonomy evidence, not v4 acceptance evidence.",
+    "finalClassification": "Not proven to be a pure semantic fact omission. Evidence supports taxonomy/category-projection coupling plus semantic-preservation rejection; v4's apparent Case A is the fail-closed consequence.",
+    "pfHChanged": false,
+    "runtimeBenchmarkPerformed": false
+  },
+  "aggregationLimitation": "The v4 runner's aggregate repair counters excluded diagnostics from the failed request. TC04 request-level diagnostics above are authoritative for the failed request."
+}

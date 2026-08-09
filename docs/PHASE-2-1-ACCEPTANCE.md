@@ -146,3 +146,17 @@
 ## 17. 历史失败保留
 
 - pre-fix 证据（TC-05 空 Profile、TC-05 1/2）与 v1–v6 各版本矩阵原始响应/日志均保留于 `%TEMP%\p21-regression\`；不删除、不替换、不弱化。
+
+## 18. Coverage diagnostic baseline（2026-08-09）
+
+- coverage-driven extraction、PF disposition、atomic claims、一次有界局部 repair、冻结 fixtures、clean-matrix runner 与 diagnostics 已保存为 commit `653383e75dafd22e1807799273fc469e9e476769`；commit 明确为 **failed-gate diagnostic baseline**，不代表 Phase 2.1 PASS；
+- 最新零挑样 8×1 preflight：7/8 HTTP 200，33/38 must-preserve facts，TC04 HTTP 502 / PF-H FAIL；Candidate Fact hallucination 0、semantic upgrade 0、source contamination 0；
+- TC04 v4 request_id：`b7d361d5-45a9-4887-b87d-9e877e89beff`；持久化机器可读证据见 `docs/acceptance-artifacts/phase-2-1/stop-escalate-preflight-v4.json`；
+- 原始 coverage/repair JSON 未被当时 diagnostics 保存，不能事后猜测；此证据限制已写入 artifact。
+
+## 19. TC04 taxonomy audit（0 additional model requests）
+
+- 正式区分 `semanticContentRecall`（完整语义是否存在于任一 validated fact）与 `categoryProjectionRecall`（是否进入 expected Schema/UI category），不修改 PF-H 或 frozen manifest；
+- v4 API 边界因 fail-closed 表现为 Case A；诊断同时证明一次 Case C course-scope violation；历史同输入输出曾完整保留 PF-003 语义但只在 projects 中，证明 Case B 路径存在；因此当前失败不能定性为纯 runtime-model semantic omission；
+- 当前 category 数组同时承担 canonical storage、UI projection 与未来 Match Engine evidence index，且 atomic claim 只允许单 category，记录为 architecture concern；
+- 建议先由 Product/QA 裁定 Contract amendment：canonical atomic semantic fact 与 typed/multi-label projection 是否分离。runtime model benchmark 暂停；完整逐事实映射见 `docs/acceptance-artifacts/phase-2-1/TC04-TAXONOMY-AUDIT.md`。
