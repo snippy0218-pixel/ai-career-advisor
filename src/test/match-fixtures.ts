@@ -17,6 +17,7 @@ interface RequirementSeed {
   content: string;
   evidence?: string;
   requirementType: RequirementType;
+  verificationQuestion?: string;
 }
 
 interface FactSeed {
@@ -53,14 +54,24 @@ function buildJobAnalysis(requirements: RequirementSeed[]) {
         content: item.content,
         explanation: "JD 原文明确表达该项要求。",
         requirementType: item.requirementType,
-        sourceType: "jd_explicit",
+        sourceType:
+          item.requirementType === "unclear" ? "to_verify" : "jd_explicit",
         evidence: [item.evidence ?? item.content],
-        verificationQuestion: null,
+        verificationQuestion:
+          item.requirementType === "unclear"
+            ? (item.verificationQuestion ?? "请确认该项要求的具体范围。")
+            : null,
       })),
       workCharacteristics: [],
       riskSignals: [],
       unknowns: [],
-      questionsToConfirm: [],
+      questionsToConfirm: requirements
+        .filter((item) => item.requirementType === "unclear")
+        .map((item) => ({
+          question:
+            item.verificationQuestion ?? "请确认该项要求的具体范围。",
+          reason: "该项 validated JD requirement 的限定范围不明确。",
+        })),
     },
     applicationAdvice: {
       level: "worth_exploring",

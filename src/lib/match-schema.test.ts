@@ -7,7 +7,7 @@ import {
   rawMatchCoreSchema,
   type RawMatchCore,
 } from "./match-schema";
-import { MATCH_CORE_FIXTURES } from "@/test/match-fixtures";
+import { buildMatchFixture, MATCH_CORE_FIXTURES } from "@/test/match-fixtures";
 
 function dimension(
   overrides: Partial<RawMatchCore["matchItems"][number]["dimensions"][number]> = {},
@@ -463,5 +463,148 @@ describe("match-core schema and status contract", () => {
     expect(
       finalMatchCoreSchema.safeParse({ ...result.data, recommendation: "priority" }).success,
     ).toBe(false);
+  });
+});
+
+describe("M-J Requirement Set Integrity", () => {
+  const request = buildMatchFixture(
+    [
+      { content: "本科及以上", requirementType: "hard_requirement" },
+      { content: "熟练使用 SQL", requirementType: "core_requirement" },
+      {
+        content: "有 Figma 经验者优先",
+        requirementType: "preferred_requirement",
+      },
+      {
+        content: "英语能力要求范围不明确",
+        requirementType: "unclear",
+        verificationQuestion: "岗位具体要求何种英语能力？",
+      },
+    ],
+    [{ statement: "学历：本科", semanticTags: ["education"] }],
+  );
+
+  function unknownItem(
+    index: number,
+  ): RawMatchCore["matchItems"][number] {
+    const requirement = request.jobAnalysis.roleProfile.requirements[index];
+    return {
+      requirementId: `REQ-${String(index + 1).padStart(3, "0")}`,
+      aggregateStatus: "unknown",
+      dimensions: [
+        dimension({
+          dimensionType: "other",
+          requirementFragment: requirement.content,
+          jdEvidence: [...requirement.evidence],
+          missingInformation: `缺少 ${requirement.content} 的候选人证据`,
+          verificationQuestion: `请确认：${requirement.content}？`,
+        }),
+      ],
+    };
+  }
+
+  function finalizeRequirementSet(matchItems: RawMatchCore["matchItems"]) {
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({ matchItems }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  it("MJ-TC-01 represents all four eligible requirements exactly once", () => {
+    const result = finalizeRequirementSet([0, 1, 2, 3].map(unknownItem));
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems.map((item) => item.requirementId)).toEqual([
+      "REQ-001",
+      "REQ-002",
+      "REQ-003",
+      "REQ-004",
+    ]);
+  });
+
+  it("MJ-TC-02 rejects a missing requirement", () => {
+    const result = finalizeRequirementSet([0, 1, 2].map(unknownItem));
+    expect(result.data).toBeNull();
+    expect(result.issues.map((item) => item.message)).toContain(
+      "matchItems must cover every validated JD requirement exactly once",
+    );
+  });
+
+  it("MJ-TC-03 rejects a duplicate requirement reference", () => {
+    const duplicated = [0, 1, 2, 0].map(unknownItem);
+    const result = finalizeRequirementSet(duplicated);
+    expect(result.data).toBeNull();
+    expect(result.issues.map((item) => item.message)).toContain(
+      "matchItems must cover every validated JD requirement exactly once",
+    );
+  });
+
+  it("MJ-TC-04 rejects a fabricated requirement reference", () => {
+    const fabricated = unknownItem(3);
+    fabricated.requirementId = "REQ-999";
+    const result = finalizeRequirementSet([
+      unknownItem(0),
+      unknownItem(1),
+      unknownItem(2),
+      fabricated,
+    ]);
+    expect(result.data).toBeNull();
+    expect(result.issues.map((item) => item.message)).toContain(
+      "unknown requirement reference",
+    );
+  });
+
+  it("MJ-TC-05 rejects model-emitted type mutation and preserves Phase 1 type", () => {
+    const mutated = {
+      ...unknownItem(2),
+      requirementType: "hard_requirement",
+    };
+    expect(
+      rawMatchCoreSchema.safeParse({
+        matchItems: [unknownItem(0), unknownItem(1), mutated, unknownItem(3)],
+      }).success,
+    ).toBe(false);
+
+    const result = finalizeRequirementSet([0, 1, 2, 3].map(unknownItem));
+    expect(result.data?.matchItems[2].requirementType).toBe(
+      "preferred_requirement",
+    );
+  });
+
+  it("MJ-TC-06 keeps one compound requirement as one top-level match item", () => {
+    const compound = MATCH_CORE_FIXTURES[4].request;
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "partial",
+          dimensions: [
+            dimension({
+              dimensionType: "domain",
+              requirementFragment: "产品相关经验",
+              status: "met",
+              jdEvidence: ["2年以上产品相关经验"],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+            dimension({
+              dimensionType: "duration",
+              requirementFragment: "2年以上",
+              jdEvidence: ["2年以上产品相关经验"],
+              missingInformation: "产品相关经历的累计时长",
+              verificationQuestion: "你的产品相关经历累计多久？",
+            }),
+          ],
+        },
+      ],
+    };
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      compound.jobAnalysis,
+      compound.candidateProfile,
+    );
+    expect(result.data?.matchItems).toHaveLength(1);
+    expect(result.data?.matchItems[0].requirementDimensions).toHaveLength(2);
   });
 });

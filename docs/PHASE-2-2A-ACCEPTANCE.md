@@ -1,7 +1,7 @@
 # Phase 2.2A Acceptance — Match Core Foundation
 
 > 日期：2026-08-09
-> 状态：**ENGINEERING EVIDENCE COMPLETE → STOP FOR PRODUCT OWNER / QA GATE REVIEW**
+> 状态：**CONDITIONAL PASS；M-J REQUIREMENT SET INTEGRITY AUDIT COMPLETE → STOP FOR PRODUCT OWNER / QA FINAL REVIEW**
 > 说明：本文不自行宣布 Phase 2.2A PASS，不授权 Phase 2.2B 或 Phase 2.3。
 
 ## 1. Baseline 与 Scope
@@ -72,9 +72,10 @@ Final `match-core-v1`：
 
 ## 7. Static Tests
 
-- 最终回归：11 test files，**222/222 PASS**；
+- 最终回归：11 test files，**229/229 PASS**；
 - 新增 schema、aggregate、JD/CF/PF evidence、unmet/unknown、immutability、contamination、bounded repair 与 route fail-closed 测试；
 - MC-TC-01～10 十个冻结专项边界均有静态覆盖；
+- M-J 新增 MJ-TC-01～06：4-requirement full coverage、missing、duplicate、fabricated ref、type mutation、compound requirement top-level uniqueness；另有 service test 证明 missing coverage 触发一次 repair，repair 后重新执行完整 deterministic validation；
 - lint PASS；Next.js production build PASS；`/api/analyze`、`/api/profile/analyze`、`/api/match/analyze` 均成功构建。
 
 ## 8. Preflight（10 × 1）
@@ -112,7 +113,7 @@ Artifact：`docs/acceptance-artifacts/phase-2-2a/match-core-clean-matrix.json`�
 - 每个 MC-TC 三次状态稳定：TC01 met；TC02 unmet；TC03 unknown；TC04 partial；TC05 partial；TC06 partial（允许 partial/unknown，且从未 unmet）；TC07 unmet；TC08 met＋met；TC09 unknown；TC10 unknown；
 - 0 cross-source contamination；0 Candidate Profile mutation；0 unmet without counter-evidence；0 absence→unmet。
 
-## 11. M-A～M-I
+## 11. M-A～M-J
 
 | Gate | Preflight | 30-request Matrix |
 |---|---:|---:|
@@ -125,10 +126,36 @@ Artifact：`docs/acceptance-artifacts/phase-2-2a/match-core-clean-matrix.json`�
 | M-G Aggregate Integrity | PASS | PASS（30/30） |
 | M-H Final Schema | PASS | PASS（30/30） |
 | M-I Candidate Profile Immutability | PASS | PASS（30/30） |
+| M-J Requirement Set Integrity | PASS（离线补审） | PASS（30/30；33/33 requirements） |
+
+### 11.1 M-J — Requirement Set Integrity
+
+**Expected match-eligible set 定义：**当前 Phase 1 validated `analysis-v1.roleProfile.requirements[]` 中的每一项均进入 Match Core；不新增 taxonomy、不重新提取、不做 Match 侧过滤。因此 validated schema 中实际存在的 `hard_requirement`、`core_requirement`、`preferred_requirement`、`unclear` 均为 eligible，具体集合完全由该次 validated array 决定。
+
+**Requirement identity：**Phase 1 当前没有持久 requirement id；Match 服务端按 validated array 稳定顺序确定性生成 `REQ-001…`。Raw model output 只允许引用 `requirementId`，不允许生成 requirement 文本或类型；Final 的 `requirement`、`requirementType`、`jdEvidence` 均从 validated ledger 回填。
+
+**现有 deterministic enforcement 审计：**
+
+- Coverage：Raw IDs 的 set/length 必须与 expected REQ set 完全相等；
+- Uniqueness：duplicate ID 会被 `new Set(ids).size` 拒绝；
+- No Fabrication：不存在于 ledger 的 REQ ref 会产生 `unknown requirement reference`；
+- Type Fidelity：Raw Schema 不接受 `requirementType`；Final type 只取 Phase 1 ledger 原值；
+- Repair：缺失/重复/虚构/type extra 均进入一次 bounded Match Repair；repair response 重新通过 `rawMatchCoreSchema → finalizeRawMatchCore → finalMatchCoreSchema`；仍失败则 `AI_OUTPUT_INVALID` fail-closed；
+- Dimension decomposition 不改变顶层 identity：一个 REQ 可有多个 dimensions，但 Final 仍只有一个顶层 match item。
+
+**既有 30-request artifact 离线审计：**读取原始 `match-core-clean-matrix.json`，未调用模型、未修改历史结果；证据保存于 `requirement-set-audit.json`。
+
+- requests：30/30 M-J PASS；
+- expected requirements：33；Final matchItems：33；coverage `100%`；
+- missing：0；duplicate：0；fabricated：0；
+- type mutation：0；content identity mutation：0；
+- source implementation commit 仍为 `e7d71c1…`。
+
+本轮没有修改 Match runtime behavior、Prompt 或 frozen MC inputs，因此按 Gate 指令不执行新的 10×1 或 30-request real-model matrix。
 
 ## 12. Regression
 
-- 最终 `npm test`：11 files / 222 tests PASS；
+- 最终 `npm test`：11 files / 229 tests PASS；
 - `npm run lint`：PASS；
 - `npm run build`：PASS；
 - Phase 1 protected files未修改；Phase 1 自动化回归 PASS；
@@ -143,4 +170,4 @@ Artifact：`docs/acceptance-artifacts/phase-2-2a/match-core-clean-matrix.json`�
 
 ## 14. Gate Recommendation
 
-工程建议：将 `e7d71c1…` 与上述 artifacts 提交 Product Owner / QA 进行 Phase 2.2A Gate Review。本文在此停止；**不自行宣布 PASS，不进入 Phase 2.2B Recommendation/Strength/Gap，不进入 Phase 2.3**。
+工程建议：Product Owner / QA 基于原 M-A～M-I 证据与本轮 M-J 30/30 离线补审，对 Phase 2.2A 作出最终 Gate 决定。本文在此停止；**不自行宣布 PASS，不进入 Phase 2.2B Recommendation/Strength/Gap，不进入 Phase 2.3**。

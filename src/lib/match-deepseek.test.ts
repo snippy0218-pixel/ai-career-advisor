@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { ApiError } from "./api-errors";
 import { analyzeMatchWithDeepSeek, type MatchDiagnostics } from "./match-deepseek";
-import { MATCH_CORE_FIXTURES } from "@/test/match-fixtures";
+import { buildMatchFixture, MATCH_CORE_FIXTURES } from "@/test/match-fixtures";
 
 const validRaw = {
   matchItems: [
@@ -155,5 +155,73 @@ describe("analyzeMatchWithDeepSeek", () => {
       String((fetchImpl.mock.calls[0][1] as RequestInit).body),
     ) as { model: string; temperature: number };
     expect(body).toMatchObject({ model: "deepseek-v4-flash", temperature: 0.1 });
+  });
+
+  it("repairs missing requirement coverage and revalidates the complete set", async () => {
+    const request = buildMatchFixture(
+      [
+        { content: "本科及以上", requirementType: "hard_requirement" },
+        { content: "熟练使用 SQL", requirementType: "core_requirement" },
+        {
+          content: "有 Figma 经验者优先",
+          requirementType: "preferred_requirement",
+        },
+        {
+          content: "英语能力要求范围不明确",
+          requirementType: "unclear",
+          verificationQuestion: "岗位具体要求何种英语能力？",
+        },
+      ],
+      [{ statement: "学历：本科", semanticTags: ["education"] }],
+    );
+    const completeRaw = {
+      matchItems: request.jobAnalysis.roleProfile.requirements.map(
+        (requirement, index) => ({
+          requirementId: `REQ-${String(index + 1).padStart(3, "0")}`,
+          aggregateStatus: "unknown",
+          dimensions: [
+            {
+              dimensionType: "other",
+              requirementFragment: requirement.content,
+              status: "unknown",
+              reason: "没有充分正证，也没有明确反证。",
+              jdEvidence: [...requirement.evidence],
+              candidateEvidence: [],
+              missingInformation: `缺少 ${requirement.content} 的候选人证据`,
+              verificationQuestion: `请确认：${requirement.content}？`,
+            },
+          ],
+        }),
+      ),
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(
+        completion({ matchItems: completeRaw.matchItems.slice(0, 3) }),
+      )
+      .mockResolvedValueOnce(completion(completeRaw));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(result.matchItems).toHaveLength(4);
+    expect(result.matchItems.map((item) => item.requirementId)).toEqual([
+      "REQ-001",
+      "REQ-002",
+      "REQ-003",
+      "REQ-004",
+    ]);
+    expect(result.matchItems[2].requirementType).toBe("preferred_requirement");
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: true,
+      matchRepairSucceeded: true,
+      requirementCount: 4,
+    });
   });
 });
