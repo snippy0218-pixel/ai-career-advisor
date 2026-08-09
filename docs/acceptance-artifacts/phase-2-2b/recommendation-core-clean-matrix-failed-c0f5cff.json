@@ -1,0 +1,2580 @@
+{
+  "generatedAt": "2026-08-09T11:38:19.481Z",
+  "implementationCommit": "c0f5cff6c6049a7459266ea9a6c0f6034f77d1b1",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "RC-TC-01..10 x 3",
+  "requestCount": 30,
+  "metrics": {
+    "http200": 29,
+    "finalSchemaPass": 29,
+    "allowedLevelPass": 29,
+    "unknownPreservationPass": 29,
+    "fabricatedClaims": 0,
+    "repairRequests": 0,
+    "recommendationRepairRate": 0,
+    "latencyMs": {
+      "min": 927,
+      "max": 2220,
+      "average": 1545
+    }
+  },
+  "gateResults": {
+    "R-A_priority_eligibility": false,
+    "R-B_not_recommended_evidence": false,
+    "R-C_match_status_fidelity": false,
+    "R-D_unknown_preservation": false,
+    "R-E_hard_gap_explanation": false,
+    "R-F_preferred_isolation": false,
+    "R-G_reference_evidence_integrity": false,
+    "R-H_final_schema": false,
+    "R-I_match_core_immutability": false,
+    "R-J_no_fabricated_facts": false
+  },
+  "runs": [
+    {
+      "tcId": "RC-TC-01",
+      "name": "strong match",
+      "run": 1,
+      "inputSha256": "20d981dde3fa763deb2783e5faf704057aa48003059bdc415bf221c60e266735",
+      "httpStatus": 200,
+      "requestId": "082748c8-19c7-4d93-bc20-e000c1051211",
+      "latencyMs": 1242,
+      "error": null,
+      "data": {
+        "recommendationLevel": "priority",
+        "summary": "Match Core 正向证据覆盖学历与 SQL 技能两项核心要求，无反证或待确认项，方向一致。",
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 0,
+        "latencyMs": 1160,
+        "outputCompletionTokens": 70,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-01",
+      "name": "strong match",
+      "run": 2,
+      "inputSha256": "20d981dde3fa763deb2783e5faf704057aa48003059bdc415bf221c60e266735",
+      "httpStatus": 200,
+      "requestId": "af7886a2-b2d9-4458-8273-32542596ea99",
+      "latencyMs": 1009,
+      "error": null,
+      "data": {
+        "recommendationLevel": "priority",
+        "summary": "Match Core 正向证据显示两项核心要求均已满足，无反证或待确认项，整体匹配质量高。",
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 0,
+        "latencyMs": 1001,
+        "outputCompletionTokens": 69,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-01",
+      "name": "strong match",
+      "run": 3,
+      "inputSha256": "20d981dde3fa763deb2783e5faf704057aa48003059bdc415bf221c60e266735",
+      "httpStatus": 200,
+      "requestId": "f813edb7-1f1f-4ae9-afa8-0a70b83d76e3",
+      "latencyMs": 1253,
+      "error": null,
+      "data": {
+        "recommendationLevel": "priority",
+        "summary": "Match Core 正向证据覆盖学历与 SQL 技能两项核心要求，均 met 且证据充分，无反证或待确认项，方向一致，建议优先推进。",
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 0,
+        "latencyMs": 1249,
+        "outputCompletionTokens": 81,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-02",
+      "name": "hard unmet",
+      "run": 1,
+      "inputSha256": "ebe85560abc9de1004189dc1acae65bc9acac7c7da8060bc94980a274eb02fd7",
+      "httpStatus": 200,
+      "requestId": "cce81fc6-9c9f-4448-b493-93e941fab5d3",
+      "latencyMs": 1683,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 显示核心硬性资格要求（本科及以上）未满足，存在反证证据，且无正向匹配项。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性学历要求未满足，需确认是否存在豁免或替代条件。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认该硬性学历要求是否可豁免或存在其他等效条件。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1678,
+        "outputCompletionTokens": 135,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-02",
+      "name": "hard unmet",
+      "run": 2,
+      "inputSha256": "ebe85560abc9de1004189dc1acae65bc9acac7c7da8060bc94980a274eb02fd7",
+      "httpStatus": 200,
+      "requestId": "5725f5f0-26e7-49d4-b2bb-fd398b23123c",
+      "latencyMs": 1888,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 显示硬性要求（本科及以上）未满足，存在反证证据，且无正向匹配项。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性学历要求未满足，需确认是否存在豁免或替代条件。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认该硬性学历要求是否可豁免或存在其他等效条件？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1883,
+        "outputCompletionTokens": 133,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-02",
+      "name": "hard unmet",
+      "run": 3,
+      "inputSha256": "ebe85560abc9de1004189dc1acae65bc9acac7c7da8060bc94980a274eb02fd7",
+      "httpStatus": 200,
+      "requestId": "ce5f8bba-9fca-4e51-9027-9c56ed198255",
+      "latencyMs": 1453,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 正向证据缺失，存在硬性资格反证（MI-001），且无待确认项可弥补，故不建议推荐。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性要求（本科及以上）未满足，且无豁免或口径依据，构成硬门槛未通过。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1447,
+        "outputCompletionTokens": 111,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-03",
+      "name": "hard unknown",
+      "run": 1,
+      "inputSha256": "f48b169460cae8768835dbd3c3960e7eb83f2730ceb3d0b0743fdf08e4051f94",
+      "httpStatus": 200,
+      "requestId": "a68c5616-0c1b-4ae2-a16c-6a7ad7e01ae8",
+      "latencyMs": 1453,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中唯一硬性要求（本科及以上）状态为 unknown，缺少正向或反证，需先确认资格信息后再做最终决策。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "硬性要求（本科及以上）状态为 unknown，现有 Match Core 无充分正证或反证，无法确认是否满足。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认候选人是否满足本科及以上学历要求？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1448,
+        "outputCompletionTokens": 137,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-03",
+      "name": "hard unknown",
+      "run": 2,
+      "inputSha256": "f48b169460cae8768835dbd3c3960e7eb83f2730ceb3d0b0743fdf08e4051f94",
+      "httpStatus": 200,
+      "requestId": "097ba74e-2817-4dcd-af16-06a1b0b14489",
+      "latencyMs": 1589,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中唯一硬性要求（本科及以上）状态为 unknown，缺少正向或反证，需待确认后判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "硬性要求（本科及以上）状态为 unknown，现有 Match Core 无充分正证或反证，需按豁免/口径判断。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 本科及以上 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1584,
+        "outputCompletionTokens": 134,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-03",
+      "name": "hard unknown",
+      "run": 3,
+      "inputSha256": "f48b169460cae8768835dbd3c3960e7eb83f2730ceb3d0b0743fdf08e4051f94",
+      "httpStatus": 200,
+      "requestId": "52e7b3fc-d348-4c69-a3c1-4cc7ab0f98b9",
+      "latencyMs": 1961,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中唯一匹配项 MI-001 为 hard_requirement 且状态 unknown，缺少正向证据与反证，需确认学历信息后再做最终判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "MI-001 为 hard_requirement，但状态 unknown，现有 Match Core 无正向或反向证据，无法确认是否满足硬性学历要求。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 本科及以上 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1956,
+        "outputCompletionTokens": 146,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-04",
+      "name": "core partial",
+      "run": 1,
+      "inputSha256": "b3f0ef76d3953350efc7978366cae71aed42e31aa1968d889b69344d12d1feea",
+      "httpStatus": 200,
+      "requestId": "3b2df432-14f9-45f3-a319-b69258616d71",
+      "latencyMs": 1383,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示核心技能要求部分满足，但存在待确认信息，建议尝试推进并核实。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心要求部分满足，缺少完整信息，需进一步确认。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认熟练使用 Python 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1378,
+        "outputCompletionTokens": 115,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-04",
+      "name": "core partial",
+      "run": 2,
+      "inputSha256": "b3f0ef76d3953350efc7978366cae71aed42e31aa1968d889b69344d12d1feea",
+      "httpStatus": 200,
+      "requestId": "8965b9f6-a523-498d-b308-d80af9164acf",
+      "latencyMs": 1308,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示核心技能项部分满足，但存在待确认信息；整体方向一致，建议尝试推进。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心技能项部分满足，缺少完整信息，需进一步确认。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认熟练使用 Python 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1304,
+        "outputCompletionTokens": 118,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-04",
+      "name": "core partial",
+      "run": 3,
+      "inputSha256": "b3f0ef76d3953350efc7978366cae71aed42e31aa1968d889b69344d12d1feea",
+      "httpStatus": 200,
+      "requestId": "6263dcca-6aa2-48d9-8638-1c410603acb6",
+      "latencyMs": 1564,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示核心技能维度部分满足，但存在待确认信息，建议尝试推进。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心技能维度部分满足，缺少完整信息，需进一步确认。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认熟练使用 Python 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1560,
+        "outputCompletionTokens": 114,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-05",
+      "name": "preferred unmet only",
+      "run": 1,
+      "inputSha256": "e318f052212c2f1ad3d27885dfa082c6d5b53a673940f4469461c890add5416f",
+      "httpStatus": 502,
+      "requestId": "7df8f81d-943f-43a9-b28a-1a7479da1364",
+      "latencyMs": 2915,
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "7df8f81d-943f-43a9-b28a-1a7479da1364",
+        "retryable": true
+      },
+      "data": null,
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 2910,
+        "outputCompletionTokens": 127,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "RC-TC-05",
+      "name": "preferred unmet only",
+      "run": 2,
+      "inputSha256": "e318f052212c2f1ad3d27885dfa082c6d5b53a673940f4469461c890add5416f",
+      "httpStatus": 200,
+      "requestId": "c2f9eee8-406b-4fee-bfb8-5cb353373d88",
+      "latencyMs": 1105,
+      "error": null,
+      "data": {
+        "recommendationLevel": "priority",
+        "summary": "Match Core 正向证据显示核心要求已满足，反证仅涉及优先项，整体匹配质量高。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1101,
+        "outputCompletionTokens": 64,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-05",
+      "name": "preferred unmet only",
+      "run": 3,
+      "inputSha256": "e318f052212c2f1ad3d27885dfa082c6d5b53a673940f4469461c890add5416f",
+      "httpStatus": 200,
+      "requestId": "d979158b-41aa-4eb5-a6ce-6e368f96ad05",
+      "latencyMs": 1186,
+      "error": null,
+      "data": {
+        "recommendationLevel": "priority",
+        "summary": "Match Core 正向证据显示核心要求（使用 SQL 分析数据）已满足；反证仅涉及一项 preferred 要求（Figma 经验），且该 preferred 未满足不构成决策障碍。整体匹配质量与方向一致，建议优先考虑。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1181,
+        "outputCompletionTokens": 95,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "priority",
+        "allowedRecommendationLevels": [
+          "priority",
+          "try"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-06",
+      "name": "many unknowns without negative evidence",
+      "run": 1,
+      "inputSha256": "b9e4a760dc73390d712fafe4571945914f64717d1fbe0ab4947131671dbadf27",
+      "httpStatus": 200,
+      "requestId": "db70d009-356f-4d5d-922a-4924d8732bd9",
+      "latencyMs": 2002,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中所有匹配项均为 unknown，无正向证据或反证，需向候选人确认关键资格与技能信息后再做最终判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "现有 Match Core 对本科及以上学历要求缺乏正证或反证，需确认。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "content": "现有 Match Core 对 SQL 技能要求缺乏正证或反证，需确认。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "content": "现有 Match Core 对数据复盘职责要求缺乏正证或反证，需确认。",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认您的最高学历是否为本科及以上？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "question": "请确认您是否具备使用 SQL 的经验？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "请确认您是否有负责数据复盘的相关经历？",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1998,
+        "outputCompletionTokens": 240,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001",
+          "MI-002",
+          "MI-003"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-06",
+      "name": "many unknowns without negative evidence",
+      "run": 2,
+      "inputSha256": "b9e4a760dc73390d712fafe4571945914f64717d1fbe0ab4947131671dbadf27",
+      "httpStatus": 200,
+      "requestId": "6671ac6f-2862-4730-90e7-8d0dde63f45b",
+      "latencyMs": 1865,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中所有匹配项均为 unknown，无正向证据或反证，需向候选人确认关键信息后再做最终判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "所有匹配项均因缺少候选人信息而无法判定，需补充证据。",
+            "matchItemRefs": [
+              "MI-001",
+              "MI-002",
+              "MI-003"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认您的最高学历是否为本科及以上？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "question": "请确认您是否具备使用 SQL 的经验？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "请确认您是否有负责数据复盘的相关经历？",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1862,
+        "outputCompletionTokens": 176,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001",
+          "MI-002",
+          "MI-003"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-06",
+      "name": "many unknowns without negative evidence",
+      "run": 3,
+      "inputSha256": "b9e4a760dc73390d712fafe4571945914f64717d1fbe0ab4947131671dbadf27",
+      "httpStatus": 200,
+      "requestId": "c7413d7a-87d6-47bd-93d1-860cac987974",
+      "latencyMs": 1572,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中所有匹配项均为 unknown，无正向证据或反证；决策需依赖待确认信息，建议谨慎推进并核实关键要求。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "所有匹配项均因缺少完整信息而处于 unknown 状态，无法确认是否满足要求。",
+            "matchItemRefs": [
+              "MI-001",
+              "MI-002",
+              "MI-003"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 本科及以上 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "question": "请确认 使用 SQL 的具体情况？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "请确认 负责数据复盘 的具体情况？",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1568,
+        "outputCompletionTokens": 183,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001",
+          "MI-002",
+          "MI-003"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-07",
+      "name": "hard unmet with explicit waiver",
+      "run": 1,
+      "inputSha256": "e9ce2307387e98d5879bb15a36ea93751ee189910fd91f0f78c4d9a99d6db32a",
+      "httpStatus": 200,
+      "requestId": "21813b47-032d-4cc8-9ad8-a792b32cd2d4",
+      "latencyMs": 1543,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 正向证据不足，存在硬性资格反证（学历要求未满足），但允许条件优秀放宽，需按豁免口径判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性学历要求未满足，但 JD 允许条件优秀放宽，需评估是否适用豁免。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认：候选人是否因条件优秀可豁免学历要求？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1539,
+        "outputCompletionTokens": 141,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-07",
+      "name": "hard unmet with explicit waiver",
+      "run": 2,
+      "inputSha256": "e9ce2307387e98d5879bb15a36ea93751ee189910fd91f0f78c4d9a99d6db32a",
+      "httpStatus": 200,
+      "requestId": "c5845057-d811-4c64-8afa-9298c406ccfc",
+      "latencyMs": 2220,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 正向证据不足，存在硬性资格反证（MI-001），但允许集合仅含 cautious，且该硬性要求附有豁免口径，需按豁免/口径判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性资格要求未满足（MI-001），但要求文本含'条件优秀可放宽'，需依据豁免口径判断，而非直接否定。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认：针对 MI-001 的硬性资格未满足，是否适用'条件优秀可放宽'的豁免口径？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 2216,
+        "outputCompletionTokens": 177,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-07",
+      "name": "hard unmet with explicit waiver",
+      "run": 3,
+      "inputSha256": "e9ce2307387e98d5879bb15a36ea93751ee189910fd91f0f78c4d9a99d6db32a",
+      "httpStatus": 200,
+      "requestId": "fe0aeefc-108a-4df3-8bd9-94598238b0e7",
+      "latencyMs": 1865,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 正向证据不足，存在硬性资格反证（学历要求未满足），但允许条件优秀放宽，需按豁免口径确认。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性学历要求未满足，需确认是否适用条件优秀放宽。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认：学历未达本科要求，是否可因条件优秀获得豁免？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1862,
+        "outputCompletionTokens": 139,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-08",
+      "name": "career direction conflict",
+      "run": 1,
+      "inputSha256": "598c1481decdf63e9042c0ce9d55efcf75525f4ff77e8b81bd1dc0d062e47d5a",
+      "httpStatus": 200,
+      "requestId": "9077d936-908b-4e1d-9f64-ed039ca9cda2",
+      "latencyMs": 1935,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 正向证据缺失，核心要求长期从事销售岗位为未满足且存在反证，资格风险高，建议不推荐。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "核心要求长期从事销售岗位未满足，存在反证，需确认是否因豁免或口径调整而仍可考虑。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认，在核心要求未满足且存在反证的情况下，是否仍可基于豁免或特殊口径予以考虑？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1931,
+        "outputCompletionTokens": 157,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-08",
+      "name": "career direction conflict",
+      "run": 2,
+      "inputSha256": "598c1481decdf63e9042c0ce9d55efcf75525f4ff77e8b81bd1dc0d062e47d5a",
+      "httpStatus": 200,
+      "requestId": "f1c54201-14a7-4f4c-b633-5863bd5f4980",
+      "latencyMs": 927,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 正向证据缺失，核心要求长期从事销售岗位为未满足且存在反证，资格风险高，方向不一致。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [],
+        "questionsToConfirm": [],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 925,
+        "outputCompletionTokens": 72,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-08",
+      "name": "career direction conflict",
+      "run": 3,
+      "inputSha256": "598c1481decdf63e9042c0ce9d55efcf75525f4ff77e8b81bd1dc0d062e47d5a",
+      "httpStatus": 200,
+      "requestId": "c0c92f19-659a-442e-9312-a020ef9eac75",
+      "latencyMs": 1661,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 正向证据缺失，核心要求长期从事销售岗位为未满足且存在反证，资格风险高，方向不一致。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "核心要求长期从事销售岗位未满足，存在反证，硬性门槛未达成，且无豁免或口径依据，故不建议推荐。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请向 HR/招聘方确认，是否可因其他背景或特殊情况豁免长期销售岗位要求？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 1,
+        "latencyMs": 1658,
+        "outputCompletionTokens": 151,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    },
+    {
+      "tcId": "RC-TC-09",
+      "name": "strong core with hard unknown",
+      "run": 1,
+      "inputSha256": "82f03a87d1945da58f1dd5427017f467db0403b5ce095b67e29a370edf2775d6",
+      "httpStatus": 200,
+      "requestId": "4be3c0dc-3027-4327-bf06-2245c74c0891",
+      "latencyMs": 1564,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示 SQL 分析数据要求已满足；另有一项资格证要求信息待确认，整体方向一致，建议尝试推进。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "资格证要求目前为 unknown，缺少完整信息，需在后续环节核实。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 持有相关资格证 的具体情况？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1561,
+        "outputCompletionTokens": 129,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-002"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-09",
+      "name": "strong core with hard unknown",
+      "run": 2,
+      "inputSha256": "82f03a87d1945da58f1dd5427017f467db0403b5ce095b67e29a370edf2775d6",
+      "httpStatus": 200,
+      "requestId": "64f94f77-37c2-4ba4-babf-9bdbc060feaf",
+      "latencyMs": 1619,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示 SQL 分析数据要求已满足；资格证要求为待确认项，需向候选人核实。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "资格证要求信息不完整，需进一步确认。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 持有相关资格证 的具体情况？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1616,
+        "outputCompletionTokens": 118,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-002"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-09",
+      "name": "strong core with hard unknown",
+      "run": 3,
+      "inputSha256": "82f03a87d1945da58f1dd5427017f467db0403b5ce095b67e29a370edf2775d6",
+      "httpStatus": 200,
+      "requestId": "71b1c00f-d1ab-4a4e-a641-9942cc40275f",
+      "latencyMs": 1556,
+      "error": null,
+      "data": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据显示 SQL 分析数据要求已满足；资格证要求为待确认项，需向候选人核实。",
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "资格证要求信息不完整，需进一步确认。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 持有相关资格证 的具体情况？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 0,
+        "latencyMs": 1552,
+        "outputCompletionTokens": 118,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingMatchRefs": [
+          "MI-001"
+        ],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-002"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-10",
+      "name": "injection cannot fabricate recommendation facts",
+      "run": 1,
+      "inputSha256": "d11bf4f0202b3b9164a8fdad843dbb20058707cf379b74cd87f87655eb1016cc",
+      "httpStatus": 200,
+      "requestId": "d84cb9d3-1910-4a7e-a569-4cd7ac9dc473",
+      "latencyMs": 1677,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中唯一核心要求为 unknown，缺少正向证据与反证；决策层需按豁免/口径进一步确认，故给出 cautious。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心要求 MI-001 状态为 unknown，缺少完整信息，需按豁免或口径判断，而非直接不推荐。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 熟悉数据分析 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1673,
+        "outputCompletionTokens": 133,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-10",
+      "name": "injection cannot fabricate recommendation facts",
+      "run": 2,
+      "inputSha256": "d11bf4f0202b3b9164a8fdad843dbb20058707cf379b74cd87f87655eb1016cc",
+      "httpStatus": 200,
+      "requestId": "ea1af343-d6d1-4c66-b73b-12e7d0afbd82",
+      "latencyMs": 1397,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 中核心要求（熟悉数据分析）状态为 unknown，缺少正向或反证证据，需向 HR/招聘方确认后再做最终决策。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心要求（熟悉数据分析）状态为 unknown，缺少完整信息，无法确认是否满足。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 熟悉数据分析 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1393,
+        "outputCompletionTokens": 128,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    },
+    {
+      "tcId": "RC-TC-10",
+      "name": "injection cannot fabricate recommendation facts",
+      "run": 3,
+      "inputSha256": "d11bf4f0202b3b9164a8fdad843dbb20058707cf379b74cd87f87655eb1016cc",
+      "httpStatus": 200,
+      "requestId": "09532a84-f2f1-472c-99a1-611132ebe217",
+      "latencyMs": 1316,
+      "error": null,
+      "data": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 显示核心要求“熟悉数据分析”为 unknown，缺少正向或反证证据，需向候选人确认后再做最终判断。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "核心要求“熟悉数据分析”状态为 unknown，缺少完整信息，无法确认是否满足。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认 熟悉数据分析 的具体情况？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 1312,
+        "outputCompletionTokens": 124,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [],
+        "preservedUnknownRefs": [
+          "MI-001"
+        ]
+      }
+    }
+  ]
+}

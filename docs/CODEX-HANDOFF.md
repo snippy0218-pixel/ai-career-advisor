@@ -7,13 +7,13 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = AUTHORIZED / IN PROGRESS；Phase 2.2B Strength/Gap = NOT AUTHORIZED；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime code commit：`e7d71c1…`；Phase 2.2A final gate evidence commit：`dabe3b5…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = ENGINEERING EVIDENCE COMPLETE / WAITING PRODUCT OWNER + QA GATE REVIEW（尚未自行宣布 PASS）；Phase 2.2B Strength/Gap = NOT AUTHORIZED；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/audit commit：`e2983c6…`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：在已冻结的 Recommendation Contract 内实现 Phase 2.2B-1 Recommendation Core；输入仅使用 validated `match-core-v1`，输出四级 recommendation 与可追溯 Match Item refs；先静态测试，再执行 RC-TC-01～10 ×1 preflight，只有全绿后才执行同一最终代码版本 10×3 clean matrix；
+- 新 thread 的下一步：等待 Product Owner / QA 审核 `docs/PHASE-2-2B-RECOMMENDATION-ACCEPTANCE.md` 与 `docs/acceptance-artifacts/phase-2-2b/`；final commit `e2983c6…` 的 10×1 与 10×3 均全绿，R-A～R-J PASS，fabrication 0，repair 0/40，人工式逐输出评分综合 4.73 / 最低 3.8；不得自行关闭 Gate；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **当前只授权 Recommendation Core；不得实现 Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Match Core、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构**。
+- **停止产品实现并等待 Recommendation Core Gate Review；不得实现 Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Match Core、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 

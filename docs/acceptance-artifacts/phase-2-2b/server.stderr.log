@@ -1,0 +1,26 @@
+
+  #  C:\Windows\System32\cmd.exe[56220]: std::shared_ptr<InitializationResultImpl> __cdecl node::InitializeOncePerProcessInternal(const std::vector<std::string> &, ProcessInitializationFlags::Flags) at src\node.cc:1221
+  #  Assertion failed: ncrypto::CSPRNG(nullptr, 0)
+
+----- Native stack trace -----
+
+ 1: 00007FF6B63836CA DSA_meth_get_flags+197082
+ 2: 00007FF6B63E0676 node::InitializeOncePerProcess+2790
+ 3: 00007FF6B63E175C node::Start+156
+ 4: 00007FF6B73FE942 AES_cbc_encrypt+2546
+ 5: 00007FF6B82739B4 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2833316
+ 6: 00007FF93B43E957 BaseThreadInitThunk+23
+ 7: 00007FF93C30AD6C RtlUserThreadStart+44
+
+  #  C:\Windows\System32\cmd.exe[54660]: std::shared_ptr<InitializationResultImpl> __cdecl node::InitializeOncePerProcessInternal(const std::vector<std::string> &, ProcessInitializationFlags::Flags) at src\node.cc:1221
+  #  Assertion failed: ncrypto::CSPRNG(nullptr, 0)
+
+----- Native stack trace -----
+
+ 1: 00007FF6B63836CA DSA_meth_get_flags+197082
+ 2: 00007FF6B63E0676 node::InitializeOncePerProcess+2790
+ 3: 00007FF6B63E175C node::Start+156
+ 4: 00007FF6B73FE942 AES_cbc_encrypt+2546
+ 5: 00007FF6B82739B4 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2833316
+ 6: 00007FF93B43E957 BaseThreadInitThunk+23
+ 7: 00007FF93C30AD6C RtlUserThreadStart+44
