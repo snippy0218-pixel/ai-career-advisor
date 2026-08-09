@@ -1,7 +1,7 @@
 # Phase 2.2B-1 Acceptance — Recommendation Core
 
 > 日期：2026-08-10
-> 状态：**CONDITIONAL PASS / ISSUE-026 NARROW SEMANTIC STABILIZATION IN PROGRESS**
+> 状态：**ISSUE-026 STABILIZATION EVIDENCE COMPLETE → STOP FOR PRODUCT OWNER / QA FINAL GATE REVIEW**
 > Gate 边界：本文只记录 Recommendation Core；不自行宣布 PASS，不授权 Strength/Gap 或 Phase 2.3。
 
 ## 1. Scope 与基线
@@ -144,10 +144,20 @@ Allowed-level 层只决定合法区间，不用简单计数公式替代模型判
 
 第二固定 commit `0b44a23…` 的新 preflight 10/10、R-A～R-K 全绿；随后 10×3 deterministic matrix 30/30 全绿，但 internal content review 发现 RC-TC-07 的 generic waiver clause 被扩写为“实际经验折算/其他形式学历”等 JD 未明示具体机制。该矩阵保留为 **deterministic-pass / semantic-review-fail**，不得作为 final clean matrix。根因是 R-K 将 generic waiver ref 错误视为 specific substitution ref；v1.3 收紧为 specific substitution 只能引用 `alternativeQualificationMatchRefs`，随后必须固定新 commit 并从头重跑 10×1→10×3。
 
+### 9.4 Final Candidate Runtime Evidence
+
+- final candidate implementation commit：`616a169006328776baef24f4b362fb9d28830ec6`；runtime model：`deepseek-v4-flash`；
+- fresh 10×1：10/10 HTTP 200、Final Schema、allowed level、unknown preservation；R-A～R-K 全部 PASS；unsupported waiver 0、unknown→unmet drift 0、fabricated flexibility 0、fabricated Candidate/JD fact 0、Match mutation 0、repair 0/10；latency min 1,271ms / max 2,426ms / average 1,798ms；artifact `recommendation-core-issue-026-preflight-v3.json`；
+- fresh 10×3：30/30 HTTP 200、Final Schema、allowed level、unknown preservation；R-A～R-K 全部 PASS；unsupported waiver 0、unknown→unmet drift 0、fabricated flexibility 0、fabricated Candidate/JD fact 0、Match mutation 0、repair 0/30；latency min 1,132ms / max 2,748ms / average 1,691ms；artifact `recommendation-core-issue-026-clean-matrix-v2.json`；
+- level distribution：RC-01 priority 3/3；RC-02 not_recommended 3/3；RC-03 cautious 3/3；RC-04 try 3/3；RC-05 priority 3/3；RC-06 cautious 3/3；RC-07 cautious 3/3；RC-08 not_recommended 3/3；RC-09 try 3/3；RC-10 cautious 3/3；
+- internal rubric review：逐条 30 outputs / 210 scores；七维综合 4.79，最低单项 3.8；推荐等级合理性 4.95、理由与 Match 一致性 4.93、信息克制 4.87、unknown 处理 4.97、可执行性 4.55、表达自然度 4.32、Hard Requirement Handling 4.92；明确标记为 Codex internal review，不冒充独立 PO/QA；artifact `recommendation-core-issue-026-human-scores.json`；
+- Hard Requirement Handling 专项：hard unmet 诚实保留、hard unknown 先问 Candidate fact、waiver 均有 JD ref、specific substitution 只来自 explicit alternative、无鼓励忽略硬门槛的输出，PASS；
+- 非 Gate 级内容观察：RC-TC-05 run 3 对 preferred 项追加严格口径问题（不改变 level/status）；RC-TC-10 run 1 对 core unknown 使用“反证风险”措辞（未转成 unmet/counter ref）。已在 internal review 降分并保留，未形成新的 P0/P1 或 ISSUE-026 failure。
+
 ## 10. Regression 与 Gate Recommendation
 
-- 最终 regression：263/263、lint、production build PASS；Phase 1 / Phase 2.1 / Phase 2.2A 自动测试无回归；
+- 最终 regression：269/269、lint、production build PASS；Phase 1 / Phase 2.1 / Phase 2.2A 自动测试无回归；
 - Match Core 未修改；Strength/Gap、Personalized Greeting、score/confidence 等未实现；runtime model 未更换；
-- 工程 Gate 建议：**Recommendation Core evidence ready for Product Owner / QA review**；本文不自行宣布 Phase 2.2B-1 PASS；
+- 工程 Gate 建议：**ISSUE-026 stabilization evidence ready for Product Owner / QA Recommendation Final Gate review**；本文不自行宣布 Phase 2.2B-1 PASS；
 - Stop & Escalate：最终版本未发现系统性 level/status/unknown/counter-evidence 矛盾、事实幻觉或既有 Phase regression；
 - 在 Product Owner / QA 明确决策前，停止产品实现，不进入 Strength/Gap 或 Phase 2.3。

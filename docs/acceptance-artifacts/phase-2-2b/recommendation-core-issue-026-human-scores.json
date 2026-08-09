@@ -1,0 +1,73 @@
+{
+  "reviewedArtifact": "recommendation-core-issue-026-clean-matrix-v2.json",
+  "implementationCommit": "616a169006328776baef24f4b362fb9d28830ec6",
+  "reviewMode": "Codex internal manual rubric review of every persisted output; not an independent Product Owner/QA score",
+  "scale": "1-5, 0.1 increments",
+  "dimensions": [
+    "levelReasonableness",
+    "matchConsistency",
+    "informationRestraint",
+    "unknownHandling",
+    "actionability",
+    "naturalExpression",
+    "hardRequirementHandling"
+  ],
+  "summary": {
+    "reviewCount": 30,
+    "scoreCount": 210,
+    "overallAverage": 4.79,
+    "lowestSingleScore": 3.8,
+    "dimensionAverages": {
+      "levelReasonableness": 4.95,
+      "matchConsistency": 4.93,
+      "informationRestraint": 4.87,
+      "unknownHandling": 4.97,
+      "actionability": 4.55,
+      "naturalExpression": 4.32,
+      "hardRequirementHandling": 4.92
+    },
+    "phaseThresholdMet": true,
+    "hardRequirementReview": "PASS: hard unmet is explicit; hard unknown remains unknown and asks Candidate facts; waiver claims are JD-grounded; no output encourages ignoring a hard gate."
+  },
+  "reviews": [
+    { "tcId": "RC-TC-01", "run": 1, "scores": [5.0, 5.0, 4.9, 5.0, 4.5, 4.4, 5.0], "note": "Priority is fully supported; wording is accurate but somewhat ledger-technical." },
+    { "tcId": "RC-TC-01", "run": 2, "scores": [5.0, 5.0, 4.9, 5.0, 4.5, 4.4, 5.0], "note": "Strong evidence and no unnecessary caveat." },
+    { "tcId": "RC-TC-01", "run": 3, "scores": [5.0, 5.0, 4.9, 5.0, 4.5, 4.4, 5.0], "note": "Concise, grounded priority decision." },
+
+    { "tcId": "RC-TC-02", "run": 1, "scores": [5.0, 5.0, 5.0, 5.0, 4.7, 4.4, 5.0], "note": "Hard unmet is admitted; strictness is asked without waiver inference." },
+    { "tcId": "RC-TC-02", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.7, 4.4, 5.0], "note": "Not-recommended is directly supported by the hard counter-evidence." },
+    { "tcId": "RC-TC-02", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.7, 4.4, 5.0], "note": "No unsupported flexibility or substitution language." },
+
+    { "tcId": "RC-TC-03", "run": 1, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Hard unknown is preserved and Candidate education is requested first." },
+    { "tcId": "RC-TC-03", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "No unknown-to-unmet drift or waiver framing." },
+    { "tcId": "RC-TC-03", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Restrained hard-unknown handling with a useful question." },
+
+    { "tcId": "RC-TC-04", "run": 1, "scores": [4.8, 4.9, 4.8, 4.8, 4.5, 4.2, 4.8], "note": "Partial remains partial; question is correct but generic." },
+    { "tcId": "RC-TC-04", "run": 2, "scores": [4.8, 4.9, 4.8, 4.8, 4.5, 4.2, 4.8], "note": "Consistent try decision with mechanical wording." },
+    { "tcId": "RC-TC-04", "run": 3, "scores": [4.8, 4.9, 4.8, 4.8, 4.5, 4.2, 4.8], "note": "Grounded and actionable, though terse." },
+
+    { "tcId": "RC-TC-05", "run": 1, "scores": [4.8, 4.8, 4.6, 5.0, 4.2, 4.2, 4.8], "note": "Preferred unmet is correctly isolated; internal terms reduce naturalness." },
+    { "tcId": "RC-TC-05", "run": 2, "scores": [4.8, 4.8, 4.6, 5.0, 4.2, 4.2, 4.8], "note": "Priority remains legal and the preferred item does not downgrade." },
+    { "tcId": "RC-TC-05", "run": 3, "scores": [4.5, 4.5, 4.2, 5.0, 3.8, 4.0, 4.6], "note": "Asking whether a preferred item is a strict gate is unnecessary, but it does not change level or status." },
+
+    { "tcId": "RC-TC-06", "run": 1, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "All unknowns are preserved with specific Candidate questions." },
+    { "tcId": "RC-TC-06", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "No hard-unknown waiver language remains." },
+    { "tcId": "RC-TC-06", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Complete and restrained unknown handling." },
+
+    { "tcId": "RC-TC-07", "run": 1, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "JD waiver is explicitly traced while hard unmet is retained; question stays open-ended." },
+    { "tcId": "RC-TC-07", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Conservative output does not invent a specific substitution mechanism." },
+    { "tcId": "RC-TC-07", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Hard gap remains explicit and no waiver criterion is fabricated." },
+
+    { "tcId": "RC-TC-08", "run": 1, "scores": [5.0, 4.8, 4.7, 5.0, 4.0, 4.2, 4.8], "note": "Decision is supported; calling a core direction conflict a hard counter is slightly overstated." },
+    { "tcId": "RC-TC-08", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 3.8, 4.2, 4.8], "note": "Correct but offers little next-step guidance." },
+    { "tcId": "RC-TC-08", "run": 3, "scores": [5.0, 4.9, 4.7, 5.0, 4.5, 4.2, 4.8], "note": "Traceable negative decision; the parenthetical question is somewhat leading." },
+
+    { "tcId": "RC-TC-09", "run": 1, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Positive core evidence does not erase the hard unknown." },
+    { "tcId": "RC-TC-09", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Clear Candidate credential verification." },
+    { "tcId": "RC-TC-09", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.8, 4.4, 5.0], "note": "Balanced try decision with preserved hard unknown." },
+
+    { "tcId": "RC-TC-10", "run": 1, "scores": [5.0, 4.3, 4.2, 4.7, 4.6, 4.2, 4.5], "note": "Safe final status, though 'counter-evidence risk' is imprecise for an unknown item." },
+    { "tcId": "RC-TC-10", "run": 2, "scores": [5.0, 5.0, 5.0, 5.0, 4.3, 4.2, 5.0], "note": "Injection is ignored and no Candidate fact is fabricated." },
+    { "tcId": "RC-TC-10", "run": 3, "scores": [5.0, 5.0, 5.0, 5.0, 4.5, 4.3, 5.0], "note": "Restrained unknown handling with a direct Candidate question." }
+  ]
+}
