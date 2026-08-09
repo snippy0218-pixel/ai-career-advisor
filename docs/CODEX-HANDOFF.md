@@ -7,12 +7,13 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED；ISSUE-025 = Open / P1 / Gate Blocker；Phase 2.2 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；failed-gate diagnostic baseline：`653383e…`；Contract Amendment 2.0.1 canonical implementation：`cfdd13c…`。8×1 preflight 与 8×3 final clean matrix 的 PF-A～PF-I 工程证据均为全绿，但**不得自行宣布 Phase 2.1 PASS**，等待 Product Owner / QA Final Gate。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2 Match Engine = AUTHORIZED / IN PROGRESS（仅 Phase 2.2A Match Core Foundation）；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation baseline：`cfdd13c…`；Phase 2.1 evidence/docs baseline：`bf8f914…`。Product Owner / QA 已依据 8×1 preflight 与 8×3 final clean matrix 的全绿 PF-A～PF-I 工程证据关闭 Phase 2.1 与 ISSUE-025；历史失败证据永久保留。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：等待人工 Product/QA 审核 Contract Amendment 2.0.1、`canonical-preflight.json` 与 `canonical-final-matrix.json` 并作出 Phase 2.1 Final Gate 决策；PF-H/PF-I 均保持 100%，runtime model benchmark 暂停；不得开始 Phase 2.2、不得破坏 TC-01～TC-10 Contract（Phase 1 Regression Gate 10/10）；
-- **不进入 Phase 2.2、不降低 PF-H、不删除负向事实或历史失败、不修改冻结输入、不更换 runtime model、不修复 ISSUE-023/ISSUE-012B、不做无关重构**。
+- 新 thread 的下一步：执行已授权的 **Phase 2.2A Match Core Foundation**——只实现 validated Phase 1 JD requirements 与 validated Candidate Profile v2 之间的 requirement/dimension-level `met/partial/unmet/unknown`、双证据校验、严格 Raw/Final Schema 与独立 Match Repair；先静态测试，再 MC-TC-01～10 ×1 preflight，全绿后才能运行同一最终代码版本的 10×3 clean matrix；
+- 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
+- **不得进入 Phase 2.2B Recommendation/Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Candidate Profile canonical facts，不得修改 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 

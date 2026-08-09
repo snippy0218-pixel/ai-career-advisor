@@ -1,8 +1,17 @@
-# Phase 2.1 Acceptance — Candidate Profile Foundation（执行数据记录，非 Final PASS）
+# Phase 2.1 Acceptance — Candidate Profile Foundation
 
 > 生成日期：2026-08-08
-> 状态：**Phase 2.1 Stabilization 完成 → STOP & ESCALATE**（PF-H 未达标，详见 §10–§17；本文件不宣称 Final PASS）
+> 状态：**PASS / CLOSED**（Product Owner / QA Final Gate Review，2026-08-09）
 > 依据：`docs/PHASE-2-CONTRACT.md`（Phase 2.0 Contract Gate = PASS / CLOSED，baseline `8bf6cf6…`）
+
+## 0. Product Owner / QA Final Gate 决策（2026-08-09）
+
+- Phase 2.1 Candidate Profile Foundation：**PASS / CLOSED**；ISSUE-025：**CLOSED**；
+- implementation baseline：`cfdd13c46b9fa9cb297597481dee0ddc337a664a`；evidence/docs baseline：`bf8f91487572ae30c707c1f7e10010cc1a112f99`；
+- PF-A～PF-I 全部通过：Candidate hallucination `0`、Semantic upgrade `0`、Source contamination `0`、PF-B `100%`、PF-E `24/24`、PF-H `100%`、PF-I `100%`；
+- §10～§17 的失败、诊断、修复与 Stop & Escalate 记录均为历史审计证据，继续永久保留，不因 Final Gate 通过而删除或改写；
+- Projection classification corrections `11 / 24 requests（7 个请求触发）`登记为 `OBS-002 — Semantic Tag Classification Correction Frequency`，当前 Observe，不阻塞关闭；若 Phase 2.2 出现 downstream match impact，再升级 Issue；
+- Phase 2.2 Match Engine 已授权，但本轮只允许 Phase 2.2A Match Core Foundation；Phase 2.2B Recommendation/Strength/Gap 与 Phase 2.3 Personalized Greeting 均未授权；runtime model benchmark 为 DEFERRED / NOT REQUIRED，继续使用 `deepseek-v4-flash`。
 
 ## 1. 实现审计结论（复用 / 新增 / 禁改）
 

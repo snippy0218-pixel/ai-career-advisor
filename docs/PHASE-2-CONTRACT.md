@@ -1,6 +1,6 @@
 # Phase 2 Contract — Schema / Evidence / Decision（Phase 2.0 冻结基线）
 
-> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = STOP & ESCALATE / FINAL GATE NOT PASSED（ISSUE-025 Open / P1 / Gate Blocker）；Phase 2.2 = NOT AUTHORIZED。**
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2 = AUTHORIZED / IN PROGRESS（当前仅 Phase 2.2A Match Core Foundation）；Phase 2.3 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 当前版本：**2.0.1（2026-08-09 Candidate Fact Canonicalization Amendment）**；本 amendment 经 Product Owner / QA 批准，不重新打开 Phase 2.0。
 > 基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406…`）；`docs/analysis-schema.md` 为 Phase 1 唯一业务输出协议，本文件为 **Phase 2 实现、测试、QA 和后续 Codex 执行的唯一主要产品协议基线**（Phase 2 扩展最终将回写 `analysis-schema.md`，但实现前以本文件为冻结依据）。
@@ -215,6 +215,8 @@ const candidateProfile = {
 - category 是否投影不再计入 PF-H，但 PF-I 同为 Hard Gate，所以 amendment 不删除冻结事实、不降低完整性要求。
 
 本 amendment 不降低 Evidence Gate、不修改 Phase 2 Product Scope、不授权 Phase 2.2，也不删除或改写历史失败。
+
+> 后续 Gate 记录（2026-08-09）：Product Owner / QA 已依据 canonical acceptance evidence 关闭 Phase 2.1 与 ISSUE-025，并单独授权 Phase 2.2A。上句是 Amendment 2.0.1 获批当时的历史授权边界，继续保留用于审计；本轮不得实现 Recommendation / Strength / Gap / Personalized Greeting。
 
 ## 4. Match Status Contract（met / partial / unmet / unknown）
 
