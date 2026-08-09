@@ -186,6 +186,38 @@ function containsUngroundedCandidateFact(text) {
   return true;
 }
 
+const explicitAlternativePattern =
+  /(?:(?:学历|本科|学位|资格|证书).{0,24}(?:或|或者).{0,36}(?:经验|能力|资历)|(?:经验|能力|资历).{0,16}(?:可|可以)替代(?:学历|学位|年限|资格|证书)|related experience may replace education)/i;
+const explicitWaiverPattern =
+  /(?:可(?:适当)?放宽|条件优秀.{0,12}(?:可)?放宽|优秀者.{0,10}(?:不限|可不受)|特别优秀.{0,12}(?:可)?不受.{0,12}限制|同等能力者可考虑|能力突出.{0,12}(?:可)?放宽|may be waived|waiver available)/i;
+const waiverClaimPattern =
+  /(?:豁免|放宽|例外|弹性|灵活(?:处理|调整)|具有灵活性|酌情|特殊政策|可不受|可以不受|要求.{0,8}不严格|may be waived|waiver|exception|relaxation|flexibility|flexible)/i;
+const substitutionClaimPattern =
+  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,12}(?:弥补|抵消)(?:学历|学位|年限|资格|证书)?)/i;
+const unknownToUnmetPattern =
+  /(?:未满足|不满足|不符合|未达到|未达标|无法满足|资格不符)/;
+const hardUnmetAdmissionPattern =
+  /(?:未满足|不满足|不符合|未达到|未达标|存在.{0,8}(?:冲突|反证)|硬性.{0,8}(?:冲突|缺口|反证))/;
+const requirementStrictnessPattern =
+  /(?:(?:确认|核实|了解).{0,24}(?:是否为|是否属于|是不是|是否构成|具体).{0,16}(?:严格|硬性|筛选|门槛|要求口径|条件口径)|(?:要求|条件|门槛).{0,12}(?:严格性|是否严格|口径))/;
+const candidateInformationPattern =
+  /(?:请|需|需要).{0,12}(?:补充|确认|核实).{0,36}(?:候选人|本人|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)/;
+
+function flexibilityKind(item) {
+  const source = `${item.requirement} ${(item.jdEvidence ?? []).join(" ")}`;
+  if (explicitAlternativePattern.test(source)) return "alternative_qualification";
+  if (explicitWaiverPattern.test(source)) return "waiver";
+  return null;
+}
+
+function isCandidateInformationQuestion(question) {
+  return candidateInformationPattern.test(question) &&
+    !/(?:HR|招聘方)/i.test(question) &&
+    !requirementStrictnessPattern.test(question) &&
+    !waiverClaimPattern.test(question) &&
+    !substitutionClaimPattern.test(question);
+}
+
 function inspect(testCase, data, requestSnapshot) {
   const items = testCase.matchCore.matchItems.map((item, index) => ({
     ...item,
@@ -269,7 +301,7 @@ function inspect(testCase, data, requestSnapshot) {
           questionRefs.has(ref) &&
           data.limitations.some((entry) =>
             entry.matchItemRefs.includes(ref) &&
-            /(?:HR|招聘方|豁免|放宽|口径|确认)/i.test(entry.content)));
+            hardUnmetAdmissionPattern.test(entry.content)));
   const allowedLevel = finalSchema &&
     sameArray(data.allowedRecommendationLevels, testCase.expectedAllowed) &&
     data.allowedRecommendationLevels.includes(data.recommendationLevel);
@@ -310,6 +342,51 @@ function inspect(testCase, data, requestSnapshot) {
   const noFabrication = referenceIntegrity && fabricatedClaimCount === 0 &&
     !(testCase.id === "RC-TC-10" && /五年/.test(outputText));
 
+  const waiverRefs = new Set(items.filter((item) => flexibilityKind(item) === "waiver").map((item) => item.ref));
+  const alternativeRefs = new Set(items.filter((item) => flexibilityKind(item) === "alternative_qualification").map((item) => item.ref));
+  const textEntries = finalSchema
+    ? [
+        {
+          text: data.summary,
+          refs: items
+            .filter((item) => data.summary.includes(item.ref) || data.summary.includes(item.requirement))
+            .map((item) => item.ref),
+        },
+        ...data.limitations.map((entry) => ({ text: entry.content, refs: entry.matchItemRefs })),
+        ...data.questionsToConfirm.map((entry) => ({ text: entry.question, refs: entry.matchItemRefs })),
+      ]
+    : [];
+  const unsupportedWaiverClaimCount = textEntries.filter((entry) =>
+    waiverClaimPattern.test(entry.text) &&
+    !(entry.refs.length > 0 && entry.refs.every((ref) => waiverRefs.has(ref)))).length;
+  const unsupportedSubstitutionClaimCount = textEntries.filter((entry) =>
+    substitutionClaimPattern.test(entry.text) &&
+    !(entry.refs.length > 0 && entry.refs.every((ref) => alternativeRefs.has(ref) || waiverRefs.has(ref)))).length;
+  const unknownToUnmetDriftCount = textEntries.filter((entry) =>
+    entry.refs.some((ref) => hardUnknownRefs.includes(ref)) &&
+    unknownToUnmetPattern.test(entry.text)).length;
+  const hardUnknownCandidateQuestions = hardUnknownRefs.every((ref) =>
+    data?.questionsToConfirm.some((entry) =>
+      entry.matchItemRefs.includes(ref) && isCandidateInformationQuestion(entry.question)));
+  const hardUnmetWithoutWaiver = hardUnmetRefs.filter((ref) => !waiverRefs.has(ref));
+  const hardUnmetNoWaiverIntegrity = !finalSchema || data.recommendationLevel !== "cautious"
+    ? finalSchema
+    : hardUnmetWithoutWaiver.every((ref) =>
+        data.limitations.some((entry) =>
+          entry.matchItemRefs.includes(ref) && hardUnmetAdmissionPattern.test(entry.content)) &&
+        data.questionsToConfirm.some((entry) =>
+          entry.matchItemRefs.includes(ref) &&
+          requirementStrictnessPattern.test(entry.question) &&
+          !waiverClaimPattern.test(entry.question)));
+  const fabricatedFlexibilityClaimCount =
+    unsupportedWaiverClaimCount + unsupportedSubstitutionClaimCount;
+  const waiverEvidenceIntegrity = finalSchema &&
+    unsupportedWaiverClaimCount === 0 &&
+    unknownToUnmetDriftCount === 0 &&
+    fabricatedFlexibilityClaimCount === 0 &&
+    hardUnknownCandidateQuestions &&
+    hardUnmetNoWaiverIntegrity;
+
   return {
     finalSchema,
     allowedLevel,
@@ -323,6 +400,10 @@ function inspect(testCase, data, requestSnapshot) {
     matchCoreImmutable: JSON.stringify(testCase.matchCore) === requestSnapshot,
     noFabrication,
     fabricatedClaimCount,
+    waiverEvidenceIntegrity,
+    unsupportedWaiverClaimCount,
+    unknownToUnmetDriftCount,
+    fabricatedFlexibilityClaimCount,
     recommendationLevel: data?.recommendationLevel ?? null,
     allowedRecommendationLevels: data?.allowedRecommendationLevels ?? null,
     supportingMatchRefs: data?.supportingMatchRefs ?? null,
@@ -388,7 +469,7 @@ for (const testCase of selectedCases) {
       diagnostics,
       gates,
     });
-    process.stdout.write(`${testCase.id} run ${run}: HTTP ${response.status} ${gates && Object.entries(gates).filter(([key]) => !["fabricatedClaimCount", "recommendationLevel", "allowedRecommendationLevels", "supportingMatchRefs", "counterMatchRefs", "preservedUnknownRefs"].includes(key)).every(([, value]) => value === true) ? "PASS" : "FAIL"}\n`);
+    process.stdout.write(`${testCase.id} run ${run}: HTTP ${response.status} ${gates && Object.entries(gates).filter(([key]) => !["fabricatedClaimCount", "unsupportedWaiverClaimCount", "unknownToUnmetDriftCount", "fabricatedFlexibilityClaimCount", "recommendationLevel", "allowedRecommendationLevels", "supportingMatchRefs", "counterMatchRefs", "preservedUnknownRefs"].includes(key)).every(([, value]) => value === true) ? "PASS" : "FAIL"}\n`);
   }
 }
 
@@ -409,6 +490,9 @@ const summary = {
     allowedLevelPass: successful.filter((item) => item.gates.allowedLevel).length,
     unknownPreservationPass: successful.filter((item) => item.gates.unknownPreservation).length,
     fabricatedClaims: successful.reduce((total, item) => total + item.gates.fabricatedClaimCount, 0),
+    unsupportedWaiverClaims: successful.reduce((total, item) => total + item.gates.unsupportedWaiverClaimCount, 0),
+    unknownToUnmetDrift: successful.reduce((total, item) => total + item.gates.unknownToUnmetDriftCount, 0),
+    fabricatedFlexibilityClaims: successful.reduce((total, item) => total + item.gates.fabricatedFlexibilityClaimCount, 0),
     repairRequests: successful.filter((item) => item.diagnostics?.recommendationRepairAttempted).length,
     recommendationRepairRate: successful.length
       ? successful.filter((item) => item.diagnostics?.recommendationRepairAttempted).length / successful.length
@@ -432,6 +516,12 @@ const summary = {
     "R-H_final_schema": all((item) => item.gates?.finalSchema === true),
     "R-I_match_core_immutability": all((item) => item.gates?.matchCoreImmutable === true && item.diagnostics?.matchCoreImmutable === true),
     "R-J_no_fabricated_facts": all((item) => item.gates?.noFabrication === true && item.diagnostics?.fabricatedClaimCount === 0),
+    "R-K_waiver_flexibility_evidence_integrity": all((item) =>
+      item.gates?.waiverEvidenceIntegrity === true &&
+      item.diagnostics?.waiverEvidenceIntegrityPassed === true &&
+      item.diagnostics?.unsupportedWaiverClaimCount === 0 &&
+      item.diagnostics?.unknownToUnmetDriftCount === 0 &&
+      item.diagnostics?.fabricatedFlexibilityClaimCount === 0),
   },
   runs: results,
 };

@@ -1,0 +1,809 @@
+{
+  "generatedAt": "2026-08-09T16:03:18.569Z",
+  "auditMode": "offline; zero model calls; exact persisted matrix text",
+  "sourceArtifact": "recommendation-core-clean-matrix.json",
+  "sourceImplementationCommit": "e2983c6fd4b0e71e1e6abe7209f5a935df6e0a2d",
+  "sourceRequestCount": 30,
+  "auditedHardRequirementRequests": 15,
+  "statusCounts": {
+    "hardUnmet": 6,
+    "hardUnknown": 9
+  },
+  "classificationCountsByRequest": {
+    "strictnessConfirmation": 0,
+    "candidateInformationConfirmation": 9,
+    "supportedWaiverClaim": 3,
+    "unsupportedWaiverClaim": 4,
+    "unknownToUnmetSemanticDrift": 0
+  },
+  "issue026InitialEvidence": [
+    {
+      "tcId": "RC-TC-02",
+      "run": 1,
+      "requestId": "5dc53d3a-6531-43c2-8e36-cd2c10b815fe",
+      "status": "unmet",
+      "exactTexts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示硬性资格要求（本科及以上）未满足，构成反证。由于存在豁免或口径判断的可能性，且无其他硬性未满足项，建议谨慎推进并确认。"
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足：本科及以上学历要求未达成，需按豁免或口径判断而非直接拒绝。"
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认该硬性学历要求是否可豁免或存在替代条件。"
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-02",
+      "run": 2,
+      "requestId": "cbcfb511-d148-40bd-b22a-7a7febb5b3ea",
+      "status": "unmet",
+      "exactTexts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）未满足，构成反证；但当前无其他正向证据或待确认项，需结合豁免/口径判断。"
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足（本科及以上），但需按豁免/口径判断而非直接 not_recommended，因无其他反证且可能适用特殊政策。"
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认该硬性学历要求是否存在豁免或替代条件。"
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-02",
+      "run": 3,
+      "requestId": "bd6c7891-4d29-4e45-bfc2-98bfa582f83c",
+      "status": "unmet",
+      "exactTexts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）未满足，构成反证；但未发现其他正向或待确认项。需按豁免/口径判断，并请 HR 确认。"
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足（本科及以上），但需按豁免/口径判断而非直接不推荐。"
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认是否接受学历豁免或替代条件。"
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-06",
+      "run": 2,
+      "requestId": "b8aa4b81-78f8-41ad-9a52-2d3f5ef3d340",
+      "status": "unknown",
+      "exactTexts": [
+        {
+          "field": "limitations.0.content",
+          "text": "MI-001 为硬性 unknown，缺少本科及以上学历的完整信息，无法确认是否满足硬性要求；需按豁免/口径判断，而非直接 not_recommended。"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "tcId": "RC-TC-02",
+      "run": 1,
+      "requestId": "5dc53d3a-6531-43c2-8e36-cd2c10b815fe",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "unsupported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示硬性资格要求（本科及以上）未满足，构成反证。由于存在豁免或口径判断的可能性，且无其他硬性未满足项，建议谨慎推进并确认。",
+          "matchItemRefs": [],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足：本科及以上学历要求未达成，需按豁免或口径判断而非直接拒绝。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认该硬性学历要求是否可豁免或存在替代条件。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-02",
+      "run": 2,
+      "requestId": "cbcfb511-d148-40bd-b22a-7a7febb5b3ea",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "unsupported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）未满足，构成反证；但当前无其他正向证据或待确认项，需结合豁免/口径判断。",
+          "matchItemRefs": [],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足（本科及以上），但需按豁免/口径判断而非直接 not_recommended，因无其他反证且可能适用特殊政策。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认该硬性学历要求是否存在豁免或替代条件。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-02",
+      "run": 3,
+      "requestId": "bd6c7891-4d29-4e45-bfc2-98bfa582f83c",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "unsupported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）未满足，构成反证；但未发现其他正向或待确认项。需按豁免/口径判断，并请 HR 确认。",
+          "matchItemRefs": [],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬门槛未满足（本科及以上），但需按豁免/口径判断而非直接不推荐。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认是否接受学历豁免或替代条件。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-03",
+      "run": 1,
+      "requestId": "f8f13d90-e565-4975-acc9-583e07ca5605",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 正向证据不足，存在一项硬性要求（本科及以上）状态为 unknown，需先确认该资格条件后再做最终推荐。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性要求（本科及以上）当前状态为 unknown，缺少完整信息，无法确认是否满足。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认候选人是否具备本科及以上学历？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-03",
+      "run": 2,
+      "requestId": "361ff20f-77ac-40a8-8bb8-5c63608966de",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）状态为 unknown，缺乏正向或反向证据，因此无法确认资格满足情况。决策层需基于待确认项进行判断，建议谨慎推进。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性要求（本科及以上）状态为 unknown，缺少完整信息，无法确认是否满足，需按待确认项处理而非直接否定。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 本科及以上 的具体情况？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-03",
+      "run": 3,
+      "requestId": "10a66952-db4c-4791-b15c-20e6f436dea3",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示唯一硬性要求（本科及以上）状态为 unknown，缺乏正向或反向证据，因此无法确认核心匹配质量。决策层需依赖待确认项，建议谨慎推进。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性要求（本科及以上）状态为 unknown，缺少完整信息，无法确认是否满足。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 本科及以上 的具体情况？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-06",
+      "run": 1,
+      "requestId": "de68bf80-82b8-4a63-9181-df7c23f9b4a4",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 中所有需求项均为 unknown，缺乏正向证据与反证；因存在硬性未知项，需谨慎推进并优先确认资格与核心技能。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "MI-001 为硬性未知项，缺少本科及以上学历的完整信息，需向候选人核实。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "limitations.1.content",
+          "text": "MI-002 与 MI-003 为未知项，缺少 SQL 使用与数据复盘职责的充分证据，需进一步确认。",
+          "matchItemRefs": [
+            "MI-002",
+            "MI-003"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认本科及以上学历的具体情况？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.1.question",
+          "text": "请确认使用 SQL 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.2.question",
+          "text": "请确认负责数据复盘的具体情况？",
+          "matchItemRefs": [
+            "MI-003"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-06",
+      "run": 2,
+      "requestId": "b8aa4b81-78f8-41ad-9a52-2d3f5ef3d340",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "unsupported_waiver_claim",
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 中所有需求项均为 unknown，无正向证据或反证；因存在硬性 unknown 且无任何支持性匹配，决策为 cautious，需向 HR/招聘方确认关键信息后再评估。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "MI-001 为硬性 unknown，缺少本科及以上学历的完整信息，无法确认是否满足硬性要求；需按豁免/口径判断，而非直接 not_recommended。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "unsupported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.1.content",
+          "text": "MI-002 与 MI-003 均为 unknown，缺少 SQL 技能与数据复盘职责的完整信息，无法形成正向或反向证据。",
+          "matchItemRefs": [
+            "MI-002",
+            "MI-003"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认候选人的本科及以上学历情况？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.1.question",
+          "text": "请确认候选人使用 SQL 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.2.question",
+          "text": "请确认候选人负责数据复盘的具体情况？",
+          "matchItemRefs": [
+            "MI-003"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-06",
+      "run": 3,
+      "requestId": "884b8da8-176d-4bd5-ac4d-211ce891fc29",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 中所有需求项均为 unknown，无正向证据或反证；因存在硬性未知项（MI-001）且无任何支持性匹配证据，决策等级被限制为 cautious。需通过确认待办项获取更多信息后再做最终判断。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "MI-001（本科及以上）为硬性未知，缺少完整信息，无法确认是否满足。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "limitations.1.content",
+          "text": "MI-002（使用 SQL）和 MI-003（负责数据复盘）均为未知，缺乏证据支持。",
+          "matchItemRefs": [
+            "MI-002",
+            "MI-003"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 本科及以上 的具体情况？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.1.question",
+          "text": "请确认 使用 SQL 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.2.question",
+          "text": "请确认 负责数据复盘 的具体情况？",
+          "matchItemRefs": [
+            "MI-003"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-07",
+      "run": 1,
+      "requestId": "643b68c4-a9b5-4c8d-9581-0f3b14be3f77",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": true
+      },
+      "classifications": [
+        "supported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示存在一项硬性资格反证（MI-001），但该要求附有‘条件优秀可放宽’的豁免口径，需向 HR/招聘方确认后方可定级。",
+          "matchItemRefs": [],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性资格要求未满足（MI-001），但 JD 明确允许‘条件优秀可放宽’，因此需按豁免口径判断，而非直接不推荐。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认：候选人虽未满足本科及以上学历要求，但是否符合‘条件优秀可放宽’的豁免标准？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-07",
+      "run": 2,
+      "requestId": "b43ed74f-61c4-4dce-bba6-59f97d7aa463",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": true
+      },
+      "classifications": [
+        "supported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示存在一项硬性资格反证（MI-001），但该要求附有‘条件优秀可放宽’的豁免口径，需向 HR/招聘方确认后方可定级。",
+          "matchItemRefs": [],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性资格要求未满足（MI-001），但 JD 明确允许‘条件优秀可放宽’，因此需按豁免口径判断，而非直接不推荐。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认：候选人虽未满足本科及以上学历要求，但是否符合‘条件优秀可放宽’的豁免条件？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-07",
+      "run": 3,
+      "requestId": "102a6485-82c0-40a0-bcae-fbc7379d964c",
+      "recommendationLevel": "cautious",
+      "hardRequirement": {
+        "matchItemRef": "MI-001",
+        "status": "unmet",
+        "waiverEvidence": true
+      },
+      "classifications": [
+        "supported_waiver_claim"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 显示存在一项硬性资格要求未满足（MI-001），构成主要反证；同时未发现正向支持证据。由于该要求附有‘条件优秀可放宽’的豁免口径，需结合招聘方确认后方可决策，故给出 cautious 建议。",
+          "matchItemRefs": [],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "硬性资格要求（本科及以上）未满足，但 JD 中注明‘条件优秀可放宽’，因此需按豁免口径判断，而非直接 not_recommended。",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请向 HR/招聘方确认：候选人虽未满足本科学历要求，但是否可依据‘条件优秀可放宽’条款予以豁免？",
+          "matchItemRefs": [
+            "MI-001"
+          ],
+          "classifications": [
+            "supported_waiver_claim"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-09",
+      "run": 1,
+      "requestId": "cb9ffac5-fcbf-42c8-943e-41d6b3fd49e5",
+      "recommendationLevel": "try",
+      "hardRequirement": {
+        "matchItemRef": "MI-002",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 正向证据显示核心技能要求已满足，但存在一项待确认的资格要求，需进一步核实。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "资格要求（持有相关资格证）状态为 unknown，缺少完整信息，需确认。",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 持有相关资格证 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-09",
+      "run": 2,
+      "requestId": "1d24a316-c5cc-4302-b134-4a3b0cbbfff4",
+      "recommendationLevel": "try",
+      "hardRequirement": {
+        "matchItemRef": "MI-002",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 正向证据：MI-001 显示 SQL 分析数据技能已满足；待确认项：MI-002 相关资格证状态未知。整体方向一致，建议尝试推进并核实资格证。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "MI-002 相关资格证信息缺失，需补充确认。",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 持有相关资格证 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "tcId": "RC-TC-09",
+      "run": 3,
+      "requestId": "6b32b6f9-7279-42f2-9e12-8a20b9d683df",
+      "recommendationLevel": "try",
+      "hardRequirement": {
+        "matchItemRef": "MI-002",
+        "status": "unknown",
+        "waiverEvidence": false
+      },
+      "classifications": [
+        "candidate_information_confirmation"
+      ],
+      "texts": [
+        {
+          "field": "summary",
+          "text": "Match Core 正向证据：MI-001 显示 SQL 分析数据技能已满足；待确认项：MI-002 相关资格证状态未知。整体核心匹配质量良好，资格风险待确认，建议尝试推进。",
+          "matchItemRefs": [],
+          "classifications": []
+        },
+        {
+          "field": "limitations.0.content",
+          "text": "MI-002 相关资格证信息缺失，需补充确认。",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": []
+        },
+        {
+          "field": "questionsToConfirm.0.question",
+          "text": "请确认 持有相关资格证 的具体情况？",
+          "matchItemRefs": [
+            "MI-002"
+          ],
+          "classifications": [
+            "candidate_information_confirmation"
+          ]
+        }
+      ]
+    }
+  ]
+}

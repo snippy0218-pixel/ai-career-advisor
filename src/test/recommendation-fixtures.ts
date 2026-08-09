@@ -190,7 +190,7 @@ export const RECOMMENDATION_FIXTURES: RecommendationFixture[] = [
     expectedAllowed: ["cautious"],
     validRaw: raw({
       recommendationLevel: "cautious",
-      summary: "存在硬性门槛反证，但 JD 留有放宽口径，应先核实资格。",
+      summary: "MI-001 存在硬性门槛反证，但 JD 明示放宽条款，应先核实适用标准。",
       supportingMatchRefs: [],
       counterMatchRefs: ["MI-001"],
       limitations: [{ content: "MI-001 硬性门槛未满足；因存在放宽口径，是否可豁免需由 HR 确认。", matchItemRefs: ["MI-001"] }],

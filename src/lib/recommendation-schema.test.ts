@@ -7,6 +7,7 @@ import {
   finalRecommendationSchema,
 } from "./recommendation-schema";
 import { RECOMMENDATION_FIXTURES } from "@/test/recommendation-fixtures";
+import { buildRecommendationMatchCore } from "@/test/recommendation-fixtures";
 
 describe("Recommendation Core deterministic contract", () => {
   it.each(RECOMMENDATION_FIXTURES)(
@@ -165,5 +166,197 @@ describe("Recommendation Core deterministic contract", () => {
     );
     expect(result.issues).toEqual([]);
     expect(result.data?.recommendationLevel).toBe("cautious");
+  });
+
+  it("RK-TC-01 hard unknown requires Candidate information and rejects waiver inference", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const valid = finalizeRawRecommendation(fixture.validRaw, fixture.matchCore);
+    expect(valid.issues).toEqual([]);
+
+    const invalid = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        questionsToConfirm: [
+          {
+            question: "请向 HR 确认 MI-001 是否可以豁免？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(invalid.data).toBeNull();
+    expect(
+      invalid.issues.some((issue) => issue.message.includes("R-K unsupported waiver")),
+    ).toBe(true);
+    expect(
+      invalid.issues.some((issue) =>
+        issue.message.includes("Candidate-information question"),
+      ),
+    ).toBe(true);
+  });
+
+  it("RK-TC-02 hard unmet without JD waiver permits strictness confirmation only", () => {
+    const fixture = RECOMMENDATION_FIXTURES[1];
+    const cautious = {
+      recommendationLevel: "cautious" as const,
+      summary: "核心职责仍可关注，但 MI-001 硬性资格存在明确反证。",
+      supportingMatchRefs: [],
+      counterMatchRefs: ["MI-001"],
+      limitations: [
+        {
+          content: "MI-001 硬性学历要求当前明确未满足，投递成功率会受影响。",
+          matchItemRefs: ["MI-001"],
+        },
+      ],
+      questionsToConfirm: [
+        {
+          question: "请向招聘方确认 MI-001 是否属于严格筛选门槛？",
+          matchItemRefs: ["MI-001"],
+        },
+      ],
+    };
+    expect(finalizeRawRecommendation(cautious, fixture.matchCore).issues).toEqual([]);
+
+    const invalid = finalizeRawRecommendation(
+      {
+        ...cautious,
+        questionsToConfirm: [
+          {
+            question: "请向 HR 确认 MI-001 是否可放宽？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(invalid.data).toBeNull();
+    expect(invalid.issues.some((issue) => issue.message.includes("R-K"))).toBe(true);
+  });
+
+  it("RK-TC-03 explicit JD waiver may be cited without changing the hard unmet", () => {
+    const fixture = RECOMMENDATION_FIXTURES[6];
+    const result = finalizeRawRecommendation(fixture.validRaw, fixture.matchCore);
+    expect(result.issues).toEqual([]);
+    expect(result.data?.recommendationLevel).toBe("cautious");
+    expect(fixture.matchCore.matchItems[0].status).toBe("unmet");
+  });
+
+  it("RK-TC-04 strong Candidate evidence does not imply an unsupported waiver", () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "本科及以上",
+        requirementType: "hard_requirement",
+        status: "unmet",
+        dimensionType: "qualification",
+      },
+      {
+        requirement: "熟练使用 SQL 并负责核心分析",
+        requirementType: "core_requirement",
+        status: "met",
+      },
+    ]);
+    const result = finalizeRawRecommendation(
+      {
+        recommendationLevel: "cautious",
+        summary: "MI-002 核心匹配较强，但能力可以弥补 MI-001 的学历缺口。",
+        supportingMatchRefs: ["MI-002"],
+        counterMatchRefs: ["MI-001"],
+        limitations: [
+          {
+            content: "MI-001 硬性学历要求当前未满足。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+        questionsToConfirm: [
+          {
+            question: "请向招聘方确认 MI-001 是否属于严格筛选门槛？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(
+      result.issues.some((issue) =>
+        issue.message.includes("unsupported substitution"),
+      ),
+    ).toBe(true);
+  });
+
+  it("RK-TC-05 explicit experience alternative is qualification logic, not waiver", () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "本科，或三年以上同类经验",
+        requirementType: "hard_requirement",
+        status: "met",
+        dimensionType: "qualification",
+      },
+    ]);
+    const result = finalizeRawRecommendation(
+      {
+        recommendationLevel: "priority",
+        summary: "MI-001 是 JD 明示的二选一替代资格，Match Core 已记录为满足。",
+        supportingMatchRefs: ["MI-001"],
+        counterMatchRefs: [],
+        limitations: [],
+        questionsToConfirm: [],
+      },
+      matchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.recommendationLevel).toBe("priority");
+
+    const mislabeled = finalizeRawRecommendation(
+      {
+        recommendationLevel: "priority",
+        summary: "MI-001 是 JD 对学历要求的豁免。",
+        supportingMatchRefs: ["MI-001"],
+        counterMatchRefs: [],
+        limitations: [],
+        questionsToConfirm: [],
+      },
+      matchCore,
+    );
+    expect(mislabeled.data).toBeNull();
+    expect(
+      mislabeled.issues.some((issue) => issue.message.includes("unsupported waiver")),
+    ).toBe(true);
+  });
+
+  it("RK-TC-06 hard unknown remains unknown when JD contains a waiver clause", () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "本科及以上，优秀者可适当放宽学历要求",
+        requirementType: "hard_requirement",
+        status: "unknown",
+        dimensionType: "qualification",
+      },
+    ]);
+    const result = finalizeRawRecommendation(
+      {
+        recommendationLevel: "cautious",
+        summary: "候选资格目前仍待确认。",
+        supportingMatchRefs: [],
+        counterMatchRefs: [],
+        limitations: [
+          {
+            content: "MI-001 的 Candidate 学历事实未知；JD 同时明示放宽条款，但尚不能判断是否需要或适用。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+        questionsToConfirm: [
+          {
+            question: "请补充你的最高学历，以确认 MI-001 的资格事实？",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      matchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.recommendationLevel).toBe("cautious");
+    expect(matchCore.matchItems[0].status).toBe("unknown");
   });
 });

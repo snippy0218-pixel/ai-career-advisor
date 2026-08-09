@@ -1,6 +1,6 @@
 # Phase 2 Contract — Schema / Evidence / Decision（Phase 2.0 冻结基线）
 
-> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = AUTHORIZED / IN PROGRESS；Phase 2.2B Strength/Gap 与 Phase 2.3 = NOT AUTHORIZED。**
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = CONDITIONAL PASS / ISSUE-026 NARROW SEMANTIC STABILIZATION；Phase 2.2B Strength/Gap 与 Phase 2.3 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 当前版本：**2.0.1（2026-08-09 Candidate Fact Canonicalization Amendment）**；本 amendment 经 Product Owner / QA 批准，不重新打开 Phase 2.0。
 > 基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406…`）；`docs/analysis-schema.md` 为 Phase 1 唯一业务输出协议，本文件为 **Phase 2 实现、测试、QA 和后续 Codex 执行的唯一主要产品协议基线**（Phase 2 扩展最终将回写 `analysis-schema.md`，但实现前以本文件为冻结依据）。
@@ -338,7 +338,18 @@ const matchItemSchema = z.object({
 **废止的旧规则**：`≥3 core partial → 至少 cautious` 的绝对数量规则**删除**（3/3 与 3/10 语义不同，核心职责重要性不同；不做简单数量 guardrail）。
 
 **确定性 guardrails**（服务端可执行）：上述"必须/禁止/不得"条款；
-**LLM judgment 范围**：`priority` vs `try` 的最终取舍、summary 措辞、支持/反方证据排序、partial 接近程度与可迁移性权重、豁免理由表述——均在 guardrails 约束内。
+**LLM judgment 范围**：`priority` vs `try` 的最终取舍、summary 措辞、支持/反方证据排序、partial 接近程度与可迁移性权重、已有明示 waiver evidence 的引用措辞——均在 guardrails 约束内。模型不得自行推断 requirement 可豁免。
+
+### 6.3 ISSUE-026 Waiver Evidence Contract
+
+Recommendation 使用 waiver / exception / flexibility / relaxation、放宽、豁免、例外、弹性、酌情处理或能力/经验可弥补硬门槛等语义时，必须追溯到同一 `MI-*` 对应的 JD 明示 evidence。Candidate 其他维度很强不构成 waiver evidence。
+
+- `hard unknown`：表示 Candidate Evidence 不足，不表示已知不满足；必须优先询问 Candidate 自身事实。可另行引用 JD 明示 waiver clause，但必须保持“Candidate eligibility unknown”与“requirement flexibility”两个语义层，不得询问 Candidate 是否可豁免；
+- `hard unmet + waiverEvidence=none`：必须明确承认硬门槛未满足；可输出 `not_recommended`，也可在 §6.2 已有 allowed set 支持时输出 `cautious`，但 cautious 只能建议确认 requirement 是否为严格筛选门槛/具体口径，不得创造可放宽、可豁免或可例外的招聘政策；
+- `hard unmet + explicit waiverEvidence`：保留原 hard gap 和 counter evidence，可引用同一 `MI-*` 的 JD waiver clause 并询问适用标准；waiver clause 不得把 Match status 从 `unmet` 改为 `partial/met`；
+- JD 明示“本科，或三年以上同类经验”等 alternative qualification 应按 Match Contract 的原始资格逻辑处理，不得称为 waiver；
+- 不新增第二事实源。公开 Final Schema 无需新增字段时，由服务端通过 `MI-* → Requirement → JD Evidence` 内部 enforce；
+- 确定性 Gate `R-K — Waiver / Flexibility Evidence Integrity`：unsupported waiver claim = 0、unknown→unmet semantic drift = 0、fabricated flexibility claim = 0。
 
 ## 7. Recommendation 证据 Contract
 
@@ -358,7 +369,7 @@ const recommendationSchema = z.object({
 
 - `level=priority` 时：不得存在 hard unmet；hard unknown 数量必须为 0；
 - `level=not_recommended` 时：必须存在 ≥1 条 counterEvidence（hard unmet 或方向冲突），否则校验失败；
-- 若 `level ≥ try` 且存在 hard unmet（如学历），`counterEvidence`/`summary` 必须显式说明并给出 confirmWithHR 表述；禁止"推荐投递"与"学历明确不满足核心硬门槛"并存且无解释；
+- 若 `level ≥ try` 且存在 hard unmet（如学历），`counterEvidence`/`summary` 必须显式说明；无 JD waiver evidence 时 confirmWithHR 只能确认 requirement strictness/具体口径，有 JD 明示 waiver 时才可确认 waiver 适用标准；禁止"推荐投递"与"学历明确不满足核心硬门槛"并存且无解释；
 - `unknowns` 与 `questionsToConfirm` 联动：每个 hard unknown 必须能在 questions 或 unknowns 中定位。
 
 ## 8. Strength Contract

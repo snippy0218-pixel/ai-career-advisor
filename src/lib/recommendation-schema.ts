@@ -136,10 +136,42 @@ function hasCareerDirectionConflict(item: RecommendationMatchLedgerItem) {
   );
 }
 
+export type RequirementFlexibilityKind =
+  | "waiver"
+  | "alternative_qualification"
+  | null;
+
+const EXPLICIT_ALTERNATIVE_QUALIFICATION_PATTERN =
+  /(?:(?:学历|本科|学位|资格|证书).{0,24}(?:或|或者).{0,36}(?:经验|能力|资历)|(?:经验|能力|资历).{0,16}(?:可|可以)替代(?:学历|学位|年限|资格|证书)|related experience may replace education)/i;
+const EXPLICIT_WAIVER_EVIDENCE_PATTERN =
+  /(?:可(?:适当)?放宽|条件优秀.{0,12}(?:可)?放宽|优秀者.{0,10}(?:不限|可不受)|特别优秀.{0,12}(?:可)?不受.{0,12}限制|同等能力者可考虑|能力突出.{0,12}(?:可)?放宽|may be waived|waiver available)/i;
+
+export const WAIVER_CLAIM_PATTERN =
+  /(?:豁免|放宽|例外|弹性|灵活(?:处理|调整)|具有灵活性|酌情|特殊政策|可不受|可以不受|要求.{0,8}不严格|may be waived|waiver|exception|relaxation|flexibility|flexible)/i;
+export const SUBSTITUTION_CLAIM_PATTERN =
+  /(?:替代条件|替代资格|可替代|(?:能力|经验|项目).{0,12}(?:弥补|抵消)(?:学历|学位|年限|资格|证书)?)/i;
+const UNKNOWN_TO_UNMET_PATTERN =
+  /(?:未满足|不满足|不符合|未达到|未达标|无法满足|资格不符)/;
+const HARD_UNMET_ADMISSION_PATTERN =
+  /(?:未满足|不满足|不符合|未达到|未达标|存在.{0,8}(?:冲突|反证)|硬性.{0,8}(?:冲突|缺口|反证))/;
+const REQUIREMENT_STRICTNESS_PATTERN =
+  /(?:(?:确认|核实|了解).{0,24}(?:是否为|是否属于|是不是|是否构成|具体).{0,16}(?:严格|硬性|筛选|门槛|要求口径|条件口径)|(?:要求|条件|门槛).{0,12}(?:严格性|是否严格|口径))/;
+const CANDIDATE_INFORMATION_PATTERN =
+  /(?:请|需|需要).{0,12}(?:补充|确认|核实).{0,36}(?:候选人|本人|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)/;
+
+export function classifyRequirementFlexibility(
+  item: RecommendationMatchLedgerItem,
+): RequirementFlexibilityKind {
+  const source = `${item.requirement} ${item.jdEvidence.join(" ")}`;
+  if (EXPLICIT_ALTERNATIVE_QUALIFICATION_PATTERN.test(source)) {
+    return "alternative_qualification";
+  }
+  if (EXPLICIT_WAIVER_EVIDENCE_PATTERN.test(source)) return "waiver";
+  return null;
+}
+
 function hasWaiverLanguage(item: RecommendationMatchLedgerItem) {
-  return /(?:可放宽|条件优秀.{0,8}放宽|酌情|豁免|可商议|可协商)/.test(
-    `${item.requirement} ${item.jdEvidence.join(" ")}`,
-  );
+  return classifyRequirementFlexibility(item) === "waiver";
 }
 
 /**
@@ -219,6 +251,15 @@ export function buildRecommendationDeterministicConstraints(
           hasDimensionStatus(item, "unmet"),
       )
       .map((item) => item.matchItemRef),
+    waiverEligibleMatchRefs: ledger
+      .filter((item) => classifyRequirementFlexibility(item) === "waiver")
+      .map((item) => item.matchItemRef),
+    alternativeQualificationMatchRefs: ledger
+      .filter(
+        (item) =>
+          classifyRequirementFlexibility(item) === "alternative_qualification",
+      )
+      .map((item) => item.matchItemRef),
   };
 }
 
@@ -279,6 +320,183 @@ function containsUngroundedCandidateFact(text: string) {
   }
   if (/(?:匹配证据|正向证据|反证)/.test(text)) return false;
   return true;
+}
+
+export interface WaiverEvidenceIntegrityResult {
+  issues: RecommendationValidationIssue[];
+  unsupportedWaiverClaimCount: number;
+  unknownToUnmetDriftCount: number;
+  fabricatedFlexibilityClaimCount: number;
+}
+
+function inferredSummaryRefs(
+  summary: string,
+  ledger: RecommendationMatchLedgerItem[],
+) {
+  return ledger
+    .filter(
+      (item) =>
+        summary.includes(item.matchItemRef) || summary.includes(item.requirement),
+    )
+    .map((item) => item.matchItemRef);
+}
+
+function isCandidateInformationQuestion(question: string) {
+  return (
+    CANDIDATE_INFORMATION_PATTERN.test(question) &&
+    !/(?:HR|招聘方)/i.test(question) &&
+    !REQUIREMENT_STRICTNESS_PATTERN.test(question) &&
+    !WAIVER_CLAIM_PATTERN.test(question) &&
+    !SUBSTITUTION_CLAIM_PATTERN.test(question)
+  );
+}
+
+/** R-K: waiver/flexibility claims must trace to explicit JD evidence. */
+export function inspectWaiverEvidenceIntegrity(
+  raw: RawRecommendation,
+  matchCore: FinalMatchCore,
+): WaiverEvidenceIntegrityResult {
+  const issues: RecommendationValidationIssue[] = [];
+  const ledger = buildRecommendationMatchLedger(matchCore);
+  const waiverRefs = new Set(
+    ledger
+      .filter((item) => classifyRequirementFlexibility(item) === "waiver")
+      .map((item) => item.matchItemRef),
+  );
+  const alternativeRefs = new Set(
+    ledger
+      .filter(
+        (item) =>
+          classifyRequirementFlexibility(item) === "alternative_qualification",
+      )
+      .map((item) => item.matchItemRef),
+  );
+  const textEntries = [
+    {
+      path: "summary",
+      text: raw.summary,
+      refs: inferredSummaryRefs(raw.summary, ledger),
+    },
+    ...raw.limitations.map((entry, index) => ({
+      path: `limitations.${index}.content`,
+      text: entry.content,
+      refs: entry.matchItemRefs,
+    })),
+    ...raw.questionsToConfirm.map((entry, index) => ({
+      path: `questionsToConfirm.${index}.question`,
+      text: entry.question,
+      refs: entry.matchItemRefs,
+    })),
+  ];
+  let unsupportedWaiverClaimCount = 0;
+  let fabricatedFlexibilityClaimCount = 0;
+  let unknownToUnmetDriftCount = 0;
+
+  for (const entry of textEntries) {
+    if (WAIVER_CLAIM_PATTERN.test(entry.text)) {
+      const supported =
+        entry.refs.length > 0 && entry.refs.every((ref) => waiverRefs.has(ref));
+      if (!supported) {
+        unsupportedWaiverClaimCount += 1;
+        fabricatedFlexibilityClaimCount += 1;
+        addIssue(
+          issues,
+          entry.path,
+          "R-K unsupported waiver/flexibility claim has no explicit JD waiver reference",
+        );
+      }
+    }
+    if (SUBSTITUTION_CLAIM_PATTERN.test(entry.text)) {
+      const supported =
+        entry.refs.length > 0 &&
+        entry.refs.every(
+          (ref) => alternativeRefs.has(ref) || waiverRefs.has(ref),
+        );
+      if (!supported) {
+        fabricatedFlexibilityClaimCount += 1;
+        addIssue(
+          issues,
+          entry.path,
+          "R-K unsupported substitution claim has no explicit JD alternative qualification",
+        );
+      }
+    }
+  }
+
+  const hardUnknown = ledger.filter(
+    (item) =>
+      item.requirementType === "hard_requirement" &&
+      hasDimensionStatus(item, "unknown"),
+  );
+  for (const item of hardUnknown) {
+    const candidateQuestion = raw.questionsToConfirm.some(
+      (entry) =>
+        entry.matchItemRefs.includes(item.matchItemRef) &&
+        isCandidateInformationQuestion(entry.question),
+    );
+    if (!candidateQuestion) {
+      addIssue(
+        issues,
+        "questionsToConfirm",
+        `R-K ${item.matchItemRef} hard unknown requires a Candidate-information question`,
+      );
+    }
+    for (const entry of textEntries.filter((entry) =>
+      entry.refs.includes(item.matchItemRef),
+    )) {
+      if (UNKNOWN_TO_UNMET_PATTERN.test(entry.text)) {
+        unknownToUnmetDriftCount += 1;
+        addIssue(
+          issues,
+          entry.path,
+          `R-K ${item.matchItemRef} unknown must not drift to unmet`,
+        );
+      }
+    }
+  }
+
+  const hardUnmetWithoutWaiver = ledger.filter(
+    (item) =>
+      item.requirementType === "hard_requirement" &&
+      hasDimensionStatus(item, "unmet") &&
+      !waiverRefs.has(item.matchItemRef),
+  );
+  if (raw.recommendationLevel === "cautious") {
+    for (const item of hardUnmetWithoutWaiver) {
+      const admitsUnmet = raw.limitations.some(
+        (entry) =>
+          entry.matchItemRefs.includes(item.matchItemRef) &&
+          HARD_UNMET_ADMISSION_PATTERN.test(entry.content),
+      );
+      if (!admitsUnmet) {
+        addIssue(
+          issues,
+          "limitations",
+          `R-K ${item.matchItemRef} cautious hard unmet must explicitly admit the unmet requirement`,
+        );
+      }
+      const asksStrictness = raw.questionsToConfirm.some(
+        (entry) =>
+          entry.matchItemRefs.includes(item.matchItemRef) &&
+          REQUIREMENT_STRICTNESS_PATTERN.test(entry.question) &&
+          !WAIVER_CLAIM_PATTERN.test(entry.question),
+      );
+      if (!asksStrictness) {
+        addIssue(
+          issues,
+          "questionsToConfirm",
+          `R-K ${item.matchItemRef} cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference`,
+        );
+      }
+    }
+  }
+
+  return {
+    issues,
+    unsupportedWaiverClaimCount,
+    unknownToUnmetDriftCount,
+    fabricatedFlexibilityClaimCount,
+  };
 }
 
 export function finalizeRawRecommendation(
@@ -403,14 +621,10 @@ export function finalizeRawRecommendation(
         addIssue(issues, "questionsToConfirm", `${ref} hard gap requires HR confirmation`);
       }
     }
-    const hardGapText = raw.limitations
-      .filter((entry) => entry.matchItemRefs.some((ref) => hardUnmetRefs.includes(ref)))
-      .map((entry) => entry.content)
-      .join(" ");
-    if (!/(?:HR|招聘方|豁免|放宽|口径|确认)/i.test(hardGapText)) {
-      addIssue(issues, "limitations", "cautious hard gap must explain the waiver/HR-confirmation basis");
-    }
   }
+
+  const waiverIntegrity = inspectWaiverEvidenceIntegrity(raw, matchCore);
+  issues.push(...waiverIntegrity.issues);
 
   for (const item of ledger) {
     if (textClaimsContradictStatus(raw, item)) {

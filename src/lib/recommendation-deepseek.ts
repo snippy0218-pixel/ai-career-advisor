@@ -34,8 +34,12 @@ export interface RecommendationDiagnostics {
   statusFidelityPassed: boolean;
   unknownPreservationPassed: boolean;
   hardGapExplanationPassed: boolean;
+  waiverEvidenceIntegrityPassed: boolean;
   matchCoreImmutable: boolean;
   fabricatedClaimCount: number;
+  unsupportedWaiverClaimCount: number;
+  unknownToUnmetDriftCount: number;
+  fabricatedFlexibilityClaimCount: number;
   recommendationLevel: FinalRecommendation["recommendationLevel"] | null;
   allowedRecommendationLevels: FinalRecommendation["allowedRecommendationLevels"];
   supportingRefCount: number;
@@ -242,7 +246,11 @@ function fillSuccessDiagnostics(
   diagnostics.statusFidelityPassed = true;
   diagnostics.unknownPreservationPassed = true;
   diagnostics.hardGapExplanationPassed = true;
+  diagnostics.waiverEvidenceIntegrityPassed = true;
   diagnostics.fabricatedClaimCount = 0;
+  diagnostics.unsupportedWaiverClaimCount = 0;
+  diagnostics.unknownToUnmetDriftCount = 0;
+  diagnostics.fabricatedFlexibilityClaimCount = 0;
   diagnostics.recommendationLevel = result.recommendationLevel;
   diagnostics.allowedRecommendationLevels = [
     ...result.allowedRecommendationLevels,
@@ -280,8 +288,12 @@ export async function analyzeRecommendationWithDeepSeek(
     statusFidelityPassed: false,
     unknownPreservationPassed: false,
     hardGapExplanationPassed: false,
+    waiverEvidenceIntegrityPassed: false,
     matchCoreImmutable: true,
     fabricatedClaimCount: 0,
+    unsupportedWaiverClaimCount: 0,
+    unknownToUnmetDriftCount: 0,
+    fabricatedFlexibilityClaimCount: 0,
     recommendationLevel: null,
     allowedRecommendationLevels: [],
     supportingRefCount: 0,
