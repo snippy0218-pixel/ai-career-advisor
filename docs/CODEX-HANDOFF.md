@@ -7,13 +7,13 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2 Match Engine = AUTHORIZED / IN PROGRESS（仅 Phase 2.2A Match Core Foundation）；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation baseline：`cfdd13c…`；Phase 2.1 evidence/docs baseline：`bf8f914…`。Product Owner / QA 已依据 8×1 preflight 与 8×3 final clean matrix 的全绿 PF-A～PF-I 工程证据关闭 Phase 2.1 与 ISSUE-025；历史失败证据永久保留。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = ENGINEERING EVIDENCE COMPLETE / WAITING PRODUCT OWNER + QA GATE（尚未自行宣布 PASS）；Phase 2.2B Recommendation/Strength/Gap = NOT AUTHORIZED；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final code commit：`e7d71c1…`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 新 thread 的下一步：执行已授权的 **Phase 2.2A Match Core Foundation**——只实现 validated Phase 1 JD requirements 与 validated Candidate Profile v2 之间的 requirement/dimension-level `met/partial/unmet/unknown`、双证据校验、严格 Raw/Final Schema 与独立 Match Repair；先静态测试，再 MC-TC-01～10 ×1 preflight，全绿后才能运行同一最终代码版本的 10×3 clean matrix；
+- 新 thread 的下一步：等待 Product Owner / QA 审核 `docs/PHASE-2-2A-ACCEPTANCE.md`、`match-core-preflight.json` 与 `match-core-clean-matrix.json`；最终代码 `e7d71c1…` 的 10×1 与 10×3 均 M-A～M-I 全绿，222/222＋lint＋build PASS，但不得自行关闭 Gate；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **不得进入 Phase 2.2B Recommendation/Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Candidate Profile canonical facts，不得修改 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构**。
+- **停止实现并等待 Gate Review；不得进入 Phase 2.2B Recommendation/Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Candidate Profile canonical facts，不得修改 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构**。
 
 ## 2. Phase 1 当前产品范围与边界
 
@@ -28,10 +28,13 @@
 
 关键文件：
 
-- `src/app/api/analyze/route.ts`：唯一 API 路由（request_id、错误映射）；
+- `src/app/api/analyze/route.ts`：Phase 1 JD API（request_id、错误映射，protected）；
+- `src/app/api/profile/analyze/route.ts`：Phase 2.1 Candidate Profile API；
+- `src/app/api/match/analyze/route.ts`：Phase 2.2A Match Core API；
 - `src/lib/analysis-schema.ts`：Raw/Final 两阶段 Zod Schema、限定词判定、章节作用域检测、evidence 校验；
 - `src/lib/deepseek.ts`：DeepSeek 适配器 + 完整 normalization/修复管线；
 - `src/lib/prompt.ts`：主 Prompt `jd-analysis-v1.2` + 4 个修复 Prompt（evidence/core-evidence/requirement-evidence/HR-greeting）；
+- `src/lib/match-schema.ts` / `match-prompt.ts` / `match-deepseek.ts`：独立 Match Raw/Final Schema、只读 REQ/CF/PF prompt、一次有界 Match Repair 与 fail-closed 管线；
 - `src/components/*`：前端展示。
 
 **requirement normalization 链路（按执行顺序）**：
