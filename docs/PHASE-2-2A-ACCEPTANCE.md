@@ -1,8 +1,15 @@
 # Phase 2.2A Acceptance — Match Core Foundation
 
 > 日期：2026-08-09
-> 状态：**CONDITIONAL PASS；M-J REQUIREMENT SET INTEGRITY AUDIT COMPLETE → STOP FOR PRODUCT OWNER / QA FINAL REVIEW**
-> 说明：本文不自行宣布 Phase 2.2A PASS，不授权 Phase 2.2B 或 Phase 2.3。
+> 状态：**PASS / CLOSED（Product Owner / QA Final Gate，2026-08-09）**
+> 说明：Phase 2.2B-1 Recommendation Core 已单独授权；Strength/Gap 与 Phase 2.3 仍未授权。
+
+## 0. Final Gate Decision（2026-08-09）
+
+- Product Owner / QA 接受 30/30 Match Core clean matrix、M-A～M-I 与 M-J Requirement Set Integrity 证据；
+- requirement coverage 33/33，missing / duplicate / fabricated / type mutation / content mutation / candidate mutation / cross-source contamination 均为 0；
+- Phase 1 / Phase 2.1 regression PASS；
+- Phase 2.2A 正式 PASS / CLOSED，随后仅授权 Phase 2.2B-1 Recommendation Core。
 
 ## 1. Baseline 与 Scope
 

@@ -1,6 +1,6 @@
 # Phase 2 产品规划与 Contract 设计（PHASE-2-PLAN）
 
-> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED（ISSUE-025 Closed）；Phase 2.2 = AUTHORIZED / IN PROGRESS（当前仅 Phase 2.2A Match Core Foundation）；Phase 2.3 = NOT AUTHORIZED。**
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED（ISSUE-025 Closed）；Phase 2.2A Match Core = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = AUTHORIZED / IN PROGRESS；Phase 2.2B Strength/Gap 与 Phase 2.3 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 前置基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406e1ef4bcc4157a860fc8c9407bbced488`）；TC-01～TC-10 Contract 冻结。
 > 性质：产品规划与流程文档；**产品协议基线见 `docs/PHASE-2-CONTRACT.md`**（Phase 2 唯一主要协议；Phase 2.0 已通过并关闭）；本文件本身不构成跨 Gate 实现授权。
