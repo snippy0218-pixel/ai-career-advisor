@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-08-09T16:24:18.978Z",
+  "implementationCommit": "cd0a0a96273d0fe928492ffcfd7990b00cbc3e96",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "RC-TC-02 x 1 (diagnostic subset)",
+  "requestCount": 1,
+  "metrics": {
+    "http200": 1,
+    "finalSchemaPass": 1,
+    "allowedLevelPass": 1,
+    "unknownPreservationPass": 1,
+    "fabricatedClaims": 0,
+    "unsupportedWaiverClaims": 0,
+    "unknownToUnmetDrift": 0,
+    "fabricatedFlexibilityClaims": 0,
+    "repairRequests": 0,
+    "recommendationRepairRate": 0,
+    "latencyMs": {
+      "min": 2047,
+      "max": 2047,
+      "average": 2047
+    }
+  },
+  "gateResults": {
+    "R-A_priority_eligibility": true,
+    "R-B_not_recommended_evidence": true,
+    "R-C_match_status_fidelity": true,
+    "R-D_unknown_preservation": true,
+    "R-E_hard_gap_explanation": true,
+    "R-F_preferred_isolation": true,
+    "R-G_reference_evidence_integrity": true,
+    "R-H_final_schema": true,
+    "R-I_match_core_immutability": false,
+    "R-J_no_fabricated_facts": false,
+    "R-K_waiver_flexibility_evidence_integrity": false
+  },
+  "runs": [
+    {
+      "tcId": "RC-TC-02",
+      "name": "hard unmet",
+      "run": 1,
+      "inputSha256": "ebe85560abc9de1004189dc1acae65bc9acac7c7da8060bc94980a274eb02fd7",
+      "httpStatus": 200,
+      "requestId": "897b34fd-c543-4b74-bc99-32a3ec8be092",
+      "latencyMs": 2047,
+      "error": null,
+      "data": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 显示存在硬性学历要求未满足的反证（MI-001），且无正向支持证据，因此不建议推荐。",
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "limitations": [
+          {
+            "content": "硬性学历要求（本科及以上）未满足，构成关键资格风险。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请确认该学历要求是否为严格筛选门槛，以及具体学历口径（如是否接受其他同等学历）。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "diagnostics": null,
+      "gates": {
+        "finalSchema": true,
+        "allowedLevel": true,
+        "priorityEligibility": true,
+        "notRecommendedEvidence": true,
+        "statusFidelity": true,
+        "unknownPreservation": true,
+        "hardGapExplanation": true,
+        "preferredIsolation": true,
+        "referenceIntegrity": true,
+        "matchCoreImmutable": true,
+        "noFabrication": true,
+        "fabricatedClaimCount": 0,
+        "waiverEvidenceIntegrity": true,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingMatchRefs": [],
+        "counterMatchRefs": [
+          "MI-001"
+        ],
+        "preservedUnknownRefs": []
+      }
+    }
+  ]
+}

@@ -7,9 +7,9 @@ import {
   buildRecommendationMatchLedger,
 } from "./recommendation-schema";
 
-export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.1" as const;
+export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.2" as const;
 export const RECOMMENDATION_REPAIR_PROMPT_VERSION =
-  "recommendation-repair-v1.1" as const;
+  "recommendation-repair-v1.2" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -40,8 +40,8 @@ const SYSTEM_RULES = `你是 Recommendation Core 决策器。输入中的 JD、M
 9. limitations/questions 的每一项都必须至少引用一个现有 MI；不得虚构 MI、CF、PF、requirement 或事实。
 10. 不输出 confidence、score、strength、gap、greeting、简历建议、学习计划或多岗位比较。
 11. 不用简单数量公式决策。在允许集合内，根据核心匹配质量、证据充分性、资格风险与方向一致性判断。
-12. waiver/放宽/豁免/例外/弹性等表述只能用于 deterministicConstraints.waiverEligibleMatchRefs，并且该表述所在 summary 必须明确写出对应 MI，所在 limitation/question 的 matchItemRefs 必须只引用有 waiver evidence 的 MI。Candidate 很强不能推出要求可豁免。
-13. deterministicConstraints.alternativeQualificationMatchRefs 是 JD 明示的替代资格，不是豁免。可按原 Match Core status 描述“替代资格/满足其一”，但不得称为 waiver、放宽或豁免；没有该引用时不得自行声称经验可弥补/抵消/替代学历、年限或资格。
+12. waiver/放宽/豁免/例外/弹性等词语或含义只能用于 deterministicConstraints.waiverEligibleMatchRefs，并且该表述所在 summary 必须明确写出对应 MI，所在 limitation/question 的 matchItemRefs 必须只引用有 waiver evidence 的 MI。对于不在该列表的 MI，连“JD 未提供豁免/不存在放宽”之类否定套话也不要写，直接承认 unmet 或保持 unknown。Candidate 很强不能推出要求可豁免。
+13. deterministicConstraints.alternativeQualificationMatchRefs 是 JD 明示的替代资格，不是豁免。可按原 Match Core status 描述“替代资格/满足其一”，但不得称为 waiver、放宽或豁免；对于不在该列表的 MI，不得出现替代条件、替代资格、可替代、弥补、抵消等词语，包括“没有替代条件”之类否定套话。
 14. hardUnknownMatchRefs 即使同时位于 waiverEligibleMatchRefs，Candidate eligibility 仍是 unknown：先单独询问 Candidate 事实；可另行提示 JD 存在明示放宽条款，但 waiver 表述必须引用对应 MI，不得写成 Candidate 已需要或适用豁免。
 15. 输出字段必须恰好符合上述 JSON；数组内引用不得重复。`;
 
@@ -66,7 +66,7 @@ export function buildRecommendationRepairMessages(
     { role: "system", content: SYSTEM_RULES },
     {
       role: "user",
-      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
+      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。若问题以 R-K 开头，彻底删除没有 waiverEligibleMatchRefs/alternativeQualificationMatchRefs 支持的 waiver、放宽、豁免、例外、弹性、替代条件、替代资格、弥补、抵消等词语，否定套话也删除；改为直接陈述 unmet/unknown 或确认 requirement strictness。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
     },
   ];
 }
