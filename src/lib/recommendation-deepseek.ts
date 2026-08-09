@@ -26,6 +26,8 @@ export interface RecommendationDiagnostics {
   rawSchemaValidationPassed: boolean;
   recommendationRepairAttempted: boolean;
   recommendationRepairSucceeded: boolean;
+  initialValidationIssues: RecommendationValidationIssue[];
+  repairValidationIssues: RecommendationValidationIssue[];
   finalSchemaValidationPassed: boolean;
   allowedLevelValidationPassed: boolean;
   referenceValidationPassed: boolean;
@@ -270,6 +272,8 @@ export async function analyzeRecommendationWithDeepSeek(
     rawSchemaValidationPassed: false,
     recommendationRepairAttempted: false,
     recommendationRepairSucceeded: false,
+    initialValidationIssues: [],
+    repairValidationIssues: [],
     finalSchemaValidationPassed: false,
     allowedLevelValidationPassed: false,
     referenceValidationPassed: false,
@@ -303,6 +307,9 @@ export async function analyzeRecommendationWithDeepSeek(
     }
     let validation = validateRecommendationOutput(parsed, request);
     diagnostics.rawSchemaValidationPassed = validation.rawValid;
+    diagnostics.initialValidationIssues = validation.issues.map((issue) => ({
+      ...issue,
+    }));
 
     if (!validation.data) {
       diagnostics.recommendationRepairAttempted = true;
@@ -317,6 +324,9 @@ export async function analyzeRecommendationWithDeepSeek(
       );
       const repairParsed = parseJson(repairContent);
       validation = validateRecommendationOutput(repairParsed, request);
+      diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
+        ...issue,
+      }));
       diagnostics.recommendationRepairSucceeded = validation.data !== null;
       if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
     }
@@ -335,6 +345,12 @@ export async function analyzeRecommendationWithDeepSeek(
       allowedRecommendationLevels: [
         ...diagnostics.allowedRecommendationLevels,
       ],
+      initialValidationIssues: diagnostics.initialValidationIssues.map(
+        (issue) => ({ ...issue }),
+      ),
+      repairValidationIssues: diagnostics.repairValidationIssues.map(
+        (issue) => ({ ...issue }),
+      ),
     });
   }
 }

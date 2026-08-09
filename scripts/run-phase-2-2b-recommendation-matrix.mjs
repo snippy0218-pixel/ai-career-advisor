@@ -7,6 +7,7 @@ const root = resolve(import.meta.dirname, "..");
 const defaults = {
   baseUrl: "http://localhost:3000",
   runs: 1,
+  caseId: null,
   output: resolve(
     root,
     "docs/acceptance-artifacts/phase-2-2b/recommendation-core-preflight.json",
@@ -19,6 +20,7 @@ function parseArgs(argv) {
     const token = argv[index];
     if (token === "--base-url") options.baseUrl = argv[++index];
     else if (token === "--runs") options.runs = Number(argv[++index]);
+    else if (token === "--case") options.caseId = argv[++index];
     else if (token === "--output") options.output = resolve(argv[++index]);
     else throw new Error(`Unknown argument: ${token}`);
   }
@@ -311,13 +313,17 @@ function inspect(testCase, data, requestSnapshot) {
 }
 
 const options = parseArgs(process.argv.slice(2));
+const selectedCases = options.caseId
+  ? cases.filter((testCase) => testCase.id === options.caseId)
+  : cases;
+if (selectedCases.length === 0) throw new Error(`Unknown --case: ${options.caseId}`);
 const implementationCommit = execFileSync("git", ["rev-parse", "HEAD"], {
   cwd: root,
   encoding: "utf8",
 }).trim();
 const results = [];
 
-for (const testCase of cases) {
+for (const testCase of selectedCases) {
   for (let run = 1; run <= options.runs; run += 1) {
     const requestSnapshot = JSON.stringify(testCase.matchCore);
     const bodyText = JSON.stringify({ matchCore: testCase.matchCore });
@@ -374,7 +380,9 @@ const summary = {
   generatedAt: new Date().toISOString(),
   implementationCommit,
   runtimeModel: "deepseek-v4-flash",
-  runPolicy: `RC-TC-01..10 x ${options.runs}`,
+  runPolicy: options.caseId
+    ? `${options.caseId} x ${options.runs} (diagnostic subset)`
+    : `RC-TC-01..10 x ${options.runs}`,
   requestCount: results.length,
   metrics: {
     http200: successful.length,

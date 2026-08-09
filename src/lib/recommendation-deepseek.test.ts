@@ -83,6 +83,12 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       recommendationRepairSucceeded: true,
       upstreamAttempts: 2,
     });
+    expect(diagnostics?.initialValidationIssues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ path: "recommendationLevel" }),
+      ]),
+    );
+    expect(diagnostics?.repairValidationIssues).toEqual([]);
     const repairBody = JSON.parse(
       String((fetchImpl.mock.calls[1][1] as RequestInit).body),
     ) as { messages: Array<{ content: string }> };
@@ -100,10 +106,17 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     const fetchImpl = vi.fn(async () => completion(invalid));
 
     let caught: unknown;
+    let diagnostics: RecommendationDiagnostics | null = null;
     try {
       await analyzeRecommendationWithDeepSeek(
         { matchCore: fixture.matchCore },
-        { apiKey: "test-key", fetchImpl },
+        {
+          apiKey: "test-key",
+          fetchImpl,
+          onDiagnostics: (value) => {
+            diagnostics = value;
+          },
+        },
       );
     } catch (error) {
       caught = error;
@@ -112,6 +125,11 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     expect(caught).toBeInstanceOf(ApiError);
     expect((caught as ApiError).code).toBe("AI_OUTPUT_INVALID");
     expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(diagnostics?.repairValidationIssues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("unknown") }),
+      ]),
+    );
   });
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {
