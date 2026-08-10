@@ -230,8 +230,14 @@ const STRUCTURAL_GATE_CONFIRMATION_PATTERN =
 const STRUCTURAL_FIX_PATTERN = /(?:学习|补齐|弥补|替代|积累|获得|考取|提升)/g;
 const NEGATED_STRUCTURAL_FIX_PATTERN =
   /(?:无法|不能|不可|不得|不应|无需|不需要|不要|难以|禁止)(?:通过)?[^，。；;]{0,16}$/;
-const STRONG_CANDIDATE_CLAIM_PATTERN =
-  /(?:精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验)/;
+const STRONG_CANDIDATE_CLAIM_GLOBAL_PATTERN =
+  /精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验/g;
+const NEGATED_CLAIM_PREFIX_PATTERN =
+  /(?:未|不|无|没有|尚未)(?:能|曾|具备|拥有|达到|证明|体现)?[^，。；;]{0,10}$/;
+const TARGET_RELATION_PREFIX_PATTERN =
+  /(?:对|与|面向|针对)[^，。；;]{0,18}$/;
+const TARGET_RELATION_SUFFIX_PATTERN =
+  /(?:要求|职责|岗位|流程|工作|场景|具有|可迁移|相关)/;
 const INSTRUCTION_TEXT_PATTERN =
   /忽略.{0,16}(?:规则|提示|之前|以上)|声称.{0,20}(?:经验|技能|能力)|虚构|编造/i;
 
@@ -252,6 +258,37 @@ function positiveCandidateSource(item: StrengthGapMatchLedgerItem) {
     .join(" ");
 }
 
+function sourceSupportsStrongClaim(source: string, claim: string) {
+  let offset = 0;
+  while (offset < source.length) {
+    const index = source.indexOf(claim, offset);
+    if (index === -1) return false;
+    const prefix = source.slice(Math.max(0, index - 24), index);
+    if (!NEGATED_CLAIM_PREFIX_PATTERN.test(prefix)) return true;
+    offset = index + claim.length;
+  }
+  return false;
+}
+
+function hasCandidateStrongClaimUpgrade(statement: string, source: string) {
+  return [...statement.matchAll(STRONG_CANDIDATE_CLAIM_GLOBAL_PATTERN)].some(
+    (match) => {
+      const index = match.index ?? 0;
+      const prefix = statement.slice(Math.max(0, index - 28), index);
+      const suffix = statement.slice(index + match[0].length, index + match[0].length + 28);
+      const targetRelationship =
+        TARGET_RELATION_PREFIX_PATTERN.test(prefix) &&
+        TARGET_RELATION_SUFFIX_PATTERN.test(suffix);
+      const negatedClaim = NEGATED_CLAIM_PREFIX_PATTERN.test(prefix);
+      return (
+        !targetRelationship &&
+        !negatedClaim &&
+        !sourceSupportsStrongClaim(source, match[0])
+      );
+    },
+  );
+}
+
 function addStrengthTruthfulnessIssues(
   statement: string,
   items: StrengthGapMatchLedgerItem[],
@@ -260,13 +297,8 @@ function addStrengthTruthfulnessIssues(
   options: { preserveCandidateScope?: boolean } = {},
 ) {
   const source = items.map(positiveCandidateSource).join(" ");
-  if (STRONG_CANDIDATE_CLAIM_PATTERN.test(statement)) {
-    const strongClaims = statement.match(
-      /精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验/g,
-    ) ?? [];
-    if (strongClaims.some((claim) => !source.includes(claim))) {
-      addIssue(issues, path, "SG-B Candidate claim upgrade is not present in positive Match evidence");
-    }
+  if (hasCandidateStrongClaimUpgrade(statement, source)) {
+    addIssue(issues, path, "SG-B Candidate claim upgrade is not present in positive Match evidence");
   }
   if (options.preserveCandidateScope !== false) {
     for (const rule of SCOPE_RULES) {
@@ -341,9 +373,12 @@ export function finalizeRawStrengthGap(
           item.requirementType !== "preferred_requirement" &&
           item.status === "partial" &&
           hasPositiveEvidence(item),
-      ) ||
+        ) ||
         !TRANSFERABLE_LANGUAGE_PATTERN.test(entry.statement) ||
-        STRONG_CANDIDATE_CLAIM_PATTERN.test(entry.statement))
+        hasCandidateStrongClaimUpgrade(
+          entry.statement,
+          items.map(positiveCandidateSource).join(" "),
+        ))
     ) {
       addIssue(issues, path, "SG-D transferable strength must remain partial and explicitly limited");
     }

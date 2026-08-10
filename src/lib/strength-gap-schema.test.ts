@@ -124,6 +124,46 @@ describe("finalizeRawStrengthGap", () => {
     );
   });
 
+  it("allows a transferable Strength to name the JD target without claiming it as Candidate fact", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement: "协助需求整理的经历，对独立负责完整需求流程具有一定可迁移性。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("does not treat a negated upstream target mention as support for a Candidate upgrade", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement: "你已具备独立负责完整需求流程的能力，并具有可迁移性。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringMatching(/SG-B|SG-D/) }),
+      ]),
+    );
+  });
+
   it("SG-E/SG-F keep unknown separate from learnable deficiency", () => {
     const fixture = STRENGTH_GAP_FIXTURES[4];
     const invalid = finalizeRawStrengthGap(
