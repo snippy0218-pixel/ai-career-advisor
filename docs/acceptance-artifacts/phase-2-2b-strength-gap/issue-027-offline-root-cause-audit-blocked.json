@@ -1,0 +1,122 @@
+{
+  "auditDate": "2026-08-10",
+  "auditType": "offline-only",
+  "modelRequestsMade": 0,
+  "sourceArtifact": "strength-gap-clean-matrix.json",
+  "sourceArtifactSha256": "659C2010C0C0310300EA76F9A3F482DC87FFC85B8DCA07562708F13DE79D7EF3",
+  "implementationCommit": "e217e09db287a0e6336448fd781a0c0358c7b993",
+  "issue": "ISSUE-027",
+  "classification": "INDETERMINATE",
+  "caseAConfirmed": false,
+  "caseBConfirmed": false,
+  "caseCConfirmed": false,
+  "classificationReason": "The six rejected initial/repair raw outputs and rejected statement fragments were not persisted. Diagnostics prove that the validator reported SG-B and SG-D, but cannot prove whether each output was a real capability upgrade, a safe relational claim rejected by a false positive, or a mixture.",
+  "availableUpstreamMapping": {
+    "candidateFact": {
+      "ref": "CF-001",
+      "content": null,
+      "status": "not persisted by the synthetic acceptance fixture"
+    },
+    "profileEvidence": {
+      "ref": "PF-001",
+      "content": null,
+      "status": "not persisted by the synthetic acceptance fixture"
+    },
+    "matchItem": {
+      "matchRef": "MI-001",
+      "requirement": "独立负责完整需求流程",
+      "requirementType": "core_requirement",
+      "status": "partial",
+      "dimensionType": "responsibility",
+      "reason": "Candidate 只提供协助需求整理的正向证据，未证明独立负责完整流程。",
+      "candidateFactRefs": ["CF-001"],
+      "pfEvidence": ["PF-001"],
+      "jdEvidence": ["独立负责完整需求流程"]
+    }
+  },
+  "failedOutputs": [
+    {
+      "run": 1,
+      "requestId": "2e5d3016-0dcb-44c0-ae21-f5f0e58cfa08",
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "initialRawOutput": null,
+      "repairRawOutput": null,
+      "initialRejectedStatement": null,
+      "repairRejectedStatement": null,
+      "initialIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "repairIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "rawSchemaValidationPassed": true,
+      "matchCoreImmutable": true,
+      "outputCompletionTokensMaximum": 158
+    },
+    {
+      "run": 2,
+      "requestId": "a68f11b9-e7de-4c15-9193-cc72e9e0e1c9",
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "initialRawOutput": null,
+      "repairRawOutput": null,
+      "initialRejectedStatement": null,
+      "repairRejectedStatement": null,
+      "initialIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "repairIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "rawSchemaValidationPassed": true,
+      "matchCoreImmutable": true,
+      "outputCompletionTokensMaximum": 160
+    },
+    {
+      "run": 3,
+      "requestId": "e78732ca-6645-47fe-b905-4f808568d9a4",
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "initialRawOutput": null,
+      "repairRawOutput": null,
+      "initialRejectedStatement": null,
+      "repairRejectedStatement": null,
+      "initialIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "repairIssues": [
+        "SG-D transferable strength cannot upgrade a Candidate fact",
+        "SG-B Candidate claim upgrade is not present in positive Match evidence"
+      ],
+      "rawSchemaValidationPassed": true,
+      "matchCoreImmutable": true,
+      "outputCompletionTokensMaximum": 160
+    }
+  ],
+  "contextOnlyNotSubstituteEvidence": {
+    "preflightRequestId": "14533b63-3e98-47d9-9d3a-bc04ba0a1ae3",
+    "preflightStatement": "候选人在需求整理方面具有协助经验，可迁移至需求流程相关工作，部分支持完整需求流程的职责。",
+    "preflightGap": "现有证据只能证明候选人协助需求整理，尚不足以证明其独立负责完整需求流程。",
+    "note": "This successful output proves that the scenario can produce a safe result once, but it cannot reconstruct or classify the six historical rejected outputs."
+  },
+  "evidencePreservationFinding": {
+    "candidateIssue": "ISSUE-028",
+    "title": "Rejected Strength Output Evidence Preservation Gap",
+    "suggestedSeverity": "P1 Evidence Blocker",
+    "facts": [
+      "analyzeStrengthGapWithDeepSeek keeps parsed initial and repair output only in process memory",
+      "StrengthGapDiagnostics records validation issue paths/messages but not rejected values",
+      "the API returns data:null after fail-closed",
+      "the acceptance runner records the API envelope and diagnostics, so rejected statements are unrecoverable",
+      "the synthetic SG-TC-07 Match fixture stores CF/PF identifiers but not CF/PF source text"
+    ]
+  },
+  "decision": "STOP_BEFORE_PRODUCT_CHANGE",
+  "requiredHumanDirection": [
+    "Provide the original six raw outputs and CF/PF source records from an external retained log, if one exists; or",
+    "Explicitly accept that historical A/B/C classification is impossible and authorize a prospective evidence-capture diagnostic protocol before ISSUE-027 stabilization."
+  ]
+}

@@ -79,3 +79,17 @@
 
 - 永久保留 1 次 infrastructure failure、7 次逐 commit preflight failure、最终 12/12 preflight 与本次 33/36 failed clean matrix；
 - 本文不宣布 Strength + Gap PASS。Gate recommendation：**NO PASS / NARROW STABILIZATION REQUIRED / WAIT FOR PRODUCT OWNER & QA REVIEW**。
+
+## 10. ISSUE-027 Product Owner / QA Review 后的离线根因审计
+
+Product Owner / QA 已于 2026-08-10 授权 ISSUE-027 narrow stabilization，但要求在任何 Prompt / validator 修改前，对旧 clean matrix 的 3 initial + 3 repair raw output 完成零模型逐条审计。
+
+离线审计确认当前仓库无法完成该前置条件：
+
+- 旧 3 个 HTTP 502 run 的 artifact 均为 `data: null`，没有 initial raw JSON、repair raw JSON 或 rejected statement；
+- `StrengthGapDiagnostics` 只保存 issue path/message，没有保存 rejected value；原始 output 在请求进程结束后不可恢复；
+- SG-TC-07 acceptance fixture 只保存合成 `CF-001` / `PF-001` 引用与 Match reason，没有 Candidate CF/PF 原文；
+- 可确认 MI-001 = `core_requirement / partial / responsibility`，reason 为“Candidate 只提供协助需求整理的正向证据，未证明独立负责完整流程”；可确认三次 initial 与 repair 均报 SG-B/SG-D；但无法确认触发片段与语境；
+- 因此 Case A / B / C 必须标记 **INDETERMINATE**。既不能把 validator diagnostics 当作模型真实升级的充分证明，也不能假定是 false positive；重新采样不能替代历史输出。
+
+完整零模型审计见 `issue-027-offline-root-cause-audit-blocked.json`。提出 `ISSUE-028 — Rejected Strength Output Evidence Preservation Gap`（P1 Evidence Blocker candidate）：等待人工提供外部留存的六条原始输出，或明确接受历史分类不可恢复并授权 prospective evidence-capture diagnostic protocol。当前仍 **STOP BEFORE PRODUCT CHANGE**，未修改 Schema、Prompt、validator，未调用模型。
