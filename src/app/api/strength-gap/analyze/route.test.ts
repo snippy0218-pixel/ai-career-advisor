@@ -72,4 +72,59 @@ describe("POST /api/strength-gap/analyze", () => {
       error: { code: "AI_OUTPUT_INVALID", retryable: true },
     });
   });
+
+  it("persists full evidence only in the acceptance response body", async () => {
+    process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS = "1";
+    const data = {
+      schemaVersion: "strength-gap-core-v1",
+      matchSchemaVersion: "match-core-v1",
+      strengths: [],
+      gaps: [],
+    };
+    const evidence = {
+      stage: "initial",
+      rejected: true,
+      rawText: "rejected raw output",
+      rejectedItems: [{ statement: "rejected statement" }],
+    };
+    analyzeStrengthGapWithDeepSeek.mockImplementation(
+      async (_request, options) => {
+        options.onDiagnostics({
+          strengthGapRepairAttempted: true,
+          outputEvidence: [evidence],
+        });
+        return data;
+      },
+    );
+
+    const response = await POST(
+      new Request("http://localhost/api/strength-gap/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchCore: STRENGTH_GAP_FIXTURES[0].matchCore }),
+      }),
+    );
+    const body = await response.json();
+    const header = JSON.parse(
+      Buffer.from(
+        response.headers.get("X-Strength-Gap-Acceptance-Diagnostics")!,
+        "base64url",
+      ).toString("utf8"),
+    );
+
+    expect(body).toEqual({
+      data,
+      error: null,
+      acceptanceDiagnostics: {
+        strengthGapRepairAttempted: true,
+        outputEvidence: [evidence],
+      },
+    });
+    expect(header).toEqual({ strengthGapRepairAttempted: true });
+    expect(header).not.toHaveProperty("outputEvidence");
+    expect(analyzeStrengthGapWithDeepSeek).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ captureRejectedEvidence: true }),
+    );
+  });
 });

@@ -14,8 +14,9 @@
 - Recommendation Core Final Gate 已由 Product Owner / QA 正式判定 PASS / CLOSED；ISSUE-026 CLOSED；其全部失败历史与 artifacts 永久保留；
 - Phase 2.2B-2 已完成 schema/prompt/validator/repair/API/UI、294/294 regression/lint/build 与 `e217e09…` 的 12/12 preflight；但 12×3 clean matrix 仅 33/36；
 - `ISSUE-027 — Transferable Strength Candidate Claim Upgrade Stability` = P1 Gate Blocker / OPEN：SG-TC-07 的 3/3 initial + 3/3 repair 均被 SG-B/SG-D 判为 Candidate claim upgrade；服务端全部 fail-closed；
-- Product Owner / QA 已授权 ISSUE-027 narrow stabilization，但前置零模型审计发现旧 3 initial + 3 repair raw output 与 Candidate CF/PF 原文未持久化，Case A/B/C 无法判定；提出 ISSUE-028（Rejected Strength Output Evidence Preservation Gap / P1 Evidence Blocker candidate）；
-- 下一步：保持 Stop Before Product Change。等待人工提供外部留存的六条原始输出与 CF/PF，或明确接受历史分类不可恢复并授权 prospective evidence-capture diagnostic protocol；此前不得修改 prompt/validator/schema、不得发起新模型请求、不得进入 SG-TC-07 定向验证、internal scoring 或 Phase 2.3；
+- Product Owner / QA 已接受历史 A/B/C 分类不可恢复，正式建立 `ISSUE-028 — Rejected AI Output Evidence Preservation Gap`（P1 / QA Evidence Integrity Blocker），并授权 prospective evidence-capture diagnostic protocol；
+- ISSUE-028 Stage 1 已实现 acceptance-only initial/repair rejected raw evidence、deterministic secret scrub、12,000 字符有界 raw、完整 rejected fragment、SG-TC-07 CF/PF canonical context、单 artifact MI/CF/PF trace 与失败 repair aggregate；EC-TC-01～06、全量 301/301、lint/build 均 PASS，Prompt/Schema 无 diff，未调用模型；
+- 下一步：固定本 Stage 1 implementation commit 后，按授权运行 `ISSUE-027 Prospective Diagnostic` SG-TC-07 ×3（同一 frozen semantic fixture、`deepseek-v4-flash`、产品行为基线 `e217e09…` 不变）。若 3/3 HTTP 200，最多再运行 3 次；一旦捕获足够 rejected evidence 立即停止采样并逐 initial/repair 判定 Case A/B/C；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
 - **只允许 Strength + Gap Core；不得进入 Phase 2.3，不得实现 greeting/简历改写/面试建议/学习计划/score/confidence/多岗位比较/自动投递，不得修改 Match Core、Recommendation、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 SG-A～SG-L 全绿也不得自行宣布 Strength + Gap PASS**。
 
@@ -208,7 +209,7 @@ TikTok生活服务业务在国际化布局早期阶段，我们聚焦生服领�
 ## 11. 工程命令与环境
 
 ```powershell
-npm test          # 当前 4 文件 116 项
+npm test          # 当前 17 文件 301 项
 npm run lint
 npm run build
 npm run dev       # 本地开发

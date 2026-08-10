@@ -3,6 +3,12 @@ import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
+import {
+  aggregateRepairMetrics,
+  buildRejectedEvidenceTrace,
+  decodeAcceptanceDiagnostics,
+} from "./strength-gap-acceptance-utils.mjs";
+
 const root = resolve(import.meta.dirname, "..");
 const defaults = {
   baseUrl: "http://localhost:3000",
@@ -106,6 +112,18 @@ const cases = [
     id: "SG-TC-07",
     name: "experience evidence gap",
     matchCore: matchCore([{ requirement: "独立负责完整需求流程", requirementType: "core_requirement", status: "partial", dimensionType: "responsibility", reason: "Candidate 只提供协助需求整理的正向证据，未证明独立负责完整流程。" }]),
+    acceptanceContext: {
+      candidateFacts: [
+        {
+          candidateFactRef: "CF-001",
+          canonicalStatement: "协助需求整理",
+          profileEvidenceRefs: ["PF-001"],
+        },
+      ],
+      profileEvidence: [
+        { profileEvidenceRef: "PF-001", text: "协助需求整理" },
+      ],
+    },
   },
   {
     id: "SG-TC-08",
@@ -136,13 +154,6 @@ const cases = [
     matchCore: matchCore([{ requirement: "负责增长策略设计", requirementType: "core_requirement", status: "unknown", dimensionType: "responsibility", reason: "当前资料没有增长策略设计的正证或反证。" }]),
   },
 ];
-
-function decodeDiagnostics(response) {
-  const encoded = response.headers.get("x-strength-gap-acceptance-diagnostics");
-  return encoded
-    ? JSON.parse(Buffer.from(encoded, "base64url").toString("utf8"))
-    : null;
-}
 
 const transferablePattern = /(?:可迁移|迁移价值|一定相关|部分支持|具有相关性|基础支持|有限支持|相关基础|借鉴价值|参考价值|提供.{0,8}(?:基础|支持|支撑|参考)|有助于)/;
 const evidenceBoundaryPattern = /(?:现有|当前).{0,24}(?:证据|经历).{0,28}(?:尚不足|不足以|只能证明|仅能证明|部分证明|未能完整证明)/;
@@ -455,7 +466,11 @@ for (const testCase of selectedCases) {
       });
       continue;
     }
-    const diagnostics = decodeDiagnostics(response);
+    const diagnostics = decodeAcceptanceDiagnostics(response, body);
+    const rejectedEvidenceTrace = buildRejectedEvidenceTrace(
+      testCase,
+      diagnostics,
+    );
     const gates = response.status === 200
       ? inspect(testCase, body.data, requestSnapshot)
       : null;
@@ -470,6 +485,8 @@ for (const testCase of selectedCases) {
       error: body.error,
       data: body.data,
       diagnostics,
+      fixtureContext: testCase.acceptanceContext ?? null,
+      rejectedEvidenceTrace,
       gates,
     });
     const excluded = new Set(["candidateClaimUpgradeCount", "fabricatedClaimCount", "unknownDeficiencyCount", "unsupportedActionCount", "strengthCount", "gapCount", "strengthTypeCounts", "gapTypeCounts", "strengthRefs", "gapRefs"]);
@@ -487,6 +504,7 @@ const totalTypeCounts = (field, types) => Object.fromEntries(types.map((type) =>
   type,
   successful.reduce((total, item) => total + (item.gates[field]?.[type] ?? 0), 0),
 ]));
+const repairMetrics = aggregateRepairMetrics(results);
 const summary = {
   generatedAt: new Date().toISOString(),
   implementationCommit,
@@ -505,10 +523,11 @@ const summary = {
     fabricatedClaims: successful.reduce((total, item) => total + item.gates.fabricatedClaimCount, 0),
     unknownDeficiencies: successful.reduce((total, item) => total + item.gates.unknownDeficiencyCount, 0),
     unsupportedActions: successful.reduce((total, item) => total + item.gates.unsupportedActionCount, 0),
-    repairRequests: results.filter((item) => item.diagnostics?.strengthGapRepairAttempted).length,
-    repairRate: results.length
-      ? results.filter((item) => item.diagnostics?.strengthGapRepairAttempted).length / results.length
-      : null,
+    ...repairMetrics,
+    capturedOutputStages: results.reduce(
+      (total, item) => total + (item.rejectedEvidenceTrace?.length ?? 0),
+      0,
+    ),
     latencyMs: latencies.length
       ? {
           min: Math.min(...latencies),

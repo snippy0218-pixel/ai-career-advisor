@@ -93,3 +93,16 @@ Product Owner / QA 已于 2026-08-10 授权 ISSUE-027 narrow stabilization，但
 - 因此 Case A / B / C 必须标记 **INDETERMINATE**。既不能把 validator diagnostics 当作模型真实升级的充分证明，也不能假定是 false positive；重新采样不能替代历史输出。
 
 完整零模型审计见 `issue-027-offline-root-cause-audit-blocked.json`。提出 `ISSUE-028 — Rejected Strength Output Evidence Preservation Gap`（P1 Evidence Blocker candidate）：等待人工提供外部留存的六条原始输出，或明确接受历史分类不可恢复并授权 prospective evidence-capture diagnostic protocol。当前仍 **STOP BEFORE PRODUCT CHANGE**，未修改 Schema、Prompt、validator，未调用模型。
+
+## 11. ISSUE-028 Prospective Evidence Capture — Static Gate PASS
+
+Product Owner / QA 已接受历史 A/B/C 分类不可恢复，并正式建立 `ISSUE-028 — Rejected AI Output Evidence Preservation Gap`（P1 / QA Evidence Integrity Blocker），授权先修 Evidence Capture、不得先改产品语义。
+
+- acceptance-only diagnostics 现在可保留 initial / repair 两阶段的 scrubbed raw output、parse error、validation issues、完整 rejected item、statement/type/matchRefs/rule/code/reason；不可解析输出限制为 12,000 字符并显式记录 `artifactTruncated`，rejection-relevant parsed fragment 独立完整保存；
+- API 仅在 `STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS=1` 时把完整 evidence 放入响应体；header 只保留无 raw output 的摘要；正常产品响应不变；
+- SG-TC-07 frozen semantic fixture 显式补齐 `CF-001 → 协助需求整理`、`PF-001 → 协助需求整理`；MI-001 仍为 `独立负责完整需求流程 / partial / responsibility`，未降低案例难度；
+- acceptance runner 可从单一 artifact 追踪 Candidate Fact → Match → rejected Strength → validator rule，并把 HTTP 502 的 repair attempt 纳入 aggregate；
+- EC-TC-01～06 全部 PASS；focused 14/14、全量 301/301、lint 0 warning、production build、`git diff --check` 全部 PASS；Prompt / Schema diff 为空；未调用模型；
+- 静态证据：`issue-028-evidence-capture-static.json`。旧 33/36 与六条不可恢复历史输出的限制保持原样，新采样不得替代历史失败。
+
+当前 `ISSUE-028 = IMPLEMENTED / STATIC GATE PASS / PROSPECTIVE ARTIFACT PENDING`；`ISSUE-027 = OPEN / P1 PRODUCT GATE BLOCKER`。下一步仅允许在固定本 Stage 1 commit 后执行 `ISSUE-027 Prospective Diagnostic`：同一 SG-TC-07 ×3、`deepseek-v4-flash`、产品行为基线不变。该诊断不是 Acceptance rerun；在完成 A/B/C 根因定性前不得修改 Prompt / validator / Schema。

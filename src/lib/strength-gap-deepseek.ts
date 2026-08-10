@@ -1,5 +1,9 @@
 import { ApiError } from "./api-errors";
 import {
+  captureStrengthGapOutputEvidence,
+  type StrengthGapOutputEvidence,
+} from "./strength-gap-evidence";
+import {
   finalStrengthGapSchema,
   finalizeRawStrengthGap,
   rawStrengthGapSchema,
@@ -53,6 +57,8 @@ export interface StrengthGapDiagnostics {
   latencyMs: number;
   outputCompletionTokens: number;
   truncatedByLength: boolean;
+  evidenceCaptureEnabled: boolean;
+  outputEvidence: StrengthGapOutputEvidence[];
 }
 
 export interface StrengthGapOptions {
@@ -62,6 +68,7 @@ export interface StrengthGapOptions {
   baseUrl?: string;
   timeoutMs?: number;
   requestId?: string;
+  captureRejectedEvidence?: boolean;
   onDiagnostics?: (diagnostics: StrengthGapDiagnostics) => void;
 }
 
@@ -200,11 +207,14 @@ async function requestInitial(
   throw lastError ?? new ApiError("AI_SERVICE_UNAVAILABLE", 503);
 }
 
-function parseJson(content: string): unknown {
+function parseJsonForEvidence(content: string): {
+  parsed: unknown;
+  parseError: "JSON_PARSE_ERROR" | null;
+} {
   try {
-    return JSON.parse(content) as unknown;
+    return { parsed: JSON.parse(content) as unknown, parseError: null };
   } catch {
-    throw new ApiError("AI_OUTPUT_INVALID", 502);
+    return { parsed: null, parseError: "JSON_PARSE_ERROR" };
   }
 }
 
@@ -313,6 +323,8 @@ export async function analyzeStrengthGapWithDeepSeek(
     latencyMs: 0,
     outputCompletionTokens: 0,
     truncatedByLength: false,
+    evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    outputEvidence: [],
   };
 
   try {
@@ -322,13 +334,12 @@ export async function analyzeStrengthGapWithDeepSeek(
       deadline,
       diagnostics,
     );
-    let parsed: unknown;
-    try {
-      parsed = parseJson(content);
-      diagnostics.jsonParsePassed = true;
-    } catch {
-      parsed = { invalidJson: content };
-    }
+    const initialJson = parseJsonForEvidence(content);
+    diagnostics.jsonParsePassed = initialJson.parseError === null;
+    const parsed =
+      initialJson.parseError === null
+        ? initialJson.parsed
+        : { invalidJson: content };
     let validation = validateStrengthGapOutput(parsed, request);
     diagnostics.rawSchemaValidationPassed = validation.rawValid;
     diagnostics.initialValidationIssues = validation.issues.map((issue) => ({
@@ -336,6 +347,19 @@ export async function analyzeStrengthGapWithDeepSeek(
     }));
 
     if (!validation.data) {
+      if (options.captureRejectedEvidence === true) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "initial",
+            rawText: content,
+            parsedOutput: initialJson.parsed,
+            parseError: initialJson.parseError,
+            validationIssues: validation.issues,
+            rejected: true,
+            secrets: [apiKey],
+          }),
+        );
+      }
       diagnostics.strengthGapRepairAttempted = true;
       const remaining = deadline - Date.now();
       if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
@@ -346,12 +370,29 @@ export async function analyzeStrengthGapWithDeepSeek(
         remaining,
         diagnostics,
       );
-      const repairParsed = parseJson(repairContent);
+      const repairJson = parseJsonForEvidence(repairContent);
+      const repairParsed =
+        repairJson.parseError === null
+          ? repairJson.parsed
+          : { invalidJson: repairContent };
       validation = validateStrengthGapOutput(repairParsed, request);
       diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
         ...issue,
       }));
       diagnostics.strengthGapRepairSucceeded = validation.data !== null;
+      if (options.captureRejectedEvidence === true) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "repair",
+            rawText: repairContent,
+            parsedOutput: repairJson.parsed,
+            parseError: repairJson.parseError,
+            validationIssues: validation.issues,
+            rejected: validation.data === null,
+            secrets: [apiKey],
+          }),
+        );
+      }
       if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
     }
 
@@ -374,6 +415,9 @@ export async function analyzeStrengthGapWithDeepSeek(
       ),
       strengthTypeCounts: { ...diagnostics.strengthTypeCounts },
       gapTypeCounts: { ...diagnostics.gapTypeCounts },
+      outputEvidence: diagnostics.outputEvidence.map((entry) =>
+        structuredClone(entry),
+      ),
     });
   }
 }

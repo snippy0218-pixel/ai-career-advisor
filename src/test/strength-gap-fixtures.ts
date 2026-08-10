@@ -69,6 +69,19 @@ export interface StrengthGapFixture {
   name: string;
   matchCore: FinalMatchCore;
   validRaw: RawStrengthGap;
+  acceptanceContext?: StrengthGapAcceptanceFixtureContext;
+}
+
+export interface StrengthGapAcceptanceFixtureContext {
+  candidateFacts: Array<{
+    candidateFactRef: string;
+    canonicalStatement: string;
+    profileEvidenceRefs: string[];
+  }>;
+  profileEvidence: Array<{
+    profileEvidenceRef: string;
+    text: string;
+  }>;
 }
 
 export const STRENGTH_GAP_FIXTURES: StrengthGapFixture[] = [
@@ -227,6 +240,21 @@ export const STRENGTH_GAP_FIXTURES: StrengthGapFixture[] = [
   {
     id: "SG-TC-07",
     name: "experience evidence gap",
+    acceptanceContext: {
+      candidateFacts: [
+        {
+          candidateFactRef: "CF-001",
+          canonicalStatement: "协助需求整理",
+          profileEvidenceRefs: ["PF-001"],
+        },
+      ],
+      profileEvidence: [
+        {
+          profileEvidenceRef: "PF-001",
+          text: "协助需求整理",
+        },
+      ],
+    },
     matchCore: buildStrengthGapMatchCore([
       {
         requirement: "独立负责完整需求流程",

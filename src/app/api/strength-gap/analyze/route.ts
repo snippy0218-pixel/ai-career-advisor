@@ -11,15 +11,26 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
+  const acceptanceDiagnosticsEnabled =
+    process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS === "1";
   let diagnosticsForAcceptance: StrengthGapDiagnostics | null = null;
+  const responseBody = <T extends Record<string, unknown>>(body: T) =>
+    acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
+      ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }
+      : body;
   const responseHeaders = () => {
     const headers: Record<string, string> = { "X-Request-ID": requestId };
     if (
-      process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS === "1" &&
+      acceptanceDiagnosticsEnabled &&
       diagnosticsForAcceptance !== null
     ) {
+      const headerDiagnostics = Object.fromEntries(
+        Object.entries(diagnosticsForAcceptance).filter(
+          ([key]) => key !== "outputEvidence",
+        ),
+      );
       headers["X-Strength-Gap-Acceptance-Diagnostics"] = Buffer.from(
-        JSON.stringify(diagnosticsForAcceptance),
+        JSON.stringify(headerDiagnostics),
         "utf8",
       ).toString("base64url");
     }
@@ -38,21 +49,24 @@ export async function POST(request: Request) {
 
     const result = await analyzeStrengthGapWithDeepSeek(parsed.data, {
       requestId,
+      captureRejectedEvidence: acceptanceDiagnosticsEnabled,
       onDiagnostics: (diagnostics) => {
         diagnosticsForAcceptance = diagnostics;
+        const { outputEvidence, ...summaryDiagnostics } = diagnostics;
         console.info("[strength-gap] request diagnostics", {
           requestId,
-          ...diagnostics,
+          ...summaryDiagnostics,
+          capturedOutputEvidenceCount: outputEvidence.length,
         });
       },
     });
     return NextResponse.json(
-      { data: result, error: null },
+      responseBody({ data: result, error: null }),
       { headers: responseHeaders() },
     );
   } catch (error) {
     const publicError = toPublicError(error, requestId);
-    return NextResponse.json(publicError.body, {
+    return NextResponse.json(responseBody(publicError.body), {
       status: publicError.status,
       headers: responseHeaders(),
     });

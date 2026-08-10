@@ -1,0 +1,48 @@
+{
+  "evidenceDate": "2026-08-10",
+  "issue": "ISSUE-028",
+  "title": "Rejected AI Output Evidence Preservation Gap",
+  "stage": "prospective-evidence-capture-static-gate",
+  "implementationCommit": "this artifact's containing commit",
+  "productBehaviorBaseline": "e217e09db287a0e6336448fd781a0c0358c7b993",
+  "modelRequestsMade": 0,
+  "productSemanticsChanged": false,
+  "ecTests": {
+    "EC-TC-01": "PASS — initial rejected Strength retains full statement, matchRefs and SG-B/SG-D rules",
+    "EC-TC-02": "PASS — rejected initial and rejected repair are both retained",
+    "EC-TC-03": "PASS — invalid JSON retains bounded raw text, parse error and artifactTruncated=true",
+    "EC-TC-04": "PASS — configured, authorization, cookie and credential secrets are scrubbed",
+    "EC-TC-05": "PASS — HTTP 502 repair attempt is included in aggregate metrics",
+    "EC-TC-06": "PASS — rejected Strength resolves MI status/dimension, CF canonical statement and PF text"
+  },
+  "acceptanceTransport": {
+    "normalResponseContainsDiagnostics": false,
+    "acceptanceResponseBodyContainsFullEvidence": true,
+    "acceptanceHeaderContainsFullEvidence": false,
+    "reason": "Full evidence is kept out of size-constrained headers and is exposed only when STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS=1."
+  },
+  "fixtureContext": {
+    "tcId": "SG-TC-07",
+    "candidateFactRef": "CF-001",
+    "candidateCanonicalStatement": "协助需求整理",
+    "profileEvidenceRef": "PF-001",
+    "profileEvidenceText": "协助需求整理",
+    "matchRef": "MI-001",
+    "requirement": "独立负责完整需求流程",
+    "status": "partial",
+    "dimension": "responsibility"
+  },
+  "verification": {
+    "focused": "14/14 PASS across 3 test files",
+    "fullRegression": "301/301 PASS across 17 test files",
+    "lint": "PASS, 0 warnings",
+    "productionBuild": "PASS",
+    "gitDiffCheck": "PASS",
+    "promptDiff": "empty",
+    "schemaDiff": "empty"
+  },
+  "historicalLimitationPreserved": true,
+  "historicalOutputsReconstructed": false,
+  "issue028Status": "IMPLEMENTED_STATIC_GATE_PASS_PROSPECTIVE_ARTIFACT_PENDING",
+  "nextAuthorizedAction": "Fix this Stage 1 commit, then run ISSUE-027 Prospective Diagnostic SG-TC-07 x3 on deepseek-v4-flash without changing product semantics."
+}
