@@ -211,6 +211,23 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("allows a structural action to state that a hard gate cannot be fixed short-term", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[7];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...fixture.validRaw.gaps[0],
+            suggestedAction: "该条件属于明确门槛，无法通过短期积累经历弥补；投递前应确认具体执行口径。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("rejects structural actions that propose manufacturing a short-term fix", () => {
     const fixture = STRENGTH_GAP_FIXTURES[7];
     const result = finalizeRawStrengthGap(

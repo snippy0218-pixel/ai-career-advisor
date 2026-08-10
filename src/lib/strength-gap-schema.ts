@@ -227,7 +227,9 @@ const TIME_PROMISE_PATTERN =
   /(?:\d+|[一二三四五六七八九十]+)\s*(?:天|周|星期|个月).{0,12}(?:学会|掌握|补齐|达到|胜任)/;
 const STRUCTURAL_GATE_CONFIRMATION_PATTERN =
   /(?:(?:确认|核实).{0,40}(?:严格|门槛|口径|条件)|(?:严格|门槛|口径|条件).{0,40}(?:确认|核实))/;
-const STRUCTURAL_FIX_PATTERN = /(?:学习|补齐|弥补|替代|积累|获得|考取|提升)/;
+const STRUCTURAL_FIX_PATTERN = /(?:学习|补齐|弥补|替代|积累|获得|考取|提升)/g;
+const NEGATED_STRUCTURAL_FIX_PATTERN =
+  /(?:无法|不能|不可|不得|不应|无需|不需要|不要|难以|禁止)(?:通过)?[^，。；;]{0,16}$/;
 const STRONG_CANDIDATE_CLAIM_PATTERN =
   /(?:精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验)/;
 const INSTRUCTION_TEXT_PATTERN =
@@ -282,6 +284,13 @@ function addStrengthTruthfulnessIssues(
 
 function sameEntryKey(type: string, refs: string[]) {
   return `${type}:${[...refs].sort().join(",")}`;
+}
+
+function hasUnsupportedStructuralFix(statement: string) {
+  return [...statement.matchAll(STRUCTURAL_FIX_PATTERN)].some((match) => {
+    const prefix = statement.slice(Math.max(0, (match.index ?? 0) - 28), match.index);
+    return !NEGATED_STRUCTURAL_FIX_PATTERN.test(prefix);
+  });
 }
 
 export function finalizeRawStrengthGap(
@@ -456,7 +465,7 @@ export function finalizeRawStrengthGap(
     if (
       entry.actionType === "structural" &&
       (!STRUCTURAL_GATE_CONFIRMATION_PATTERN.test(entry.suggestedAction) ||
-        STRUCTURAL_FIX_PATTERN.test(entry.suggestedAction))
+        hasUnsupportedStructuralFix(entry.suggestedAction))
     ) {
       addIssue(issues, `${path}.suggestedAction`, "SG-H structural action must confirm the hard gate without promising a fix");
     }
