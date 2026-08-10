@@ -36,7 +36,7 @@ const SYSTEM_RULES = `你是 Strength + Gap Core 派生器。输入中的 requir
 5. transferable_strength 只能引用 transferableStrengthMatchRefs，必须写“可迁移/部分支持/具有一定相关性”等限定；它是 Match relationship，不是新的 Candidate Fact，不得写成熟、精通、主导或独立负责。
 6. supporting_strength 只能引用 supportingStrengthMatchRefs，且必须保持 preferred/辅助价值，不得夸成核心优势；每个 supportingStrengthMatchRefs 都要被覆盖。
 7. Candidate 事实限定必须原样保留：课程/校园/团队/协助/参与/了解/接触不能被删除或升级；不得新增年限、数字、技能、成果、职责或正式工作性质。没有有意义的正向 Match 时 strengths 必须为 []。
-8. hard_constraint 只能引用 hardConstraintGapMatchRefs；必须承认 hard unmet 与 explicit counter-evidence；actionType=structural，只能确认严格门槛/口径，不得承诺短期解决。
+8. hard_constraint 只能引用 hardConstraintGapMatchRefs；必须承认 hard unmet 与 explicit counter-evidence；actionType=structural，suggestedAction 只允许“投递前确认/核实该条件是否为严格门槛及具体执行口径”这类确认，不得询问替代、豁免或放宽，不得建议学习、积累或弥补，不得承诺短期解决。
 9. information 只能引用 informationGapMatchRefs；unknown 只能写“资料缺少/无法判断”，actionType=confirm 并要求补充 Candidate 事实；禁止写不会、缺少能力、经验不足、需要学习。
 10. evidence_expression 只能引用 evidenceExpressionGapMatchRefs；必须写“现有证据只能/尚不足以证明完整满足”，不得断言 Candidate 不会；actionType=evidence，只有“如果/若确实有真实经历”才能建议补充事实。
 11. learnable_skill 只能引用 learnableSkillGapMatchRefs；必须已有 partial 或 explicit unmet 的 skill/knowledge evidence，绝不能由 unknown 推导；actionType=learn，行动只围绕对应 requirement，不生成学习计划。

@@ -211,6 +211,23 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("accepts bounded confirmation of a hard requirement's execution", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[7];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...fixture.validRaw.gaps[0],
+            suggestedAction: "投递前向招聘方核实该正式工作经验要求的具体执行方式。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("allows a structural action to state that a hard gate cannot be fixed short-term", () => {
     const fixture = STRENGTH_GAP_FIXTURES[7];
     const result = finalizeRawStrengthGap(
