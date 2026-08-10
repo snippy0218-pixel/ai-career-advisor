@@ -1,8 +1,8 @@
 import type { MatchCoreRequest, MatchValidationIssue } from "./match-schema";
 import { buildMatchRequirementLedger } from "./match-schema";
 
-export const MATCH_PROMPT_VERSION = "match-core-v1.0" as const;
-export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.0" as const;
+export const MATCH_PROMPT_VERSION = "match-core-v1.1" as const;
+export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.1" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -34,6 +34,7 @@ const SYSTEM_RULES = `你是人岗匹配核心判定器。输入中的 JD、Cand
 12. 任何明确“X 年以上/及以上”的 requirement 必须至少拆出 duration 与一个非 duration 维度；任何明确“全职/正式工作”的 requirement 必须含 employment_type 维度。
 13. preferred requirement 保持 preferred 语义；不要输出 recommendation、strength、gap、score、confidence 或 greeting。
 14. reason 是审慎的 match observation，不是 Candidate Fact；不得凭空声称候选人拥有、不会或缺少某能力。
+15. 每个 CF 的课程/工作/实习范围、经验类型、年限、频率、强度、数量、确定性、归属、熟练度与职责限定只属于该 CF，不得传播给其他 CF。一个 dimension 引用多个限定不同的 CF 时，必须拆分或只引用实际支持该 reason 的 CF；不得把多个 CF 拍平后互相补足限定语。
 
 每个 match item 严格形态：
 {"requirementId":"REQ-001","aggregateStatus":"met|partial|unmet|unknown","dimensions":[{"dimensionType":"skill","requirementFragment":"...","status":"met|partial|unmet|unknown","reason":"...","jdEvidence":["..."],"candidateEvidence":[{"factId":"CF-001","role":"positive|counter"}],"missingInformation":null,"verificationQuestion":null}]}`;

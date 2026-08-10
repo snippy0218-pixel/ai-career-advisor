@@ -1,0 +1,660 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "WORKTREE",
+  "generatedAt": "2026-08-10T16:19:26.716Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 1,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 1,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 9880,
+      "average": 9880,
+      "median": 9880,
+      "p95": null,
+      "max": 9880
+    },
+    "profile": {
+      "samples": 1,
+      "min": 2859,
+      "average": 2859,
+      "median": 2859,
+      "p95": null,
+      "max": 2859
+    },
+    "match": {
+      "samples": 1,
+      "min": 9588,
+      "average": 9588,
+      "median": 9588,
+      "p95": null,
+      "max": 9588
+    },
+    "recommendation": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "match",
+      "failureContext": {
+        "candidateProfile": {
+          "schemaVersion": "candidate-profile-v2",
+          "profileProvided": true,
+          "candidateProfile": {
+            "canonicalFacts": [
+              {
+                "factId": "CF-001",
+                "statement": "教育背景：信息管理本科",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              {
+                "factId": "CF-002",
+                "statement": "课程项目：在课程中了解 Python 基础语法",
+                "sourceType": "normalized_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              {
+                "factId": "CF-003",
+                "statement": "团队经历：与四人团队共同完成数据展示作业，我协助整理需求和测试",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-003"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              },
+              {
+                "factId": "CF-004",
+                "statement": "没有正式数据产品工作经历",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-004"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              }
+            ],
+            "careerTarget": null,
+            "education": [
+              "CF-001"
+            ],
+            "experiences": [
+              "CF-003",
+              "CF-004"
+            ],
+            "projects": [
+              "CF-002"
+            ],
+            "skills": [
+              "CF-002"
+            ],
+            "certificates": [],
+            "portfolio": [],
+            "preferences": [],
+            "derivedObservations": [],
+            "unknowns": [],
+            "questionsToConfirm": [],
+            "evidence": [
+              {
+                "id": "PF-001",
+                "text": "教育背景：信息管理本科"
+              },
+              {
+                "id": "PF-002",
+                "text": "课程项目：在课程中了解 Python 基础语法"
+              },
+              {
+                "id": "PF-003",
+                "text": "团队经历：与四人团队共同完成数据展示作业，我协助整理需求和测试"
+              },
+              {
+                "id": "PF-004",
+                "text": "没有正式数据产品工作经历"
+              }
+            ]
+          }
+        },
+        "matchCore": null,
+        "recommendation": null
+      },
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 9880,
+          "requestId": "dee74f80-1867-4f0f-ba27-04492114d3e1",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2859,
+          "requestId": "edb19b11-4758-4ed7-bee0-fb1875fef022",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 4,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 4,
+            "atomicClaimCount": 4,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 4,
+            "profileFactRecall": null,
+            "latencyMs": 2850,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 388,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 4,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 4,
+            "atomicClaimCount": 4,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 4,
+            "profileFactRecall": null,
+            "latencyMs": 2850,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 388,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 502,
+          "latencyMs": 9588,
+          "requestId": "2e4bf185-7099-4f72-b209-932e666a7a53",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": true,
+            "matchRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "jdEvidenceValidationPassed": false,
+            "candidateEvidenceValidationPassed": false,
+            "statusValidationPassed": false,
+            "aggregateValidationPassed": false,
+            "candidateProfileImmutable": true,
+            "requirementCount": 0,
+            "dimensionCount": 0,
+            "statusCounts": {
+              "met": 0,
+              "partial": 0,
+              "unmet": 0,
+              "unknown": 0
+            },
+            "latencyMs": 9579,
+            "outputCompletionTokens": 643,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": true,
+            "matchRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "jdEvidenceValidationPassed": false,
+            "candidateEvidenceValidationPassed": false,
+            "statusValidationPassed": false,
+            "aggregateValidationPassed": false,
+            "candidateProfileImmutable": true,
+            "requirementCount": 0,
+            "dimensionCount": 0,
+            "statusCounts": {
+              "met": 0,
+              "partial": 0,
+              "unmet": 0,
+              "unknown": 0
+            },
+            "latencyMs": 9579,
+            "outputCompletionTokens": 643,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": [
+              {
+                "stage": "initial",
+                "rejected": true,
+                "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Python\",\"status\":\"partial\",\"reason\":\"候选人在课程中了解 Python 基础语法，属于入门级了解，未达到熟练掌握的程度。\",\"jdEvidence\":[\"熟练掌握 Python\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"候选人对 Python 的掌握深度和实际应用能力未知。\",\"verificationQuestion\":\"请描述您使用 Python 完成过的具体项目或任务，以及您对常用库和框架的熟悉程度。\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"employment_type\",\"requirementFragment\":\"正式工作经验\",\"status\":\"unmet\",\"reason\":\"候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。\",\"jdEvidence\":[\"具有独立负责数据产品的正式工作经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立负责数据产品\",\"status\":\"unmet\",\"reason\":\"候选人没有正式数据产品工作经历，因此无法独立负责数据产品。\",\"jdEvidence\":[\"具有独立负责数据产品的正式工作经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"主导跨团队项目\",\"status\":\"unknown\",\"reason\":\"候选人在团队经历中仅协助整理需求和测试，未体现主导跨团队项目的能力。\",\"jdEvidence\":[\"能主导跨团队项目并对个人交付结果负责\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具备主导跨团队项目的经验未知。\",\"verificationQuestion\":\"请描述您主导过的跨团队项目，以及您在其中的具体职责和贡献。\"},{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"对个人交付结果负责\",\"status\":\"partial\",\"reason\":\"候选人在团队经历中协助整理需求和测试，承担了部分职责，但未体现对整体交付结果负责。\",\"jdEvidence\":[\"能主导跨团队项目并对个人交付结果负责\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"候选人是否对个人交付结果负责的具体情况未知。\",\"verificationQuestion\":\"请举例说明您在项目中如何对个人交付结果负责。\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人具有信息管理本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+                "rawTextLength": 2062,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "matchItems": [
+                    {
+                      "requirementId": "REQ-001",
+                      "aggregateStatus": "partial",
+                      "dimensions": [
+                        {
+                          "dimensionType": "skill",
+                          "requirementFragment": "熟练掌握 Python",
+                          "status": "partial",
+                          "reason": "候选人在课程中了解 Python 基础语法，属于入门级了解，未达到熟练掌握的程度。",
+                          "jdEvidence": [
+                            "熟练掌握 Python"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-002",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": "候选人对 Python 的掌握深度和实际应用能力未知。",
+                          "verificationQuestion": "请描述您使用 Python 完成过的具体项目或任务，以及您对常用库和框架的熟悉程度。"
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-002",
+                      "aggregateStatus": "unmet",
+                      "dimensions": [
+                        {
+                          "dimensionType": "employment_type",
+                          "requirementFragment": "正式工作经验",
+                          "status": "unmet",
+                          "reason": "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+                          "jdEvidence": [
+                            "具有独立负责数据产品的正式工作经验"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-004",
+                              "role": "counter"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        },
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "独立负责数据产品",
+                          "status": "unmet",
+                          "reason": "候选人没有正式数据产品工作经历，因此无法独立负责数据产品。",
+                          "jdEvidence": [
+                            "具有独立负责数据产品的正式工作经验"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-004",
+                              "role": "counter"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-003",
+                      "aggregateStatus": "partial",
+                      "dimensions": [
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "主导跨团队项目",
+                          "status": "unknown",
+                          "reason": "候选人在团队经历中仅协助整理需求和测试，未体现主导跨团队项目的能力。",
+                          "jdEvidence": [
+                            "能主导跨团队项目并对个人交付结果负责"
+                          ],
+                          "candidateEvidence": [],
+                          "missingInformation": "候选人是否具备主导跨团队项目的经验未知。",
+                          "verificationQuestion": "请描述您主导过的跨团队项目，以及您在其中的具体职责和贡献。"
+                        },
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "对个人交付结果负责",
+                          "status": "partial",
+                          "reason": "候选人在团队经历中协助整理需求和测试，承担了部分职责，但未体现对整体交付结果负责。",
+                          "jdEvidence": [
+                            "能主导跨团队项目并对个人交付结果负责"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-003",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": "候选人是否对个人交付结果负责的具体情况未知。",
+                          "verificationQuestion": "请举例说明您在项目中如何对个人交付结果负责。"
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-004",
+                      "aggregateStatus": "met",
+                      "dimensions": [
+                        {
+                          "dimensionType": "credential",
+                          "requirementFragment": "本科及以上学历",
+                          "status": "met",
+                          "reason": "候选人具有信息管理本科学历，满足本科及以上学历要求。",
+                          "jdEvidence": [
+                            "本科及以上学历"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-001",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "matchItems.1.dimensions.0.reason",
+                    "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+                  }
+                ],
+                "rejectedItems": []
+              },
+              {
+                "stage": "repair",
+                "rejected": true,
+                "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Python\",\"status\":\"partial\",\"reason\":\"候选人在课程中了解 Python 基础语法，属于入门级了解，未达到熟练掌握的程度。\",\"jdEvidence\":[\"熟练掌握 Python\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"候选人对 Python 的掌握深度和实际应用能力未知。\",\"verificationQuestion\":\"请描述您使用 Python 完成过的具体项目或任务，以及您对常用库和框架的熟悉程度。\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"employment_type\",\"requirementFragment\":\"正式工作经验\",\"status\":\"unmet\",\"reason\":\"候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。\",\"jdEvidence\":[\"具有独立负责数据产品的正式工作经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立负责数据产品\",\"status\":\"unmet\",\"reason\":\"候选人没有正式数据产品工作经历，因此无法独立负责数据产品。\",\"jdEvidence\":[\"具有独立负责数据产品的正式工作经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"主导跨团队项目\",\"status\":\"unknown\",\"reason\":\"候选人在团队经历中仅协助整理需求和测试，未体现主导跨团队项目的能力。\",\"jdEvidence\":[\"能主导跨团队项目并对个人交付结果负责\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具备主导跨团队项目的经验未知。\",\"verificationQuestion\":\"请描述您主导过的跨团队项目，以及您在其中的具体职责和贡献。\"},{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"对个人交付结果负责\",\"status\":\"partial\",\"reason\":\"候选人在团队经历中协助整理需求和测试，承担了部分职责，但未体现对整体交付结果负责。\",\"jdEvidence\":[\"能主导跨团队项目并对个人交付结果负责\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"候选人是否对个人交付结果负责的具体情况未知。\",\"verificationQuestion\":\"请举例说明您在项目中如何对个人交付结果负责。\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人具有信息管理本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+                "rawTextLength": 2062,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "matchItems": [
+                    {
+                      "requirementId": "REQ-001",
+                      "aggregateStatus": "partial",
+                      "dimensions": [
+                        {
+                          "dimensionType": "skill",
+                          "requirementFragment": "熟练掌握 Python",
+                          "status": "partial",
+                          "reason": "候选人在课程中了解 Python 基础语法，属于入门级了解，未达到熟练掌握的程度。",
+                          "jdEvidence": [
+                            "熟练掌握 Python"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-002",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": "候选人对 Python 的掌握深度和实际应用能力未知。",
+                          "verificationQuestion": "请描述您使用 Python 完成过的具体项目或任务，以及您对常用库和框架的熟悉程度。"
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-002",
+                      "aggregateStatus": "unmet",
+                      "dimensions": [
+                        {
+                          "dimensionType": "employment_type",
+                          "requirementFragment": "正式工作经验",
+                          "status": "unmet",
+                          "reason": "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+                          "jdEvidence": [
+                            "具有独立负责数据产品的正式工作经验"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-004",
+                              "role": "counter"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        },
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "独立负责数据产品",
+                          "status": "unmet",
+                          "reason": "候选人没有正式数据产品工作经历，因此无法独立负责数据产品。",
+                          "jdEvidence": [
+                            "具有独立负责数据产品的正式工作经验"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-004",
+                              "role": "counter"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-003",
+                      "aggregateStatus": "partial",
+                      "dimensions": [
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "主导跨团队项目",
+                          "status": "unknown",
+                          "reason": "候选人在团队经历中仅协助整理需求和测试，未体现主导跨团队项目的能力。",
+                          "jdEvidence": [
+                            "能主导跨团队项目并对个人交付结果负责"
+                          ],
+                          "candidateEvidence": [],
+                          "missingInformation": "候选人是否具备主导跨团队项目的经验未知。",
+                          "verificationQuestion": "请描述您主导过的跨团队项目，以及您在其中的具体职责和贡献。"
+                        },
+                        {
+                          "dimensionType": "responsibility",
+                          "requirementFragment": "对个人交付结果负责",
+                          "status": "partial",
+                          "reason": "候选人在团队经历中协助整理需求和测试，承担了部分职责，但未体现对整体交付结果负责。",
+                          "jdEvidence": [
+                            "能主导跨团队项目并对个人交付结果负责"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-003",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": "候选人是否对个人交付结果负责的具体情况未知。",
+                          "verificationQuestion": "请举例说明您在项目中如何对个人交付结果负责。"
+                        }
+                      ]
+                    },
+                    {
+                      "requirementId": "REQ-004",
+                      "aggregateStatus": "met",
+                      "dimensions": [
+                        {
+                          "dimensionType": "credential",
+                          "requirementFragment": "本科及以上学历",
+                          "status": "met",
+                          "reason": "候选人具有信息管理本科学历，满足本科及以上学历要求。",
+                          "jdEvidence": [
+                            "本科及以上学历"
+                          ],
+                          "candidateEvidence": [
+                            {
+                              "factId": "CF-001",
+                              "role": "positive"
+                            }
+                          ],
+                          "missingInformation": null,
+                          "verificationQuestion": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "matchItems.1.dimensions.0.reason",
+                    "message": "M-K cross-CF modifier isolation failed: experience_type:正式工作->CF-004"
+                  }
+                ],
+                "rejectedItems": []
+              }
+            ]
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "2e4bf185-7099-4f72-b209-932e666a7a53",
+            "retryable": true
+          }
+        }
+      ]
+    }
+  ]
+}

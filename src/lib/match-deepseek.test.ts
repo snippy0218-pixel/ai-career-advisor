@@ -95,6 +95,7 @@ describe("analyzeMatchWithDeepSeek", () => {
     const result = await analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
       apiKey: "test-key",
       fetchImpl,
+      captureRejectedEvidence: true,
       onDiagnostics: (value) => {
         diagnostics = value;
       },
@@ -106,6 +107,14 @@ describe("analyzeMatchWithDeepSeek", () => {
       matchRepairAttempted: true,
       matchRepairSucceeded: true,
       upstreamAttempts: 2,
+      initialValidationIssues: expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("JD evidence") }),
+      ]),
+      repairValidationIssues: [],
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: false }),
+      ],
     });
     const repairBody = JSON.parse(
       String((fetchImpl.mock.calls[1][1] as RequestInit).body),

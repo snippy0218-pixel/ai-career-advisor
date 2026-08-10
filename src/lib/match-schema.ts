@@ -10,7 +10,10 @@ import {
   type FinalCanonicalCandidateFact,
   type FinalProfileStructure,
 } from "./profile-schema";
-import { findUnsupportedModifiers } from "./modifier-integrity";
+import {
+  findCrossFactModifierContamination,
+  findUnsupportedModifiers,
+} from "./modifier-integrity";
 
 export const MATCH_SCHEMA_VERSION = "match-core-v1" as const;
 
@@ -386,6 +389,36 @@ export function finalizeRawMatchCore(
             .map((item) => `${item.category}:${item.value}`)
             .join(", ")}`,
         );
+      }
+
+      const referencedFacts = factRefs.flatMap((factId) => {
+        const fact = factById.get(factId);
+        return fact ? [{ factId, statement: fact.statement }] : [];
+      });
+      const candidateObservationFields = [
+        { path: "reason", value: dimension.reason },
+        { path: "missingInformation", value: dimension.missingInformation },
+        { path: "verificationQuestion", value: dimension.verificationQuestion },
+      ];
+      for (const field of candidateObservationFields) {
+        if (field.value === null) continue;
+        const crossFactContamination = findCrossFactModifierContamination(
+          field.value,
+          referencedFacts,
+          { assertedOnly: field.path !== "reason" },
+        );
+        if (crossFactContamination.length > 0) {
+          addIssue(
+            issues,
+            `${dimensionPath}.${field.path}`,
+            `M-K cross-CF modifier isolation failed: ${crossFactContamination
+              .map(
+                (item) =>
+                  `${item.category}:${item.value}->${item.unsupportedFactIds.join("+")}`,
+              )
+              .join(", ")}`,
+          );
+        }
       }
 
       if (dimension.status === "met" || dimension.status === "unmet") {

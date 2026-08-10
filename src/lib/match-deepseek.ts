@@ -1,5 +1,9 @@
 import { ApiError } from "./api-errors";
 import {
+  captureStrengthGapOutputEvidence,
+  type StrengthGapOutputEvidence,
+} from "./strength-gap-evidence";
+import {
   finalizeRawMatchCore,
   rawMatchCoreSchema,
   type FinalMatchCore,
@@ -23,6 +27,8 @@ export interface MatchDiagnostics {
   rawSchemaValidationPassed: boolean;
   matchRepairAttempted: boolean;
   matchRepairSucceeded: boolean;
+  initialValidationIssues: MatchValidationIssue[];
+  repairValidationIssues: MatchValidationIssue[];
   finalSchemaValidationPassed: boolean;
   jdEvidenceValidationPassed: boolean;
   candidateEvidenceValidationPassed: boolean;
@@ -35,6 +41,8 @@ export interface MatchDiagnostics {
   latencyMs: number;
   outputCompletionTokens: number;
   truncatedByLength: boolean;
+  evidenceCaptureEnabled: boolean;
+  outputEvidence: StrengthGapOutputEvidence[];
 }
 
 export interface MatchOptions {
@@ -44,6 +52,7 @@ export interface MatchOptions {
   baseUrl?: string;
   timeoutMs?: number;
   requestId?: string;
+  captureRejectedEvidence?: boolean;
   onDiagnostics?: (diagnostics: MatchDiagnostics) => void;
 }
 
@@ -265,6 +274,8 @@ export async function analyzeMatchWithDeepSeek(
     rawSchemaValidationPassed: false,
     matchRepairAttempted: false,
     matchRepairSucceeded: false,
+    initialValidationIssues: [],
+    repairValidationIssues: [],
     finalSchemaValidationPassed: false,
     jdEvidenceValidationPassed: false,
     candidateEvidenceValidationPassed: false,
@@ -277,6 +288,8 @@ export async function analyzeMatchWithDeepSeek(
     latencyMs: 0,
     outputCompletionTokens: 0,
     truncatedByLength: false,
+    evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    outputEvidence: [],
   };
 
   try {
@@ -290,8 +303,29 @@ export async function analyzeMatchWithDeepSeek(
     }
     let validation = validateOutput(parsed, request);
     diagnostics.rawSchemaValidationPassed = validation.rawValid;
+    diagnostics.initialValidationIssues = validation.issues.map((issue) => ({
+      ...issue,
+    }));
 
     if (!validation.data) {
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "initial",
+            rawText: content,
+            parsedOutput: parsed,
+            parseError:
+              parsed !== null &&
+              typeof parsed === "object" &&
+              "invalidJson" in parsed
+                ? "JSON_PARSE_ERROR"
+                : null,
+            validationIssues: validation.issues,
+            rejected: true,
+            secrets: [apiKey],
+          }),
+        );
+      }
       diagnostics.matchRepairAttempted = true;
       const remaining = deadline - Date.now();
       if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
@@ -302,9 +336,35 @@ export async function analyzeMatchWithDeepSeek(
         remaining,
         diagnostics,
       );
-      const repairParsed = parseJson(repairContent);
+      let repairParsed: unknown;
+      try {
+        repairParsed = parseJson(repairContent);
+      } catch {
+        repairParsed = { invalidJson: repairContent };
+      }
       validation = validateOutput(repairParsed, request);
+      diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
+        ...issue,
+      }));
       diagnostics.matchRepairSucceeded = validation.data !== null;
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "repair",
+            rawText: repairContent,
+            parsedOutput: repairParsed,
+            parseError:
+              repairParsed !== null &&
+              typeof repairParsed === "object" &&
+              "invalidJson" in repairParsed
+                ? "JSON_PARSE_ERROR"
+                : null,
+            validationIssues: validation.issues,
+            rejected: validation.data === null,
+            secrets: [apiKey],
+          }),
+        );
+      }
       if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
     }
 
@@ -317,6 +377,18 @@ export async function analyzeMatchWithDeepSeek(
     return validation.data;
   } finally {
     diagnostics.latencyMs = Date.now() - startedAt;
-    options.onDiagnostics?.({ ...diagnostics, statusCounts: { ...diagnostics.statusCounts } });
+    options.onDiagnostics?.({
+      ...diagnostics,
+      statusCounts: { ...diagnostics.statusCounts },
+      initialValidationIssues: diagnostics.initialValidationIssues.map(
+        (issue) => ({ ...issue }),
+      ),
+      repairValidationIssues: diagnostics.repairValidationIssues.map(
+        (issue) => ({ ...issue }),
+      ),
+      outputEvidence: diagnostics.outputEvidence.map((evidence) => ({
+        ...evidence,
+      })),
+    });
   }
 }

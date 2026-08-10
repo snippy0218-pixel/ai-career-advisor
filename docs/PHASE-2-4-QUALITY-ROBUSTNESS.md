@@ -26,7 +26,7 @@
 | ISSUE-028 | rejected AI output evidence preservation gap | Strength/Gap 与 Greeting 原有机制回归通过；本轮因真实 QA 失败将同级 acceptance-only rejected raw 扩展到 Profile/Recommendation；JD/Match 仍无同级 rejected raw，但 final 关键 Match success context 已由 runner 保存 | Closed；保留 regression。JD/Match parity 继续记录，不因无实际 rejected-output blocker 做全量重构 | 关键失败不可审计时阻塞 |
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
-| ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | final suite 真实复现；Strength/Gap 以 SG-B/SG-M 正确 fail-closed，但 Match 已生成 unsupported Candidate scope | **Open / P1 / Stop & Escalate / Release Gate Blocker** | **是** |
+| ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | bounded stabilization 已实现逐 CF qualifier ownership；A～F + positive control PASS；最新 rerun Match 已无 course contamination，但 full chain 仍在 SG-E 502 停止 | **Open / P1 / Fix Not Verified / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -115,3 +115,11 @@
 | Q-J | **FAIL** | 未解决 release-blocking P1 ISSUE-029 |
 
 当前 Gate：**STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。详见 `phase-2-4-stop-escalate-audit.json`。等待 Product Owner / QA 对 ISSUE-029 作出 bounded Match Core cross-CF scope-isolation 授权或其他 disposition；不得继续产品修改或进入 Phase 2.5。
+
+## 9. ISSUE-029 Bounded Stabilization Result（2026-08-11）
+
+- 实现 deterministic per-CF qualifier ownership，覆盖 scope / experience type / duration / frequency / intensity / quantity / certainty / ownership / proficiency / responsibility；同一 CF positive control 保留原 qualifier。
+- Match acceptance diagnostics 补齐 initial rejected raw、validation issues、repair raw 与 repair acceptance/rejection；完整 raw 仅进入 acceptance body/artifact。
+- static：47/47 ISSUE-029/Match focused、259/259 targeted、363/363 full regression、lint/build PASS。
+- RB-05 三次独立 artifact 均保留且未覆盖：`rerun` 在 SG-B/SG-M 502；`rerun-2` 在 Match bounded repair 502；`rerun-3` 的 Match/Recommendation 200 且 cross-CF course scope 0，但 SG initial/repair 均被 SG-E 拒绝并 502，Greeting 未调用。
+- Gate 不变：Q-B/Q-C/Q-J 仍 FAIL；`ISSUE-029 FIX NOT VERIFIED`，Phase 2.4 仍 BLOCKED。完整 A～L 证据见 `PHASE-2-4-ISSUE-029-STABILIZATION.md`。

@@ -1,0 +1,987 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "WORKTREE",
+  "generatedAt": "2026-08-10T16:14:42.722Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 1,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 1,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 8937,
+      "average": 8937,
+      "median": 8937,
+      "p95": null,
+      "max": 8937
+    },
+    "profile": {
+      "samples": 1,
+      "min": 2544,
+      "average": 2544,
+      "median": 2544,
+      "p95": null,
+      "max": 2544
+    },
+    "match": {
+      "samples": 1,
+      "min": 6237,
+      "average": 6237,
+      "median": 6237,
+      "p95": null,
+      "max": 6237
+    },
+    "recommendation": {
+      "samples": 1,
+      "min": 3639,
+      "average": 3639,
+      "median": 3639,
+      "p95": null,
+      "max": 3639
+    },
+    "strengthGap": {
+      "samples": 1,
+      "min": 6974,
+      "average": 6974,
+      "median": 6974,
+      "p95": null,
+      "max": 6974
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "strengthGap",
+      "failureContext": {
+        "candidateProfile": {
+          "schemaVersion": "candidate-profile-v2",
+          "profileProvided": true,
+          "candidateProfile": {
+            "canonicalFacts": [
+              {
+                "factId": "CF-001",
+                "statement": "教育背景：信息管理本科",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              {
+                "factId": "CF-002",
+                "statement": "课程项目：在课程中了解 Python 基础语法",
+                "sourceType": "normalized_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              {
+                "factId": "CF-003",
+                "statement": "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-003"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              },
+              {
+                "factId": "CF-004",
+                "statement": "没有正式数据产品工作经历",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-004"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              }
+            ],
+            "careerTarget": null,
+            "education": [
+              "CF-001"
+            ],
+            "experiences": [
+              "CF-003",
+              "CF-004"
+            ],
+            "projects": [
+              "CF-002"
+            ],
+            "skills": [
+              "CF-002"
+            ],
+            "certificates": [],
+            "portfolio": [],
+            "preferences": [],
+            "derivedObservations": [],
+            "unknowns": [],
+            "questionsToConfirm": [],
+            "evidence": [
+              {
+                "id": "PF-001",
+                "text": "教育背景：信息管理本科"
+              },
+              {
+                "id": "PF-002",
+                "text": "课程项目：在课程中了解 Python 基础语法"
+              },
+              {
+                "id": "PF-003",
+                "text": "团队经历：与四人团队共同完成数据展示作业，我协助整理需求和测试"
+              },
+              {
+                "id": "PF-004",
+                "text": "没有正式数据产品工作经历"
+              }
+            ]
+          }
+        },
+        "matchCore": {
+          "schemaVersion": "match-core-v1",
+          "jdSchemaVersion": "analysis-v1",
+          "candidateProfileSchemaVersion": "candidate-profile-v2",
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "requirement": "熟练掌握 Python",
+              "requirementType": "core_requirement",
+              "jdEvidence": [
+                "熟练掌握 Python"
+              ],
+              "status": "partial",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练掌握 Python",
+                  "status": "partial",
+                  "reason": "候选人在课程项目中了解 Python 基础语法，但未提供熟练度或实际应用证据，仅为基础了解。",
+                  "jdEvidence": [
+                    "熟练掌握 Python"
+                  ],
+                  "missingInformation": "候选人对 Python 的熟练程度（如实际项目应用、代码量、使用频率）未知。",
+                  "verificationQuestion": "请描述你在实际项目中使用 Python 的具体场景和熟练程度。",
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [
+                    "CF-002"
+                  ],
+                  "candidateEvidenceRole": "positive",
+                  "pfEvidence": [
+                    "PF-002"
+                  ]
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "requirement": "具有独立负责数据产品的正式工作经验",
+              "requirementType": "core_requirement",
+              "jdEvidence": [
+                "具有独立负责数据产品的正式工作经验"
+              ],
+              "status": "unmet",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "employment_type",
+                  "requirementFragment": "正式工作经验",
+                  "status": "unmet",
+                  "reason": "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+                  "jdEvidence": [
+                    "具有独立负责数据产品的正式工作经验"
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null,
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [
+                    "CF-004"
+                  ],
+                  "candidateEvidenceRole": "counter",
+                  "pfEvidence": [
+                    "PF-004"
+                  ]
+                },
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "独立负责数据产品",
+                  "status": "unmet",
+                  "reason": "候选人没有正式数据产品工作经历，因此无法满足独立负责数据产品的要求。",
+                  "jdEvidence": [
+                    "具有独立负责数据产品的正式工作经验"
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null,
+                  "dimensionId": "DIM-002",
+                  "candidateFactRefs": [
+                    "CF-004"
+                  ],
+                  "candidateEvidenceRole": "counter",
+                  "pfEvidence": [
+                    "PF-004"
+                  ]
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "requirement": "能主导跨团队项目并对个人交付结果负责",
+              "requirementType": "core_requirement",
+              "jdEvidence": [
+                "能主导跨团队项目并对个人交付结果负责"
+              ],
+              "status": "partial",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "主导跨团队项目",
+                  "status": "partial",
+                  "reason": "候选人在团队项目中协助整理需求和测试，但未体现主导角色，且项目为课程作业，非正式跨团队项目。",
+                  "jdEvidence": [
+                    "能主导跨团队项目并对个人交付结果负责"
+                  ],
+                  "missingInformation": "候选人在团队项目中的具体职责和主导程度未知，且项目为课程作业，非正式跨团队项目。",
+                  "verificationQuestion": "请描述你在团队项目中是否承担主导角色，以及项目是否涉及跨团队协作。",
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [
+                    "CF-003"
+                  ],
+                  "candidateEvidenceRole": "positive",
+                  "pfEvidence": [
+                    "PF-003"
+                  ]
+                },
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "对个人交付结果负责",
+                  "status": "partial",
+                  "reason": "候选人协助整理需求和测试，但未明确个人交付结果的责任范围。",
+                  "jdEvidence": [
+                    "能主导跨团队项目并对个人交付结果负责"
+                  ],
+                  "missingInformation": "候选人在项目中对个人交付结果的责任范围未知。",
+                  "verificationQuestion": "请说明你在项目中具体负责哪些交付物，以及如何对结果负责。",
+                  "dimensionId": "DIM-002",
+                  "candidateFactRefs": [
+                    "CF-003"
+                  ],
+                  "candidateEvidenceRole": "positive",
+                  "pfEvidence": [
+                    "PF-003"
+                  ]
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "requirement": "本科及以上学历",
+              "requirementType": "hard_requirement",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "status": "met",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人具有信息管理本科学历，满足本科及以上学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null,
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [
+                    "CF-001"
+                  ],
+                  "candidateEvidenceRole": "positive",
+                  "pfEvidence": [
+                    "PF-001"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "recommendation": {
+          "recommendationLevel": "cautious",
+          "summary": "Match Core 正向证据包括学历要求已满足（MI-004），Python 技能与跨团队项目经验为部分匹配（MI-001、MI-003），但存在硬性反证：正式数据产品工作经验未满足（MI-002），且部分匹配项的证据充分性不足，需进一步确认。",
+          "supportingMatchRefs": [
+            "MI-001",
+            "MI-003",
+            "MI-004"
+          ],
+          "counterMatchRefs": [
+            "MI-002"
+          ],
+          "limitations": [
+            {
+              "content": "正式数据产品工作经验要求未满足，属于硬性门槛缺失。",
+              "matchItemRefs": [
+                "MI-002"
+              ]
+            },
+            {
+              "content": "Python 熟练程度证据不足，仅为基础了解，需确认实际应用水平。",
+              "matchItemRefs": [
+                "MI-001"
+              ]
+            },
+            {
+              "content": "跨团队项目主导角色证据不足，项目为课程作业，需确认主导程度与责任范围。",
+              "matchItemRefs": [
+                "MI-003"
+              ]
+            }
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "请描述你在实际项目中使用 Python 的具体场景和熟练程度。",
+              "matchItemRefs": [
+                "MI-001"
+              ]
+            },
+            {
+              "question": "请描述你在团队项目中是否承担主导角色，以及项目是否涉及跨团队协作。",
+              "matchItemRefs": [
+                "MI-003"
+              ]
+            },
+            {
+              "question": "请说明你在项目中具体负责哪些交付物，以及如何对结果负责。",
+              "matchItemRefs": [
+                "MI-003"
+              ]
+            },
+            {
+              "question": "请确认正式数据产品工作经验是否为严格筛选门槛，以及具体口径是什么。",
+              "matchItemRefs": [
+                "MI-002"
+              ]
+            }
+          ],
+          "schemaVersion": "recommendation-core-v1",
+          "matchSchemaVersion": "match-core-v1",
+          "allowedRecommendationLevels": [
+            "cautious",
+            "not_recommended"
+          ]
+        }
+      },
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 8937,
+          "requestId": "74d2dc7d-bedb-44ca-96b2-abcbdd4a809d",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2544,
+          "requestId": "0db3def6-59fc-4c72-bb70-cbd00184b66d",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 4,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 4,
+            "atomicClaimCount": 4,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 2,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 4,
+            "profileFactRecall": null,
+            "latencyMs": 2534,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 376,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 4,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 4,
+            "atomicClaimCount": 4,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 2,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 4,
+            "profileFactRecall": null,
+            "latencyMs": 2534,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 376,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 6237,
+          "requestId": "ab7f281b-840f-4527-810b-3bd6e41864c8",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 4,
+            "dimensionCount": 6,
+            "statusCounts": {
+              "met": 1,
+              "partial": 2,
+              "unmet": 1,
+              "unknown": 0
+            },
+            "latencyMs": 6229,
+            "outputCompletionTokens": 942,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 4,
+            "dimensionCount": 6,
+            "statusCounts": {
+              "met": 1,
+              "partial": 2,
+              "unmet": 1,
+              "unknown": 0
+            },
+            "latencyMs": 6229,
+            "outputCompletionTokens": 942,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 3639,
+          "requestId": "111072bd-5da9-4a8f-939a-a8f43c14b4e0",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "cautious",
+            "allowedRecommendationLevels": [
+              "cautious",
+              "not_recommended"
+            ],
+            "supportingRefCount": 3,
+            "counterRefCount": 1,
+            "latencyMs": 3631,
+            "outputCompletionTokens": 335,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "cautious",
+            "allowedRecommendationLevels": [
+              "cautious",
+              "not_recommended"
+            ],
+            "supportingRefCount": 3,
+            "counterRefCount": 1,
+            "latencyMs": 3631,
+            "outputCompletionTokens": 335,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 502,
+          "latencyMs": 6974,
+          "requestId": "ff2a2e77-6f20-409e-a6f8-6caae19e04ab",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.2",
+                "message": "SG-M transferable relation boundary integrity failed"
+              },
+              {
+                "path": "strengths.2.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "strengths.2",
+                "message": "SG-M transferable relation boundary integrity failed"
+              },
+              {
+                "path": "strengths.2.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "strengthEvidenceIntegrityPassed": false,
+            "strengthTruthfulnessPassed": false,
+            "transferableRelationBoundaryIntegrityPassed": false,
+            "gapTypeIntegrityPassed": false,
+            "unknownIntegrityPassed": false,
+            "hardGapCounterEvidencePassed": false,
+            "suggestedActionIntegrityPassed": false,
+            "referenceIntegrityPassed": false,
+            "sourceFactIsolationPassed": false,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 0,
+            "gapCount": 0,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 0
+            },
+            "latencyMs": 6966,
+            "outputCompletionTokens": 408,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.2",
+                "message": "SG-M transferable relation boundary integrity failed"
+              },
+              {
+                "path": "strengths.2.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "strengths.2",
+                "message": "SG-M transferable relation boundary integrity failed"
+              },
+              {
+                "path": "strengths.2.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "strengthEvidenceIntegrityPassed": false,
+            "strengthTruthfulnessPassed": false,
+            "transferableRelationBoundaryIntegrityPassed": false,
+            "gapTypeIntegrityPassed": false,
+            "unknownIntegrityPassed": false,
+            "hardGapCounterEvidencePassed": false,
+            "suggestedActionIntegrityPassed": false,
+            "referenceIntegrityPassed": false,
+            "sourceFactIsolationPassed": false,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 0,
+            "gapCount": 0,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 0
+            },
+            "latencyMs": 6966,
+            "outputCompletionTokens": 408,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": [
+              {
+                "stage": "initial",
+                "rejected": true,
+                "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"具有信息管理本科学历，满足本科及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    },\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"在课程项目中了解 Python 基础语法，可迁移至实际工作场景，部分支持熟练掌握 Python 的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明了解 Python 基础语法，尚不足以证明熟练掌握 Python。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有实际项目中使用 Python 的经历，请补充相关事实。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"learnable_skill\",\n      \"statement\": \"现有证据仅为基础了解，尚不足以证明熟练掌握 Python。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"学习并练习 Python 以提升熟练度。\",\n      \"actionType\": \"learn\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明在团队项目中协助整理需求和测试，尚不足以证明能主导跨团队项目并对个人交付结果负责。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"如果确实有主导跨团队项目的真实经历，请补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+                "rawTextLength": 1145,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "strengths": [
+                    {
+                      "type": "direct_match",
+                      "statement": "具有信息管理本科学历，满足本科及以上学历要求。",
+                      "matchRefs": [
+                        "MI-004"
+                      ]
+                    },
+                    {
+                      "type": "transferable_strength",
+                      "statement": "在课程项目中了解 Python 基础语法，可迁移至实际工作场景，部分支持熟练掌握 Python 的要求。",
+                      "matchRefs": [
+                        "MI-001"
+                      ]
+                    },
+                    {
+                      "type": "transferable_strength",
+                      "statement": "在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。",
+                      "matchRefs": [
+                        "MI-003"
+                      ]
+                    }
+                  ],
+                  "gaps": [
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明了解 Python 基础语法，尚不足以证明熟练掌握 Python。",
+                      "matchRefs": [
+                        "MI-001"
+                      ],
+                      "suggestedAction": "如果确实有实际项目中使用 Python 的经历，请补充相关事实。",
+                      "actionType": "evidence"
+                    },
+                    {
+                      "type": "learnable_skill",
+                      "statement": "现有证据仅为基础了解，尚不足以证明熟练掌握 Python。",
+                      "matchRefs": [
+                        "MI-001"
+                      ],
+                      "suggestedAction": "学习并练习 Python 以提升熟练度。",
+                      "actionType": "learn"
+                    },
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明在团队项目中协助整理需求和测试，尚不足以证明能主导跨团队项目并对个人交付结果负责。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "如果确实有主导跨团队项目的真实经历，请补充相关事实。",
+                      "actionType": "evidence"
+                    }
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "strengths.2",
+                    "message": "SG-M transferable relation boundary integrity failed"
+                  },
+                  {
+                    "path": "strengths.2.statement",
+                    "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                  }
+                ],
+                "rejectedItems": [
+                  {
+                    "collection": "strengths",
+                    "index": 2,
+                    "type": "transferable_strength",
+                    "statement": "在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。",
+                    "matchRefs": [
+                      "MI-003"
+                    ],
+                    "suggestedAction": null,
+                    "validatorRules": [
+                      "SG-M",
+                      "SG-B"
+                    ],
+                    "rejectionCodes": [
+                      "SG-M_REJECTED",
+                      "SG-B_REJECTED"
+                    ],
+                    "rejectionReasons": [
+                      "SG-M transferable relation boundary integrity failed",
+                      "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                    ]
+                  }
+                ]
+              },
+              {
+                "stage": "repair",
+                "rejected": true,
+                "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"具有信息管理本科学历，满足本科及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    },\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"在课程项目中了解 Python 基础语法，可迁移至实际工作场景，部分支持熟练掌握 Python 的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明了解 Python 基础语法，尚不足以证明熟练掌握 Python。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有实际项目中使用 Python 的经历，请补充相关事实。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"learnable_skill\",\n      \"statement\": \"现有证据仅为基础了解，尚不足以证明熟练掌握 Python。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"学习并练习 Python 以提升熟练度。\",\n      \"actionType\": \"learn\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明在团队项目中协助整理需求和测试，尚不足以证明能主导跨团队项目并对个人交付结果负责。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"如果确实有主导跨团队项目的真实经历，请补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+                "rawTextLength": 1145,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "strengths": [
+                    {
+                      "type": "direct_match",
+                      "statement": "具有信息管理本科学历，满足本科及以上学历要求。",
+                      "matchRefs": [
+                        "MI-004"
+                      ]
+                    },
+                    {
+                      "type": "transferable_strength",
+                      "statement": "在课程项目中了解 Python 基础语法，可迁移至实际工作场景，部分支持熟练掌握 Python 的要求。",
+                      "matchRefs": [
+                        "MI-001"
+                      ]
+                    },
+                    {
+                      "type": "transferable_strength",
+                      "statement": "在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。",
+                      "matchRefs": [
+                        "MI-003"
+                      ]
+                    }
+                  ],
+                  "gaps": [
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明了解 Python 基础语法，尚不足以证明熟练掌握 Python。",
+                      "matchRefs": [
+                        "MI-001"
+                      ],
+                      "suggestedAction": "如果确实有实际项目中使用 Python 的经历，请补充相关事实。",
+                      "actionType": "evidence"
+                    },
+                    {
+                      "type": "learnable_skill",
+                      "statement": "现有证据仅为基础了解，尚不足以证明熟练掌握 Python。",
+                      "matchRefs": [
+                        "MI-001"
+                      ],
+                      "suggestedAction": "学习并练习 Python 以提升熟练度。",
+                      "actionType": "learn"
+                    },
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明在团队项目中协助整理需求和测试，尚不足以证明能主导跨团队项目并对个人交付结果负责。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "如果确实有主导跨团队项目的真实经历，请补充相关事实。",
+                      "actionType": "evidence"
+                    }
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "strengths.2",
+                    "message": "SG-M transferable relation boundary integrity failed"
+                  },
+                  {
+                    "path": "strengths.2.statement",
+                    "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                  }
+                ],
+                "rejectedItems": [
+                  {
+                    "collection": "strengths",
+                    "index": 2,
+                    "type": "transferable_strength",
+                    "statement": "在团队项目中协助整理需求和测试，可迁移至跨团队协作场景，部分支持主导跨团队项目的要求。",
+                    "matchRefs": [
+                      "MI-003"
+                    ],
+                    "suggestedAction": null,
+                    "validatorRules": [
+                      "SG-M",
+                      "SG-B"
+                    ],
+                    "rejectionCodes": [
+                      "SG-M_REJECTED",
+                      "SG-B_REJECTED"
+                    ],
+                    "rejectionReasons": [
+                      "SG-M transferable relation boundary integrity failed",
+                      "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "ff2a2e77-6f20-409e-a6f8-6caae19e04ab",
+            "retryable": true
+          }
+        }
+      ]
+    }
+  ]
+}

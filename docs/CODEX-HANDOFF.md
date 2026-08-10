@@ -1,6 +1,6 @@
 # AI 求职顾问项目交接文档（Codex Handoff）
 
-> 更新日期：2026-08-10
+> 更新日期：2026-08-11
 > 用途：让一个**没有当前 conversation history、但可读取本仓库**的新 Codex thread 能准确继续当前任务。
 > 工作协议：`docs/CODEX-OPERATING-PROTOCOL.md` 为后续 thread 的**固定工作协议**（自主事项、停止升级条件、禁止事项、Issue 处理原则、冻结 Pass Gate）。
 > 事实来源：以仓库当前状态为准（`docs/验收执行报告.md`、`docs/analysis-schema.md`、`docs/测试案例.md`、`docs/更新日志.md`、`src/`）。
@@ -14,6 +14,8 @@
 - `OBS-005 — Long-tail Phase 2 Latency` = Observe：Phase 2.3 历史 average 约 3,656 ms、max 37,268 ms；先测量各生成阶段，不为单个 outlier 建复杂架构；
 - 本阶段主文档与 Gate 状态见 `docs/PHASE-2-4-QUALITY-ROBUSTNESS.md`；即使 Q-A～Q-J 全绿，也只能申请 Phase 2.4 PASS / Ready for Phase 2.5，不得自行进入 Phase 2.5。
 - **ISSUE-029 — Cross-CF Candidate Scope Contamination in Match Reason = P1 / OPEN / RELEASE GATE BLOCKER**：final E2E-RB-05 中 Match 把 CF-002 的“课程”作用域传播到独立 CF-003，写成“项目为课程作业”；Strength/Gap 经 SG-B/SG-M 正确 502 fail-closed，但 Match 已产生 unsupported Candidate scope；已触发 Stop & Escalate，证据见 `docs/acceptance-artifacts/phase-2-4/phase-2-4-stop-escalate-audit.json`；
+- Product Owner / QA 已授权 ISSUE-029 bounded stabilization：新增逐 CF qualifier ownership validator、Match Prompt v1.1 与 acceptance-only initial/repair raw evidence；Case A～F + positive control、259/259 targeted、363/363 full regression、lint/build 均 PASS；
+- 三次 RB-05 worktree rerun 均独立保留且 0/1：第 1 次暴露跨分句 negation 漏拦，第 2 次暴露 JD requirement phrase 误报，第 3 次 Match/Recommendation 已 200 且无 CF-002→CF-003 course scope，但 Strength/Gap initial/repair 均被 SG-E 拒绝并 502，Greeting 未调用。由于 full chain 未完成，工程建议仍为 **ISSUE-029 FIX NOT VERIFIED / Phase 2.4 BLOCKED**；详见 `docs/PHASE-2-4-ISSUE-029-STABILIZATION.md`；
 - final Phase 2.4 suite 固定 `679268a…`：7/8；六条完整链、RB-08 预期 400、RB-05 blocked；350/350、lint/build PASS；不得用 targeted success 覆盖 final failure；
 - `OBS-006 — Full-chain Personalized Greeting Fallback Interaction`：final six greeting requests 中 repair 4/6、personalized safe fallback 4/6、Phase 1 fallback 0/6；均安全但与 isolated Phase 2.3 0/36 显著不同，待 ISSUE-029 review 后复评；
 - 当前只允许 Product Owner / QA 明确授权的 ISSUE-029 诊断/修复或证据收尾；不得继续普通产品修改，不得进入 Phase 2.5。

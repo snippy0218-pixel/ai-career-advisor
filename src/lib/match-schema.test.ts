@@ -619,3 +619,175 @@ describe("M-J Requirement Set Integrity", () => {
     expect(result.data?.matchItems[0].requirementDimensions).toHaveLength(2);
   });
 });
+
+describe("ISSUE-029 cross-CF qualifier ownership", () => {
+  function crossFactResult(
+    facts: Array<{ statement: string; semanticTags: ["project_experience"] }>,
+    reason: string,
+  ) {
+    const request = buildMatchFixture(
+      [{ content: "完成相关项目", requirementType: "core_requirement" }],
+      facts,
+    );
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "met",
+          dimensions: [
+            dimension({
+              dimensionType: "domain",
+              requirementFragment: "完成相关项目",
+              status: "met",
+              reason,
+              jdEvidence: ["完成相关项目"],
+              candidateEvidence: [{ factId: "CF-002", role: "positive" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+          ],
+        },
+      ],
+    };
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  const expectIsolationFailure = (
+    result: ReturnType<typeof crossFactResult>,
+    signal: string,
+  ) => {
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: expect.stringMatching(
+            new RegExp(`M-K cross-CF modifier isolation failed: .*${signal}`),
+          ),
+        }),
+      ]),
+    );
+  };
+
+  it("Case A rejects course scope propagated to an independent project CF", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "在课程中学习 X", semanticTags: ["project_experience"] },
+          { statement: "完成 Y 项目", semanticTags: ["project_experience"] },
+        ],
+        "候选人在课程项目中完成 Y。",
+      ),
+      "课程",
+    );
+  });
+
+  it("Case B rejects work scope propagated to a personal project CF", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "在工作中使用 X", semanticTags: ["project_experience"] },
+          { statement: "个人完成 Y 项目", semanticTags: ["project_experience"] },
+        ],
+        "候选人个人完成的 Y 是工作项目。",
+      ),
+      "工作",
+    );
+  });
+
+  it("Case C rejects internship scope propagated to a course project CF", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "在实习中负责 X", semanticTags: ["project_experience"] },
+          { statement: "课程中完成 Y", semanticTags: ["project_experience"] },
+        ],
+        "候选人在实习工作中完成 Y。",
+      ),
+      "实习",
+    );
+  });
+
+  it("Case D rejects duration propagated to another skill or project CF", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "有 2 年 X 经验", semanticTags: ["project_experience"] },
+          { statement: "使用过 Y", semanticTags: ["project_experience"] },
+        ],
+        "候选人有 2 年 Y 经验。",
+      ),
+      "2 年",
+    );
+  });
+
+  it("Case E rejects frequency or intensity propagated to another CF", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "频繁拜访客户", semanticTags: ["project_experience"] },
+          { statement: "参与客户沟通", semanticTags: ["project_experience"] },
+        ],
+        "候选人频繁进行客户沟通。",
+      ),
+      "频繁",
+    );
+  });
+
+  it("Case F rejects quantity propagated to project B", () => {
+    expectIsolationFailure(
+      crossFactResult(
+        [
+          { statement: "负责 5 个项目", semanticTags: ["project_experience"] },
+          { statement: "参与项目 B", semanticTags: ["project_experience"] },
+        ],
+        "候选人负责 5 个项目 B。",
+      ),
+      "5 个",
+    );
+  });
+
+  it("positive control preserves a qualifier supported by the same canonical CF", () => {
+    const request = buildMatchFixture(
+      [{ content: "使用 Python 完成数据分析", requirementType: "core_requirement" }],
+      [
+        {
+          statement: "在课程项目中使用 Python 完成数据分析",
+          semanticTags: ["project_experience", "skill_usage"],
+        },
+      ],
+    );
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "met",
+          dimensions: [
+            dimension({
+              dimensionType: "skill",
+              requirementFragment: "使用 Python 完成数据分析",
+              status: "met",
+              reason: "候选人在课程项目中使用 Python 完成数据分析。",
+              jdEvidence: ["使用 Python 完成数据分析"],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+          ],
+        },
+      ],
+    };
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[0].requirementDimensions[0].reason).toContain(
+      "课程项目",
+    );
+  });
+});
