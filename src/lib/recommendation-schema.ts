@@ -159,7 +159,7 @@ const HARD_UNMET_ADMISSION_PATTERN =
 const REQUIREMENT_STRICTNESS_PATTERN =
   /(?:(?:确认|核实|了解).{0,24}(?:是否为|是否属于|是不是|是否构成|具体).{0,16}(?:严格|硬性|筛选|门槛|要求口径|条件口径)|(?:要求|条件|门槛).{0,12}(?:严格性|是否严格|口径))/;
 const CANDIDATE_INFORMATION_PATTERN =
-  /(?:请|需|需要).{0,12}(?:补充|确认|核实).{0,36}(?:候选人|本人|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)/;
+  /(?:请|需|需要).{0,12}(?:补充|确认|核实|提供|描述).{0,36}(?:候选人|本人|您的?|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)/;
 
 export function classifyRequirementFlexibility(
   item: RecommendationMatchLedgerItem,

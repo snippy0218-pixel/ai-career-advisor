@@ -209,6 +209,30 @@ describe("Recommendation Core deterministic contract", () => {
     ).toBe(true);
   });
 
+  it("R-K accepts natural Candidate-information verbs without accepting HR strictness as a substitute", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const natural = structuredClone(fixture.validRaw);
+    natural.questionsToConfirm = [
+      {
+        question: "请提供您持有的行业资格证书名称及编号。",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    expect(finalizeRawRecommendation(natural, fixture.matchCore).issues).toEqual([]);
+
+    natural.questionsToConfirm = [
+      {
+        question: "请向 HR 描述并确认该门槛是否严格。",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    expect(
+      finalizeRawRecommendation(natural, fixture.matchCore).issues.some((issue) =>
+        issue.message.includes("Candidate-information question"),
+      ),
+    ).toBe(true);
+  });
+
   it("RK-TC-02 hard unmet without JD waiver permits strictness confirmation only", () => {
     const fixture = RECOMMENDATION_FIXTURES[1];
     const cautious = {
