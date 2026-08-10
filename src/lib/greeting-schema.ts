@@ -332,6 +332,29 @@ function removeOnce(value: string, fragment: string) {
     : `${value.slice(0, index)}${value.slice(index + fragment.length)}`;
 }
 
+function removeCandidateClaimOccurrence(value: string, statement: string) {
+  const wrappedStatements = [
+    `我拥有${statement}`,
+    `我有${statement}`,
+    `我的${statement}`,
+    `我${statement}`,
+    `本人拥有${statement}`,
+    `本人${statement}`,
+  ];
+  const wrapped = wrappedStatements.find((item) => value.includes(item));
+  return removeOnce(value, wrapped ?? statement);
+}
+
+function removeJdEvidenceInBoundedRelation(value: string, evidence: string) {
+  const index = value.indexOf(evidence);
+  if (index === -1) return value;
+  const before = value.slice(Math.max(0, index - 24), index);
+  const after = value.slice(index + evidence.length, index + evidence.length + 36);
+  return /(?:岗位|职责|要求)/.test(before) && BOUNDED_RELATION_PATTERN.test(after)
+    ? removeOnce(value, evidence)
+    : value;
+}
+
 function unsupportedNumbers(greeting: string, factText: string) {
   const numbers = greeting.match(/\d+(?:\.\d+)?%?/g) ?? [];
   return numbers.filter((number) => !factText.includes(number));
@@ -422,10 +445,11 @@ export function finalizeRawPersonalizedGreeting(
     ) {
       addIssue(issues, `jobRelations.${index}.jdEvidence`, "PG-D JD evidence is not traceable to Match Core");
     }
-    if (!raw.greeting.includes(relation.statement)) {
-      addIssue(issues, "greeting", "PG-H structured Job relation is missing from greeting text");
-    }
   });
+
+  if (!BOUNDED_RELATION_PATTERN.test(raw.greeting)) {
+    addIssue(issues, "greeting", "PG-H Greeting must contain a bounded Job relation");
+  }
 
   const validStrengths = new Map(
     (request.strengthGap?.strengths ?? []).map((strength) => [
@@ -445,10 +469,13 @@ export function finalizeRawPersonalizedGreeting(
 
   let extraText = raw.greeting;
   for (const claim of raw.candidateClaims) {
-    extraText = removeOnce(extraText, claim.statement);
+    extraText = removeCandidateClaimOccurrence(extraText, claim.statement);
   }
   for (const relation of raw.jobRelations) {
     extraText = removeOnce(extraText, relation.statement);
+    for (const evidence of relation.jdEvidence) {
+      extraText = removeJdEvidenceInBoundedRelation(extraText, evidence);
+    }
   }
   if (EXTRA_CANDIDATE_CLAIM_PATTERN.test(extraText)) {
     addIssue(issues, "greeting", "PG-A greeting contains an unstructured Candidate claim");

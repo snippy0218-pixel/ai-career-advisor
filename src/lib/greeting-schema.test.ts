@@ -81,6 +81,30 @@ describe("personalized greeting schema", () => {
     expect(issues.some((issue) => issue.message.includes("PG-C"))).toBe(true);
   });
 
+  it("accepts natural claim wrappers and traceable bounded relation wording", () => {
+    const { fixture, raw } = validFixture(1);
+    raw.greeting =
+      "您好，看到贵司的岗位。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。";
+    const result = finalizeRawPersonalizedGreeting(raw, fixture.request);
+    expect(result.issues).toEqual([]);
+    expect(result.data?.candidateFactRefs).toEqual(["CF-001", "CF-002"]);
+  });
+
+  it("still rejects a JD requirement transferred into an extra Candidate claim", () => {
+    const issues = issuesFor(3, (raw) => {
+      raw.greeting = raw.greeting.replace(
+        "希望有机会进一步沟通",
+        "我独立负责需求分析，希望有机会进一步沟通",
+      );
+    });
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("PG-A") }),
+        expect.objectContaining({ message: expect.stringContaining("PG-C") }),
+      ]),
+    );
+  });
+
   it("PG-F rejects team achievement attributed to the individual", () => {
     const issues = issuesFor(5, (raw) => {
       raw.greeting = raw.greeting.replace(

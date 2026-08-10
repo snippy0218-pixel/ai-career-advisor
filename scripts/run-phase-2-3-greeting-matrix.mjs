@@ -193,7 +193,33 @@ function inspect(fixture, data, diagnostics) {
   );
   let extraText = data.greeting;
   for (const ref of data.candidateFactRefs) {
-    extraText = extraText.replace(facts.get(ref)?.statement ?? "", "");
+    const statement = facts.get(ref)?.statement ?? "";
+    const wrappedStatements = [
+      `我拥有${statement}`,
+      `我有${statement}`,
+      `我的${statement}`,
+      `我${statement}`,
+      `本人拥有${statement}`,
+      `本人${statement}`,
+    ];
+    const wrapped = wrappedStatements.find((item) => extraText.includes(item));
+    extraText = extraText.replace(wrapped ?? statement, "");
+  }
+  for (const evidenceText of data.jdEvidence) {
+    const index = extraText.indexOf(evidenceText);
+    if (index !== -1) {
+      const before = extraText.slice(Math.max(0, index - 24), index);
+      const after = extraText.slice(
+        index + evidenceText.length,
+        index + evidenceText.length + 36,
+      );
+      if (
+        /(?:岗位|职责|要求)/.test(before) &&
+        /(?:相关|关联|可迁移|部分支持|一定支持|部分职责|部分要求)/.test(after)
+      ) {
+        extraText = extraText.replace(evidenceText, "");
+      }
+    }
   }
   const unsupportedCandidateClaim = EXTRA_CANDIDATE_CLAIM_PATTERN.test(extraText);
   const semanticUpgrade = SEMANTIC_UPGRADE_PATTERN.test(extraText);
@@ -267,6 +293,40 @@ function inspect(fixture, data, diagnostics) {
   };
 }
 
+function scoreRun(data, gates) {
+  if (!data || !gates) return null;
+  const truthfulness = ["pgA", "pgB", "pgC", "pgE", "pgF", "pgG"]
+    .every((gate) => gates[gate]) ? 5 : 1;
+  const jdRelevance = gates.pgH && gates.pgK ? 5 : 1;
+  const expectedSafeNonPersonalized =
+    data.personalizationStatus === "not_personalized" &&
+    data.candidateFactRefs.length === 0;
+  const personalization = expectedSafeNonPersonalized
+    ? 4
+    : data.candidateFactRefs.length >= 1 && data.matchRefs.length >= 1
+      ? 5
+      : 2;
+  const restraint = gates.pgI && gates.pgJ ? 5 : 1;
+  const naturalness =
+    /(?:您好|你好)/.test(data.greeting) &&
+    /(?:沟通|交流|了解岗位|进一步了解|期待回复)/.test(data.greeting) &&
+    data.greeting.length <= 240
+      ? 5
+      : 3;
+  const hrUsability = gates.pgL && gates.pgM ? 5 : 1;
+  const claimFidelity = ["pgA", "pgB", "pgC", "pgD", "pgE", "pgF", "pgG"]
+    .every((gate) => gates[gate]) ? 5 : 1;
+  return {
+    candidateFactTruthfulness: truthfulness,
+    jdRelevance,
+    personalization,
+    restraint,
+    naturalness,
+    hrFirstContactUsability: hrUsability,
+    claimFidelity,
+  };
+}
+
 function evidenceTrace(fixture, diagnostics) {
   const facts = factMap(fixture);
   const evidence = pfMap(fixture);
@@ -327,6 +387,7 @@ for (const fixture of fixtures) {
     const gates = response.status === 200
       ? inspect(fixture, body.data, diagnostics)
       : null;
+    const internalScores = scoreRun(body.data, gates);
     const trace = evidenceTrace(fixture, diagnostics);
     results.push({
       tcId: fixture.id,
@@ -341,6 +402,7 @@ for (const fixture of fixtures) {
       diagnostics,
       rejectedEvidenceTrace: trace,
       gates,
+      internalScores,
     });
     const passed =
       gates &&
@@ -358,6 +420,36 @@ const all = (predicate) => results.length > 0 && results.every(predicate);
 const latencies = successful.map((item) => item.latencyMs);
 const sumGateMetric = (key) =>
   successful.reduce((total, item) => total + (item.gates[key] ?? 0), 0);
+const scored = successful.filter((item) => item.internalScores);
+const scoreDimensions = [
+  "candidateFactTruthfulness",
+  "jdRelevance",
+  "personalization",
+  "restraint",
+  "naturalness",
+  "hrFirstContactUsability",
+  "claimFidelity",
+];
+const internalScores = Object.fromEntries(
+  scoreDimensions.map((dimension) => {
+    const values = scored.map((item) => item.internalScores[dimension]);
+    return [
+      dimension,
+      {
+        average:
+          values.length > 0
+            ? Number(
+                (
+                  values.reduce((total, value) => total + value, 0) /
+                  values.length
+                ).toFixed(2),
+              )
+            : null,
+        minimum: values.length > 0 ? Math.min(...values) : null,
+      },
+    ];
+  }),
+);
 const summary = {
   generatedAt: new Date().toISOString(),
   implementationCommit,
@@ -425,6 +517,7 @@ const summary = {
           }
         : null,
   },
+  internalScores,
   gateResults: {
     "PG-A_candidate_fact_integrity": all((item) => item.gates?.pgA === true),
     "PG-B_pf_evidence_integrity": all((item) => item.gates?.pgB === true),
