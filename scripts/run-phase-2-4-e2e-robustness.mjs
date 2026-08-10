@@ -29,7 +29,7 @@ const highProfile = `求职方向：数据分析
 技能：日常使用 SQL，了解 Python
 协作经历：与三人课程团队共同完成项目报告`;
 
-const cases = [
+const allCases = [
   { id: "E2E-RB-01", name: "high match", jdText: baseJd, profileText: highProfile, expected: "success" },
   {
     id: "E2E-RB-02",
@@ -82,8 +82,8 @@ JD 未说明证书名称、年限、地点和项目规模，具体标准需要�
   {
     id: "E2E-RB-07",
     name: "near limit",
-    jdText: `${baseJd}\n补充业务背景：${"该岗位服务真实业务场景，具体项目范围以面试确认信息为准。".repeat(175)}`,
-    profileText: `${highProfile}\n补充说明：${"以下仅为资料完整性占位，不新增技能、经历、成果或年限。".repeat(175)}`,
+    jdText: `${baseJd}\n补充业务背景：${"该岗位服务真实业务场景，具体项目范围以面试确认信息为准。".repeat(380)}`,
+    profileText: `${highProfile}\n补充说明：${"以下仅为资料完整性占位，不新增技能、经历、成果或年限。".repeat(380)}`,
     expected: "success",
   },
   {
@@ -94,6 +94,11 @@ JD 未说明证书名称、年限、地点和项目规模，具体标准需要�
     expected: "safe_failure",
   },
 ];
+const selectedCase = args.get("--case");
+const cases = selectedCase
+  ? allCases.filter((testCase) => testCase.id === selectedCase)
+  : allCases;
+if (cases.length === 0) throw new Error(`Unknown --case ${selectedCase}`);
 
 const stageConfig = [
   ["jd", "/api/analyze", (state) => ({ jdText: state.jdText })],
@@ -257,6 +262,13 @@ for (const testCase of cases) {
     expected: testCase.expected,
     completed,
     stoppedAt,
+    failureContext: stoppedAt
+      ? {
+          candidateProfile: state.profile ?? null,
+          matchCore: state.match ?? null,
+          recommendation: state.recommendation ?? null,
+        }
+      : null,
     expectationPassed,
     invariants,
     invariantsPassed,
@@ -299,7 +311,7 @@ const artifact = {
   suite: "Phase 2 End-to-End Robustness Suite",
   implementationCommit,
   generatedAt: new Date().toISOString(),
-  runPolicy: "E2E-RB-01..08 x 1",
+  runPolicy: selectedCase ? `${selectedCase} x 1 targeted` : "E2E-RB-01..08 x 1",
   baseUrl,
   summary: {
     requestCount: results.length,

@@ -355,6 +355,58 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     );
   });
 
+  it("preserves an explicit 课程项目 prefix when the tool clause needs that scope", async () => {
+    const input = "课程项目：在课程中了解 Python 基础语法";
+    const coverage = {
+      coverage: [
+        candidatePf("PF-001", [
+          claim("skills", "在课程中了解 Python 基础语法", "PF-001", "profile_stated"),
+        ]),
+      ],
+    };
+    const fetchMock = vi.fn().mockResolvedValueOnce(successfulProfileResponse(coverage));
+    const { result } = await run(input, fetchMock);
+    const canonical = result.candidateProfile.canonicalFacts[0];
+    expect(canonical.statement).toBe("课程项目：在课程中了解 Python 基础语法");
+    expect(canonical.semanticTags).toEqual(["project_experience", "skill_usage"]);
+  });
+
+  it("keeps campus activity project/experience inference consistent", async () => {
+    const input = "经历：参加过校园社团活动，协助整理报名资料";
+    const coverage = {
+      coverage: [
+        candidatePf("PF-001", [
+          claim(
+            ["project_experience", "experience"],
+            "参加过校园社团活动，协助整理报名资料",
+            "PF-001",
+            "profile_stated",
+          ),
+        ]),
+      ],
+    };
+    const fetchMock = vi.fn().mockResolvedValueOnce(successfulProfileResponse(coverage));
+    const { result } = await run(input, fetchMock);
+    expect(result.candidateProfile.canonicalFacts[0].semanticTags).toEqual([
+      "project_experience",
+      "experience",
+    ]);
+  });
+
+  it("does not treat negated metadata containing 成果 as a portfolio fact", async () => {
+    const input = "教育背景：本科\n补充说明：以下仅为资料完整性占位，不新增技能、经历、成果或年限。";
+    const coverage = {
+      coverage: [
+        candidatePf("PF-001", [claim("education", "教育背景：本科", "PF-001", "profile_stated")]),
+        nonFactPf("PF-002", "context_only"),
+      ],
+    };
+    const fetchMock = vi.fn().mockResolvedValueOnce(successfulProfileResponse(coverage));
+    const { result } = await run(input, fetchMock);
+    expect(result.candidateProfile.portfolio).toEqual([]);
+    expect(result.candidateProfile.canonicalFacts).toHaveLength(1);
+  });
+
   it("repairs a standalone project tag without rewriting its statement", async () => {
     const input = "项目补充：参与过校园活动，负责宣传物料";
     const initial = {

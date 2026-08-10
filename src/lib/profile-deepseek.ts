@@ -442,7 +442,9 @@ function requiredSemanticTags(pfText: string): Set<ProfileSemanticTag> {
     required.add("preference");
   }
   if (/求职方向|职业方向|目标岗位/.test(pfText)) required.add("career_target");
-  if (/^作品|作品集|成果|GitHub|仓库链接/i.test(pfText)) required.add("portfolio");
+  if (/^(?:作品|作品集|成果|GitHub|仓库链接)/i.test(pfText)) {
+    required.add("portfolio");
+  }
   return required;
 }
 
@@ -461,7 +463,11 @@ function inferSemanticTags(
   ) {
     tags.add("skill_usage");
   }
-  if (/项目|课程作业|校园活动|活动策划/.test(statement)) {
+  if (
+    /项目|课程作业|校园.{0,8}活动|活动策划|(?:参与过|参加过).{0,24}活动/.test(
+      statement,
+    )
+  ) {
     tags.add("project_experience");
   }
   if (
@@ -509,7 +515,10 @@ function courseToolCanonicalClaim(
         ),
     );
   if (!clause) return null;
-  const statement = clause.replace(/^[^：:]{1,16}[：:]/, "").trim();
+  const withoutPrefix = clause.replace(/^[^：:]{1,16}[：:]/, "").trim();
+  const statement = /课程项目|课程作业/.test(withoutPrefix)
+    ? withoutPrefix
+    : clause;
   return {
     statement,
     semanticTags: ["project_experience", "skill_usage"],
