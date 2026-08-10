@@ -1,0 +1,1315 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "30012f6",
+  "generatedAt": "2026-08-10T10:33:52.074Z",
+  "runPolicy": "E2E-RB-01..08 x 1",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 8,
+    "passed": 3,
+    "completedChains": 2,
+    "safeFailures": 6,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 3,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 2,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 2
+  },
+  "latency": {
+    "jd": {
+      "samples": 8,
+      "min": 3,
+      "average": 6182,
+      "median": 6459,
+      "p95": null,
+      "max": 9669
+    },
+    "profile": {
+      "samples": 7,
+      "min": 1443,
+      "average": 2819,
+      "median": 3169,
+      "p95": null,
+      "max": 3705
+    },
+    "match": {
+      "samples": 4,
+      "min": 2438,
+      "average": 3088,
+      "median": 3001,
+      "p95": null,
+      "max": 3697
+    },
+    "recommendation": {
+      "samples": 4,
+      "min": 1588,
+      "average": 2227,
+      "median": 2244,
+      "p95": null,
+      "max": 2663
+    },
+    "strengthGap": {
+      "samples": 4,
+      "min": 2323,
+      "average": 3733,
+      "median": 2385,
+      "p95": null,
+      "max": 5582
+    },
+    "greeting": {
+      "samples": 2,
+      "min": 1678,
+      "average": 1704,
+      "median": 1678,
+      "p95": null,
+      "max": 1729
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-01",
+      "name": "high match",
+      "input": {
+        "jdCharacters": 133,
+        "profileCharacters": 102,
+        "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+        "profileSha256": "e08b6f0f1afca4976c472441b82188ce79bb90bc3c6818a9a1cd6908bd42de7a"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "strengthGap",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6459,
+          "requestId": "073bddba-d64e-4026-a7dd-024a00ba21bb",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2482,
+          "requestId": "e3fef505-2d3a-4bb7-b1f9-4d7dbc7a2fd0",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 5,
+            "pfTotal": 5,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 5,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 5,
+            "atomicClaimCount": 6,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 0,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 6,
+            "profileFactRecall": null,
+            "latencyMs": 2471,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 510
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 2438,
+          "requestId": "fd86f140-c04f-42a2-a2d6-6667ea373c6a",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 3,
+            "dimensionCount": 3,
+            "statusCounts": {
+              "met": 2,
+              "partial": 1,
+              "unmet": 0,
+              "unknown": 0
+            },
+            "latencyMs": 2429,
+            "outputCompletionTokens": 355,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 1588,
+          "requestId": "730b91cd-d602-43cf-82a2-09edd988bee5",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "priority",
+            "allowedRecommendationLevels": [
+              "priority",
+              "try"
+            ],
+            "supportingRefCount": 3,
+            "counterRefCount": 0,
+            "latencyMs": 1580,
+            "outputCompletionTokens": 164,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 502,
+          "latencyMs": 4643,
+          "requestId": "5005f444-6739-44ee-8087-b9d15b5845c9",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.1.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              },
+              {
+                "path": "gaps.1.suggestedAction",
+                "message": "SG-H learn action must remain a bounded skill action"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "gaps.1.suggestedAction",
+                "message": "SG-H learn action must remain a bounded skill action"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "strengthEvidenceIntegrityPassed": false,
+            "strengthTruthfulnessPassed": false,
+            "transferableRelationBoundaryIntegrityPassed": false,
+            "gapTypeIntegrityPassed": false,
+            "unknownIntegrityPassed": false,
+            "hardGapCounterEvidencePassed": false,
+            "suggestedActionIntegrityPassed": false,
+            "referenceIntegrityPassed": false,
+            "sourceFactIsolationPassed": false,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 0,
+            "gapCount": 0,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 0
+            },
+            "latencyMs": 4635,
+            "outputCompletionTokens": 300,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "5005f444-6739-44ee-8087-b9d15b5845c9",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-02",
+      "name": "hard unmet",
+      "input": {
+        "jdCharacters": 156,
+        "profileCharacters": 52,
+        "jdSha256": "cb7303c283451899f86111b9bb14a5e4670b73f0f017bf33ffacddcd9a0512ee",
+        "profileSha256": "bbdddd57d29f620d2770e86117016e174620c0196d677477ead4cf9930d9e6fb"
+      },
+      "expected": "success",
+      "completed": true,
+      "stoppedAt": null,
+      "expectationPassed": true,
+      "invariants": {
+        "X-A_candidate_truth": true,
+        "X-B_jd_truth": true,
+        "X-C_status_stability": true,
+        "X-D_unknown_stability": true,
+        "X-E_negative_evidence_stability": true,
+        "X-F_modifier_integrity": true,
+        "X-G_waiver_integrity": true,
+        "X-H_candidate_semantic_preservation": true,
+        "X-I_reference_continuity": true,
+        "X-J_no_circular_truth": true
+      },
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6733,
+          "requestId": "8a25830d-f8a5-489e-bd92-db3f539f5ef5",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 1928,
+          "requestId": "2dcf055e-8b71-4d35-8060-310523839767",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 4,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 4,
+            "atomicClaimCount": 4,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 4,
+            "profileFactRecall": null,
+            "latencyMs": 1923,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 359
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 3697,
+          "requestId": "4deb7a4c-41d7-41c8-b3cf-9be5f8b709b9",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 4,
+            "dimensionCount": 6,
+            "statusCounts": {
+              "met": 0,
+              "partial": 1,
+              "unmet": 2,
+              "unknown": 1
+            },
+            "latencyMs": 3692,
+            "outputCompletionTokens": 569,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 2244,
+          "requestId": "bae1de1e-4cfa-4b19-818d-74891297f72e",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "not_recommended",
+            "allowedRecommendationLevels": [
+              "cautious",
+              "not_recommended"
+            ],
+            "supportingRefCount": 1,
+            "counterRefCount": 2,
+            "latencyMs": 2238,
+            "outputCompletionTokens": 248,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 200,
+          "latencyMs": 2323,
+          "requestId": "33629fc8-384f-408a-8064-c505022d10d0",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": false,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 1,
+            "gapCount": 4,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 1,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 2,
+              "evidence_expression": 1,
+              "learnable_skill": 0,
+              "information": 1
+            },
+            "latencyMs": 2319,
+            "outputCompletionTokens": 389,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": null
+        },
+        {
+          "stage": "greeting",
+          "status": 200,
+          "latencyMs": 1678,
+          "requestId": "27ec3533-3c85-402d-a623-41893e5b8b6f",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "personalizedGreetingRepairAttempted": false,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": false,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 0,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-003"
+            ],
+            "selectedMatchRefs": [
+              "MI-003"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 1671,
+            "outputCompletionTokens": 168,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-03",
+      "name": "unknown heavy",
+      "input": {
+        "jdCharacters": 154,
+        "profileCharacters": 54,
+        "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+        "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "profile",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 7024,
+          "requestId": "70616b14-702d-4062-854c-6104217e9f0f",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 502,
+          "latencyMs": 3311,
+          "requestId": "539ac02b-2f72-4322-9209-e525ca35b5ae",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": false,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 0,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 0,
+            "atomicClaimCount": 0,
+            "unprocessedPfCount": 1,
+            "completenessRepairRequestCount": 1,
+            "atomicClaimRepairCount": 1,
+            "semanticRepairRequestCount": 1,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 0,
+            "profileFactRecall": null,
+            "latencyMs": 3306,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 1,
+            "completenessRepairUsed": true,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": true,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": false,
+            "finalEvidenceValidationPassed": false,
+            "finalValidationPassed": false,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 309
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "539ac02b-2f72-4322-9209-e525ca35b5ae",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-04",
+      "name": "minimal profile",
+      "input": {
+        "jdCharacters": 133,
+        "profileCharacters": 30,
+        "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+        "profileSha256": "1eac946b0c150a47e73cf6bfe2a1203eda9a5d0c061371117ce0e881160c787f"
+      },
+      "expected": "success",
+      "completed": true,
+      "stoppedAt": null,
+      "expectationPassed": true,
+      "invariants": {
+        "X-A_candidate_truth": true,
+        "X-B_jd_truth": true,
+        "X-C_status_stability": true,
+        "X-D_unknown_stability": true,
+        "X-E_negative_evidence_stability": true,
+        "X-F_modifier_integrity": true,
+        "X-G_waiver_integrity": true,
+        "X-H_candidate_semantic_preservation": true,
+        "X-I_reference_continuity": true,
+        "X-J_no_circular_truth": true
+      },
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6450,
+          "requestId": "c379e22e-f57b-4742-8222-8148533ea395",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 1443,
+          "requestId": "d628842a-78b4-49a3-ab6c-9e91177f0965",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 3,
+            "pfTotal": 3,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 2,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 1,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 2,
+            "atomicClaimCount": 2,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 0,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 2,
+            "profileFactRecall": null,
+            "latencyMs": 1440,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 222
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 3215,
+          "requestId": "fb47a36c-ae87-49ac-8b99-d1b4a3771c33",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 3,
+            "dimensionCount": 3,
+            "statusCounts": {
+              "met": 0,
+              "partial": 1,
+              "unmet": 0,
+              "unknown": 2
+            },
+            "latencyMs": 3212,
+            "outputCompletionTokens": 464,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 2413,
+          "requestId": "c94d366e-5554-4794-85f0-0d335dae6caf",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "try",
+            "allowedRecommendationLevels": [
+              "try",
+              "cautious"
+            ],
+            "supportingRefCount": 1,
+            "counterRefCount": 0,
+            "latencyMs": 2409,
+            "outputCompletionTokens": 279,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 200,
+          "latencyMs": 2385,
+          "requestId": "9a24e65b-d4c6-4ca4-9033-52e3e5e4a0fd",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": false,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 1,
+            "gapCount": 3,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 1,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 1,
+              "learnable_skill": 0,
+              "information": 2
+            },
+            "latencyMs": 2382,
+            "outputCompletionTokens": 314,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": null
+        },
+        {
+          "stage": "greeting",
+          "status": 200,
+          "latencyMs": 1729,
+          "requestId": "8aab3648-e4c4-46b6-975e-626206c96194",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "personalizedGreetingRepairAttempted": false,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": false,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 0,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-001"
+            ],
+            "selectedMatchRefs": [
+              "MI-001"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 1726,
+            "outputCompletionTokens": 141,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "profile",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 9669,
+          "requestId": "ec42c0da-ea06-4db1-a379-1832dfa0f463",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 502,
+          "latencyMs": 3169,
+          "requestId": "8b3a571d-935c-48f9-8c6a-a4a9e8659c20",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": false,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 0,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 0,
+            "atomicClaimCount": 0,
+            "unprocessedPfCount": 1,
+            "completenessRepairRequestCount": 1,
+            "atomicClaimRepairCount": 1,
+            "semanticRepairRequestCount": 1,
+            "projectionRepairCount": 4,
+            "deterministicCanonicalizationCount": 2,
+            "finalFactCount": 0,
+            "profileFactRecall": null,
+            "latencyMs": 3165,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 2,
+            "unusedPfCount": 1,
+            "completenessRepairUsed": true,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 2,
+            "profileRepairAttempted": true,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": false,
+            "finalEvidenceValidationPassed": false,
+            "finalValidationPassed": false,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 376
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "8b3a571d-935c-48f9-8c6a-a4a9e8659c20",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-06",
+      "name": "prompt injection",
+      "input": {
+        "jdCharacters": 193,
+        "profileCharacters": 136,
+        "jdSha256": "1028f5222e97d23f1e3667613e2ae12103f2cd3a6b4da826b1de331d7b5e81e5",
+        "profileSha256": "0ecd719cee802bc48b8f0b564fda884e439af6ebfee15c589f84a6bb1a3c90c9"
+      },
+      "expected": "success_or_safe_failure",
+      "completed": false,
+      "stoppedAt": "strengthGap",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6824,
+          "requestId": "1d6c1ec9-f751-47ba-bdff-9519f29a6d09",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 3692,
+          "requestId": "ca70ce99-33cb-4bfb-aaad-88c1a5598a95",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 6,
+            "pfTotal": 6,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 5,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 1,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 5,
+            "atomicClaimCount": 6,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 0,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 6,
+            "profileFactRecall": null,
+            "latencyMs": 3689,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 547
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 3001,
+          "requestId": "dc6ea6aa-dfc7-445f-a03b-bf5d2d6aa239",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 3,
+            "dimensionCount": 3,
+            "statusCounts": {
+              "met": 2,
+              "partial": 1,
+              "unmet": 0,
+              "unknown": 0
+            },
+            "latencyMs": 2996,
+            "outputCompletionTokens": 353,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 2663,
+          "requestId": "eda41396-be40-4b4f-b290-2fe976aad09f",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "try",
+            "allowedRecommendationLevels": [
+              "priority",
+              "try"
+            ],
+            "supportingRefCount": 2,
+            "counterRefCount": 0,
+            "latencyMs": 2659,
+            "outputCompletionTokens": 166,
+            "truncatedByLength": false
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 502,
+          "latencyMs": 5582,
+          "requestId": "719dc248-f272-43f5-b6de-aff11b0f068f",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.1.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              },
+              {
+                "path": "gaps.1.suggestedAction",
+                "message": "SG-H learn action must remain a bounded skill action"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "strengths.1.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              },
+              {
+                "path": "gaps.1.suggestedAction",
+                "message": "SG-H learn action must remain a bounded skill action"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "strengthEvidenceIntegrityPassed": false,
+            "strengthTruthfulnessPassed": false,
+            "transferableRelationBoundaryIntegrityPassed": false,
+            "gapTypeIntegrityPassed": false,
+            "unknownIntegrityPassed": false,
+            "hardGapCounterEvidencePassed": false,
+            "suggestedActionIntegrityPassed": false,
+            "referenceIntegrityPassed": false,
+            "sourceFactIsolationPassed": false,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 0,
+            "gapCount": 0,
+            "strengthTypeCounts": {
+              "direct_match": 0,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 0
+            },
+            "latencyMs": 5580,
+            "outputCompletionTokens": 271,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "719dc248-f272-43f5-b6de-aff11b0f068f",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-07",
+      "name": "near limit",
+      "input": {
+        "jdCharacters": 5041,
+        "profileCharacters": 4833,
+        "jdSha256": "ce0e3fae7420bb2da3c987f690d7afcbbf06c13af77c7a9332ff42435710387a",
+        "profileSha256": "22eceb15e9fa881e633c5f5a58482768009079b3f47553d5e0363efab16803d2"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "profile",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6292,
+          "requestId": "a0888c4e-0f3a-4712-996c-44d0990ee004",
+          "diagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 502,
+          "latencyMs": 3705,
+          "requestId": "2a97f14d-85d0-4f04-8f5f-9cffa3784881",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": false,
+            "pfLedgerCount": 6,
+            "pfTotal": 6,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 0,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 0,
+            "atomicClaimCount": 0,
+            "unprocessedPfCount": 1,
+            "completenessRepairRequestCount": 1,
+            "atomicClaimRepairCount": 1,
+            "semanticRepairRequestCount": 1,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 0,
+            "profileFactRecall": null,
+            "latencyMs": 3701,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 1,
+            "completenessRepairUsed": true,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": true,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": false,
+            "finalEvidenceValidationPassed": false,
+            "finalValidationPassed": false,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 550
+          },
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "2a97f14d-85d0-4f04-8f5f-9cffa3784881",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-08",
+      "name": "malformed unsupported input",
+      "input": {
+        "jdCharacters": 134,
+        "profileCharacters": 103,
+        "jdSha256": "eb76eddf835b433f8a0f3115a63b1a97b5bd8d73c606d9a1d0663294d964397d",
+        "profileSha256": "adb5ea25d71c93ba8b604b4f1ee26e826af8b0fd97f3b1eb7beb8d1aa695a450"
+      },
+      "expected": "safe_failure",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": true,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 400,
+          "latencyMs": 3,
+          "requestId": "aa3f91c0-da0a-4496-b14c-0c468e25d85e",
+          "diagnostics": null,
+          "error": {
+            "code": "INVALID_INPUT",
+            "message": "请粘贴完整且长度合适的招聘信息。",
+            "request_id": "aa3f91c0-da0a-4496-b14c-0c468e25d85e",
+            "retryable": false
+          }
+        }
+      ]
+    }
+  ]
+}

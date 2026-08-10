@@ -140,6 +140,7 @@ async function requestStage(stage, path, body) {
     latencyMs,
     requestId: response.headers.get("x-request-id"),
     diagnostics: decodeDiagnostics(response.headers.get(diagnosticHeaders[stage])),
+    acceptanceDiagnostics: payload?.acceptanceDiagnostics ?? null,
     data: payload?.data ?? null,
     error: payload?.error ?? null,
   };

@@ -178,6 +178,41 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     expect(repairBody.messages[1].content).not.toContain("PF-001：");
   });
 
+  it("captures bounded rejected initial and repair evidence only when enabled", async () => {
+    const initial = validCoverage();
+    initial.coverage = initial.coverage.filter((item) => item.pfId !== "PF-003");
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(successfulProfileResponse(initial))
+      .mockResolvedValueOnce(
+        successfulProfileResponse({ coverage: [nonFactPf("PF-999")] }),
+      );
+    const diagnostics = vi.fn();
+
+    await expect(
+      analyzeProfileWithDeepSeek(
+        { profileText },
+        {
+          fetchImpl: fetchMock as unknown as typeof fetch,
+          apiKey: "test-key",
+          timeoutMs: 2_000,
+          captureRejectedEvidence: true,
+          onDiagnostics: diagnostics,
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({
+        evidenceCaptureEnabled: true,
+        outputEvidence: [
+          expect.objectContaining({ stage: "initial", rejected: true }),
+          expect.objectContaining({ stage: "repair", rejected: true }),
+        ],
+      }),
+    );
+  });
+
   it("repairs a PF when one atomic claim fails strict semantic validation", async () => {
     const initial = validCoverage();
     initial.coverage[2] = candidatePf("PF-003", [

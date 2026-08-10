@@ -3,6 +3,10 @@ import { z } from "zod";
 import { ApiError } from "./api-errors";
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
 import {
+  captureStrengthGapOutputEvidence,
+  type StrengthGapOutputEvidence,
+} from "./strength-gap-evidence";
+import {
   buildCoverageRepairMessages,
   buildProfileStructuringMessages,
 } from "./profile-prompt";
@@ -72,6 +76,8 @@ export interface ProfileDiagnostics {
   finalValidationPassed: boolean;
   truncatedByLength: boolean;
   outputCompletionTokens: number;
+  evidenceCaptureEnabled: boolean;
+  outputEvidence: StrengthGapOutputEvidence[];
 }
 
 interface ProfileOptions {
@@ -81,6 +87,7 @@ interface ProfileOptions {
   baseUrl?: string;
   timeoutMs?: number;
   requestId?: string;
+  captureRejectedEvidence?: boolean;
   onDiagnostics?: (diagnostics: ProfileDiagnostics) => void;
 }
 
@@ -157,6 +164,12 @@ function parseJson(content: string, warning: string): unknown {
     console.warn(`[profile] ${warning}`);
     throw new ApiError("AI_OUTPUT_INVALID", 502);
   }
+}
+
+function coverageProblemIssues(problems: Map<string, string[]>) {
+  return [...problems].flatMap(([pfId, reasons]) =>
+    reasons.map((message) => ({ path: `coverage.${pfId}`, message })),
+  );
 }
 
 async function requestCompletion(
@@ -870,6 +883,8 @@ export async function analyzeProfileWithDeepSeek(
     finalValidationPassed: false,
     truncatedByLength: false,
     outputCompletionTokens: 0,
+    evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    outputEvidence: [],
   };
 
   try {
@@ -885,7 +900,25 @@ export async function analyzeProfileWithDeepSeek(
       deadline,
       diagnostics,
     );
-    const parsed = parseJson(content, "invalid JSON output (coverage)");
+    let parsed: unknown;
+    try {
+      parsed = parseJson(content, "invalid JSON output (coverage)");
+    } catch (error) {
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "initial",
+            rawText: content,
+            parsedOutput: null,
+            parseError: "JSON_PARSE_ERROR",
+            validationIssues: [],
+            rejected: true,
+            secrets: [apiKey],
+          }),
+        );
+      }
+      throw error;
+    }
     diagnostics.jsonParsePassed = true;
     const validation = validateCoverageResponse(
       parsed,
@@ -897,6 +930,19 @@ export async function analyzeProfileWithDeepSeek(
     diagnostics.rawSchemaValidationPassed = validation.problems.size === 0;
 
     if (validation.problems.size > 0) {
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "initial",
+            rawText: content,
+            parsedOutput: parsed,
+            parseError: null,
+            validationIssues: coverageProblemIssues(validation.problems),
+            rejected: true,
+            secrets: [apiKey],
+          }),
+        );
+      }
       diagnostics.profileRepairAttempted = true;
       diagnostics.completenessRepairUsed = true;
       const problemPfs = ledger.filter((item) => validation.problems.has(item.id));
@@ -912,10 +958,28 @@ export async function analyzeProfileWithDeepSeek(
         deadline,
         diagnostics,
       );
-      const repairParsed = parseJson(
-        repairContent,
-        "invalid JSON output (coverage repair)",
-      );
+      let repairParsed: unknown;
+      try {
+        repairParsed = parseJson(
+          repairContent,
+          "invalid JSON output (coverage repair)",
+        );
+      } catch (error) {
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureStrengthGapOutputEvidence({
+              stage: "repair",
+              rawText: repairContent,
+              parsedOutput: null,
+              parseError: "JSON_PARSE_ERROR",
+              validationIssues: [],
+              rejected: true,
+              secrets: [apiKey],
+            }),
+          );
+        }
+        throw error;
+      }
       const repaired = validateCoverageResponse(
         repairParsed,
         problemPfs,
@@ -926,6 +990,19 @@ export async function analyzeProfileWithDeepSeek(
       diagnostics.completenessRepairSucceeded = repaired.problems.size === 0;
       diagnostics.profileRepairSucceeded = repaired.problems.size === 0;
       if (repaired.problems.size > 0) {
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureStrengthGapOutputEvidence({
+              stage: "repair",
+              rawText: repairContent,
+              parsedOutput: repairParsed,
+              parseError: null,
+              validationIssues: coverageProblemIssues(repaired.problems),
+              rejected: true,
+              secrets: [apiKey],
+            }),
+          );
+        }
         diagnostics.unprocessedPfCount = repaired.problems.size;
         diagnostics.unusedPfCount = repaired.problems.size;
         throw new ApiError("AI_OUTPUT_INVALID", 502);

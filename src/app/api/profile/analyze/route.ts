@@ -10,14 +10,24 @@ export const runtime = "nodejs";
 export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
   let diagnosticsForAcceptance: ProfileDiagnostics | null = null;
+  const acceptanceDiagnosticsEnabled =
+    process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS === "1";
+  const responseBody = <T extends Record<string, unknown>>(body: T) =>
+    acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
+      ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }
+      : body;
   const responseHeaders = () => {
     const headers: Record<string, string> = { "X-Request-ID": requestId };
     if (
-      process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS === "1" &&
+      acceptanceDiagnosticsEnabled &&
       diagnosticsForAcceptance !== null
     ) {
+      const headerDiagnostics = {
+        ...diagnosticsForAcceptance,
+        outputEvidence: undefined,
+      };
       headers["X-Profile-Acceptance-Diagnostics"] = Buffer.from(
-        JSON.stringify(diagnosticsForAcceptance),
+        JSON.stringify(headerDiagnostics),
         "utf8",
       ).toString("base64url");
     }
@@ -39,6 +49,7 @@ export async function POST(request: Request) {
 
     const profile = await analyzeProfileWithDeepSeek(parsedRequest.data, {
       requestId,
+      captureRejectedEvidence: acceptanceDiagnosticsEnabled,
       onDiagnostics: (diagnostics) => {
         diagnosticsForAcceptance = diagnostics;
         console.info("[profile] request diagnostics", {
@@ -49,7 +60,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { data: profile, error: null },
+      responseBody({ data: profile, error: null }),
       { headers: responseHeaders() },
     );
   } catch (error) {
@@ -66,7 +77,7 @@ export async function POST(request: Request) {
       status: publicError.status,
       retryable: publicError.body.error.retryable,
     });
-    return NextResponse.json(publicError.body, {
+    return NextResponse.json(responseBody(publicError.body), {
       status: publicError.status,
       headers: responseHeaders(),
     });

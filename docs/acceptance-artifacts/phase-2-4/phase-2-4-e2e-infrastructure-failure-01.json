@@ -1,0 +1,324 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "30012f6",
+  "generatedAt": "2026-08-10T10:30:45.551Z",
+  "runPolicy": "E2E-RB-01..08 x 1",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 8,
+    "passed": 2,
+    "completedChains": 0,
+    "safeFailures": 8,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 8,
+      "min": 4,
+      "average": 15,
+      "median": 7,
+      "p95": null,
+      "max": 73
+    },
+    "profile": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "match": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "recommendation": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-01",
+      "name": "high match",
+      "input": {
+        "jdCharacters": 133,
+        "profileCharacters": 102,
+        "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+        "profileSha256": "e08b6f0f1afca4976c472441b82188ce79bb90bc3c6818a9a1cd6908bd42de7a"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 73,
+          "requestId": "0785f459-b8dd-4816-9bc5-0589e8c2e771",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "0785f459-b8dd-4816-9bc5-0589e8c2e771",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-02",
+      "name": "hard unmet",
+      "input": {
+        "jdCharacters": 156,
+        "profileCharacters": 52,
+        "jdSha256": "cb7303c283451899f86111b9bb14a5e4670b73f0f017bf33ffacddcd9a0512ee",
+        "profileSha256": "bbdddd57d29f620d2770e86117016e174620c0196d677477ead4cf9930d9e6fb"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 9,
+          "requestId": "1a5f1f51-fffb-4e38-92a5-2b6af05e8154",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "1a5f1f51-fffb-4e38-92a5-2b6af05e8154",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-03",
+      "name": "unknown heavy",
+      "input": {
+        "jdCharacters": 154,
+        "profileCharacters": 54,
+        "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+        "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 7,
+          "requestId": "c742fced-8417-48c5-8d79-6144f3d092cb",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "c742fced-8417-48c5-8d79-6144f3d092cb",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-04",
+      "name": "minimal profile",
+      "input": {
+        "jdCharacters": 133,
+        "profileCharacters": 30,
+        "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+        "profileSha256": "1eac946b0c150a47e73cf6bfe2a1203eda9a5d0c061371117ce0e881160c787f"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 8,
+          "requestId": "c7fd62e4-3788-4bbd-8c0f-3545eebe8259",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "c7fd62e4-3788-4bbd-8c0f-3545eebe8259",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 7,
+          "requestId": "a575f7a3-c511-487b-b4a4-4de1cda5769e",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "a575f7a3-c511-487b-b4a4-4de1cda5769e",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-06",
+      "name": "prompt injection",
+      "input": {
+        "jdCharacters": 193,
+        "profileCharacters": 136,
+        "jdSha256": "1028f5222e97d23f1e3667613e2ae12103f2cd3a6b4da826b1de331d7b5e81e5",
+        "profileSha256": "0ecd719cee802bc48b8f0b564fda884e439af6ebfee15c589f84a6bb1a3c90c9"
+      },
+      "expected": "success_or_safe_failure",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": true,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 8,
+          "requestId": "0d7b5f22-eddd-427e-b3e1-c727044acc7d",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "0d7b5f22-eddd-427e-b3e1-c727044acc7d",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-07",
+      "name": "near limit",
+      "input": {
+        "jdCharacters": 5041,
+        "profileCharacters": 4833,
+        "jdSha256": "ce0e3fae7420bb2da3c987f690d7afcbbf06c13af77c7a9332ff42435710387a",
+        "profileSha256": "22eceb15e9fa881e633c5f5a58482768009079b3f47553d5e0363efab16803d2"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 6,
+          "requestId": "1346ce9b-5715-493e-9ec6-cdb7bc62046b",
+          "diagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "1346ce9b-5715-493e-9ec6-cdb7bc62046b",
+            "retryable": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2E-RB-08",
+      "name": "malformed unsupported input",
+      "input": {
+        "jdCharacters": 134,
+        "profileCharacters": 103,
+        "jdSha256": "eb76eddf835b433f8a0f3115a63b1a97b5bd8d73c606d9a1d0663294d964397d",
+        "profileSha256": "adb5ea25d71c93ba8b604b4f1ee26e826af8b0fd97f3b1eb7beb8d1aa695a450"
+      },
+      "expected": "safe_failure",
+      "completed": false,
+      "stoppedAt": "jd",
+      "expectationPassed": true,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 400,
+          "latencyMs": 4,
+          "requestId": "e23fd4a3-5aac-4223-8838-4a743e94fe66",
+          "diagnostics": null,
+          "error": {
+            "code": "INVALID_INPUT",
+            "message": "请粘贴完整且长度合适的招聘信息。",
+            "request_id": "e23fd4a3-5aac-4223-8838-4a743e94fe66",
+            "retryable": false
+          }
+        }
+      ]
+    }
+  ]
+}
