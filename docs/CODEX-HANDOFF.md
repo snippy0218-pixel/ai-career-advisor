@@ -7,7 +7,7 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；OBS-003 / OBS-004 = SUPERSEDED BY ISSUE-026 / RESOLVED；Phase 2.2B-2 Strength + Gap Core = ENGINEERING STABILIZATION EVIDENCE COMPLETE / STOP FOR PRODUCT OWNER & QA FINAL GATE REVIEW；ISSUE-027 / ISSUE-028 = READY FOR PRODUCT OWNER & QA CLOSURE REVIEW；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap failed-matrix baseline：`e217e09…`；Stage 1 evidence-capture baseline：`6459795…`；Stage 2 fix baseline：`10cb901…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = AUTHORIZED / IN PROGRESS；Phase 2.4 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap failed-matrix baseline：`e217e09…`；Stage 1 evidence-capture baseline：`6459795…`；Stage 2 fix baseline：`10cb901…`；Strength + Gap final evidence baseline：`33540ef…`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
@@ -19,9 +19,10 @@
 - 已在固定 `6459795…` 上完成 prospective SG-TC-07 ×3：2 HTTP 200 + 1 HTTP 502；第 3 次 initial/repair rejected evidence 完整保存并均定性为 **Case B — Validator False Positive**。新证据不替换旧 33/36，旧六条 raw 仍为不可恢复 / INDETERMINATE；
 - Stage 2 最小修复仅调整 validator 的 bounded target-relation recognition，并新增 SG-M ownership/proficiency/employment/context boundary；Prompt/Contract/model 未变，SG-B/SG-D 原则未降低；静态 307/307、lint/build PASS；
 - 固定 `10cb901…` 已严格完成 SG-TC-07 ×3（3/3）→ 12×1（12/12）→ 新 12×3（36/36），SG-A～SG-M 全绿，post-fix repair 0/51，五类 Candidate boundary upgrade、fabrication、unknown deficiency、unsupported action 全 0；六维 internal review 综合 4.77、最低 3.8、P0=0、systemic P1=0；
-- 下一步仅为 Product Owner / QA Final Gate Review：建议关闭 ISSUE-027 / ISSUE-028 并判定 Strength + Gap Core PASS；Codex 不自行关闭或进入 Phase 2.3，不再修改产品或调用模型；
+- Product Owner / QA 已正式判定 Strength + Gap Core PASS / CLOSED，并关闭 ISSUE-027 / ISSUE-028；旧 33/36 六条 raw 仍保持 `INDETERMINATE / HISTORICAL EVIDENCE UNRECOVERABLE`，新 prospective Case B 不替换历史事实；ISSUE-028 evidence-capture 行为继续保留；
+- 当前唯一主线是 Phase 2.3 Personalized Greeting Core：只允许 validated Candidate Profile + Match + Recommendation + optional Strength 生成一条可审计、简洁、可信的 HR 首次沟通消息；Gap 只作禁止声明的边界；PG-A～PG-M 与 PG-TC-01～12 见 `docs/PHASE-2-3-GREETING-ACCEPTANCE.md`；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **只允许 Strength + Gap Core；不得进入 Phase 2.3，不得实现 greeting/简历改写/面试建议/学习计划/score/confidence/多岗位比较/自动投递，不得修改 Match Core、Recommendation、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 SG-A～SG-M 全绿也不得自行宣布 Strength + Gap PASS**。
+- **只允许 Personalized Greeting Core；不得进入 Phase 2.4，不得实现简历改写/Cover Letter/面试回答/多轮 HR Agent/自动发送/招聘网站接入/模板库/多人格风格/score/confidence，不得修改 Match Core、Recommendation、Strength/Gap、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 PG-A～PG-M 全绿也不得自行宣布 Phase 2.3 PASS**。
 
 ## 2. Phase 1 当前产品范围与边界
 

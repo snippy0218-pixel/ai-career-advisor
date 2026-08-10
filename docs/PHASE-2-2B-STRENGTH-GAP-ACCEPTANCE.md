@@ -1,8 +1,8 @@
 # Phase 2.2B-2 Acceptance — Strength + Gap Core
 
 > 日期：2026-08-10
-> 状态：**ENGINEERING STABILIZATION EVIDENCE COMPLETE / STOP FOR PRODUCT OWNER & QA FINAL GATE REVIEW**
-> Gate 边界：本文只记录 Strength + Gap Core；不自行宣布 PASS，不授权 Personalized Greeting 或其他后续功能。
+> 状态：**PASS / CLOSED（Product Owner / QA Final Gate，2026-08-10）**
+> Gate 边界：本文只记录 Strength + Gap Core；Phase 2.3 的独立授权与 Gate 见 `PHASE-2-3-GREETING-ACCEPTANCE.md`。
 
 ## 1. Scope 与事实基线
 
@@ -141,3 +141,13 @@ post-fix 合计 targeted + preflight + matrix = 51 requests，repair 0/51；未�
 - ISSUE-028 已在真实 502 上证明 initial/repair evidence、rejected fragment、MI/CF/PF trace、failure repair aggregate 与 secret scrub 可用，Exit Criteria 满足；建议 Product Owner / QA 关闭 ISSUE-028；
 - ISSUE-027 Case B 最小修复已完成全部工程验证，建议 Product Owner / QA 关闭 ISSUE-027 并判定 Phase 2.2B-2 Strength + Gap Core PASS；本文件不自行做该 Gate 决定；
 - 当前动作：**STOP FOR PRODUCT OWNER / QA FINAL GATE REVIEW**。Phase 2.3 继续 NOT AUTHORIZED。
+
+## 16. Product Owner / QA Final Gate Decision
+
+Product Owner / QA 已接受 `33540ef…` 所记录的完整 stabilization evidence，正式判定：
+
+- Phase 2.2B-2 Strength + Gap Core = **PASS / CLOSED**；
+- ISSUE-027 = **CLOSED**；ISSUE-028 = **CLOSED**；
+- ISSUE-028 rejected-output evidence capture 行为继续保留并作为后续 AI 输出验收基础设施；
+- 旧 33/36 中六条未持久化 raw output 的根因继续为 `INDETERMINATE / HISTORICAL EVIDENCE UNRECOVERABLE`，不得用 prospective Case B 追溯改写；
+- Phase 2.3 Personalized Greeting = **AUTHORIZED / IN PROGRESS**；Phase 2.4 仍未授权。
