@@ -1,0 +1,782 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "ce745ac",
+  "generatedAt": "2026-08-10T10:53:57.576Z",
+  "runPolicy": "E2E-RB-01 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 1,
+    "completedChains": 1,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 1,
+    "personalizedGreetingRepairRequests": 1,
+    "personalizedGreetingSafeFallbackRequests": 1,
+    "requestFallbackCount": 1
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 6637,
+      "average": 6637,
+      "median": 6637,
+      "p95": null,
+      "max": 6637
+    },
+    "profile": {
+      "samples": 1,
+      "min": 2694,
+      "average": 2694,
+      "median": 2694,
+      "p95": null,
+      "max": 2694
+    },
+    "match": {
+      "samples": 1,
+      "min": 2294,
+      "average": 2294,
+      "median": 2294,
+      "p95": null,
+      "max": 2294
+    },
+    "recommendation": {
+      "samples": 1,
+      "min": 2393,
+      "average": 2393,
+      "median": 2393,
+      "p95": null,
+      "max": 2393
+    },
+    "strengthGap": {
+      "samples": 1,
+      "min": 5740,
+      "average": 5740,
+      "median": 5740,
+      "p95": null,
+      "max": 5740
+    },
+    "greeting": {
+      "samples": 1,
+      "min": 4627,
+      "average": 4627,
+      "median": 4627,
+      "p95": null,
+      "max": 4627
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-01",
+      "name": "high match",
+      "input": {
+        "jdCharacters": 133,
+        "profileCharacters": 102,
+        "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+        "profileSha256": "e08b6f0f1afca4976c472441b82188ce79bb90bc3c6818a9a1cd6908bd42de7a"
+      },
+      "expected": "success",
+      "completed": true,
+      "stoppedAt": null,
+      "failureContext": null,
+      "expectationPassed": true,
+      "invariants": {
+        "X-A_candidate_truth": true,
+        "X-B_jd_truth": true,
+        "X-C_status_stability": true,
+        "X-D_unknown_stability": true,
+        "X-E_negative_evidence_stability": true,
+        "X-F_modifier_integrity": true,
+        "X-G_waiver_integrity": true,
+        "X-H_candidate_semantic_preservation": true,
+        "X-I_reference_continuity": true,
+        "X-J_no_circular_truth": true
+      },
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 6637,
+          "requestId": "eadc2935-48d5-49ae-8866-b75f021f592d",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2694,
+          "requestId": "1b570079-0470-4cbc-a0b7-2124f77138c9",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 5,
+            "pfTotal": 5,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 5,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 5,
+            "atomicClaimCount": 6,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 0,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 6,
+            "profileFactRecall": null,
+            "latencyMs": 2689,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 510,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 5,
+            "pfTotal": 5,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 5,
+              "context_only": 0,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 5,
+            "atomicClaimCount": 6,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 0,
+            "deterministicCanonicalizationCount": 1,
+            "finalFactCount": 6,
+            "profileFactRecall": null,
+            "latencyMs": 2689,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 510,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 2294,
+          "requestId": "4d31072d-8c28-453c-9478-9580f4e09554",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 3,
+            "dimensionCount": 3,
+            "statusCounts": {
+              "met": 2,
+              "partial": 1,
+              "unmet": 0,
+              "unknown": 0
+            },
+            "latencyMs": 2290,
+            "outputCompletionTokens": 346,
+            "truncatedByLength": false
+          },
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 2393,
+          "requestId": "a8c14370-e079-423a-856c-2925ae1dc2ab",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "priority",
+            "allowedRecommendationLevels": [
+              "priority",
+              "try"
+            ],
+            "supportingRefCount": 2,
+            "counterRefCount": 0,
+            "latencyMs": 2390,
+            "outputCompletionTokens": 161,
+            "truncatedByLength": false
+          },
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 200,
+          "latencyMs": 5740,
+          "requestId": "777d8cd7-53fc-4278-85e6-01412f8d9a43",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": true,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.1.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 2,
+            "gapCount": 2,
+            "strengthTypeCounts": {
+              "direct_match": 2,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 1,
+              "learnable_skill": 1,
+              "information": 0
+            },
+            "latencyMs": 5737,
+            "outputCompletionTokens": 295,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": true,
+            "strengthGapRepairSucceeded": true,
+            "initialValidationIssues": [
+              {
+                "path": "strengths.1.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              }
+            ],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 2,
+            "gapCount": 2,
+            "strengthTypeCounts": {
+              "direct_match": 2,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 1,
+              "learnable_skill": 1,
+              "information": 0
+            },
+            "latencyMs": 5737,
+            "outputCompletionTokens": 295,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": [
+              {
+                "stage": "initial",
+                "rejected": true,
+                "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有统计学本科学历，满足本科及以上学历要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人能使用 SQL 进行数据分析，满足该核心要求。\",\n      \"matchRefs\": [\"MI-002\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人参与过课程项目并涉及数据分析，尚不足以证明其具备完整的数据项目经验。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"如果候选人确实有更深入或独立完成的数据项目经历，可补充相关事实以进一步证明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"learnable_skill\",\n      \"statement\": \"现有证据显示候选人仅有课程项目经验，项目规模与深度尚不明确，数据项目经验方面仍有提升空间。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"可针对数据项目经验要求，通过参与更完整的项目练习来提升和巩固相关能力。\",\n      \"actionType\": \"learn\"\n    }\n  ]\n}",
+                "rawTextLength": 766,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "strengths": [
+                    {
+                      "type": "direct_match",
+                      "statement": "候选人具有统计学本科学历，满足本科及以上学历要求。",
+                      "matchRefs": [
+                        "MI-001"
+                      ]
+                    },
+                    {
+                      "type": "direct_match",
+                      "statement": "候选人能使用 SQL 进行数据分析，满足该核心要求。",
+                      "matchRefs": [
+                        "MI-002"
+                      ]
+                    }
+                  ],
+                  "gaps": [
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明候选人参与过课程项目并涉及数据分析，尚不足以证明其具备完整的数据项目经验。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "如果候选人确实有更深入或独立完成的数据项目经历，可补充相关事实以进一步证明。",
+                      "actionType": "evidence"
+                    },
+                    {
+                      "type": "learnable_skill",
+                      "statement": "现有证据显示候选人仅有课程项目经验，项目规模与深度尚不明确，数据项目经验方面仍有提升空间。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "可针对数据项目经验要求，通过参与更完整的项目练习来提升和巩固相关能力。",
+                      "actionType": "learn"
+                    }
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "strengths.1.statement",
+                    "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                  }
+                ],
+                "rejectedItems": [
+                  {
+                    "collection": "strengths",
+                    "index": 1,
+                    "type": "direct_match",
+                    "statement": "候选人能使用 SQL 进行数据分析，满足该核心要求。",
+                    "matchRefs": [
+                      "MI-002"
+                    ],
+                    "suggestedAction": null,
+                    "validatorRules": [
+                      "SG-B"
+                    ],
+                    "rejectionCodes": [
+                      "SG-B_REJECTED"
+                    ],
+                    "rejectionReasons": [
+                      "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                    ]
+                  }
+                ]
+              },
+              {
+                "stage": "repair",
+                "rejected": false,
+                "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有统计学本科学历，满足本科及以上学历要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人在课程项目中实际使用 SQL 进行数据分析，且日常使用 SQL，满足该核心要求。\",\n      \"matchRefs\": [\"MI-002\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人参与过课程项目并涉及数据分析，尚不足以证明其具备完整的数据项目经验。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"如果候选人确实有更深入或独立完成的数据项目经历，可补充相关事实以进一步证明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"learnable_skill\",\n      \"statement\": \"现有证据显示候选人仅有课程项目经验，项目规模与深度尚不明确，数据项目经验方面仍有提升空间。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"可针对数据项目经验要求，通过参与更完整的项目练习来提升和巩固相关能力。\",\n      \"actionType\": \"learn\"\n    }\n  ]\n}",
+                "rawTextLength": 783,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "strengths": [
+                    {
+                      "type": "direct_match",
+                      "statement": "候选人具有统计学本科学历，满足本科及以上学历要求。",
+                      "matchRefs": [
+                        "MI-001"
+                      ]
+                    },
+                    {
+                      "type": "direct_match",
+                      "statement": "候选人在课程项目中实际使用 SQL 进行数据分析，且日常使用 SQL，满足该核心要求。",
+                      "matchRefs": [
+                        "MI-002"
+                      ]
+                    }
+                  ],
+                  "gaps": [
+                    {
+                      "type": "evidence_expression",
+                      "statement": "现有证据只能证明候选人参与过课程项目并涉及数据分析，尚不足以证明其具备完整的数据项目经验。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "如果候选人确实有更深入或独立完成的数据项目经历，可补充相关事实以进一步证明。",
+                      "actionType": "evidence"
+                    },
+                    {
+                      "type": "learnable_skill",
+                      "statement": "现有证据显示候选人仅有课程项目经验，项目规模与深度尚不明确，数据项目经验方面仍有提升空间。",
+                      "matchRefs": [
+                        "MI-003"
+                      ],
+                      "suggestedAction": "可针对数据项目经验要求，通过参与更完整的项目练习来提升和巩固相关能力。",
+                      "actionType": "learn"
+                    }
+                  ]
+                },
+                "validationIssues": [],
+                "rejectedItems": []
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "stage": "greeting",
+          "status": 200,
+          "latencyMs": 4627,
+          "requestId": "410fc5a5-4d8e-4e71-9854-6f02276b11cf",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": false,
+            "personalizedGreetingRepairAttempted": true,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": true,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [
+              {
+                "path": "jobRelations",
+                "message": "Too big: expected array to have <=2 items"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 1,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-002",
+              "CF-003"
+            ],
+            "selectedMatchRefs": [
+              "MI-001",
+              "MI-002",
+              "MI-003"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001",
+              "ST-002"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 4622,
+            "outputCompletionTokens": 298,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": false,
+            "personalizedGreetingRepairAttempted": true,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": true,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [
+              {
+                "path": "jobRelations",
+                "message": "Too big: expected array to have <=2 items"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 1,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-002",
+              "CF-003"
+            ],
+            "selectedMatchRefs": [
+              "MI-001",
+              "MI-002",
+              "MI-003"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001",
+              "ST-002"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 4622,
+            "outputCompletionTokens": 298,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": [
+              {
+                "stage": "initial",
+                "rejected": true,
+                "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育背景：统计学本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-003\",\n      \"statement\": \"在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能使用 SQL 进行数据分析\"]\n    },\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"有数据项目经验者优先\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+                "rawTextLength": 770,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "greeting": "您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+                  "candidateClaims": [
+                    {
+                      "candidateFactRef": "CF-002",
+                      "statement": "教育背景：统计学本科"
+                    },
+                    {
+                      "candidateFactRef": "CF-003",
+                      "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理"
+                    }
+                  ],
+                  "jobRelations": [
+                    {
+                      "matchRef": "MI-001",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ]
+                    },
+                    {
+                      "matchRef": "MI-002",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ]
+                    },
+                    {
+                      "matchRef": "MI-003",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "有数据项目经验者优先"
+                      ]
+                    }
+                  ],
+                  "strengthRefs": [
+                    "ST-001",
+                    "ST-002"
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "jobRelations",
+                    "message": "Too big: expected array to have <=2 items"
+                  }
+                ],
+                "rejectedGreeting": "您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+                "rejectedFragments": [
+                  {
+                    "candidateFactRef": "CF-002",
+                    "statement": "教育背景：统计学本科",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  },
+                  {
+                    "candidateFactRef": "CF-003",
+                    "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  }
+                ]
+              },
+              {
+                "stage": "repair",
+                "rejected": true,
+                "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育背景：统计学本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-003\",\n      \"statement\": \"在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能使用 SQL 进行数据分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+                "rawTextLength": 651,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "greeting": "您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+                  "candidateClaims": [
+                    {
+                      "candidateFactRef": "CF-002",
+                      "statement": "教育背景：统计学本科"
+                    },
+                    {
+                      "candidateFactRef": "CF-003",
+                      "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理"
+                    }
+                  ],
+                  "jobRelations": [
+                    {
+                      "matchRef": "MI-001",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ]
+                    },
+                    {
+                      "matchRef": "MI-002",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ]
+                    }
+                  ],
+                  "strengthRefs": [
+                    "ST-001",
+                    "ST-002"
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "greeting",
+                    "message": "PG-A structured Candidate claim is missing from greeting text"
+                  }
+                ],
+                "rejectedGreeting": "您好，看到贵司数据分析岗位的招聘信息，想和您沟通一下。我的教育背景是统计学本科，在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理。这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+                "rejectedFragments": [
+                  {
+                    "candidateFactRef": "CF-002",
+                    "statement": "教育背景：统计学本科",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  },
+                  {
+                    "candidateFactRef": "CF-003",
+                    "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  }
+                ]
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    }
+  ]
+}

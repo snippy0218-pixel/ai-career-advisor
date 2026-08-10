@@ -154,6 +154,27 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("does not require a course qualifier when the same Match reason has independent daily-use evidence", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[0];
+    const matchCore = structuredClone(fixture.matchCore);
+    matchCore.matchItems[0].requirementDimensions[0].reason =
+      "候选人在课程项目中使用 SQL，且日常使用 SQL，正向证据充分。";
+    const result = finalizeRawStrengthGap(
+      {
+        strengths: [
+          {
+            type: "direct_match",
+            statement: "候选人能使用 SQL，满足该要求。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+        gaps: [],
+      },
+      matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("Case B accepts bounded support for a JD target requirement", () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const result = finalizeRawStrengthGap(

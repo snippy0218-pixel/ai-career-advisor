@@ -292,8 +292,15 @@ function hasCandidateStrongClaimUpgrade(statement: string, source: string) {
 }
 
 function hasCandidateScopeUpgrade(statement: string, source: string) {
+  const hasIndependentUnscopedSupport =
+    /(?:且|并且|同时|此外|另(?:外)?)[^，。；;]{0,12}(?:日常|实际工作中|工作中|个人)[^，。；;]{0,32}/.test(
+      source,
+    );
   return SCOPE_RULES.some(
-    (rule) => rule.source.test(source) && !rule.output.test(statement),
+    (rule) =>
+      rule.source.test(source) &&
+      !rule.output.test(statement) &&
+      !hasIndependentUnscopedSupport,
   );
 }
 

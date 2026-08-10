@@ -12,14 +12,24 @@ export const runtime = "nodejs";
 export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
   let diagnosticsForAcceptance: RecommendationDiagnostics | null = null;
+  const acceptanceDiagnosticsEnabled =
+    process.env.RECOMMENDATION_ACCEPTANCE_DIAGNOSTICS === "1";
+  const responseBody = <T extends Record<string, unknown>>(body: T) =>
+    acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
+      ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }
+      : body;
   const responseHeaders = () => {
     const headers: Record<string, string> = { "X-Request-ID": requestId };
     if (
-      process.env.RECOMMENDATION_ACCEPTANCE_DIAGNOSTICS === "1" &&
+      acceptanceDiagnosticsEnabled &&
       diagnosticsForAcceptance !== null
     ) {
+      const headerDiagnostics = {
+        ...diagnosticsForAcceptance,
+        outputEvidence: undefined,
+      };
       headers["X-Recommendation-Acceptance-Diagnostics"] = Buffer.from(
-        JSON.stringify(diagnosticsForAcceptance),
+        JSON.stringify(headerDiagnostics),
         "utf8",
       ).toString("base64url");
     }
@@ -38,6 +48,7 @@ export async function POST(request: Request) {
 
     const result = await analyzeRecommendationWithDeepSeek(parsed.data, {
       requestId,
+      captureRejectedEvidence: acceptanceDiagnosticsEnabled,
       onDiagnostics: (diagnostics) => {
         diagnosticsForAcceptance = diagnostics;
         console.info("[recommendation] request diagnostics", {
@@ -47,12 +58,12 @@ export async function POST(request: Request) {
       },
     });
     return NextResponse.json(
-      { data: result, error: null },
+      responseBody({ data: result, error: null }),
       { headers: responseHeaders() },
     );
   } catch (error) {
     const publicError = toPublicError(error, requestId);
-    return NextResponse.json(publicError.body, {
+    return NextResponse.json(responseBody(publicError.body), {
       status: publicError.status,
       headers: responseHeaders(),
     });

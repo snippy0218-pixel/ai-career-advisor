@@ -1,5 +1,9 @@
 import { ApiError } from "./api-errors";
 import {
+  captureStrengthGapOutputEvidence,
+  type StrengthGapOutputEvidence,
+} from "./strength-gap-evidence";
+import {
   finalizeRawRecommendation,
   rawRecommendationSchema,
   type FinalRecommendation,
@@ -47,6 +51,8 @@ export interface RecommendationDiagnostics {
   latencyMs: number;
   outputCompletionTokens: number;
   truncatedByLength: boolean;
+  evidenceCaptureEnabled: boolean;
+  outputEvidence: StrengthGapOutputEvidence[];
 }
 
 export interface RecommendationOptions {
@@ -56,6 +62,7 @@ export interface RecommendationOptions {
   baseUrl?: string;
   timeoutMs?: number;
   requestId?: string;
+  captureRejectedEvidence?: boolean;
   onDiagnostics?: (diagnostics: RecommendationDiagnostics) => void;
 }
 
@@ -301,6 +308,8 @@ export async function analyzeRecommendationWithDeepSeek(
     latencyMs: 0,
     outputCompletionTokens: 0,
     truncatedByLength: false,
+    evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    outputEvidence: [],
   };
 
   try {
@@ -324,6 +333,24 @@ export async function analyzeRecommendationWithDeepSeek(
     }));
 
     if (!validation.data) {
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "initial",
+            rawText: content,
+            parsedOutput: parsed,
+            parseError:
+              parsed !== null &&
+              typeof parsed === "object" &&
+              "invalidJson" in parsed
+                ? "JSON_PARSE_ERROR"
+                : null,
+            validationIssues: validation.issues,
+            rejected: true,
+            secrets: [apiKey],
+          }),
+        );
+      }
       diagnostics.recommendationRepairAttempted = true;
       const remaining = deadline - Date.now();
       if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
@@ -340,7 +367,22 @@ export async function analyzeRecommendationWithDeepSeek(
         ...issue,
       }));
       diagnostics.recommendationRepairSucceeded = validation.data !== null;
-      if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
+      if (!validation.data) {
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureStrengthGapOutputEvidence({
+              stage: "repair",
+              rawText: repairContent,
+              parsedOutput: repairParsed,
+              parseError: null,
+              validationIssues: validation.issues,
+              rejected: true,
+              secrets: [apiKey],
+            }),
+          );
+        }
+        throw new ApiError("AI_OUTPUT_INVALID", 502);
+      }
     }
 
     diagnostics.matchCoreImmutable =

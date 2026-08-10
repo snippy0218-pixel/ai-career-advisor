@@ -1,0 +1,490 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "ce745ac",
+  "generatedAt": "2026-08-10T10:52:42.780Z",
+  "runPolicy": "E2E-RB-03 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 1,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 1,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 8074,
+      "average": 8074,
+      "median": 8074,
+      "p95": null,
+      "max": 8074
+    },
+    "profile": {
+      "samples": 1,
+      "min": 2037,
+      "average": 2037,
+      "median": 2037,
+      "p95": null,
+      "max": 2037
+    },
+    "match": {
+      "samples": 1,
+      "min": 3230,
+      "average": 3230,
+      "median": 3230,
+      "p95": null,
+      "max": 3230
+    },
+    "recommendation": {
+      "samples": 1,
+      "min": 4361,
+      "average": 4361,
+      "median": 4361,
+      "p95": null,
+      "max": 4361
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-03",
+      "name": "unknown heavy",
+      "input": {
+        "jdCharacters": 154,
+        "profileCharacters": 54,
+        "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+        "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "recommendation",
+      "failureContext": {
+        "candidateProfile": {
+          "schemaVersion": "candidate-profile-v2",
+          "profileProvided": true,
+          "candidateProfile": {
+            "canonicalFacts": [
+              {
+                "factId": "CF-001",
+                "statement": "求职方向：运营",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "career_target"
+                ]
+              },
+              {
+                "factId": "CF-002",
+                "statement": "教育背景：本科",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              {
+                "factId": "CF-003",
+                "statement": "参加过校园社团活动，协助整理报名资料",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-003"
+                ],
+                "semanticTags": [
+                  "experience",
+                  "project_experience"
+                ]
+              }
+            ],
+            "careerTarget": "CF-001",
+            "education": [
+              "CF-002"
+            ],
+            "experiences": [
+              "CF-003"
+            ],
+            "projects": [
+              "CF-003"
+            ],
+            "skills": [],
+            "certificates": [],
+            "portfolio": [],
+            "preferences": [],
+            "derivedObservations": [],
+            "unknowns": [],
+            "questionsToConfirm": [],
+            "evidence": [
+              {
+                "id": "PF-001",
+                "text": "求职方向：运营"
+              },
+              {
+                "id": "PF-002",
+                "text": "教育背景：本科"
+              },
+              {
+                "id": "PF-003",
+                "text": "经历：参加过校园社团活动，协助整理报名资料"
+              },
+              {
+                "id": "PF-004",
+                "text": "其他资格、语言和行业经验暂未提供"
+              }
+            ]
+          }
+        },
+        "matchCore": {
+          "schemaVersion": "match-core-v1",
+          "jdSchemaVersion": "analysis-v1",
+          "candidateProfileSchemaVersion": "candidate-profile-v2",
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "requirement": "必须持有指定行业资格证书",
+              "requirementType": "hard_requirement",
+              "jdEvidence": [
+                "必须持有指定行业资格证书"
+              ],
+              "status": "unknown",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "必须持有指定行业资格证书",
+                  "status": "unknown",
+                  "reason": "候选人未提供任何资格证书信息，无法确认是否持有指定行业资格证书。",
+                  "jdEvidence": [
+                    "必须持有指定行业资格证书"
+                  ],
+                  "missingInformation": "候选人是否持有指定行业资格证书",
+                  "verificationQuestion": "请提供您持有的行业资格证书名称及编号。",
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [],
+                  "candidateEvidenceRole": null,
+                  "pfEvidence": []
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "requirement": "能使用日语进行专业商务谈判",
+              "requirementType": "core_requirement",
+              "jdEvidence": [
+                "能使用日语进行专业商务谈判"
+              ],
+              "status": "unknown",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用日语进行专业商务谈判",
+                  "status": "unknown",
+                  "reason": "候选人未提供任何日语能力或商务谈判经验信息，无法确认是否具备该能力。",
+                  "jdEvidence": [
+                    "能使用日语进行专业商务谈判"
+                  ],
+                  "missingInformation": "候选人的日语水平及商务谈判经验",
+                  "verificationQuestion": "请描述您的日语水平（如JLPT等级）及商务谈判经验。",
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [],
+                  "candidateEvidenceRole": null,
+                  "pfEvidence": []
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "requirement": "具有海外支付行业正式工作经验",
+              "requirementType": "core_requirement",
+              "jdEvidence": [
+                "具有海外支付行业正式工作经验"
+              ],
+              "status": "unknown",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "具有海外支付行业正式工作经验",
+                  "status": "unknown",
+                  "reason": "候选人未提供任何行业或工作经验信息，无法确认是否具有海外支付行业正式工作经验。",
+                  "jdEvidence": [
+                    "具有海外支付行业正式工作经验"
+                  ],
+                  "missingInformation": "候选人的工作经历及行业背景",
+                  "verificationQuestion": "请提供您的工作经历，特别是海外支付行业的相关经验。",
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [],
+                  "candidateEvidenceRole": null,
+                  "pfEvidence": []
+                },
+                {
+                  "dimensionType": "employment_type",
+                  "requirementFragment": "正式工作经验",
+                  "status": "unknown",
+                  "reason": "候选人未提供任何工作经历，无法确认是否具有正式工作经验。",
+                  "jdEvidence": [
+                    "具有海外支付行业正式工作经验"
+                  ],
+                  "missingInformation": "候选人的工作经历及雇佣形式",
+                  "verificationQuestion": "请提供您的工作经历，包括雇佣形式（全职/兼职等）。",
+                  "dimensionId": "DIM-002",
+                  "candidateFactRefs": [],
+                  "candidateEvidenceRole": null,
+                  "pfEvidence": []
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "requirement": "本科及以上学历",
+              "requirementType": "hard_requirement",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "status": "met",
+              "requirementDimensions": [
+                {
+                  "dimensionType": "qualification",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人明确表示教育背景为本科，满足学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null,
+                  "dimensionId": "DIM-001",
+                  "candidateFactRefs": [
+                    "CF-002"
+                  ],
+                  "candidateEvidenceRole": "positive",
+                  "pfEvidence": [
+                    "PF-002"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "recommendation": null
+      },
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 8074,
+          "requestId": "0d149dc3-f7e0-4096-85d6-1e1110e41bd9",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2037,
+          "requestId": "21407fc7-0b01-432d-a6c3-b6cac941fdf0",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 3,
+              "context_only": 1,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 3,
+            "atomicClaimCount": 3,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 3,
+            "profileFactRecall": null,
+            "latencyMs": 2027,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 309,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 3,
+              "context_only": 1,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 3,
+            "atomicClaimCount": 3,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 3,
+            "profileFactRecall": null,
+            "latencyMs": 2027,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 309,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 3230,
+          "requestId": "c23425d5-3f1e-4f83-833a-f2e97f4c5d56",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 4,
+            "dimensionCount": 5,
+            "statusCounts": {
+              "met": 1,
+              "partial": 0,
+              "unmet": 0,
+              "unknown": 3
+            },
+            "latencyMs": 3222,
+            "outputCompletionTokens": 509,
+            "truncatedByLength": false
+          },
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 502,
+          "latencyMs": 4361,
+          "requestId": "cc1e196e-b6c4-4f80-b58d-f2561dc97f24",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": true,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [
+              {
+                "path": "questionsToConfirm",
+                "message": "R-K MI-001 hard unknown requires a Candidate-information question"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "questionsToConfirm",
+                "message": "R-K MI-001 hard unknown requires a Candidate-information question"
+              }
+            ],
+            "finalSchemaValidationPassed": false,
+            "allowedLevelValidationPassed": false,
+            "referenceValidationPassed": false,
+            "statusFidelityPassed": false,
+            "unknownPreservationPassed": false,
+            "hardGapExplanationPassed": false,
+            "waiverEvidenceIntegrityPassed": false,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": null,
+            "allowedRecommendationLevels": [],
+            "supportingRefCount": 0,
+            "counterRefCount": 0,
+            "latencyMs": 4353,
+            "outputCompletionTokens": 299,
+            "truncatedByLength": false
+          },
+          "acceptanceDiagnostics": null,
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "cc1e196e-b6c4-4f80-b58d-f2561dc97f24",
+            "retryable": true
+          }
+        }
+      ]
+    }
+  ]
+}

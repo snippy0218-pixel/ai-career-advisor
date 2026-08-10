@@ -113,6 +113,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
         {
           apiKey: "test-key",
           fetchImpl,
+          captureRejectedEvidence: true,
           onDiagnostics: (value) => {
             diagnostics = value;
           },
@@ -130,6 +131,13 @@ describe("analyzeRecommendationWithDeepSeek", () => {
         expect.objectContaining({ message: expect.stringContaining("unknown") }),
       ]),
     );
+    expect(diagnostics).toMatchObject({
+      evidenceCaptureEnabled: true,
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: true }),
+      ],
+    });
   });
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {

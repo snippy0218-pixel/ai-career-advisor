@@ -7,9 +7,9 @@ import {
   buildRecommendationMatchLedger,
 } from "./recommendation-schema";
 
-export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.3" as const;
+export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.4" as const;
 export const RECOMMENDATION_REPAIR_PROMPT_VERSION =
-  "recommendation-repair-v1.3" as const;
+  "recommendation-repair-v1.4" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -66,7 +66,7 @@ export function buildRecommendationRepairMessages(
     { role: "system", content: SYSTEM_RULES },
     {
       role: "user",
-      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。若问题以 R-K 开头，彻底删除没有 waiverEligibleMatchRefs/alternativeQualificationMatchRefs 支持的 waiver、放宽、豁免、例外、弹性、替代条件、替代资格、弥补、抵消、折算或具体其他/同等资格等词语，否定套话与括号举例也删除；generic waiver evidence 只允许开放式询问放宽标准，不支持自行提出具体替代机制；改为直接陈述 unmet/unknown 或开放式确认 requirement strictness。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
+      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。若 R-K 明确要求 hard unknown 的 Candidate-information question，必须新增一条独立 question，直接询问 Candidate 本人是否具备该 MI 对应的学历/资格/证书/经验事实，并引用该 MI；HR 门槛严格性问题不能替代 Candidate 事实问题。对其他 R-K，彻底删除没有 waiverEligibleMatchRefs/alternativeQualificationMatchRefs 支持的 waiver、放宽、豁免、例外、弹性、替代条件、替代资格、弥补、抵消、折算或具体其他/同等资格等词语，否定套话与括号举例也删除；generic waiver evidence 只允许开放式询问放宽标准，不支持自行提出具体替代机制；改为直接陈述 unmet/unknown 或开放式确认 requirement strictness。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
     },
   ];
 }
