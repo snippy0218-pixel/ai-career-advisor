@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+import { findUnsupportedModifiers } from "./modifier-integrity";
+import { hasInvalidTransportCharacters } from "./input-integrity";
+
 export const MIN_JD_LENGTH = 100;
 export const MAX_JD_LENGTH = 12_000;
 export const ANALYSIS_SCHEMA_VERSION = "analysis-v1" as const;
@@ -23,7 +26,11 @@ export const analyzeJobRequestSchema = z
       .string()
       .trim()
       .min(MIN_JD_LENGTH, `招聘 JD 至少需要 ${MIN_JD_LENGTH} 个字符`)
-      .max(MAX_JD_LENGTH, `招聘 JD 不能超过 ${MAX_JD_LENGTH} 个字符`),
+      .max(MAX_JD_LENGTH, `招聘 JD 不能超过 ${MAX_JD_LENGTH} 个字符`)
+      .refine(
+        (value) => !hasInvalidTransportCharacters(value),
+        "招聘 JD 包含损坏或不支持的控制字符，请重新复制原文",
+      ),
   })
   .strict();
 
@@ -342,6 +349,20 @@ function addSourceProtocolIssues(
       message: "unsupported deterministic growth claim",
     });
   }
+
+  const unsupportedModifiers = findUnsupportedModifiers(
+    combinedText,
+    item.evidence,
+  );
+  if (unsupportedModifiers.length > 0) {
+    context.addIssue({
+      code: "custom",
+      path: [...path, "content"],
+      message: `unsupported modifier upgrade: ${unsupportedModifiers
+        .map((item) => `${item.category}:${item.value}`)
+        .join(", ")}`,
+    });
+  }
 }
 
 export interface HrGreetingBoundaryViolation {
@@ -634,6 +655,20 @@ export const jobAnalysisSchema = jobAnalysisStructureSchema.superRefine(
         code: "custom",
         path: ["applicationAdvice", "summary"],
         message: "unsupported deterministic growth claim",
+      });
+    }
+
+    const summaryModifiers = findUnsupportedModifiers(
+      value.applicationAdvice.summary,
+      value.applicationAdvice.reasons.flatMap((item) => item.evidence),
+    );
+    if (summaryModifiers.length > 0) {
+      context.addIssue({
+        code: "custom",
+        path: ["applicationAdvice", "summary"],
+        message: `unsupported modifier upgrade: ${summaryModifiers
+          .map((item) => `${item.category}:${item.value}`)
+          .join(", ")}`,
       });
     }
   },

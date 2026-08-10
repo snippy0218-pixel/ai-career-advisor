@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { findUnsupportedModifiers } from "./modifier-integrity";
+
 import {
   finalMatchCoreSchema,
   type FinalMatchCore,
@@ -642,6 +644,49 @@ export function finalizeRawRecommendation(
       "Recommendation must reference Match Items instead of creating Candidate facts",
     );
   }
+
+  const ledgerEvidence = (items: RecommendationMatchLedgerItem[]) =>
+    items.flatMap((item) => [
+      item.requirement,
+      ...item.jdEvidence,
+      ...item.dimensions.flatMap((dimension) => [
+        dimension.requirementFragment,
+        dimension.reason,
+        ...dimension.jdEvidence,
+      ]),
+    ]);
+  const summaryModifiers = findUnsupportedModifiers(
+    raw.summary,
+    ledgerEvidence(ledger),
+  );
+  if (summaryModifiers.length > 0) {
+    addIssue(
+      issues,
+      "summary",
+      `R-L unsupported modifier upgrade: ${summaryModifiers
+        .map((item) => `${item.category}:${item.value}`)
+        .join(", ")}`,
+    );
+  }
+  raw.limitations.forEach((entry, index) => {
+    const referenced = entry.matchItemRefs.flatMap((ref) => {
+      const item = byRef.get(ref);
+      return item ? [item] : [];
+    });
+    const unsupported = findUnsupportedModifiers(
+      entry.content,
+      ledgerEvidence(referenced),
+    );
+    if (unsupported.length > 0) {
+      addIssue(
+        issues,
+        `limitations.${index}.content`,
+        `R-L unsupported modifier upgrade: ${unsupported
+          .map((item) => `${item.category}:${item.value}`)
+          .join(", ")}`,
+      );
+    }
+  });
 
   if (issues.length > 0) return { data: null, issues };
   const parsed = finalRecommendationSchema.safeParse({

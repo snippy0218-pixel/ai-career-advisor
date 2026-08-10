@@ -10,6 +10,7 @@ import {
   type FinalCanonicalCandidateFact,
   type FinalProfileStructure,
 } from "./profile-schema";
+import { findUnsupportedModifiers } from "./modifier-integrity";
 
 export const MATCH_SCHEMA_VERSION = "match-core-v1" as const;
 
@@ -364,6 +365,27 @@ export function finalizeRawMatchCore(
             pfEvidence.push(pfId);
           }
         }
+      }
+
+      const modifierEvidence = [
+        ...uniqueJdEvidence,
+        ...factRefs.flatMap((factId) => {
+          const fact = factById.get(factId);
+          return fact ? [fact.statement] : [];
+        }),
+      ];
+      const unsupportedModifiers = findUnsupportedModifiers(
+        `${dimension.requirementFragment} ${dimension.reason}`,
+        modifierEvidence,
+      );
+      if (unsupportedModifiers.length > 0) {
+        addIssue(
+          issues,
+          `${dimensionPath}.reason`,
+          `M-K unsupported modifier upgrade: ${unsupportedModifiers
+            .map((item) => `${item.category}:${item.value}`)
+            .join(", ")}`,
+        );
       }
 
       if (dimension.status === "met" || dimension.status === "unmet") {

@@ -32,6 +32,18 @@ describe("finalizeRawStrengthGap", () => {
     }
   });
 
+  it("SG-N rejects unsupported modifiers in a Strength statement", () => {
+    const fixture = STRENGTH_GAP_FIXTURES.find((item) => item.validRaw.strengths.length > 0)!;
+    const raw = structuredClone(fixture.validRaw);
+    raw.strengths[0].statement += "，可频繁承担相关任务";
+    const result = finalizeRawStrengthGap(raw, fixture.matchCore);
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("SG-N unsupported modifier upgrade") }),
+      ]),
+    );
+  });
+
   it("SG-A rejects omission and ineligible Strength evidence", () => {
     const fixture = STRENGTH_GAP_FIXTURES[0];
     const omitted = finalizeRawStrengthGap(

@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "qa:phase2.4": "node scripts/run-phase-2-4-e2e-robustness.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

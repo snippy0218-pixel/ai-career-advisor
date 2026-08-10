@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  analyzeProfileRequestSchema,
   buildProfileEvidenceLedger,
   findSemanticUpgradeViolations,
   finalProfileStructureSchema,
@@ -10,6 +11,16 @@ import {
   rawPfCoverageItemSchema,
   resolveEvidenceToPf,
 } from "./profile-schema";
+
+describe("profile input integrity", () => {
+  it("rejects objective transport corruption and preserves readable partial copy/paste", () => {
+    const partial = "教育背景：本科。技能：了解 SQL；其他经历暂未补充。";
+    expect(analyzeProfileRequestSchema.safeParse({ profileText: partial }).success).toBe(true);
+    expect(
+      analyzeProfileRequestSchema.safeParse({ profileText: `${partial}\uFFFD` }).success,
+    ).toBe(false);
+  });
+});
 
 describe("buildProfileEvidenceLedger", () => {
   it("assigns stable sequential PF ids per non-empty line and dedupes", () => {

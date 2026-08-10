@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { finalMatchCoreSchema, type FinalMatchCore } from "./match-schema";
+import { findUnsupportedModifiers } from "./modifier-integrity";
 
 export const STRENGTH_GAP_SCHEMA_VERSION = "strength-gap-core-v1" as const;
 
@@ -364,6 +365,28 @@ export function finalizeRawStrengthGap(
       addIssue(issues, `${path}.matchRefs`, "SG-I unknown Match reference");
       return;
     }
+    const modifierEvidence = items.flatMap((item) => [
+      item.requirement,
+      ...item.jdEvidence,
+      ...item.dimensions.flatMap((dimension) => [
+        dimension.requirementFragment,
+        dimension.reason,
+        ...dimension.jdEvidence,
+      ]),
+    ]);
+    const unsupportedModifiers = findUnsupportedModifiers(
+      entry.statement,
+      modifierEvidence,
+    );
+    if (unsupportedModifiers.length > 0) {
+      addIssue(
+        issues,
+        `${path}.statement`,
+        `SG-N unsupported modifier upgrade: ${unsupportedModifiers
+          .map((item) => `${item.category}:${item.value}`)
+          .join(", ")}`,
+      );
+    }
     if (
       entry.type === "direct_match" &&
       !items.every(
@@ -440,6 +463,28 @@ export function finalizeRawStrengthGap(
     if (items.length !== entry.matchRefs.length) {
       addIssue(issues, `${path}.matchRefs`, "SG-I unknown Match reference");
       return;
+    }
+    const modifierEvidence = items.flatMap((item) => [
+      item.requirement,
+      ...item.jdEvidence,
+      ...item.dimensions.flatMap((dimension) => [
+        dimension.requirementFragment,
+        dimension.reason,
+        ...dimension.jdEvidence,
+      ]),
+    ]);
+    const unsupportedModifiers = findUnsupportedModifiers(
+      entry.statement,
+      modifierEvidence,
+    );
+    if (unsupportedModifiers.length > 0) {
+      addIssue(
+        issues,
+        `${path}.statement`,
+        `SG-N unsupported modifier upgrade: ${unsupportedModifiers
+          .map((item) => `${item.category}:${item.value}`)
+          .join(", ")}`,
+      );
     }
     const expectedAction: Record<GapType, GapActionType> = {
       hard_constraint: "structural",

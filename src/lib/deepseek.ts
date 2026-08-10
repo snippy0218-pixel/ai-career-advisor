@@ -33,6 +33,7 @@ import {
   type JobAnalysis,
   type RawJobAnalysis,
 } from "./analysis-schema";
+import { stripUnsupportedModifiers } from "./modifier-integrity";
 import { ApiError } from "./api-errors";
 import {
   buildAdviceEvidenceRepairMessages,
@@ -97,6 +98,8 @@ export interface AnalysisDiagnostics {
   remappedEvidenceCount: number;
   removedInvalidEvidenceCount: number;
   removedDuplicateEvidenceCount: number;
+  supplementedRequirementCount: number;
+  deduplicatedRequirementCount: number;
   removedEvidenceSamples: Array<{
     path: string;
     evidence: string;
@@ -434,6 +437,104 @@ function normalizeRequirementItems(
   );
 }
 
+type NormalizedRequirement = Omit<RawRequirement, "evidence"> & {
+  evidence: string[];
+};
+
+function requirementSectionLines(jdText: string) {
+  const lines = jdText.split(/\r?\n/);
+  const result: string[] = [];
+  let inRequirements = false;
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) continue;
+    if (/^(?:任职要求|职位要求|岗位要求|资格要求|基本要求|加分项|优先条件)\s*[：:]?/.test(line)) {
+      inRequirements = true;
+      const sameLine = line.replace(
+        /^(?:任职要求|职位要求|岗位要求|资格要求|基本要求|加分项|优先条件)\s*[：:]?\s*/,
+        "",
+      );
+      if (sameLine) result.push(sameLine);
+      continue;
+    }
+    if (
+      inRequirements &&
+      /^(?:岗位职责|工作职责|职位描述|工作内容|岗位描述|福利待遇|薪资福利)\s*[：:]?/.test(
+        line,
+      )
+    ) {
+      inRequirements = false;
+      continue;
+    }
+    if (inRequirements) result.push(line);
+  }
+
+  return result.map((line) =>
+    line.replace(/^(?:[（(]?\d+[）).、．]|[-—•·])\s*/, "").trim(),
+  );
+}
+
+// ISSUE-017: if the model emitted one exact clause of an explicitly separable
+// requirement line but silently omitted its sibling clause, restore only that
+// verbatim sibling. This is deliberately narrower than a general JD parser.
+function supplementSeparableRequirementClauses(
+  requirements: NormalizedRequirement[],
+  jdText: string,
+  diagnostics: AnalysisDiagnostics,
+  questions: ConfirmQuestion[],
+) {
+  const supplemented = [...requirements];
+  const isCovered = (fragment: string) =>
+    supplemented.some((item) =>
+      item.evidence.some(
+        (evidence) => evidence === fragment || evidence.includes(fragment),
+      ),
+    );
+
+  for (const line of requirementSectionLines(jdText)) {
+    const split = findSeparableQualifierSplit(line);
+    if (!split) continue;
+    const covered = split.map(isCovered);
+    if (covered.filter(Boolean).length !== 1) continue;
+    const missingIndex = covered[0] ? 1 : 0;
+    const missing = split[missingIndex];
+    if (missing.length < 4 || !isEvidenceInJd(missing, jdText)) continue;
+    const source = supplemented.find((item) =>
+      item.evidence.some((evidence) => evidence === split[covered[0] ? 0 : 1]),
+    );
+    if (!source) continue;
+    supplemented.push(
+      normalizeRequirement(
+        { ...source, content: missing, evidence: [missing] },
+        jdText,
+        diagnostics,
+        questions,
+        `requirements.supplemented${diagnostics.supplementedRequirementCount}`,
+      ),
+    );
+    diagnostics.supplementedRequirementCount += 1;
+  }
+
+  return supplemented;
+}
+
+function deduplicateRequirements(
+  requirements: NormalizedRequirement[],
+  diagnostics: AnalysisDiagnostics,
+) {
+  const seen = new Set<string>();
+  return requirements.filter((item) => {
+    const key = `${item.requirementType}\u0000${item.content}\u0000${item.evidence.join("\u0001")}`;
+    if (seen.has(key)) {
+      diagnostics.deduplicatedRequirementCount += 1;
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
 function normalizeProfileItem(
   item: RawProfileItem,
   jdText: string,
@@ -443,8 +544,16 @@ function normalizeProfileItem(
 ) {
   const evidence = normalizeEvidence(item.evidence, jdText, diagnostics, path);
   let sourceType = item.sourceType;
-  const boundedGrowthContent = normalizeGrowthBoundary(item.content, evidence);
-  const content = boundedGrowthContent ?? item.content;
+  const modifierBoundedContent = stripUnsupportedModifiers(item.content, evidence);
+  const modifierBoundedExplanation = stripUnsupportedModifiers(
+    item.explanation,
+    evidence,
+  );
+  const boundedGrowthContent = normalizeGrowthBoundary(
+    modifierBoundedContent,
+    evidence,
+  );
+  const content = boundedGrowthContent ?? modifierBoundedContent;
 
   if (
     boundedGrowthContent ||
@@ -461,11 +570,19 @@ function normalizeProfileItem(
     const verificationQuestion =
       item.verificationQuestion ?? buildVerificationQuestion(content);
     addVerificationQuestion(questions, verificationQuestion, content);
-    return { ...item, content, sourceType, evidence, verificationQuestion };
+    return {
+      ...item,
+      content,
+      explanation: modifierBoundedExplanation,
+      sourceType,
+      evidence,
+      verificationQuestion,
+    };
   }
 
   return {
     ...item,
+    explanation: modifierBoundedExplanation,
     content:
       sourceType === "inference"
         ? normalizeInferenceContent(content)
@@ -581,8 +698,12 @@ function normalizeAdviceReason(
   questions: ConfirmQuestion[],
 ) {
   let sourceType = item.sourceType;
-  const boundedGrowthContent = normalizeGrowthBoundary(item.content, evidence);
-  const content = boundedGrowthContent ?? item.content;
+  const modifierBoundedContent = stripUnsupportedModifiers(item.content, evidence);
+  const boundedGrowthContent = normalizeGrowthBoundary(
+    modifierBoundedContent,
+    evidence,
+  );
+  const content = boundedGrowthContent ?? modifierBoundedContent;
 
   if (boundedGrowthContent || requiresHrVerification(content)) {
     sourceType = "to_verify";
@@ -659,9 +780,7 @@ function prepareAnalysis(
     },
   );
 
-  const requirements: Array<
-    Omit<RawRequirement, "evidence"> & { evidence: string[] }
-  > = [];
+  const normalizedRequirements: NormalizedRequirement[] = [];
   rawAnalysis.data.roleProfile.requirements.forEach((item, index) => {
     const normalizedItems = normalizeRequirementItems(
       item,
@@ -672,21 +791,30 @@ function prepareAnalysis(
     );
 
     for (const normalized of normalizedItems) {
-      const outputIndex = requirements.length;
-      requirements.push(normalized);
-
-      if (normalized.evidence.length === 0) {
-        requirementRepairCandidates.push({
-          index: outputIndex,
-          requirement: {
-            content: normalized.content,
-            explanation: normalized.explanation,
-            requirementType: normalized.requirementType,
-            sourceType: normalized.sourceType,
-            verificationQuestion: normalized.verificationQuestion,
-          },
-        });
-      }
+      normalizedRequirements.push(normalized);
+    }
+  });
+  const requirements = deduplicateRequirements(
+    supplementSeparableRequirementClauses(
+      normalizedRequirements,
+      jdText,
+      diagnostics,
+      questionsToConfirm,
+    ),
+    diagnostics,
+  );
+  requirements.forEach((normalized, index) => {
+    if (normalized.evidence.length === 0) {
+      requirementRepairCandidates.push({
+        index,
+        requirement: {
+          content: normalized.content,
+          explanation: normalized.explanation,
+          requirementType: normalized.requirementType,
+          sourceType: normalized.sourceType,
+          verificationQuestion: normalized.verificationQuestion,
+        },
+      });
     }
   });
   const workCharacteristics =
@@ -745,12 +873,17 @@ function prepareAnalysis(
     },
   );
 
-  const boundedAdviceSummary = normalizeGrowthBoundary(
+  const adviceEvidence = reasons.flatMap((item) => item.evidence);
+  const modifierBoundedAdviceSummary = stripUnsupportedModifiers(
     rawAnalysis.data.applicationAdvice.summary,
-    reasons.flatMap((item) => item.evidence),
+    adviceEvidence,
+  );
+  const boundedAdviceSummary = normalizeGrowthBoundary(
+    modifierBoundedAdviceSummary,
+    adviceEvidence,
   );
   const applicationAdviceSummary =
-    boundedAdviceSummary ?? rawAnalysis.data.applicationAdvice.summary;
+    boundedAdviceSummary ?? modifierBoundedAdviceSummary;
   const applicationAdviceSourceType =
     boundedAdviceSummary || requiresHrVerification(applicationAdviceSummary)
     ? "to_verify"
@@ -1506,6 +1639,8 @@ export async function analyzeJobWithDeepSeek(
     remappedEvidenceCount: 0,
     removedInvalidEvidenceCount: 0,
     removedDuplicateEvidenceCount: 0,
+    supplementedRequirementCount: 0,
+    deduplicatedRequirementCount: 0,
     removedEvidenceSamples: [],
     targetedRepairAttempted: false,
     targetedRepairSucceeded: false,

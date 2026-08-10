@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
+import { hasInvalidTransportCharacters } from "./input-integrity";
 
 export const PROFILE_SCHEMA_VERSION = "candidate-profile-v2" as const;
 
@@ -20,7 +21,11 @@ export const analyzeProfileRequestSchema = z
       .string()
       .trim()
       .min(MIN_PROFILE_LENGTH, `候选人资料至少需要 ${MIN_PROFILE_LENGTH} 个字符`)
-      .max(MAX_PROFILE_LENGTH, `候选人资料不能超过 ${MAX_PROFILE_LENGTH} 个字符`),
+      .max(MAX_PROFILE_LENGTH, `候选人资料不能超过 ${MAX_PROFILE_LENGTH} 个字符`)
+      .refine(
+        (value) => !hasInvalidTransportCharacters(value),
+        "候选人资料包含损坏或不支持的控制字符，请重新复制原文",
+      ),
   })
   .strict();
 

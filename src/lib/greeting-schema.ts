@@ -15,6 +15,7 @@ import {
   WAIVER_CLAIM_PATTERN,
 } from "./recommendation-schema";
 import { finalStrengthGapSchema } from "./strength-gap-schema";
+import { findUnsupportedModifiers } from "./modifier-integrity";
 
 export const GREETING_SCHEMA_VERSION = "personalized-greeting-v1" as const;
 
@@ -445,6 +446,29 @@ export function finalizeRawPersonalizedGreeting(
     ) {
       addIssue(issues, `jobRelations.${index}.jdEvidence`, "PG-D JD evidence is not traceable to Match Core");
     }
+    const modifierEvidence = [
+      item.requirement,
+      ...item.jdEvidence,
+      ...item.requirementDimensions.flatMap((dimension) => [
+        dimension.requirementFragment,
+        dimension.reason,
+        ...dimension.jdEvidence,
+      ]),
+      ...raw.candidateClaims.map((claim) => claim.statement),
+    ];
+    const unsupportedModifiers = findUnsupportedModifiers(
+      relation.statement,
+      modifierEvidence,
+    );
+    if (unsupportedModifiers.length > 0) {
+      addIssue(
+        issues,
+        `jobRelations.${index}.statement`,
+        `PG-N unsupported modifier upgrade: ${unsupportedModifiers
+          .map((modifier) => `${modifier.category}:${modifier.value}`)
+          .join(", ")}`,
+      );
+    }
   });
 
   if (!BOUNDED_RELATION_PATTERN.test(raw.greeting)) {
@@ -503,6 +527,22 @@ export function finalizeRawPersonalizedGreeting(
   const selectedFactText = raw.candidateClaims
     .map((claim) => claim.statement)
     .join(" ");
+  const greetingModifiers = findUnsupportedModifiers(raw.greeting, [
+    selectedFactText,
+    ...raw.jobRelations.flatMap((relation) => [
+      relation.statement,
+      ...relation.jdEvidence,
+    ]),
+  ]);
+  if (greetingModifiers.length > 0) {
+    addIssue(
+      issues,
+      "greeting",
+      `PG-N unsupported modifier upgrade: ${greetingModifiers
+        .map((modifier) => `${modifier.category}:${modifier.value}`)
+        .join(", ")}`,
+    );
+  }
   for (const signal of unknownSignals(request.matchCore)) {
     if (
       signal.length >= 2 &&

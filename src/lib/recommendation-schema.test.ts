@@ -19,6 +19,19 @@ describe("Recommendation Core deterministic contract", () => {
     },
   );
 
+  it("R-L rejects unsupported modifiers in a recommendation summary", () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const result = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: `${fixture.validRaw.summary} 候选人能够频繁承担相关工作。` },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("R-L unsupported modifier upgrade") }),
+      ]),
+    );
+  });
+
   it.each(RECOMMENDATION_FIXTURES)(
     "$id finalizes a strict evidence-bound recommendation",
     (fixture) => {

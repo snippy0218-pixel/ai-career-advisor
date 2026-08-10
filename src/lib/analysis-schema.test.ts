@@ -26,6 +26,16 @@ function analysisWithRequirement(
 }
 
 describe("analysis schema", () => {
+  it("rejects objective JD transport corruption without rejecting unusual readable punctuation", () => {
+    const readable = `岗位说明：${"职责、要求；待确认！？".repeat(12)}`;
+    expect(analyzeJobRequestSchema.safeParse({ jdText: readable }).success).toBe(true);
+    expect(
+      analyzeJobRequestSchema.safeParse({ jdText: `${readable}\uFFFD` }).success,
+    ).toBe(false);
+    expect(
+      analyzeJobRequestSchema.safeParse({ jdText: `${readable}\u0000` }).success,
+    ).toBe(false);
+  });
   it("accepts a valid Phase 1 analysis", () => {
     expect(jobAnalysisSchema.parse(validAnalysis)).toEqual(validAnalysis);
   });

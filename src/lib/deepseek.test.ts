@@ -1302,6 +1302,90 @@ describe("ISSUE-020 mixed hard+preferred compound split", () => {
   });
 });
 
+describe("Phase 2.4 requirement completeness and deduplication", () => {
+  it("ISSUE-017 restores a verbatim preferred sibling when the model emitted only the hard clause", async () => {
+    const jdText = requirementJd(
+      "1、统招本科及以上学历，计算机相关专业优先",
+    );
+    const analysis = analysisWithRequirement(jdText, "统招本科及以上学历");
+    const diagnostics = vi.fn();
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    fetchMock.mockResolvedValue(successfulResponse(analysis));
+
+    const result = await analyzeJobWithDeepSeek(
+      { jdText },
+      {
+        fetchImpl: fetchMock,
+        apiKey: "test-key",
+        timeoutMs: 2_000,
+        onDiagnostics: diagnostics,
+      },
+    );
+
+    expect(result.roleProfile.requirements).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          content: "统招本科及以上学历",
+          requirementType: "hard_requirement",
+        }),
+        expect.objectContaining({
+          content: "计算机相关专业优先",
+          requirementType: "preferred_requirement",
+          evidence: ["计算机相关专业优先"],
+        }),
+      ]),
+    );
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({ supplementedRequirementCount: 1 }),
+    );
+  });
+
+  it("ISSUE-023 removes stable duplicates when split items and the full compound are both emitted", async () => {
+    const jdText = requirementJd(
+      "5、能流利使用英语进行专业交流，熟悉印尼语者优先",
+    );
+    const analysis = analysisWithRequirement(
+      jdText,
+      "能流利使用英语进行专业交流",
+    );
+    analysis.roleProfile.requirements = [
+      analysis.roleProfile.requirements[0],
+      {
+        ...analysis.roleProfile.requirements[0],
+        content: "熟悉印尼语者优先",
+        evidence: ["熟悉印尼语者优先"],
+      },
+      {
+        ...analysis.roleProfile.requirements[0],
+        content: "能流利使用英语进行专业交流，熟悉印尼语者优先",
+        evidence: ["能流利使用英语进行专业交流，熟悉印尼语者优先"],
+      },
+    ];
+    const diagnostics = vi.fn();
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    fetchMock.mockResolvedValue(successfulResponse(analysis));
+
+    const result = await analyzeJobWithDeepSeek(
+      { jdText },
+      {
+        fetchImpl: fetchMock,
+        apiKey: "test-key",
+        timeoutMs: 2_000,
+        onDiagnostics: diagnostics,
+      },
+    );
+
+    expect(result.roleProfile.requirements).toHaveLength(2);
+    expect(result.roleProfile.requirements.map((item) => item.content)).toEqual([
+      "能流利使用英语进行专业交流",
+      "熟悉印尼语者优先",
+    ]);
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({ deduplicatedRequirementCount: 2 }),
+    );
+  });
+});
+
 describe("ISSUE-022 qualifier + core compound split", () => {
   it("splits TC-09 A into hard + core", async () => {
     const jdLine =

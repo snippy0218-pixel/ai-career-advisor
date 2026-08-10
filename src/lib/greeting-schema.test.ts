@@ -34,6 +34,21 @@ describe("personalized greeting schema", () => {
     }
   });
 
+  it("PG-N rejects an unsupported modifier in a Job relation", () => {
+    const issues = issuesFor(0, (raw) => {
+      raw.jobRelations[0].statement += "，可用于频繁承担相关职责";
+      raw.greeting = raw.greeting.replace(
+        raw.jobRelations[0].statement.replace("，可用于频繁承担相关职责", ""),
+        raw.jobRelations[0].statement,
+      );
+    });
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("PG-N unsupported modifier upgrade") }),
+      ]),
+    );
+  });
+
   it("selects at most two positive Candidate Facts and prioritizes critical evidence", () => {
     const selection = buildGreetingFactSelection(GREETING_FIXTURES[1].request);
     expect(selection.map((item) => item.candidateFact.factId)).toEqual([

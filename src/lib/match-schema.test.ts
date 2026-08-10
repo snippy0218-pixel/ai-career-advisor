@@ -522,6 +522,17 @@ describe("M-J Requirement Set Integrity", () => {
     ]);
   });
 
+  it("M-K rejects an unsupported frequency modifier in a Match observation", () => {
+    const item = unknownItem(0);
+    item.dimensions[0].reason = "候选人资料显示可频繁处理该要求。";
+    const result = finalizeRequirementSet([item, unknownItem(1), unknownItem(2), unknownItem(3)]);
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("M-K unsupported modifier upgrade") }),
+      ]),
+    );
+  });
+
   it("MJ-TC-02 rejects a missing requirement", () => {
     const result = finalizeRequirementSet([0, 1, 2].map(unknownItem));
     expect(result.data).toBeNull();
