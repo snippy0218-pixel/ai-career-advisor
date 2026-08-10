@@ -7,7 +7,12 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = ENGINEERING EVIDENCE COMPLETE / AWAITING PRODUCT OWNER & QA FINAL GATE；Phase 2.4 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap final evidence baseline：`33540ef…`；Greeting initial/final implementation commits：`bce6280…` / `b2751c0…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = AUTHORIZED / IN PROGRESS；Phase 2.5 Final Regression / Release Gate = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Phase 2.4 starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`；Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap final evidence baseline：`33540ef…`；Greeting initial/final implementation commits：`bce6280…` / `b2751c0…`。
+
+- Product Owner / QA 已正式判定 Phase 2.3 Personalized Greeting PASS / CLOSED，并接受 12/12 preflight、36/36 clean matrix、PG-A～PG-M、333/333、lint/build 与 upstream regression 0；
+- Phase 2.4 仅治理 backlog、robustness、failure path、cross-module consistency、latency/repair/fallback、input/error、evidence/diagnostics 与小型 raw-input full-chain integration；不得增加用户功能；
+- `OBS-005 — Long-tail Phase 2 Latency` = Observe：Phase 2.3 历史 average 约 3,656 ms、max 37,268 ms；先测量各生成阶段，不为单个 outlier 建复杂架构；
+- 本阶段主文档与 Gate 状态见 `docs/PHASE-2-4-QUALITY-ROBUSTNESS.md`；即使 Q-A～Q-J 全绿，也只能申请 Phase 2.4 PASS / Ready for Phase 2.5，不得自行进入 Phase 2.5。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
@@ -21,9 +26,9 @@
 - 固定 `10cb901…` 已严格完成 SG-TC-07 ×3（3/3）→ 12×1（12/12）→ 新 12×3（36/36），SG-A～SG-M 全绿，post-fix repair 0/51，五类 Candidate boundary upgrade、fabrication、unknown deficiency、unsupported action 全 0；六维 internal review 综合 4.77、最低 3.8、P0=0、systemic P1=0；
 - Product Owner / QA 已正式判定 Strength + Gap Core PASS / CLOSED，并关闭 ISSUE-027 / ISSUE-028；旧 33/36 六条 raw 仍保持 `INDETERMINATE / HISTORICAL EVIDENCE UNRECOVERABLE`，新 prospective Case B 不替换历史事实；ISSUE-028 evidence-capture 行为继续保留；
 - Phase 2.3 Personalized Greeting Core 工程证据已完成：固定 `b2751c0…` 的 12×1 为 12/12、12×3 为 36/36，PG-A～PG-M 全绿；clean matrix normal 33、repair 0、personalized fallback 0、PG-TC-12 预期 Phase 1 fallback 3；333/333、lint、build PASS；完整证据与失败历史见 `docs/PHASE-2-3-GREETING-ACCEPTANCE.md` 及 `docs/acceptance-artifacts/phase-2-3-greeting/`；
-- 当前唯一允许动作是 Product Owner / QA Phase 2.3 Final Gate Review 所需的证据说明或明确授权收尾；不得继续产品扩展，不得自行宣布 Phase 2.3 PASS；
+- 当前允许动作仅为 Phase 2.4 Quality & Robustness 已授权范围；Phase 2.5 Final Regression / Release Gate 仍未授权；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **只允许 Personalized Greeting Core；不得进入 Phase 2.4，不得实现简历改写/Cover Letter/面试回答/多轮 HR Agent/自动发送/招聘网站接入/模板库/多人格风格/score/confidence，不得修改 Match Core、Recommendation、Strength/Gap、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 PG-A～PG-M 全绿也不得自行宣布 Phase 2.3 PASS**。
+- **Phase 2.4 禁止新增功能、重做 UI、账户/数据库/上传/OCR/Agent/多岗位比较，不得降低既有 Gate、更换 `deepseek-v4-flash`、删除负向事实或历史失败、把 safe failure 改成任意坏输入自动修复，亦不得提前执行 Phase 2.5 的 14 TC × 3 Final Matrix。**
 
 ## 2. Phase 1 当前产品范围与边界
 
