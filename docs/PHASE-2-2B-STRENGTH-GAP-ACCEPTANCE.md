@@ -1,7 +1,7 @@
 # Phase 2.2B-2 Acceptance — Strength + Gap Core
 
 > 日期：2026-08-10
-> 状态：**STOP & ESCALATE / ISSUE-027 P1 GATE BLOCKER**
+> 状态：**ENGINEERING STABILIZATION EVIDENCE COMPLETE / STOP FOR PRODUCT OWNER & QA FINAL GATE REVIEW**
 > Gate 边界：本文只记录 Strength + Gap Core；不自行宣布 PASS，不授权 Personalized Greeting 或其他后续功能。
 
 ## 1. Scope 与事实基线
@@ -122,3 +122,22 @@ Product Owner / QA 已接受历史 A/B/C 分类不可恢复，并正式建立 `I
 - 新增 `SG-M — Transferable Relation Boundary Integrity`：要求 valid partial positive Candidate evidence、valid bounded Match relation、Candidate scope/numeric boundary 保留，以及 unsupported ownership/proficiency/employment/context upgrade 全为 0；
 - 新增实际 Case B statement 正例和 ownership/proficiency/employment/context 四类负例；全量 17 files / 307 tests、lint 0 warning、production build、diff check 全部 PASS；
 - 下一步必须固定最小修复 commit，再按顺序执行 SG-TC-07 ×3 targeted validation → 12×1 preflight；只有两者 Hard Gates 全绿才允许新 12×3 matrix。
+
+## 14. Post-fix Validation Chain — PASS
+
+全部验证使用固定 implementation commit `10cb9013c7083b606652e7dab6e0f8975a4b0702` 与 `deepseek-v4-flash`，顺序未跳级：
+
+1. static：17 files / 307 tests、lint 0 warning、production build、diff check PASS；
+2. SG-TC-07 ×3 targeted：3/3 HTTP 200，SG-A～SG-M 全 PASS，repair 0，Candidate/ownership/proficiency/employment/context upgrade 全 0；artifact `issue-027-targeted-sg-tc-07.json`，SHA-256 `6D357063DDE54BBEF7FC481EA3A7279F3C2416BFF2C83BF094A06B9CCAADC985`；
+3. 12×1 preflight：12/12 HTTP 200，SG-A～SG-M 全 PASS，repair 0，upgrade/fabrication/unknown deficiency/unsupported action 全 0；artifact `issue-027-post-fix-preflight.json`，SHA-256 `96A6BD89E82D168258104E1C543C92C80D530FEA799E9C6F77E8E432A4C99175`；
+4. 新 12×3 clean matrix：36/36 HTTP 200，SG-A～SG-M 全 PASS；strengths 21（direct 9 / transferable 9 / supporting 3），gaps 30（hard 6 / evidence 9 / learnable 3 / information 12）；Candidate/ownership/proficiency/employment/context upgrade、fabrication、unknown deficiency、unsupported action 均 0；repair 0/36；latency min 778ms / max 2,159ms / avg 1,284ms；artifact `issue-027-post-fix-clean-matrix.json`，SHA-256 `DD075C3ACA07410D799C808B69224B94DE051AE178715D902DAD9E41E91AB2AA`。
+
+post-fix 合计 targeted + preflight + matrix = 51 requests，repair 0/51；未采用 No-Strength omission，SG-TC-07 的安全 Strength 与 Gap 均保留。旧 `strength-gap-clean-matrix.json` 33/36 及失败 request IDs 永久保留，未覆盖、未重命名为成功矩阵。
+
+## 15. Internal Content Review / Gate Recommendation
+
+- 36/36 outputs 完成六维 internal review：Candidate Fact Accuracy 5.0、Match Logic 4.8、Strength Truthfulness 5.0、Gap Accuracy 4.7、Information Restraint 4.8、Expression Quality 4.3；综合 4.77，最低 request/dimension 3.8，P0=0，systemic P1=0；
+- SG-TC-06 的 evidence/learnable 双 Gap 存在轻微冗余，SG-TC-10 “资料缺少”表达较泛，但均不构成事实、边界或 Hard Gate 失败；详见 `issue-027-post-fix-internal-review.json`；
+- ISSUE-028 已在真实 502 上证明 initial/repair evidence、rejected fragment、MI/CF/PF trace、failure repair aggregate 与 secret scrub 可用，Exit Criteria 满足；建议 Product Owner / QA 关闭 ISSUE-028；
+- ISSUE-027 Case B 最小修复已完成全部工程验证，建议 Product Owner / QA 关闭 ISSUE-027 并判定 Phase 2.2B-2 Strength + Gap Core PASS；本文件不自行做该 Gate 决定；
+- 当前动作：**STOP FOR PRODUCT OWNER / QA FINAL GATE REVIEW**。Phase 2.3 继续 NOT AUTHORIZED。
