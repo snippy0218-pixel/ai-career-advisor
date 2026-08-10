@@ -194,6 +194,44 @@ describe("finalizeRawStrengthGap", () => {
     );
   });
 
+  it("accepts either natural word order for structural gate confirmation", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[7];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...fixture.validRaw.gaps[0],
+            suggestedAction: "该正式工作经验条件属于当前明确门槛，投递前向招聘方确认具体执行口径。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("rejects structural actions that propose manufacturing a short-term fix", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[7];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...fixture.validRaw.gaps[0],
+            suggestedAction: "确认该条件是否属于严格门槛，并通过积累经历弥补。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("SG-H") }),
+      ]),
+    );
+  });
+
   it("SG-I rejects references outside the immutable Match ledger", () => {
     const fixture = STRENGTH_GAP_FIXTURES[0];
     const invalid = finalizeRawStrengthGap(
