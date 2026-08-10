@@ -216,7 +216,8 @@ function findDuplicate(values: string[]) {
   return values.find((value) => (seen.has(value) ? true : !seen.add(value)));
 }
 
-const TRANSFERABLE_LANGUAGE_PATTERN = /(?:可迁移|迁移价值|一定相关|部分支持|具有相关性)/;
+const TRANSFERABLE_LANGUAGE_PATTERN =
+  /(?:可迁移|迁移价值|一定相关|部分支持|具有相关性|基础支持|有限支持|相关基础|借鉴价值|参考价值|提供.{0,8}(?:基础|支持|支撑|参考)|有助于)/;
 const EVIDENCE_BOUNDARY_PATTERN =
   /(?:现有|当前).{0,16}(?:证据|经历).{0,20}(?:尚不足|不足以|只能证明|仅能证明|部分证明|未能完整证明)/;
 const UNKNOWN_DEFICIENCY_PATTERN =
@@ -366,21 +367,24 @@ export function finalizeRawStrengthGap(
     ) {
       addIssue(issues, path, "SG-C direct_match requires met non-preferred Match evidence");
     }
-    if (
-      entry.type === "transferable_strength" &&
-      (!items.every(
+    if (entry.type === "transferable_strength") {
+      if (!items.every(
         (item) =>
           item.requirementType !== "preferred_requirement" &&
           item.status === "partial" &&
           hasPositiveEvidence(item),
-        ) ||
-        !TRANSFERABLE_LANGUAGE_PATTERN.test(entry.statement) ||
-        hasCandidateStrongClaimUpgrade(
+      )) {
+        addIssue(issues, path, "SG-D transferable strength requires partial positive Match evidence");
+      }
+      if (!TRANSFERABLE_LANGUAGE_PATTERN.test(entry.statement)) {
+        addIssue(issues, path, "SG-D transferable strength requires explicitly limited relationship language");
+      }
+      if (hasCandidateStrongClaimUpgrade(
           entry.statement,
           items.map(positiveCandidateSource).join(" "),
-        ))
-    ) {
-      addIssue(issues, path, "SG-D transferable strength must remain partial and explicitly limited");
+        )) {
+        addIssue(issues, path, "SG-D transferable strength cannot upgrade a Candidate fact");
+      }
     }
     if (
       entry.type === "supporting_strength" &&

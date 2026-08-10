@@ -142,6 +142,24 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("accepts natural but still bounded transferable relationship language", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement: "协助需求整理的经历可为该岗位职责提供基础支持和参考价值。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("does not treat a negated upstream target mention as support for a Candidate upgrade", () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const result = finalizeRawStrengthGap(
