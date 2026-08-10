@@ -7,7 +7,7 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = AUTHORIZED / IN PROGRESS；Phase 2.4 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap failed-matrix baseline：`e217e09…`；Stage 1 evidence-capture baseline：`6459795…`；Stage 2 fix baseline：`10cb901…`；Strength + Gap final evidence baseline：`33540ef…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = ENGINEERING EVIDENCE COMPLETE / AWAITING PRODUCT OWNER & QA FINAL GATE；Phase 2.4 = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`；Strength + Gap final evidence baseline：`33540ef…`；Greeting initial/final implementation commits：`bce6280…` / `b2751c0…`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
@@ -20,7 +20,8 @@
 - Stage 2 最小修复仅调整 validator 的 bounded target-relation recognition，并新增 SG-M ownership/proficiency/employment/context boundary；Prompt/Contract/model 未变，SG-B/SG-D 原则未降低；静态 307/307、lint/build PASS；
 - 固定 `10cb901…` 已严格完成 SG-TC-07 ×3（3/3）→ 12×1（12/12）→ 新 12×3（36/36），SG-A～SG-M 全绿，post-fix repair 0/51，五类 Candidate boundary upgrade、fabrication、unknown deficiency、unsupported action 全 0；六维 internal review 综合 4.77、最低 3.8、P0=0、systemic P1=0；
 - Product Owner / QA 已正式判定 Strength + Gap Core PASS / CLOSED，并关闭 ISSUE-027 / ISSUE-028；旧 33/36 六条 raw 仍保持 `INDETERMINATE / HISTORICAL EVIDENCE UNRECOVERABLE`，新 prospective Case B 不替换历史事实；ISSUE-028 evidence-capture 行为继续保留；
-- 当前唯一主线是 Phase 2.3 Personalized Greeting Core：只允许 validated Candidate Profile + Match + Recommendation + optional Strength 生成一条可审计、简洁、可信的 HR 首次沟通消息；Gap 只作禁止声明的边界；PG-A～PG-M 与 PG-TC-01～12 见 `docs/PHASE-2-3-GREETING-ACCEPTANCE.md`；
+- Phase 2.3 Personalized Greeting Core 工程证据已完成：固定 `b2751c0…` 的 12×1 为 12/12、12×3 为 36/36，PG-A～PG-M 全绿；clean matrix normal 33、repair 0、personalized fallback 0、PG-TC-12 预期 Phase 1 fallback 3；333/333、lint、build PASS；完整证据与失败历史见 `docs/PHASE-2-3-GREETING-ACCEPTANCE.md` 及 `docs/acceptance-artifacts/phase-2-3-greeting/`；
+- 当前唯一允许动作是 Product Owner / QA Phase 2.3 Final Gate Review 所需的证据说明或明确授权收尾；不得继续产品扩展，不得自行宣布 Phase 2.3 PASS；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
 - **只允许 Personalized Greeting Core；不得进入 Phase 2.4，不得实现简历改写/Cover Letter/面试回答/多轮 HR Agent/自动发送/招聘网站接入/模板库/多人格风格/score/confidence，不得修改 Match Core、Recommendation、Strength/Gap、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 PG-A～PG-M 全绿也不得自行宣布 Phase 2.3 PASS**。
 
@@ -44,6 +45,8 @@
 - `src/lib/deepseek.ts`：DeepSeek 适配器 + 完整 normalization/修复管线；
 - `src/lib/prompt.ts`：主 Prompt `jd-analysis-v1.2` + 4 个修复 Prompt（evidence/core-evidence/requirement-evidence/HR-greeting）；
 - `src/lib/match-schema.ts` / `match-prompt.ts` / `match-deepseek.ts`：独立 Match Raw/Final Schema、只读 REQ/CF/PF prompt、一次有界 Match Repair 与 fail-closed 管线；
+- `src/lib/greeting-schema.ts` / `greeting-prompt.ts` / `greeting-deepseek.ts` / `greeting-evidence.ts`：独立 Personalized Greeting schema、CF/PF/MI/JD selection ledger、PG-A～PG-M、一次有界 repair、双 fallback 与 rejected-output evidence；
+- `src/app/api/greeting/analyze/route.ts` / `src/app/greeting/page.tsx`：Greeting API 与只显示最终可复制 greeting 的最小 UI；
 - `src/components/*`：前端展示。
 
 **requirement normalization 链路（按执行顺序）**：
@@ -202,18 +205,16 @@ TikTok生活服务业务在国际化布局早期阶段，我们聚焦生服领�
 
 ## 10. 当前绝对不能做的事情
 
-- 不进入 Phase 2.2 开发（Match Engine / Recommendation / Strength / Gap / Personalized Greeting 未授权）；
-- 不开始 Phase 2 coding（当前仅 PLANNING / CONTRACT DESIGN）；
-- 不修改冻结 JD（TC-01～TC-09 全部冻结输入；TC-09 836 字符 / `99083d98…a70fd0`；TC-08 416 字符 / `06567ac6…eff8f`；TC-07 520 字符 / `dd49ed52…cfc38` 等）；
-- 不重构整个 JD parser；不新增 requirementType；不放宽 evidence / Schema / hallucination 约束；
-- 不因八维高分忽略确定性协议错误（P0/P1 按问题处理，不用平均分掩盖）；
-- 不擅自扩大 ISSUE-022/020/016/015/018 等已定义修复范围；不把复合句错误简单归入 ISSUE-017；不修复 ISSUE-023；
-- 未获得 TC-10 真实 JD 前不执行真实 API 回归；执行时沿用"普通换行 vs 语义截断"输入资格检查。
+- 不进入 Phase 2.4；不实现简历改写、Cover Letter、面试回答、多轮 HR Agent、自动发送、招聘网站接入、模板库、多人格风格、score 或 confidence；
+- 不修改 Phase 1 protected pipeline、Candidate Profile canonical facts、Match Core、Recommendation 或 Strength/Gap；不更换 `deepseek-v4-flash`；
+- 不放宽 PG-A～PG-M、Candidate Claim/PF/JD evidence、unknown、semantic upgrade、waiver 或 fail-closed Gate；不以 internal score 掩盖 Hard Gate failure；
+- 不删除 `greeting-preflight-infrastructure-failure-01.json`、`greeting-preflight-failed-bce6280.json`、`greeting-preflight-invalid-stale-server-b2751c0.json` 或此前任何负向历史；
+- 不自行把 Phase 2.3 更新为 PASS；必须等待 Product Owner / QA Final Gate；不顺手修复 ISSUE-023、ISSUE-012B 或做无关重构。
 
 ## 11. 工程命令与环境
 
 ```powershell
-npm test          # 当前 17 文件 301 项
+npm test          # 当前 20 文件 333 项
 npm run lint
 npm run build
 npm run dev       # 本地开发
@@ -221,6 +222,7 @@ npm run dev       # 本地开发
 
 - 环境变量：`DEEPSEEK_API_KEY`（服务端，用户级环境变量，`.env.local` 不存在）、`DEEPSEEK_MODEL`（默认 deepseek-v4-flash）、`DEEPSEEK_BASE_URL`（默认 https://api.deepseek.com）；
 - 真实回归方式：`npm run build` 后启动生产服务器（`node node_modules/next/dist/bin/next start`，端口 3000），向 `POST /api/analyze` 发送冻结 JD（UTF-8），服务端日志包含逐请求 diagnostics（evidence 恢复/删除、各类修复、Final Schema/evidence、output tokens、truncatedByLength 等）；
+- Greeting acceptance：设置 `GREETING_ACCEPTANCE_DIAGNOSTICS=1` 后启动 production server；`node scripts/run-phase-2-3-greeting-matrix.mjs --runs 1 ...` 仅在全绿后再用 `--runs 3`；必须确认端口不是旧 server，artifact 中 implementation commit 与实际 build/process 一致；
 - 历史回归样本与日志保存在 `%TEMP%\tc0X-regression\`（临时目录，勿作为唯一证据；正式记录以 `docs/验收执行报告.md` 为准）。
 
 ## 12. 版本控制基线（Phase 1 baseline）

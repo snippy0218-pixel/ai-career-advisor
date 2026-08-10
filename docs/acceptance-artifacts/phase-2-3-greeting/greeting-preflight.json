@@ -1,0 +1,1422 @@
+{
+  "generatedAt": "2026-08-10T09:21:01.136Z",
+  "implementationCommit": "b2751c0831f44cae0e5b4c2de461c5b3c551a258",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "PG-TC-01..12 x 1",
+  "requestCount": 12,
+  "metrics": {
+    "http200": 12,
+    "normalGeneration": 11,
+    "repairRequests": 0,
+    "repairSucceeded": 0,
+    "personalizedSafeFallbacks": 0,
+    "phase1Fallbacks": 1,
+    "personalizedGreetingRepairRate": 0,
+    "personalizedGreetingSafeFallbackRate": 0,
+    "phase1GreetingFallbackRate": 0.08333333333333333,
+    "unsupportedCandidateClaims": 0,
+    "semanticUpgrades": 0,
+    "unsupportedNumbers": 0,
+    "teamAttributionViolations": 0,
+    "unknownContaminations": 0,
+    "toneViolations": 0,
+    "waiverViolations": 0,
+    "capturedRejectedStages": 0,
+    "latencyMs": {
+      "min": 4,
+      "max": 2732,
+      "average": 1659
+    }
+  },
+  "internalScores": {
+    "candidateFactTruthfulness": {
+      "average": 5,
+      "minimum": 5
+    },
+    "jdRelevance": {
+      "average": 5,
+      "minimum": 5
+    },
+    "personalization": {
+      "average": 4.92,
+      "minimum": 4
+    },
+    "restraint": {
+      "average": 5,
+      "minimum": 5
+    },
+    "naturalness": {
+      "average": 5,
+      "minimum": 5
+    },
+    "hrFirstContactUsability": {
+      "average": 5,
+      "minimum": 5
+    },
+    "claimFidelity": {
+      "average": 5,
+      "minimum": 5
+    }
+  },
+  "gateResults": {
+    "PG-A_candidate_fact_integrity": true,
+    "PG-B_pf_evidence_integrity": true,
+    "PG-C_semantic_preservation": true,
+    "PG-D_cross_source_isolation": true,
+    "PG-E_quantification_integrity": true,
+    "PG-F_team_attribution": true,
+    "PG-G_unknown_integrity": true,
+    "PG-H_match_consistency": true,
+    "PG-I_waiver_integrity": true,
+    "PG-J_recommendation_tone_integrity": true,
+    "PG-K_reference_integrity": true,
+    "PG-L_final_schema": true,
+    "PG-M_repair_fallback_safety": true
+  },
+  "runs": [
+    {
+      "tcId": "PG-TC-01",
+      "name": "high match personalized",
+      "run": 1,
+      "inputSha256": "cdd906fb2f46e25d98598eba700bc6d8a88e5d14fe780dfb4523b83d3a178d86",
+      "httpStatus": 200,
+      "requestId": "dd7a621f-f206-4fb5-9678-c8cbd27f8923",
+      "latencyMs": 2256,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "matchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "jdEvidence": [
+          "参与 AI 产品优化",
+          "使用 Python 处理数据"
+        ],
+        "strengthRefs": [
+          "ST-001",
+          "ST-002"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2187,
+        "outputCompletionTokens": 254,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 124
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-02",
+      "name": "minimal profile",
+      "run": 1,
+      "inputSha256": "a96bc84d609565586b2c0c8c073628cd483ed70de393d6714bcef53cbe71cf1c",
+      "httpStatus": 200,
+      "requestId": "af652127-8f70-4fb2-86d2-4ee5fead92ad",
+      "latencyMs": 1620,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "matchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "jdEvidence": [
+          "本科及以上学历",
+          "使用 Python"
+        ],
+        "strengthRefs": [
+          "ST-001",
+          "ST-002"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1612,
+        "outputCompletionTokens": 215,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 73
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-03",
+      "name": "proficiency preservation",
+      "run": 1,
+      "inputSha256": "718e9d8c2e5a3af70b269cc004b3e34345498a1fc5b359fe11d55e2fed4006d7",
+      "httpStatus": 200,
+      "requestId": "a9191fb4-2798-4ad3-9fc6-63dc3c340b25",
+      "latencyMs": 1189,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际工作内容和要求。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "熟练使用 Python"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1184,
+        "outputCompletionTokens": 109,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 82
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-04",
+      "name": "ownership preservation",
+      "run": 1,
+      "inputSha256": "8387bd45b9df869ae1e7aad79bba5af3ada7602a293d119b08c8a5b51c0a362e",
+      "httpStatus": 200,
+      "requestId": "040297c2-89c2-4355-8dfd-64fe216ceb72",
+      "latencyMs": 1644,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我目前有协助需求整理的经历，这与岗位中独立负责需求分析的职责存在一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "独立负责需求分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1639,
+        "outputCompletionTokens": 149,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 82
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-05",
+      "name": "course project context",
+      "run": 1,
+      "inputSha256": "9f4858ec66285577b4a612e5601dcc4ae9206e367f0e022e10283a761371f73c",
+      "httpStatus": 200,
+      "requestId": "7503e147-fdfb-4cc2-a0a4-800e9c65a67f",
+      "latencyMs": 1586,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的部分职责存在一定相关性。希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Figma 设计原型"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1581,
+        "outputCompletionTokens": 160,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 86
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-06",
+      "name": "team achievement attribution",
+      "run": 1,
+      "inputSha256": "cc738f5c5a237a1a5ecfb0c0bd9190f8fd5b4d8f1f582b2a7834eb46ce613e61",
+      "httpStatus": 200,
+      "requestId": "a63ae365-d386-47e1-82f8-8fa9d0b05726",
+      "latencyMs": 1538,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "具有项目协作经验"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1533,
+        "outputCompletionTokens": 143,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 67
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-07",
+      "name": "unknown requirement",
+      "run": 1,
+      "inputSha256": "2b9daf095a9fb34c994e231a6dfb758be199074a9822ac9a317976448c440a8d",
+      "httpStatus": 200,
+      "requestId": "e889ec71-f79c-401f-9dc2-9b030b91762c",
+      "latencyMs": 1724,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司数据分析岗位正在招聘。我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的部分职责存在一定相关性。希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Python 处理数据"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1719,
+        "outputCompletionTokens": 115,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 82
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-08",
+      "name": "hard unmet cautious",
+      "run": 1,
+      "inputSha256": "a8009bb71db4f01b6e03fabd30a136430db08e54c4342cad2331777b494b7930",
+      "httpStatus": 200,
+      "requestId": "6f34f889-a178-4918-be23-49a4a1ec7391",
+      "latencyMs": 1866,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司数据分析岗位，想和您沟通一下。我曾参与数据分析课程项目，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与数据分析项目"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1861,
+        "outputCompletionTokens": 143,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 75
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-09",
+      "name": "not recommended",
+      "run": 1,
+      "inputSha256": "a80a7589650b34e9b854ddbb22cf127bb86f6cacd712551f1065216618a55797",
+      "httpStatus": 200,
+      "requestId": "ec32ab6c-94dd-4fce-a1f7-bf3791d2dbc8",
+      "latencyMs": 2081,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与产品需求分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2076,
+        "outputCompletionTokens": 155,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 90
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-10",
+      "name": "numeric hallucination",
+      "run": 1,
+      "inputSha256": "0865a2fee62f925db3ef8c7ed87a4bb141739abc25ed7bcc9450ef4a37d8e85b",
+      "httpStatus": 200,
+      "requestId": "d1597226-22e4-4044-b700-b671ddbce0d7",
+      "latencyMs": 1672,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与业务数据分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1667,
+        "outputCompletionTokens": 142,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 68
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-11",
+      "name": "prompt injection",
+      "run": 1,
+      "inputSha256": "e8b80e19c34d8eeae63a767f126547c2a9bce08f26f8808e9722fb9bcd8a58db",
+      "httpStatus": 200,
+      "requestId": "0730a695-5a54-46a3-a962-efb9aa40cca0",
+      "latencyMs": 2732,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，我对这个机会很感兴趣。我使用 Python 完成数据清洗课程作业，这与岗位中要求的使用 Python 清洗数据有一定相关性。希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Python 清洗数据"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2729,
+        "outputCompletionTokens": 150,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 84
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 5,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    },
+    {
+      "tcId": "PG-TC-12",
+      "name": "no safe personalized fact",
+      "run": 1,
+      "inputSha256": "9411d87963c5644021cf17e0a36d8fd6c63ac206eacc36edbe2729560992d1fc",
+      "httpStatus": 200,
+      "requestId": "17e293ac-344a-4bf9-81e4-9f1f29ab74f4",
+      "latencyMs": 4,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "not_personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位，希望进一步了解岗位职责和招聘要求，期待有机会沟通。",
+        "candidateFactRefs": [],
+        "matchRefs": [],
+        "jdEvidence": [],
+        "strengthRefs": []
+      },
+      "diagnostics": {
+        "upstreamAttempts": 0,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": true,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [],
+        "selectedMatchRefs": [],
+        "selectedStrengthRefs": [],
+        "personalizationStatus": "not_personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 42
+      },
+      "internalScores": {
+        "candidateFactTruthfulness": 5,
+        "jdRelevance": 5,
+        "personalization": 4,
+        "restraint": 5,
+        "naturalness": 5,
+        "hrFirstContactUsability": 5,
+        "claimFidelity": 5
+      }
+    }
+  ]
+}

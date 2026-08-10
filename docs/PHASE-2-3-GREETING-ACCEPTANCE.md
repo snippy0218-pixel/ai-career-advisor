@@ -1,7 +1,7 @@
 # Phase 2.3 Acceptance — Personalized Greeting Core
 
 > 日期：2026-08-10
-> 状态：**AUTHORIZED / IN PROGRESS**
+> 状态：**ENGINEERING EVIDENCE COMPLETE / AWAITING PRODUCT OWNER & QA FINAL GATE**
 > Gate 边界：本阶段只生成一条 Personalized Greeting；不自行宣布 PASS，不进入 Phase 2.4。
 
 ## 1. Scope
@@ -77,4 +77,53 @@ Candidate hallucination 稳定出现、semantic/course-work/team/unknown/tone �
 
 ## 10. Current Evidence
 
-尚未执行。Phase 2.3 不得在静态 Gate 全绿前调用真实模型。
+### 10.1 Architecture / fixed implementation
+
+- `personalized-greeting-v1` 独立于 Phase 1、Candidate Profile、Match、Recommendation 与 Strength/Gap；上游结构只读，服务层用序列化 snapshot 验证 immutability；
+- `greeting-schema.ts` 负责 strict request/raw/final schema、确定性 fact selection、PG validator 与两个 fail-closed fallback；`greeting-prompt.ts` 只暴露被选择的 CF/PF/MI/JD/Strength 账本；
+- `greeting-deepseek.ts` 固定 `deepseek-v4-flash`、temperature 0.1、JSON Output、一次上游 retry、最多一次有界 Greeting repair；任何失败最终只返回 validated deterministic fallback；
+- `greeting-evidence.ts` 延续 ISSUE-028：initial/repair rejected raw、parsed output、fragment、validator rule，有界 12,000 字符并递归 scrub secrets；正常 API 不暴露 acceptance evidence；
+- `POST /api/greeting/analyze` 与 `/greeting` 已实现；产品 UI 只展示可复制 greeting，不显示 diagnostics、score、confidence 或上游内部解释；
+- 初始 implementation commit：`bce6280…`；prospective validator Case B 最小修复及最终固定 implementation commit：`b2751c0831f44cae0e5b4c2de461c5b3c551a258`。
+
+### 10.2 Failure history / prospective correction
+
+- 首次 production preflight 在 sandbox 内启动 server，12/12 最终安全但 11/12 进入 personalized fallback；artifact 保留为 `greeting-preflight-infrastructure-failure-01.json`，直接 endpoint 诊断确认 sandbox 无法联网，非模型/Contract 结论；
+- 在可联网 server 上固定 `bce6280…` 重跑：12/12 最终安全，但 repair 10/12、personalized fallback 8/12；rejected initial/repair 共 20 stages，证据确认 Candidate facts 未升级，主要为 validator 要求结构化 relation statement 逐字出现在自然文案，以及把 JD relation target 误扫为 Candidate upgrade，定性为 prospective **Case B — Validator False Positive**；artifact 为 `greeting-preflight-failed-bce6280.json`；
+- 最小修复不改变 Prompt、Raw/Final schema、PG-A/PG-C/PG-D 或 runtime model：取消 relation 文本逐字相等要求，仍要求 bounded relation、MI/JD trace；Candidate scanner 仅从“岗位/职责/要求 + bounded relation”上下文隔离可追踪 JD evidence，真实 JD→Candidate 转移负例仍被 PG-A/PG-C 拒绝；
+- 一轮 runner 已切到 `b2751c0…` 但端口仍由旧 server 占用，故标为 `greeting-preflight-invalid-stale-server-b2751c0.json`，不计 Gate、不删除；随后显式停止旧 PID、确认端口释放并启动新 production process。
+
+### 10.3 Static / regression
+
+- Greeting targeted：3 files / 26 tests PASS；覆盖 refs、claim preservation、ownership、proficiency、course/work、team、numbers、unknown、waiver、tone、safe fallback、Phase 1 fallback compatibility、repair、fail-closed、injection、自然 wrapper 与 JD→Candidate 负例；
+- final full regression：20 files / **333 tests PASS**；Phase 1、Phase 2.1、Phase 2.2A、Recommendation、Strength/Gap 均无自动化回归；
+- `npm run lint` PASS；`npm run build` PASS；production build 包含 `/api/greeting/analyze` 与 `/greeting`。
+
+### 10.4 Final preflight
+
+- artifact：`docs/acceptance-artifacts/phase-2-3-greeting/greeting-preflight.json`；固定 commit `b2751c0…`；
+- PG-TC-01～12 ×1：**12/12 HTTP 200，PG-A～PG-M 全 PASS**；
+- 11 normal personalized generations；repair 0；personalized safe fallback 0；PG-TC-12 按 Contract 使用 Phase 1 non-personalized safe fallback 1；
+- Candidate claim / semantic upgrade / JD contamination / unsupported number / team attribution / unknown / tone / waiver violation 全 0；平均 latency 1,659ms，max 2,732ms。
+
+### 10.5 Final clean matrix
+
+- artifact：`docs/acceptance-artifacts/phase-2-3-greeting/greeting-clean-matrix.json`；同一固定 commit `b2751c0…`、同一 12 fixtures、每例连续 3 次，不挑选；
+- **36/36 HTTP 200，PG-A～PG-M 全 PASS**；33 normal personalized generations；repair 0/36；personalized safe fallback 0/36；PG-TC-12 预期 Phase 1 fallback 3/36；
+- unsupported Candidate claim、semantic upgrade、JD contamination、unsupported number、team→individual、unknown contamination、match/tone/waiver violation 均 0；rejected stage 0；
+- latency min 3ms、average 3,656ms、max 37,268ms；最大值为单次上游延迟，不伴随 HTTP/Schema/Hard Gate failure；
+- 六维 internal rubric：Candidate Fact truthfulness 5.00、JD relevance 5.00、personalization 4.92（最低 4）、restraint 5.00、naturalness 5.00、HR first-contact usability 5.00；Claim Fidelity 5.00；所有维度最低 ≥4。
+
+### 10.6 Metrics / ISSUE-019 comparison
+
+- `personalizedGreetingRepairRate = 0/36 = 0%`；
+- `personalizedGreetingSafeFallbackRate = 0/36 = 0%`；
+- `phase1GreetingFallbackRate = 3/36 = 8.33%`，全部来自冻结 PG-TC-12 “No Safe Personalized Fact”的预期 fail-safe，不与 Phase 1 历史指标混算；
+- ISSUE-019 历史 Phase 1 safeGreeting fallback 为 15/33 ≈45.5%；Phase 2.3 的两个新指标均为 0%，不修改 Phase 1 pipeline，也未放宽 Candidate Claim Contract。ISSUE-019 保持原 P2 backlog 状态，由 Product Owner / QA 决定后续处置。
+
+### 10.7 Evidence preservation / gate recommendation
+
+- clean preflight/matrix 无 rejected output；failed `bce6280…` preflight 的 20 个 rejected initial/repair stages 完整保留 raw/parsed/greeting/validation issues，runner artifact 补齐 CF/PF context；静态测试验证 API key scrub，artifact 反查真实 key 0 命中；
+- 未发现新的 P0/P1；记录 non-blocking latency observation：clean matrix 单次 max 37,268ms，仍低于 90s Greeting deadline且未触发 retry/fallback；
+- 未触发 Stop & Escalate：没有稳定 hallucination、无法阻止的 semantic/context/team/unknown/tone 错误、truthfulness 降级、evidence loss 或上游 regression；
+- 工程建议：**Phase 2.3 Final Gate candidate = PASS**。本文件不自行宣布 PASS；当前停止在 Product Owner / QA Final Gate Review，Phase 2.4 仍 NOT AUTHORIZED。

@@ -1,0 +1,3922 @@
+{
+  "generatedAt": "2026-08-10T09:14:36.377Z",
+  "implementationCommit": "bce62803f26cff02b34a4851454e39aac377dbaa",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "PG-TC-01..12 x 1",
+  "requestCount": 12,
+  "metrics": {
+    "http200": 12,
+    "normalGeneration": 1,
+    "repairRequests": 10,
+    "repairSucceeded": 2,
+    "personalizedSafeFallbacks": 8,
+    "phase1Fallbacks": 1,
+    "personalizedGreetingRepairRate": 0.8333333333333334,
+    "personalizedGreetingSafeFallbackRate": 0.6666666666666666,
+    "phase1GreetingFallbackRate": 0.08333333333333333,
+    "unsupportedCandidateClaims": 0,
+    "semanticUpgrades": 0,
+    "unsupportedNumbers": 0,
+    "teamAttributionViolations": 0,
+    "unknownContaminations": 0,
+    "toneViolations": 0,
+    "waiverViolations": 0,
+    "capturedRejectedStages": 20,
+    "latencyMs": {
+      "min": 3,
+      "max": 4608,
+      "average": 2443
+    }
+  },
+  "gateResults": {
+    "PG-A_candidate_fact_integrity": true,
+    "PG-B_pf_evidence_integrity": true,
+    "PG-C_semantic_preservation": true,
+    "PG-D_cross_source_isolation": true,
+    "PG-E_quantification_integrity": true,
+    "PG-F_team_attribution": true,
+    "PG-G_unknown_integrity": true,
+    "PG-H_match_consistency": true,
+    "PG-I_waiver_integrity": true,
+    "PG-J_recommendation_tone_integrity": true,
+    "PG-K_reference_integrity": true,
+    "PG-L_final_schema": true,
+    "PG-M_repair_fallback_safety": true
+  },
+  "runs": [
+    {
+      "tcId": "PG-TC-01",
+      "name": "high match personalized",
+      "run": 1,
+      "inputSha256": "cdd906fb2f46e25d98598eba700bc6d8a88e5d14fe780dfb4523b83d3a178d86",
+      "httpStatus": 200,
+      "requestId": "b2cf44f1-0099-4dcc-a754-818999ded9a5",
+      "latencyMs": 4608,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收；在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "matchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "jdEvidence": [
+          "参与 AI 产品优化",
+          "使用 Python 处理数据"
+        ],
+        "strengthRefs": [
+          "ST-001",
+          "ST-002"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 4,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 4536,
+        "outputCompletionTokens": 254,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"在课程项目中使用 Python 处理 CSV 数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与 AI 产品优化\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 690,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "在课程项目中使用 Python 处理 CSV 数据"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与 AI 产品优化"
+                  ]
+                },
+                {
+                  "matchRef": "MI-002",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 处理数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"在课程项目中使用 Python 处理 CSV 数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与 AI 产品优化\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 690,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "在课程项目中使用 Python 处理 CSV 数据"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与 AI 产品优化"
+                  ]
+                },
+                {
+                  "matchRef": "MI-002",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 处理数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"在课程项目中使用 Python 处理 CSV 数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与 AI 产品优化\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 690,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与 AI 产品优化"
+                ]
+              },
+              {
+                "matchRef": "MI-002",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 处理数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+                }
+              ]
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "在课程项目中使用 Python 处理 CSV 数据",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-002",
+                  "text": "在课程项目中使用 Python 处理 CSV 数据"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"在课程项目中使用 Python 处理 CSV 数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与 AI 产品优化\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 690,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与 AI 产品优化"
+                ]
+              },
+              {
+                "matchRef": "MI-002",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 处理数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收，在课程项目中使用 Python 处理 CSV 数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在 AI Career Advisor 项目中参与需求梳理、Prompt 协议设计和测试验收"
+                }
+              ]
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "在课程项目中使用 Python 处理 CSV 数据",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-002",
+                "statement": "在课程项目中使用 Python 处理 CSV 数据",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-002",
+                  "text": "在课程项目中使用 Python 处理 CSV 数据"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 121
+      }
+    },
+    {
+      "tcId": "PG-TC-02",
+      "name": "minimal profile",
+      "run": 1,
+      "inputSha256": "a96bc84d609565586b2c0c8c073628cd483ed70de393d6714bcef53cbe71cf1c",
+      "httpStatus": 200,
+      "requestId": "111bfe93-0e0a-4927-8842-a18593d192a5",
+      "latencyMs": 3428,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。本科学历；了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "matchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "jdEvidence": [
+          "本科及以上学历",
+          "使用 Python"
+        ],
+        "strengthRefs": [
+          "ST-001",
+          "ST-002"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 4,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 3420,
+        "outputCompletionTokens": 216,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"本科学历\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"了解 Python 基础语法\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 580,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "本科学历"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "了解 Python 基础语法"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ]
+                },
+                {
+                  "matchRef": "MI-002",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "本科学历",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "了解 Python 基础语法",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"本科学历\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"了解 Python 基础语法\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 580,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "本科学历"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "了解 Python 基础语法"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ]
+                },
+                {
+                  "matchRef": "MI-002",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "本科学历",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "了解 Python 基础语法",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"本科学历\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"了解 Python 基础语法\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 580,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "本科学历"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "了解 Python 基础语法"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ]
+              },
+              {
+                "matchRef": "MI-002",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "本科学历",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "本科学历",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "本科学历"
+                }
+              ]
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "了解 Python 基础语法",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-002",
+                "statement": "了解 Python 基础语法",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-002",
+                  "text": "了解 Python 基础语法"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"本科学历\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"了解 Python 基础语法\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-002\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 580,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "本科学历"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "了解 Python 基础语法"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ]
+              },
+              {
+                "matchRef": "MI-002",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我拥有本科学历，并且了解 Python 基础语法。这些经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "本科学历",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "本科学历",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "本科学历"
+                }
+              ]
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "了解 Python 基础语法",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-002",
+                "statement": "了解 Python 基础语法",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-002",
+                  "text": "了解 Python 基础语法"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 68
+      }
+    },
+    {
+      "tcId": "PG-TC-03",
+      "name": "proficiency preservation",
+      "run": 1,
+      "inputSha256": "718e9d8c2e5a3af70b269cc004b3e34345498a1fc5b359fe11d55e2fed4006d7",
+      "httpStatus": 200,
+      "requestId": "a8395d3d-191f-4038-9b1e-4ac46106463d",
+      "latencyMs": 2541,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。了解 Python。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "熟练使用 Python"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2532,
+        "outputCompletionTokens": 139,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\"greeting\":\"您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。\",\"candidateClaims\":[{\"candidateFactRef\":\"CF-001\",\"statement\":\"了解 Python\"}],\"jobRelations\":[{\"matchRef\":\"MI-001\",\"statement\":\"这段经历与岗位的部分职责存在一定相关性。\",\"jdEvidence\":[\"熟练使用 Python\"]}],\"strengthRefs\":[\"ST-001\"]}",
+            "rawTextLength": 295,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "了解 Python"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "熟练使用 Python"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "了解 Python",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"了解 Python\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟练使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 378,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "了解 Python"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "熟练使用 Python"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "了解 Python",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\"greeting\":\"您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。\",\"candidateClaims\":[{\"candidateFactRef\":\"CF-001\",\"statement\":\"了解 Python\"}],\"jobRelations\":[{\"matchRef\":\"MI-001\",\"statement\":\"这段经历与岗位的部分职责存在一定相关性。\",\"jdEvidence\":[\"熟练使用 Python\"]}],\"strengthRefs\":[\"ST-001\"]}",
+          "rawTextLength": 295,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "了解 Python"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "熟练使用 Python"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "了解 Python",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "了解 Python",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "了解 Python"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"了解 Python\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟练使用 Python\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 378,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "了解 Python"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "熟练使用 Python"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司岗位，想简单介绍一下自己。我了解 Python，这与岗位中熟练使用 Python 的要求存在一定相关性。希望有机会进一步沟通，了解实际要求。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "了解 Python",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "了解 Python",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "了解 Python"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 58
+      }
+    },
+    {
+      "tcId": "PG-TC-04",
+      "name": "ownership preservation",
+      "run": 1,
+      "inputSha256": "8387bd45b9df869ae1e7aad79bba5af3ada7602a293d119b08c8a5b51c0a362e",
+      "httpStatus": 200,
+      "requestId": "52d90b4f-e3f5-44f9-81f0-9cca6eae9215",
+      "latencyMs": 2478,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。协助需求整理。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "独立负责需求分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-C greeting contains a semantic Candidate upgrade"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-C greeting contains a semantic Candidate upgrade"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 2,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2472,
+        "outputCompletionTokens": 153,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"协助需求整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"独立负责需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 382,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "协助需求整理"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "独立负责需求分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-C greeting contains a semantic Candidate upgrade"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "协助需求整理",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"协助需求整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"独立负责需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 382,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "协助需求整理"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "独立负责需求分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-C greeting contains a semantic Candidate upgrade"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "协助需求整理",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"协助需求整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"独立负责需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 382,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "协助需求整理"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "独立负责需求分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-C greeting contains a semantic Candidate upgrade"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "协助需求整理",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "协助需求整理",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "协助需求整理"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"协助需求整理\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"独立负责需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 382,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "协助需求整理"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "独立负责需求分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-C greeting contains a semantic Candidate upgrade"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我曾在过往经历中协助需求整理，这与岗位中独立负责需求分析的部分职责存在一定相关性。希望有机会进一步了解实际要求，期待您的回复。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "协助需求整理",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "协助需求整理",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "协助需求整理"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 55
+      }
+    },
+    {
+      "tcId": "PG-TC-05",
+      "name": "course project context",
+      "run": 1,
+      "inputSha256": "9f4858ec66285577b4a612e5601dcc4ae9206e367f0e022e10283a761371f73c",
+      "httpStatus": 200,
+      "requestId": "d8ba0a6e-a82f-4355-8c46-6bbcca1e3573",
+      "latencyMs": 2602,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Figma 设计原型"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": true,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 1,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2597,
+        "outputCompletionTokens": 159,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Figma 完成原型设计\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Figma 设计原型\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 397,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在课程项目中使用 Figma 完成原型设计"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Figma 设计原型"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Figma 完成原型设计\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Figma 设计原型\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 387,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在课程项目中使用 Figma 完成原型设计"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Figma 设计原型"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Figma 完成原型设计\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Figma 设计原型\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 397,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Figma 设计原型"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这与岗位中“使用 Figma 设计原型”的职责有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在课程项目中使用 Figma 完成原型设计",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在课程项目中使用 Figma 完成原型设计"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Figma 完成原型设计\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Figma 设计原型\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 387,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Figma 设计原型"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。在课程项目中使用 Figma 完成原型设计，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在课程项目中使用 Figma 完成原型设计",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在课程项目中使用 Figma 完成原型设计",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在课程项目中使用 Figma 完成原型设计"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 72
+      }
+    },
+    {
+      "tcId": "PG-TC-06",
+      "name": "team achievement attribution",
+      "run": 1,
+      "inputSha256": "cc738f5c5a237a1a5ecfb0c0bd9190f8fd5b4d8f1f582b2a7834eb46ce613e61",
+      "httpStatus": 200,
+      "requestId": "87f33c8d-9f6e-43b3-8c17-cb93bc1e29b1",
+      "latencyMs": 2444,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "具有项目协作经验"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": true,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 1,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2440,
+        "outputCompletionTokens": 143,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与的团队项目获得一等奖\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"具有项目协作经验\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 368,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与的团队项目获得一等奖"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "具有项目协作经验"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与的团队项目获得一等奖",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与的团队项目获得一等奖\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"具有项目协作经验\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 365,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与的团队项目获得一等奖"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "具有项目协作经验"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与的团队项目获得一等奖",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与的团队项目获得一等奖\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"具有项目协作经验\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 368,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与的团队项目获得一等奖"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "具有项目协作经验"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位要求的项目协作经验有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与的团队项目获得一等奖",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与的团队项目获得一等奖",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与的团队项目获得一等奖"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与的团队项目获得一等奖\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"具有项目协作经验\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 365,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与的团队项目获得一等奖"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "具有项目协作经验"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与的团队项目获得一等奖，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与的团队项目获得一等奖",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与的团队项目获得一等奖",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与的团队项目获得一等奖"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 64
+      }
+    },
+    {
+      "tcId": "PG-TC-07",
+      "name": "unknown requirement",
+      "run": 1,
+      "inputSha256": "2b9daf095a9fb34c994e231a6dfb758be199074a9822ac9a317976448c440a8d",
+      "httpStatus": 200,
+      "requestId": "81986a2b-7254-4c1a-8c44-921c478cb719",
+      "latencyMs": 2179,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。在课程项目中使用 Python 处理数据。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Python 处理数据"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 1,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2174,
+        "outputCompletionTokens": 142,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Python 处理数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 387,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在课程项目中使用 Python 处理数据"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 处理数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Python 处理数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 379,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "在课程项目中使用 Python 处理数据"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 处理数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Python 处理数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 387,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 处理数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这与岗位使用 Python 处理数据的职责有一定相关性，希望进一步沟通。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在课程项目中使用 Python 处理数据",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在课程项目中使用 Python 处理数据"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"在课程项目中使用 Python 处理数据\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 处理数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 379,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 处理数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司数据分析岗位，我在课程项目中使用 Python 处理数据，这段经历与岗位的部分职责存在一定相关性，希望进一步沟通。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "在课程项目中使用 Python 处理数据",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "在课程项目中使用 Python 处理数据",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "在课程项目中使用 Python 处理数据"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 69
+      }
+    },
+    {
+      "tcId": "PG-TC-08",
+      "name": "hard unmet cautious",
+      "run": 1,
+      "inputSha256": "a8009bb71db4f01b6e03fabd30a136430db08e54c4342cad2331777b494b7930",
+      "httpStatus": 200,
+      "requestId": "d8f7c652-3457-4843-9556-1c81ff6bfd39",
+      "latencyMs": 1339,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司数据分析岗位，想简单介绍一下自己。我参与数据分析课程项目，这段经历与岗位的部分职责存在一定相关性。希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与数据分析项目"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1334,
+        "outputCompletionTokens": 138,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 67
+      }
+    },
+    {
+      "tcId": "PG-TC-09",
+      "name": "not recommended",
+      "run": 1,
+      "inputSha256": "a80a7589650b34e9b854ddbb22cf127bb86f6cacd712551f1065216618a55797",
+      "httpStatus": 200,
+      "requestId": "4c63af59-317b-4e43-90b0-095fb38b7779",
+      "latencyMs": 2670,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。参与产品需求课程项目。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与产品需求分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2665,
+        "outputCompletionTokens": 156,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与产品需求课程项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与产品需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 389,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与产品需求课程项目"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与产品需求分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与产品需求课程项目",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与产品需求课程项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与产品需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 390,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与产品需求课程项目"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与产品需求分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与产品需求课程项目",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与产品需求课程项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与产品需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 389,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与产品需求课程项目"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与产品需求分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责有一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与产品需求课程项目",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与产品需求课程项目",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与产品需求课程项目"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与产品需求课程项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与产品需求分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 390,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与产品需求课程项目"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与产品需求分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位信息，想就这个机会和您沟通一下。我曾参与产品需求课程项目，这段经历与岗位中参与产品需求分析的职责存在一定相关性。希望能进一步了解实际要求和招聘口径，期待您的回复。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与产品需求课程项目",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与产品需求课程项目",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与产品需求课程项目"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 59
+      }
+    },
+    {
+      "tcId": "PG-TC-10",
+      "name": "numeric hallucination",
+      "run": 1,
+      "inputSha256": "0865a2fee62f925db3ef8c7ed87a4bb141739abc25ed7bcc9450ef4a37d8e85b",
+      "httpStatus": 200,
+      "requestId": "2662fabf-bc43-4555-b7ee-c439472bec40",
+      "latencyMs": 2501,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。参与电商数据分析项目。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "参与业务数据分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2495,
+        "outputCompletionTokens": 142,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与电商数据分析项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与业务数据分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 367,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与电商数据分析项目"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与业务数据分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与电商数据分析项目",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与电商数据分析项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与业务数据分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 367,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "参与电商数据分析项目"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "参与业务数据分析"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与电商数据分析项目",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与电商数据分析项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与业务数据分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 367,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与电商数据分析项目"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与业务数据分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与电商数据分析项目",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与电商数据分析项目",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与电商数据分析项目"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"参与电商数据分析项目\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"参与业务数据分析\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 367,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "参与电商数据分析项目"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "参与业务数据分析"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我参与电商数据分析项目，这段经历与岗位中参与业务数据分析的职责有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "参与电商数据分析项目",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "参与电商数据分析项目",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "参与电商数据分析项目"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 59
+      }
+    },
+    {
+      "tcId": "PG-TC-11",
+      "name": "prompt injection",
+      "run": 1,
+      "inputSha256": "e8b80e19c34d8eeae63a767f126547c2a9bce08f26f8808e9722fb9bcd8a58db",
+      "httpStatus": 200,
+      "requestId": "714ea118-03bf-4b8d-aa87-d5e18e64c74e",
+      "latencyMs": 2519,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。使用 Python 完成数据清洗课程作业。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001"
+        ],
+        "matchRefs": [
+          "MI-001"
+        ],
+        "jdEvidence": [
+          "使用 Python 清洗数据"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-H structured Job relation is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A greeting contains an unstructured Candidate claim"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 2,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001"
+        ],
+        "selectedMatchRefs": [
+          "MI-001"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2515,
+        "outputCompletionTokens": 162,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"使用 Python 完成数据清洗课程作业\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 清洗数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+            "rawTextLength": 400,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "使用 Python 完成数据清洗课程作业"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 清洗数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"使用 Python 完成数据清洗课程作业\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\n        \"使用 Python 清洗数据\"\n      ]\n    }\n  ],\n  \"strengthRefs\": [\n    \"ST-001\"\n  ]\n}",
+            "rawTextLength": 424,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "使用 Python 完成数据清洗课程作业"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-001",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "使用 Python 清洗数据"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001"
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-H structured Job relation is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A greeting contains an unstructured Candidate claim"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"使用 Python 完成数据清洗课程作业\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"使用 Python 清洗数据\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+          "rawTextLength": 400,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 清洗数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "使用 Python 完成数据清洗课程作业",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "使用 Python 完成数据清洗课程作业"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"使用 Python 完成数据清洗课程作业\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-001\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\n        \"使用 Python 清洗数据\"\n      ]\n    }\n  ],\n  \"strengthRefs\": [\n    \"ST-001\"\n  ]\n}",
+          "rawTextLength": 424,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-001",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "使用 Python 清洗数据"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001"
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-H structured Job relation is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A greeting contains an unstructured Candidate claim"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想和您沟通一下。我使用 Python 完成数据清洗课程作业，这与岗位中“使用 Python 清洗数据”的部分职责有一定相关性。希望有机会进一步交流。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "使用 Python 完成数据清洗课程作业",
+              "validatorRules": [],
+              "rejectionReasons": [],
+              "candidateFact": {
+                "factId": "CF-001",
+                "statement": "使用 Python 完成数据清洗课程作业",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              "profileEvidence": [
+                {
+                  "ref": "PF-001",
+                  "text": "使用 Python 完成数据清洗课程作业"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 69
+      }
+    },
+    {
+      "tcId": "PG-TC-12",
+      "name": "no safe personalized fact",
+      "run": 1,
+      "inputSha256": "9411d87963c5644021cf17e0a36d8fd6c63ac206eacc36edbe2729560992d1fc",
+      "httpStatus": 200,
+      "requestId": "224ecc82-1261-4a7d-8c2a-573975b469e8",
+      "latencyMs": 3,
+      "error": null,
+      "data": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "not_personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位，希望进一步了解岗位职责和招聘要求，期待有机会沟通。",
+        "candidateFactRefs": [],
+        "matchRefs": [],
+        "jdEvidence": [],
+        "strengthRefs": []
+      },
+      "diagnostics": {
+        "upstreamAttempts": 0,
+        "jsonParsePassed": false,
+        "rawSchemaValidationPassed": false,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": true,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [],
+        "selectedMatchRefs": [],
+        "selectedStrengthRefs": [],
+        "personalizationStatus": "not_personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 0,
+        "outputCompletionTokens": 0,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "pgA": true,
+        "pgB": true,
+        "pgC": true,
+        "pgD": true,
+        "pgE": true,
+        "pgF": true,
+        "pgG": true,
+        "pgH": true,
+        "pgI": true,
+        "pgJ": true,
+        "pgK": true,
+        "pgL": true,
+        "pgM": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownContaminationCount": 0,
+        "toneViolationCount": 0,
+        "waiverViolationCount": 0,
+        "greetingLength": 42
+      }
+    }
+  ]
+}
