@@ -142,6 +142,51 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("Case B accepts bounded support for a JD target requirement", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement: "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it.each([
+    ["ownership", "候选人已独立负责完整需求流程，并具有可迁移性。"],
+    ["proficiency", "候选人精通需求分析，并具有可迁移性。"],
+    ["employment", "候选人拥有正式工作经验，并具有可迁移性。"],
+    ["context", "候选人的需求整理经验可迁移至该岗位职责。"],
+  ])("SG-M rejects %s boundary upgrades", (_dimension, statement) => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement,
+            matchRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("SG-M") }),
+      ]),
+    );
+  });
+
   it("accepts natural but still bounded transferable relationship language", () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const result = finalizeRawStrengthGap(

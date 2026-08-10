@@ -1,0 +1,64 @@
+{
+  "auditDate": "2026-08-10",
+  "issue": "ISSUE-027",
+  "auditType": "prospective-rejected-output-root-cause",
+  "sourceArtifact": "issue-027-prospective-diagnostic-01.json",
+  "sourceArtifactSha256": "0EB469E7A5A46BC51620D10D5283FC0BD608F1A4BE9590241D696D62B438AB60",
+  "implementationCommit": "64597952144de72c5309be3d1ac12788b52a27aa",
+  "productBehaviorBaseline": "e217e09db287a0e6336448fd781a0c0358c7b993",
+  "runtimeModel": "deepseek-v4-flash",
+  "samplePolicy": "SG-TC-07 x3; stop after the first request with sufficient rejected evidence",
+  "sampleResult": {
+    "requests": 3,
+    "http200": 2,
+    "http502": 1,
+    "repairAttempted": 1,
+    "repairSucceeded": 0,
+    "capturedRejectedStages": 2,
+    "additionalSamplingPerformed": false
+  },
+  "rejectedRequest": {
+    "run": 3,
+    "requestId": "31db76bf-3489-4d2a-b82c-555acff4ab3e",
+    "candidateFact": {
+      "ref": "CF-001",
+      "canonicalStatement": "协助需求整理"
+    },
+    "profileEvidence": {
+      "ref": "PF-001",
+      "text": "协助需求整理"
+    },
+    "match": {
+      "ref": "MI-001",
+      "requirement": "独立负责完整需求流程",
+      "status": "partial",
+      "dimension": "responsibility",
+      "candidateEvidenceRole": "positive"
+    },
+    "initial": {
+      "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+      "classification": "CASE_B_VALIDATOR_FALSE_POSITIVE",
+      "rules": ["SG-D", "SG-B"],
+      "reason": "The statement preserves the Candidate's assistive scope and predicates transferability/partial support toward the JD requirement. It does not assert that the Candidate independently owned the full process."
+    },
+    "repair": {
+      "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+      "classification": "CASE_B_VALIDATOR_FALSE_POSITIVE",
+      "rules": ["SG-D", "SG-B"],
+      "reason": "The repair repeated the same semantically bounded relation and was rejected by the same false-positive mechanism."
+    }
+  },
+  "overallClassification": "CASE_B_VALIDATOR_FALSE_POSITIVE",
+  "validatorRootCause": "The strong-claim detector recognized target relations introduced by 对/与/面向/针对, but not the bounded relation form 部分支持 + JD target requirement. It therefore treated 独立负责 inside the requirement as a Candidate predicate.",
+  "authorizedMinimalFix": {
+    "layer": "validator",
+    "change": "Recognize bounded 部分/有限/基础支持 before a strong term only when its suffix clearly remains a JD target boundary such as 要求/职责/岗位/场景/相关/可迁移.",
+    "promptChanged": false,
+    "outputContractChanged": false,
+    "sgBPrincipleRelaxed": false,
+    "sgDPrincipleRelaxed": false
+  },
+  "sgMRequired": true,
+  "historicalClassification": "The old 3 initial + 3 repair outputs remain unrecoverable and INDETERMINATE. This prospective classification does not rewrite or replace the historical record.",
+  "secretScan": "PASS — no authorization, API key, cookie, credential, bearer token or sk-* value found in the source artifact"
+}

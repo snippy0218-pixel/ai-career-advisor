@@ -106,3 +106,19 @@ Product Owner / QA 已接受历史 A/B/C 分类不可恢复，并正式建立 `I
 - 静态证据：`issue-028-evidence-capture-static.json`。旧 33/36 与六条不可恢复历史输出的限制保持原样，新采样不得替代历史失败。
 
 当前 `ISSUE-028 = IMPLEMENTED / STATIC GATE PASS / PROSPECTIVE ARTIFACT PENDING`；`ISSUE-027 = OPEN / P1 PRODUCT GATE BLOCKER`。下一步仅允许在固定本 Stage 1 commit 后执行 `ISSUE-027 Prospective Diagnostic`：同一 SG-TC-07 ×3、`deepseek-v4-flash`、产品行为基线不变。该诊断不是 Acceptance rerun；在完成 A/B/C 根因定性前不得修改 Prompt / validator / Schema。
+
+## 12. ISSUE-027 Prospective Diagnostic / Case B
+
+- 固定 Stage 1 commit `6459795…`，使用未修改的 `e217e09…` Prompt/validator 产品行为、同一 SG-TC-07 frozen semantic fixture 与 `deepseek-v4-flash` 执行 3 次独立 diagnostic；结果 2 HTTP 200 + 1 HTTP 502；
+- 第 3 次 request_id `31db76bf-3489-4d2a-b82c-555acff4ab3e` 的 initial 与 repair 均完整捕获，statement 相同：“候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。”；
+- 两阶段均保留“协助”Candidate scope，并把“独立负责完整需求流程”明确放在“部分支持……要求”的 JD target relation 中，没有声称 Candidate 已独立负责；因此 initial = Case B、repair = Case B，overall = **Case B — Validator False Positive**；
+- 根因：strong-claim detector 只识别“对/与/面向/针对 + target”关系，未识别“部分支持 + JD target requirement”，把 requirement 内的“独立负责”误当 Candidate predicate；
+- source artifact：`issue-027-prospective-diagnostic-01.json`，SHA-256 `0EB469E7A5A46BC51620D10D5283FC0BD608F1A4BE9590241D696D62B438AB60`；A/B/C audit：`issue-027-prospective-root-cause-audit.json`；secret scan PASS；命中 rejected evidence 后按协议停止，未执行额外 3 次；
+- 旧 33/36 的六条 raw output 仍不可恢复且保持 INDETERMINATE；本次 prospective Case B 不替换、不重写历史失败。
+
+## 13. Case B Minimal Fix / SG-M Static Gate
+
+- 仅修 validator target-relation recognition：接受“部分/有限/基础支持 + 明确 JD target suffix”；同时移除过宽的单独“流程/工作”suffix，避免把 Candidate capability 误当 target relation；Prompt、output Contract、runtime model 均不变，SG-B/SG-D Candidate Truthfulness 原则未放宽；
+- 新增 `SG-M — Transferable Relation Boundary Integrity`：要求 valid partial positive Candidate evidence、valid bounded Match relation、Candidate scope/numeric boundary 保留，以及 unsupported ownership/proficiency/employment/context upgrade 全为 0；
+- 新增实际 Case B statement 正例和 ownership/proficiency/employment/context 四类负例；全量 17 files / 307 tests、lint 0 warning、production build、diff check 全部 PASS；
+- 下一步必须固定最小修复 commit，再按顺序执行 SG-TC-07 ×3 targeted validation → 12×1 preflight；只有两者 Hard Gates 全绿才允许新 12×3 matrix。

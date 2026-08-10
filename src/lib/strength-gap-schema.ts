@@ -236,9 +236,9 @@ const STRONG_CANDIDATE_CLAIM_GLOBAL_PATTERN =
 const NEGATED_CLAIM_PREFIX_PATTERN =
   /(?:未|不|无|没有|尚未)(?:能|曾|具备|拥有|达到|证明|体现)?[^，。；;]{0,10}$/;
 const TARGET_RELATION_PREFIX_PATTERN =
-  /(?:对|与|面向|针对)[^，。；;]{0,18}$/;
+  /(?:(?:对|与|面向|针对)[^，。；;]{0,18}|(?:部分|有限|基础)(?:地)?支持)$/;
 const TARGET_RELATION_SUFFIX_PATTERN =
-  /(?:要求|职责|岗位|流程|工作|场景|具有|可迁移|相关)/;
+  /(?:要求|职责|岗位|场景|具有|可迁移|相关)/;
 const INSTRUCTION_TEXT_PATTERN =
   /忽略.{0,16}(?:规则|提示|之前|以上)|声称.{0,20}(?:经验|技能|能力)|虚构|编造/i;
 
@@ -290,6 +290,17 @@ function hasCandidateStrongClaimUpgrade(statement: string, source: string) {
   );
 }
 
+function hasCandidateScopeUpgrade(statement: string, source: string) {
+  return SCOPE_RULES.some(
+    (rule) => rule.source.test(source) && !rule.output.test(statement),
+  );
+}
+
+function hasCandidateNumericUpgrade(statement: string, source: string) {
+  const outputNumbers = statement.match(/\d+(?:\.\d+)?/g) ?? [];
+  return outputNumbers.some((number) => !source.includes(number));
+}
+
 function addStrengthTruthfulnessIssues(
   statement: string,
   items: StrengthGapMatchLedgerItem[],
@@ -301,16 +312,13 @@ function addStrengthTruthfulnessIssues(
   if (hasCandidateStrongClaimUpgrade(statement, source)) {
     addIssue(issues, path, "SG-B Candidate claim upgrade is not present in positive Match evidence");
   }
-  if (options.preserveCandidateScope !== false) {
-    for (const rule of SCOPE_RULES) {
-      if (rule.source.test(source) && !rule.output.test(statement)) {
-        addIssue(issues, path, "SG-B Candidate scope/modifier from Match evidence must be preserved");
-        break;
-      }
-    }
+  if (
+    options.preserveCandidateScope !== false &&
+    hasCandidateScopeUpgrade(statement, source)
+  ) {
+    addIssue(issues, path, "SG-B Candidate scope/modifier from Match evidence must be preserved");
   }
-  const outputNumbers = statement.match(/\d+(?:\.\d+)?/g) ?? [];
-  if (outputNumbers.some((number) => !source.includes(number))) {
+  if (hasCandidateNumericUpgrade(statement, source)) {
     addIssue(issues, path, "SG-B Candidate numeric claim is not present in positive Match evidence");
   }
 }
@@ -368,12 +376,14 @@ export function finalizeRawStrengthGap(
       addIssue(issues, path, "SG-C direct_match requires met non-preferred Match evidence");
     }
     if (entry.type === "transferable_strength") {
-      if (!items.every(
+      const hasEligibleMatchRelation = items.every(
         (item) =>
           item.requirementType !== "preferred_requirement" &&
           item.status === "partial" &&
           hasPositiveEvidence(item),
-      )) {
+      );
+      const source = items.map(positiveCandidateSource).join(" ");
+      if (!hasEligibleMatchRelation) {
         addIssue(issues, path, "SG-D transferable strength requires partial positive Match evidence");
       }
       if (!TRANSFERABLE_LANGUAGE_PATTERN.test(entry.statement)) {
@@ -381,9 +391,18 @@ export function finalizeRawStrengthGap(
       }
       if (hasCandidateStrongClaimUpgrade(
           entry.statement,
-          items.map(positiveCandidateSource).join(" "),
+          source,
         )) {
         addIssue(issues, path, "SG-D transferable strength cannot upgrade a Candidate fact");
+      }
+      if (
+        !hasEligibleMatchRelation ||
+        !TRANSFERABLE_LANGUAGE_PATTERN.test(entry.statement) ||
+        hasCandidateStrongClaimUpgrade(entry.statement, source) ||
+        hasCandidateScopeUpgrade(entry.statement, source) ||
+        hasCandidateNumericUpgrade(entry.statement, source)
+      ) {
+        addIssue(issues, path, "SG-M transferable relation boundary integrity failed");
       }
     }
     if (

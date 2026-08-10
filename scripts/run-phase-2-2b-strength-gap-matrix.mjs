@@ -166,8 +166,8 @@ const negatedStructuralFixPattern = /(?:无法|不能|不可|不得|不应|无�
 const strongClaimPattern = /(?:精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验)/;
 const strongClaimGlobalPattern = /精通|成熟的|丰富的|深厚的|资深|专家级|独立主导|独立负责|全职经验|正式工作经验/g;
 const negatedClaimPrefixPattern = /(?:未|不|无|没有|尚未)(?:能|曾|具备|拥有|达到|证明|体现)?[^，。；;]{0,10}$/;
-const targetRelationPrefixPattern = /(?:对|与|面向|针对)[^，。；;]{0,18}$/;
-const targetRelationSuffixPattern = /(?:要求|职责|岗位|流程|工作|场景|具有|可迁移|相关)/;
+const targetRelationPrefixPattern = /(?:(?:对|与|面向|针对)[^，。；;]{0,18}|(?:部分|有限|基础)(?:地)?支持)$/;
+const targetRelationSuffixPattern = /(?:要求|职责|岗位|场景|具有|可迁移|相关)/;
 const scopeRules = [
   [/课程/, /课程/],
   [/校园/, /校园/],
@@ -236,8 +236,8 @@ function sourceSupportsStrongClaim(source, claim) {
   return false;
 }
 
-function hasCandidateStrongClaimUpgrade(statement, source) {
-  return [...statement.matchAll(strongClaimGlobalPattern)].some((match) => {
+function candidateStrongClaimUpgrades(statement, source) {
+  return [...statement.matchAll(strongClaimGlobalPattern)].filter((match) => {
     const index = match.index ?? 0;
     const prefix = statement.slice(Math.max(0, index - 28), index);
     const suffix = statement.slice(index + match[0].length, index + match[0].length + 28);
@@ -245,7 +245,11 @@ function hasCandidateStrongClaimUpgrade(statement, source) {
       targetRelationSuffixPattern.test(suffix);
     return !targetRelationship && !negatedClaimPrefixPattern.test(prefix) &&
       !sourceSupportsStrongClaim(source, match[0]);
-  });
+  }).map((match) => match[0]);
+}
+
+function hasCandidateStrongClaimUpgrade(statement, source) {
+  return candidateStrongClaimUpgrades(statement, source).length > 0;
 }
 
 function exactSchema(data) {
@@ -285,6 +289,7 @@ function inspect(testCase, data, requestSnapshot) {
       strengthTruthfulness: false,
       directStrengthStatus: false,
       transferableStrengthIntegrity: false,
+      transferableRelationBoundaryIntegrity: false,
       gapTypeIntegrity: false,
       unknownIntegrity: false,
       hardGapCounterEvidence: false,
@@ -294,6 +299,10 @@ function inspect(testCase, data, requestSnapshot) {
       matchRecommendationImmutability: false,
       finalSchema: false,
       candidateClaimUpgradeCount: null,
+      ownershipUpgradeCount: null,
+      proficiencyUpgradeCount: null,
+      employmentUpgradeCount: null,
+      contextUpgradeCount: null,
       fabricatedClaimCount: null,
       unknownDeficiencyCount: null,
       unsupportedActionCount: null,
@@ -324,6 +333,23 @@ function inspect(testCase, data, requestSnapshot) {
         resolved(entry).every((item) =>
           item.requirementType !== "preferred_requirement" && item.status === "partial" && hasPositive(item));
     });
+  const transferableRelationBoundaryIntegrity = data.strengths
+    .filter((entry) => entry.type === "transferable_strength")
+    .every((entry) => {
+      const refs = resolved(entry);
+      const source = refs.flatMap((item) => item.requirementDimensions)
+        .filter((dimension) => dimension.candidateEvidenceRole === "positive")
+        .map((dimension) => dimension.reason).join(" ");
+      const numbers = entry.statement.match(/\d+(?:\.\d+)?/g) ?? [];
+      return refs.every((item) =>
+        item.requirementType !== "preferred_requirement" &&
+        item.status === "partial" && hasPositive(item)) &&
+        transferablePattern.test(entry.statement) &&
+        candidateStrongClaimUpgrades(entry.statement, source).length === 0 &&
+        !scopeRules.some(([sourcePattern, outputPattern]) =>
+          sourcePattern.test(source) && !outputPattern.test(entry.statement)) &&
+        numbers.every((number) => source.includes(number));
+    });
   const supportingIntegrity = data.strengths
     .filter((entry) => entry.type === "supporting_strength")
     .every((entry) => resolved(entry).every((item) =>
@@ -338,17 +364,32 @@ function inspect(testCase, data, requestSnapshot) {
     data.strengths.every((entry) => resolved(entry).every(hasPositive));
 
   let candidateClaimUpgradeCount = 0;
+  let ownershipUpgradeCount = 0;
+  let proficiencyUpgradeCount = 0;
+  let employmentUpgradeCount = 0;
+  let contextUpgradeCount = 0;
   for (const entry of [...data.strengths, ...data.gaps.filter((gap) => ["evidence_expression", "learnable_skill"].includes(gap.type))]) {
     const source = resolved(entry)
       .flatMap((item) => item.requirementDimensions)
       .filter((dimension) => dimension.candidateEvidenceRole === "positive")
       .map((dimension) => dimension.reason)
       .join(" ");
-    if (strongClaimPattern.test(entry.statement) &&
-      hasCandidateStrongClaimUpgrade(entry.statement, source)) candidateClaimUpgradeCount += 1;
+    const unsupportedClaims = strongClaimPattern.test(entry.statement)
+      ? candidateStrongClaimUpgrades(entry.statement, source)
+      : [];
+    if (unsupportedClaims.length > 0) candidateClaimUpgradeCount += 1;
+    ownershipUpgradeCount += unsupportedClaims.filter((claim) =>
+      /独立主导|独立负责/.test(claim)).length;
+    proficiencyUpgradeCount += unsupportedClaims.filter((claim) =>
+      /精通|成熟的|丰富的|深厚的|资深|专家级/.test(claim)).length;
+    employmentUpgradeCount += unsupportedClaims.filter((claim) =>
+      /全职经验|正式工作经验/.test(claim)).length;
     const isGap = Object.hasOwn(entry, "suggestedAction");
     if (!isGap && scopeRules.some(([sourcePattern, outputPattern]) =>
-      sourcePattern.test(source) && !outputPattern.test(entry.statement))) candidateClaimUpgradeCount += 1;
+      sourcePattern.test(source) && !outputPattern.test(entry.statement))) {
+      candidateClaimUpgradeCount += 1;
+      contextUpgradeCount += 1;
+    }
     const numbers = entry.statement.match(/\d+(?:\.\d+)?/g) ?? [];
     if (numbers.some((number) => !source.includes(number))) candidateClaimUpgradeCount += 1;
   }
@@ -405,6 +446,7 @@ function inspect(testCase, data, requestSnapshot) {
     strengthTruthfulness,
     directStrengthStatus,
     transferableStrengthIntegrity,
+    transferableRelationBoundaryIntegrity,
     gapTypeIntegrity,
     unknownIntegrity,
     hardGapCounterEvidence,
@@ -414,6 +456,10 @@ function inspect(testCase, data, requestSnapshot) {
     matchRecommendationImmutability,
     finalSchema,
     candidateClaimUpgradeCount,
+    ownershipUpgradeCount,
+    proficiencyUpgradeCount,
+    employmentUpgradeCount,
+    contextUpgradeCount,
     fabricatedClaimCount,
     unknownDeficiencyCount,
     unsupportedActionCount,
@@ -489,7 +535,7 @@ for (const testCase of selectedCases) {
       rejectedEvidenceTrace,
       gates,
     });
-    const excluded = new Set(["candidateClaimUpgradeCount", "fabricatedClaimCount", "unknownDeficiencyCount", "unsupportedActionCount", "strengthCount", "gapCount", "strengthTypeCounts", "gapTypeCounts", "strengthRefs", "gapRefs"]);
+    const excluded = new Set(["candidateClaimUpgradeCount", "ownershipUpgradeCount", "proficiencyUpgradeCount", "employmentUpgradeCount", "contextUpgradeCount", "fabricatedClaimCount", "unknownDeficiencyCount", "unsupportedActionCount", "strengthCount", "gapCount", "strengthTypeCounts", "gapTypeCounts", "strengthRefs", "gapRefs"]);
     const passed = gates && Object.entries(gates)
       .filter(([key]) => !excluded.has(key))
       .every(([, value]) => value === true);
@@ -520,6 +566,10 @@ const summary = {
     strengthTypeCounts: totalTypeCounts("strengthTypeCounts", ["direct_match", "transferable_strength", "supporting_strength"]),
     gapTypeCounts: totalTypeCounts("gapTypeCounts", ["hard_constraint", "evidence_expression", "learnable_skill", "information"]),
     candidateClaimUpgrades: successful.reduce((total, item) => total + item.gates.candidateClaimUpgradeCount, 0),
+    ownershipUpgrades: successful.reduce((total, item) => total + item.gates.ownershipUpgradeCount, 0),
+    proficiencyUpgrades: successful.reduce((total, item) => total + item.gates.proficiencyUpgradeCount, 0),
+    employmentUpgrades: successful.reduce((total, item) => total + item.gates.employmentUpgradeCount, 0),
+    contextUpgrades: successful.reduce((total, item) => total + item.gates.contextUpgradeCount, 0),
     fabricatedClaims: successful.reduce((total, item) => total + item.gates.fabricatedClaimCount, 0),
     unknownDeficiencies: successful.reduce((total, item) => total + item.gates.unknownDeficiencyCount, 0),
     unsupportedActions: successful.reduce((total, item) => total + item.gates.unsupportedActionCount, 0),
@@ -549,6 +599,14 @@ const summary = {
     "SG-J_source_fact_isolation": all((item) => item.gates?.sourceFactIsolation === true && item.gates?.fabricatedClaimCount === 0 && item.diagnostics?.sourceFactIsolationPassed === true),
     "SG-K_match_recommendation_immutability": all((item) => item.gates?.matchRecommendationImmutability === true && item.diagnostics?.matchCoreImmutable === true && item.diagnostics?.recommendationIsolationPassed === true),
     "SG-L_final_schema": all((item) => item.gates?.finalSchema === true && item.diagnostics?.finalSchemaValidationPassed === true),
+    "SG-M_transferable_relation_boundary_integrity": all((item) =>
+      item.gates?.transferableRelationBoundaryIntegrity === true &&
+      item.gates?.candidateClaimUpgradeCount === 0 &&
+      item.gates?.ownershipUpgradeCount === 0 &&
+      item.gates?.proficiencyUpgradeCount === 0 &&
+      item.gates?.employmentUpgradeCount === 0 &&
+      item.gates?.contextUpgradeCount === 0 &&
+      item.diagnostics?.transferableRelationBoundaryIntegrityPassed === true),
   },
   runs: results,
 };

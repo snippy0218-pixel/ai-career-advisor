@@ -1,0 +1,782 @@
+{
+  "generatedAt": "2026-08-10T08:03:33.319Z",
+  "implementationCommit": "64597952144de72c5309be3d1ac12788b52a27aa",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "SG-TC-07 x 3 (diagnostic subset)",
+  "requestCount": 3,
+  "metrics": {
+    "http200": 2,
+    "strengthCount": 2,
+    "gapCount": 2,
+    "strengthTypeCounts": {
+      "direct_match": 0,
+      "transferable_strength": 2,
+      "supporting_strength": 0
+    },
+    "gapTypeCounts": {
+      "hard_constraint": 0,
+      "evidence_expression": 2,
+      "learnable_skill": 0,
+      "information": 0
+    },
+    "candidateClaimUpgrades": 0,
+    "fabricatedClaims": 0,
+    "unknownDeficiencies": 0,
+    "unsupportedActions": 0,
+    "repairRequests": 1,
+    "repairSucceeded": 0,
+    "repairFailed": 1,
+    "repairRate": 0.3333333333333333,
+    "capturedOutputStages": 2,
+    "latencyMs": {
+      "min": 1498,
+      "max": 2606,
+      "average": 2052
+    }
+  },
+  "gateResults": {
+    "SG-A_strength_evidence_integrity": false,
+    "SG-B_strength_truthfulness": false,
+    "SG-C_direct_strength_status": false,
+    "SG-D_transferable_strength_integrity": false,
+    "SG-E_gap_type_integrity": false,
+    "SG-F_unknown_integrity": false,
+    "SG-G_hard_gap_counter_evidence": false,
+    "SG-H_suggested_action_integrity": false,
+    "SG-I_reference_integrity": false,
+    "SG-J_source_fact_isolation": false,
+    "SG-K_match_recommendation_immutability": false,
+    "SG-L_final_schema": false
+  },
+  "runs": [
+    {
+      "tcId": "SG-TC-07",
+      "name": "experience evidence gap",
+      "run": 1,
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "httpStatus": 200,
+      "requestId": "e51ece91-c95e-461e-bfa2-b42a4fb643a5",
+      "latencyMs": 2606,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "transferable_strength",
+            "statement": "可迁移：协助需求整理的经历对完整需求流程具有一定相关性，可部分支持该要求。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能证明协助需求整理，尚不足以证明独立负责完整需求流程。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "如果确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+            "actionType": "evidence",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 2518,
+        "outputCompletionTokens": 151,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "fixtureContext": {
+        "candidateFacts": [
+          {
+            "candidateFactRef": "CF-001",
+            "canonicalStatement": "协助需求整理",
+            "profileEvidenceRefs": [
+              "PF-001"
+            ]
+          }
+        ],
+        "profileEvidence": [
+          {
+            "profileEvidenceRef": "PF-001",
+            "text": "协助需求整理"
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "transferable_strength",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "evidence_expression",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "evidence"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-07",
+      "name": "experience evidence gap",
+      "run": 2,
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "httpStatus": 200,
+      "requestId": "48091b95-efa0-47eb-9884-9da2d1cc8a1b",
+      "latencyMs": 1498,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "transferable_strength",
+            "statement": "候选人在需求整理方面具有协助经验，可迁移至需求流程相关工作，部分支持完整需求流程的职责要求。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能证明协助需求整理，尚不足以证明独立负责完整需求流程。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "如果确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+            "actionType": "evidence",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1491,
+        "outputCompletionTokens": 156,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": []
+      },
+      "fixtureContext": {
+        "candidateFacts": [
+          {
+            "candidateFactRef": "CF-001",
+            "canonicalStatement": "协助需求整理",
+            "profileEvidenceRefs": [
+              "PF-001"
+            ]
+          }
+        ],
+        "profileEvidence": [
+          {
+            "profileEvidenceRef": "PF-001",
+            "text": "协助需求整理"
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [],
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "transferable_strength",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "evidence_expression",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "evidence"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-07",
+      "name": "experience evidence gap",
+      "run": 3,
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "httpStatus": 502,
+      "requestId": "31db76bf-3489-4d2a-b82c-555acff4ab3e",
+      "latencyMs": 3067,
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "31db76bf-3489-4d2a-b82c-555acff4ab3e",
+        "retryable": true
+      },
+      "data": null,
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "strengths.0",
+            "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+          },
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "strengths.0",
+            "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+          },
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 3062,
+        "outputCompletionTokens": 158,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 423,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "transferable_strength",
+                  "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                  "matchRefs": [
+                    "MI-001"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "strengths.0",
+                "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+              },
+              {
+                "path": "strengths.0.statement",
+                "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "strengths",
+                "index": 0,
+                "type": "transferable_strength",
+                "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": null,
+                "validatorRules": [
+                  "SG-D",
+                  "SG-B"
+                ],
+                "rejectionCodes": [
+                  "SG-D_REJECTED",
+                  "SG-B_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-D transferable strength cannot upgrade a Candidate fact",
+                  "SG-B Candidate claim upgrade is not present in positive Match evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 423,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "transferable_strength",
+                  "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                  "matchRefs": [
+                    "MI-001"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "validationIssues": [
+              {
+                "path": "strengths.0",
+                "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+              },
+              {
+                "path": "strengths.0.statement",
+                "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "strengths",
+                "index": 0,
+                "type": "transferable_strength",
+                "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": null,
+                "validatorRules": [
+                  "SG-D",
+                  "SG-B"
+                ],
+                "rejectionCodes": [
+                  "SG-D_REJECTED",
+                  "SG-B_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-D transferable strength cannot upgrade a Candidate fact",
+                  "SG-B Candidate claim upgrade is not present in positive Match evidence"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "fixtureContext": {
+        "candidateFacts": [
+          {
+            "candidateFactRef": "CF-001",
+            "canonicalStatement": "协助需求整理",
+            "profileEvidenceRefs": [
+              "PF-001"
+            ]
+          }
+        ],
+        "profileEvidence": [
+          {
+            "profileEvidenceRef": "PF-001",
+            "text": "协助需求整理"
+          }
+        ]
+      },
+      "rejectedEvidenceTrace": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 423,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "transferable_strength",
+                "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                "matchRefs": [
+                  "MI-001"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "strengths.0",
+              "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+            },
+            {
+              "path": "strengths.0.statement",
+              "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "strengths",
+              "index": 0,
+              "type": "transferable_strength",
+              "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": null,
+              "validatorRules": [
+                "SG-D",
+                "SG-B"
+              ],
+              "rejectionCodes": [
+                "SG-D_REJECTED",
+                "SG-B_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-D transferable strength cannot upgrade a Candidate fact",
+                "SG-B Candidate claim upgrade is not present in positive Match evidence"
+              ],
+              "implicatedMatch": [
+                {
+                  "matchRef": "MI-001",
+                  "requirementId": "REQ-001",
+                  "requirement": "独立负责完整需求流程",
+                  "requirementType": "core_requirement",
+                  "status": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionId": "DIM-001",
+                      "dimensionType": "responsibility",
+                      "status": "partial",
+                      "reason": "Candidate 只提供协助需求整理的正向证据，未证明独立负责完整流程。",
+                      "candidateEvidenceRole": "positive",
+                      "candidateFactRefs": [
+                        "CF-001"
+                      ],
+                      "profileEvidenceRefs": [
+                        "PF-001"
+                      ],
+                      "jdEvidence": [
+                        "独立负责完整需求流程"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "implicatedCandidateFacts": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "canonicalStatement": "协助需求整理",
+                  "profileEvidenceRefs": [
+                    "PF-001"
+                  ]
+                }
+              ],
+              "implicatedProfileEvidence": [
+                {
+                  "profileEvidenceRef": "PF-001",
+                  "text": "协助需求整理"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"transferable_strength\",\n      \"statement\": \"候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。\",\n      \"matchRefs\": [\"MI-001\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 423,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "transferable_strength",
+                "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+                "matchRefs": [
+                  "MI-001"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果候选人确实有独立负责完整需求流程的真实经历，可补充相关事实。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "validationIssues": [
+            {
+              "path": "strengths.0",
+              "message": "SG-D transferable strength cannot upgrade a Candidate fact"
+            },
+            {
+              "path": "strengths.0.statement",
+              "message": "SG-B Candidate claim upgrade is not present in positive Match evidence"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "strengths",
+              "index": 0,
+              "type": "transferable_strength",
+              "statement": "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": null,
+              "validatorRules": [
+                "SG-D",
+                "SG-B"
+              ],
+              "rejectionCodes": [
+                "SG-D_REJECTED",
+                "SG-B_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-D transferable strength cannot upgrade a Candidate fact",
+                "SG-B Candidate claim upgrade is not present in positive Match evidence"
+              ],
+              "implicatedMatch": [
+                {
+                  "matchRef": "MI-001",
+                  "requirementId": "REQ-001",
+                  "requirement": "独立负责完整需求流程",
+                  "requirementType": "core_requirement",
+                  "status": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionId": "DIM-001",
+                      "dimensionType": "responsibility",
+                      "status": "partial",
+                      "reason": "Candidate 只提供协助需求整理的正向证据，未证明独立负责完整流程。",
+                      "candidateEvidenceRole": "positive",
+                      "candidateFactRefs": [
+                        "CF-001"
+                      ],
+                      "profileEvidenceRefs": [
+                        "PF-001"
+                      ],
+                      "jdEvidence": [
+                        "独立负责完整需求流程"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "implicatedCandidateFacts": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "canonicalStatement": "协助需求整理",
+                  "profileEvidenceRefs": [
+                    "PF-001"
+                  ]
+                }
+              ],
+              "implicatedProfileEvidence": [
+                {
+                  "profileEvidenceRef": "PF-001",
+                  "text": "协助需求整理"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "gates": null
+    }
+  ]
+}

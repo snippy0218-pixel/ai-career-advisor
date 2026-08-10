@@ -38,6 +38,7 @@ export interface StrengthGapDiagnostics {
   finalSchemaValidationPassed: boolean;
   strengthEvidenceIntegrityPassed: boolean;
   strengthTruthfulnessPassed: boolean;
+  transferableRelationBoundaryIntegrityPassed: boolean;
   gapTypeIntegrityPassed: boolean;
   unknownIntegrityPassed: boolean;
   hardGapCounterEvidencePassed: boolean;
@@ -48,6 +49,10 @@ export interface StrengthGapDiagnostics {
   recommendationIsolationPassed: boolean;
   fabricatedClaimCount: number;
   candidateClaimUpgradeCount: number;
+  ownershipUpgradeCount: number;
+  proficiencyUpgradeCount: number;
+  employmentUpgradeCount: number;
+  contextUpgradeCount: number;
   unknownDeficiencyCount: number;
   unsupportedActionCount: number;
   strengthCount: number;
@@ -251,6 +256,7 @@ function fillSuccessDiagnostics(
     finalStrengthGapSchema.safeParse(result).success;
   diagnostics.strengthEvidenceIntegrityPassed = true;
   diagnostics.strengthTruthfulnessPassed = true;
+  diagnostics.transferableRelationBoundaryIntegrityPassed = true;
   diagnostics.gapTypeIntegrityPassed = true;
   diagnostics.unknownIntegrityPassed = true;
   diagnostics.hardGapCounterEvidencePassed = true;
@@ -259,6 +265,10 @@ function fillSuccessDiagnostics(
   diagnostics.sourceFactIsolationPassed = true;
   diagnostics.fabricatedClaimCount = 0;
   diagnostics.candidateClaimUpgradeCount = 0;
+  diagnostics.ownershipUpgradeCount = 0;
+  diagnostics.proficiencyUpgradeCount = 0;
+  diagnostics.employmentUpgradeCount = 0;
+  diagnostics.contextUpgradeCount = 0;
   diagnostics.unknownDeficiencyCount = 0;
   diagnostics.unsupportedActionCount = 0;
   diagnostics.strengthCount = result.strengths.length;
@@ -295,6 +305,7 @@ export async function analyzeStrengthGapWithDeepSeek(
     finalSchemaValidationPassed: false,
     strengthEvidenceIntegrityPassed: false,
     strengthTruthfulnessPassed: false,
+    transferableRelationBoundaryIntegrityPassed: false,
     gapTypeIntegrityPassed: false,
     unknownIntegrityPassed: false,
     hardGapCounterEvidencePassed: false,
@@ -305,6 +316,10 @@ export async function analyzeStrengthGapWithDeepSeek(
     recommendationIsolationPassed: true,
     fabricatedClaimCount: 0,
     candidateClaimUpgradeCount: 0,
+    ownershipUpgradeCount: 0,
+    proficiencyUpgradeCount: 0,
+    employmentUpgradeCount: 0,
+    contextUpgradeCount: 0,
     unknownDeficiencyCount: 0,
     unsupportedActionCount: 0,
     strengthCount: 0,

@@ -16,9 +16,10 @@
 - `ISSUE-027 — Transferable Strength Candidate Claim Upgrade Stability` = P1 Gate Blocker / OPEN：SG-TC-07 的 3/3 initial + 3/3 repair 均被 SG-B/SG-D 判为 Candidate claim upgrade；服务端全部 fail-closed；
 - Product Owner / QA 已接受历史 A/B/C 分类不可恢复，正式建立 `ISSUE-028 — Rejected AI Output Evidence Preservation Gap`（P1 / QA Evidence Integrity Blocker），并授权 prospective evidence-capture diagnostic protocol；
 - ISSUE-028 Stage 1 已实现 acceptance-only initial/repair rejected raw evidence、deterministic secret scrub、12,000 字符有界 raw、完整 rejected fragment、SG-TC-07 CF/PF canonical context、单 artifact MI/CF/PF trace 与失败 repair aggregate；EC-TC-01～06、全量 301/301、lint/build 均 PASS，Prompt/Schema 无 diff，未调用模型；
-- 下一步：固定本 Stage 1 implementation commit 后，按授权运行 `ISSUE-027 Prospective Diagnostic` SG-TC-07 ×3（同一 frozen semantic fixture、`deepseek-v4-flash`、产品行为基线 `e217e09…` 不变）。若 3/3 HTTP 200，最多再运行 3 次；一旦捕获足够 rejected evidence 立即停止采样并逐 initial/repair 判定 Case A/B/C；
+- 已在固定 `6459795…` 上完成 prospective SG-TC-07 ×3：2 HTTP 200 + 1 HTTP 502；第 3 次 initial/repair rejected evidence 完整保存并均定性为 **Case B — Validator False Positive**。新证据不替换旧 33/36，旧六条 raw 仍为不可恢复 / INDETERMINATE；
+- Stage 2 最小修复仅调整 validator 的 bounded target-relation recognition，并新增 SG-M ownership/proficiency/employment/context boundary；Prompt/Contract/model 未变，SG-B/SG-D 原则未降低；静态 307/307、lint/build PASS。下一步：固定产品修复 commit 后严格执行 SG-TC-07 ×3 → 12×1 → 仅全绿后 12×3；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **只允许 Strength + Gap Core；不得进入 Phase 2.3，不得实现 greeting/简历改写/面试建议/学习计划/score/confidence/多岗位比较/自动投递，不得修改 Match Core、Recommendation、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 SG-A～SG-L 全绿也不得自行宣布 Strength + Gap PASS**。
+- **只允许 Strength + Gap Core；不得进入 Phase 2.3，不得实现 greeting/简历改写/面试建议/学习计划/score/confidence/多岗位比较/自动投递，不得修改 Match Core、Recommendation、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 SG-A～SG-M 全绿也不得自行宣布 Strength + Gap PASS**。
 
 ## 2. Phase 1 当前产品范围与边界
 

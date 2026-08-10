@@ -150,6 +150,46 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     expect(body).toMatchObject({ model: "deepseek-v4-flash", temperature: 0.1 });
   });
 
+  it("accepts the captured Case B target relation without repair", async () => {
+    const fixture = STRENGTH_GAP_FIXTURES[6];
+    const fetchImpl = vi.fn(async () =>
+      completion({
+        strengths: [
+          {
+            type: "transferable_strength",
+            statement: "候选人在需求整理方面的协助经验可迁移至需求流程相关工作，部分支持独立负责完整需求流程的要求。",
+            matchRefs: ["MI-001"],
+          },
+        ],
+        gaps: fixture.validRaw.gaps,
+      }),
+    );
+    let diagnostics: StrengthGapDiagnostics | null = null;
+
+    const result = await analyzeStrengthGapWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(result.strengths[0].type).toBe("transferable_strength");
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(diagnostics).toMatchObject({
+      strengthGapRepairAttempted: false,
+      transferableRelationBoundaryIntegrityPassed: true,
+      candidateClaimUpgradeCount: 0,
+      ownershipUpgradeCount: 0,
+      proficiencyUpgradeCount: 0,
+      employmentUpgradeCount: 0,
+      contextUpgradeCount: 0,
+    });
+  });
+
   it("EC-TC-01 captures the full initial rejected Strength", async () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const rejected = candidateUpgradeOutput();
