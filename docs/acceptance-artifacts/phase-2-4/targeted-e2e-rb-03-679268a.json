@@ -1,0 +1,632 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "679268a",
+  "generatedAt": "2026-08-10T11:03:44.211Z",
+  "runPolicy": "E2E-RB-03 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 1,
+    "completedChains": 1,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 1,
+    "personalizedGreetingSafeFallbackRequests": 1,
+    "requestFallbackCount": 1
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 7956,
+      "average": 7956,
+      "median": 7956,
+      "p95": null,
+      "max": 7956
+    },
+    "profile": {
+      "samples": 1,
+      "min": 1797,
+      "average": 1797,
+      "median": 1797,
+      "p95": null,
+      "max": 1797
+    },
+    "match": {
+      "samples": 1,
+      "min": 3388,
+      "average": 3388,
+      "median": 3388,
+      "p95": null,
+      "max": 3388
+    },
+    "recommendation": {
+      "samples": 1,
+      "min": 3026,
+      "average": 3026,
+      "median": 3026,
+      "p95": null,
+      "max": 3026
+    },
+    "strengthGap": {
+      "samples": 1,
+      "min": 1970,
+      "average": 1970,
+      "median": 1970,
+      "p95": null,
+      "max": 1970
+    },
+    "greeting": {
+      "samples": 1,
+      "min": 2749,
+      "average": 2749,
+      "median": 2749,
+      "p95": null,
+      "max": 2749
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-03",
+      "name": "unknown heavy",
+      "input": {
+        "jdCharacters": 154,
+        "profileCharacters": 54,
+        "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+        "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+      },
+      "expected": "success",
+      "completed": true,
+      "stoppedAt": null,
+      "failureContext": null,
+      "expectationPassed": true,
+      "invariants": {
+        "X-A_candidate_truth": true,
+        "X-B_jd_truth": true,
+        "X-C_status_stability": true,
+        "X-D_unknown_stability": true,
+        "X-E_negative_evidence_stability": true,
+        "X-F_modifier_integrity": true,
+        "X-G_waiver_integrity": true,
+        "X-H_candidate_semantic_preservation": true,
+        "X-I_reference_continuity": true,
+        "X-J_no_circular_truth": true
+      },
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 7956,
+          "requestId": "cfd7a813-248a-47a2-8338-3bc964467e3a",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 1797,
+          "requestId": "1c2363b8-bb22-4f02-a6b3-8527ed16c3d1",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 3,
+              "context_only": 1,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 3,
+            "atomicClaimCount": 3,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 3,
+            "profileFactRecall": null,
+            "latencyMs": 1787,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 309,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "pfLedgerCount": 4,
+            "pfTotal": 4,
+            "pfDispositionCounts": {
+              "candidate_fact_source": 3,
+              "context_only": 1,
+              "duplicate": 0,
+              "non_candidate_fact": 0,
+              "instruction_text": 0,
+              "unsupported_or_ambiguous": 0
+            },
+            "candidateFactPfCount": 3,
+            "atomicClaimCount": 3,
+            "unprocessedPfCount": 0,
+            "completenessRepairRequestCount": 0,
+            "atomicClaimRepairCount": 0,
+            "semanticRepairRequestCount": 0,
+            "projectionRepairCount": 1,
+            "deterministicCanonicalizationCount": 0,
+            "finalFactCount": 3,
+            "profileFactRecall": null,
+            "latencyMs": 1787,
+            "removedFactCount": 0,
+            "invalidEvidenceCount": 0,
+            "semanticUpgradeViolationCount": 0,
+            "untraceableFactCount": 0,
+            "layeringViolationCount": 0,
+            "unusedPfCount": 0,
+            "completenessRepairUsed": false,
+            "completenessRepairSucceeded": false,
+            "droppedCandidateFactCount": 0,
+            "profileRepairAttempted": false,
+            "profileRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "finalEvidenceValidationPassed": true,
+            "finalValidationPassed": true,
+            "truncatedByLength": false,
+            "outputCompletionTokens": 309,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 200,
+          "latencyMs": 3388,
+          "requestId": "421e4f6f-ac86-43d9-94e1-55d30df37fa7",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "matchRepairAttempted": false,
+            "matchRepairSucceeded": false,
+            "finalSchemaValidationPassed": true,
+            "jdEvidenceValidationPassed": true,
+            "candidateEvidenceValidationPassed": true,
+            "statusValidationPassed": true,
+            "aggregateValidationPassed": true,
+            "candidateProfileImmutable": true,
+            "requirementCount": 4,
+            "dimensionCount": 5,
+            "statusCounts": {
+              "met": 1,
+              "partial": 0,
+              "unmet": 0,
+              "unknown": 3
+            },
+            "latencyMs": 3380,
+            "outputCompletionTokens": 510,
+            "truncatedByLength": false
+          },
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "recommendation",
+          "status": 200,
+          "latencyMs": 3026,
+          "requestId": "ab61d1be-a140-4716-90de-6eabd12fafb6",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "try",
+            "allowedRecommendationLevels": [
+              "try",
+              "cautious"
+            ],
+            "supportingRefCount": 1,
+            "counterRefCount": 0,
+            "latencyMs": 3016,
+            "outputCompletionTokens": 315,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "recommendationRepairAttempted": false,
+            "recommendationRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "allowedLevelValidationPassed": true,
+            "referenceValidationPassed": true,
+            "statusFidelityPassed": true,
+            "unknownPreservationPassed": true,
+            "hardGapExplanationPassed": true,
+            "waiverEvidenceIntegrityPassed": true,
+            "matchCoreImmutable": true,
+            "fabricatedClaimCount": 0,
+            "unsupportedWaiverClaimCount": 0,
+            "unknownToUnmetDriftCount": 0,
+            "fabricatedFlexibilityClaimCount": 0,
+            "recommendationLevel": "try",
+            "allowedRecommendationLevels": [
+              "try",
+              "cautious"
+            ],
+            "supportingRefCount": 1,
+            "counterRefCount": 0,
+            "latencyMs": 3016,
+            "outputCompletionTokens": 315,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "strengthGap",
+          "status": 200,
+          "latencyMs": 1970,
+          "requestId": "8dac9214-910f-427d-931d-a1bbd1e1fb2a",
+          "diagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": false,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 1,
+            "gapCount": 3,
+            "strengthTypeCounts": {
+              "direct_match": 1,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 3
+            },
+            "latencyMs": 1960,
+            "outputCompletionTokens": 270,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 1,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "strengthGapRepairAttempted": false,
+            "strengthGapRepairSucceeded": false,
+            "initialValidationIssues": [],
+            "repairValidationIssues": [],
+            "finalSchemaValidationPassed": true,
+            "strengthEvidenceIntegrityPassed": true,
+            "strengthTruthfulnessPassed": true,
+            "transferableRelationBoundaryIntegrityPassed": true,
+            "gapTypeIntegrityPassed": true,
+            "unknownIntegrityPassed": true,
+            "hardGapCounterEvidencePassed": true,
+            "suggestedActionIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "sourceFactIsolationPassed": true,
+            "matchCoreImmutable": true,
+            "recommendationIsolationPassed": true,
+            "fabricatedClaimCount": 0,
+            "candidateClaimUpgradeCount": 0,
+            "ownershipUpgradeCount": 0,
+            "proficiencyUpgradeCount": 0,
+            "employmentUpgradeCount": 0,
+            "contextUpgradeCount": 0,
+            "unknownDeficiencyCount": 0,
+            "unsupportedActionCount": 0,
+            "strengthCount": 1,
+            "gapCount": 3,
+            "strengthTypeCounts": {
+              "direct_match": 1,
+              "transferable_strength": 0,
+              "supporting_strength": 0
+            },
+            "gapTypeCounts": {
+              "hard_constraint": 0,
+              "evidence_expression": 0,
+              "learnable_skill": 0,
+              "information": 3
+            },
+            "latencyMs": 1960,
+            "outputCompletionTokens": 270,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": []
+          },
+          "error": null
+        },
+        {
+          "stage": "greeting",
+          "status": 200,
+          "latencyMs": 2749,
+          "requestId": "6c6258e0-96cf-4b92-b3ad-5357c4026482",
+          "diagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "personalizedGreetingRepairAttempted": true,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": true,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 2,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-002"
+            ],
+            "selectedMatchRefs": [
+              "MI-004"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 2739,
+            "outputCompletionTokens": 147,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true
+          },
+          "acceptanceDiagnostics": {
+            "upstreamAttempts": 2,
+            "jsonParsePassed": true,
+            "rawSchemaValidationPassed": true,
+            "personalizedGreetingRepairAttempted": true,
+            "personalizedGreetingRepairSucceeded": false,
+            "personalizedGreetingSafeFallbackUsed": true,
+            "phase1GreetingFallbackUsed": false,
+            "initialValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "repairValidationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "candidateFactIntegrityPassed": true,
+            "pfEvidenceIntegrityPassed": true,
+            "semanticPreservationPassed": true,
+            "crossSourceIsolationPassed": true,
+            "quantificationIntegrityPassed": true,
+            "teamAttributionPassed": true,
+            "unknownIntegrityPassed": true,
+            "matchConsistencyPassed": true,
+            "waiverIntegrityPassed": true,
+            "recommendationToneIntegrityPassed": true,
+            "referenceIntegrityPassed": true,
+            "finalSchemaValidationPassed": true,
+            "repairFallbackSafetyPassed": true,
+            "unsupportedCandidateClaimCount": 2,
+            "semanticUpgradeCount": 0,
+            "crossSourceContaminationCount": 0,
+            "unsupportedNumberCount": 0,
+            "teamAttributionViolationCount": 0,
+            "unknownToCandidateClaimCount": 0,
+            "matchContradictionCount": 0,
+            "waiverViolationCount": 0,
+            "toneViolationCount": 0,
+            "selectedCandidateFactRefs": [
+              "CF-002"
+            ],
+            "selectedMatchRefs": [
+              "MI-004"
+            ],
+            "selectedStrengthRefs": [
+              "ST-001"
+            ],
+            "personalizationStatus": "personalized",
+            "matchCoreImmutable": true,
+            "candidateProfileImmutable": true,
+            "recommendationImmutable": true,
+            "strengthGapImmutable": true,
+            "latencyMs": 2739,
+            "outputCompletionTokens": 147,
+            "truncatedByLength": false,
+            "evidenceCaptureEnabled": true,
+            "outputEvidence": [
+              {
+                "stage": "initial",
+                "rejected": true,
+                "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育背景：本科\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+                "rawTextLength": 371,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+                  "candidateClaims": [
+                    {
+                      "candidateFactRef": "CF-002",
+                      "statement": "教育背景：本科"
+                    }
+                  ],
+                  "jobRelations": [
+                    {
+                      "matchRef": "MI-004",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ]
+                    }
+                  ],
+                  "strengthRefs": [
+                    "ST-001"
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "greeting",
+                    "message": "PG-A structured Candidate claim is missing from greeting text"
+                  }
+                ],
+                "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+                "rejectedFragments": [
+                  {
+                    "candidateFactRef": "CF-002",
+                    "statement": "教育背景：本科",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  }
+                ]
+              },
+              {
+                "stage": "repair",
+                "rejected": true,
+                "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育背景：本科\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\"]\n}",
+                "rawTextLength": 371,
+                "artifactTruncated": false,
+                "parseError": null,
+                "parsedOutput": {
+                  "greeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+                  "candidateClaims": [
+                    {
+                      "candidateFactRef": "CF-002",
+                      "statement": "教育背景：本科"
+                    }
+                  ],
+                  "jobRelations": [
+                    {
+                      "matchRef": "MI-004",
+                      "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ]
+                    }
+                  ],
+                  "strengthRefs": [
+                    "ST-001"
+                  ]
+                },
+                "validationIssues": [
+                  {
+                    "path": "greeting",
+                    "message": "PG-A structured Candidate claim is missing from greeting text"
+                  }
+                ],
+                "rejectedGreeting": "您好，看到贵司的岗位，想就这个机会和您沟通一下。我的教育背景是本科，与岗位的学历要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+                "rejectedFragments": [
+                  {
+                    "candidateFactRef": "CF-002",
+                    "statement": "教育背景：本科",
+                    "validatorRules": [],
+                    "rejectionReasons": []
+                  }
+                ]
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    }
+  ]
+}

@@ -330,7 +330,7 @@ const artifact = {
     requestFallbackCount: results.filter((result) =>
       result.stages.some((stage) =>
         stage.diagnostics && Object.entries(stage.diagnostics).some(
-          ([key, value]) => /fallback/i.test(key) && value === true,
+          ([key, value]) => /fallbackused$/i.test(key) && value === true,
         ),
       ),
     ).length,

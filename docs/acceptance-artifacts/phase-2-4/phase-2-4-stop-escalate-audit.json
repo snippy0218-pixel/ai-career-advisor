@@ -1,0 +1,62 @@
+{
+  "phase": "2.4",
+  "status": "STOP_AND_ESCALATE",
+  "implementationCommit": "679268a",
+  "triggerCase": "E2E-RB-05",
+  "triggerStage": "Match Core -> Strength/Gap",
+  "issue": {
+    "id": "ISSUE-029",
+    "title": "Cross-CF Candidate Scope Contamination in Match Reason",
+    "severity": "P1",
+    "status": "OPEN / RELEASE GATE BLOCKER",
+    "candidateFact": {
+      "id": "CF-003",
+      "statement": "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+      "pfEvidence": ["PF-003"]
+    },
+    "contaminatingSiblingFact": {
+      "id": "CF-002",
+      "statement": "课程项目：在课程中了解 Python 基础语法",
+      "pfEvidence": ["PF-002"]
+    },
+    "matchReason": "候选人参与团队项目并协助整理需求和测试，但未体现主导角色，且项目为课程作业，非正式跨团队项目。",
+    "unsupportedScope": "课程作业",
+    "finding": "Match reason moved the course scope from CF-002/PF-002 onto the independently referenced CF-003/PF-003. Strength/Gap correctly rejected the derived statement through SG-B/SG-M and failed closed, but Match Core had already produced an unsupported Candidate scope claim.",
+    "stopConditions": [
+      "full-chain Candidate hallucination / cross-source Candidate scope contamination",
+      "Phase 2.1 Canonical Candidate Truth regression",
+      "new P1 requiring Product/Contract decision"
+    ]
+  },
+  "finalSuite": {
+    "artifact": "phase-2-4-e2e-robustness.json",
+    "summary": "7/8 expectation/invariant pass; six complete chains; E2E-RB-08 expected 400 safe failure; E2E-RB-05 Strength/Gap 502 after Match contamination",
+    "downstreamCallsAfterFailure": 0,
+    "timeouts": 0
+  },
+  "secondaryObservation": {
+    "id": "OBS-006",
+    "title": "Full-chain Personalized Greeting Fallback Interaction",
+    "status": "OBSERVE / REVIEW AFTER ISSUE-029",
+    "personalizedGreetingRepair": "4/6 greeting requests",
+    "personalizedGreetingSafeFallback": "4/6 greeting requests",
+    "phase1GreetingFallback": "0/6 greeting requests",
+    "requestFallback": "4/8 suite requests (equivalently 4/6 greeting-stage requests)",
+    "candidateHallucinationReleased": 0,
+    "note": "All four cases remained safe via personalized fallback, but the rate differs materially from the Phase 2.3 isolated 0/36 baseline and requires later quality review. The raw final artifact's generic requestFallbackCount=6 over-counted repairFallbackSafetyPassed; the direct diagnostic-key audit above is authoritative and the runner matcher is fixed prospectively. It is not used to override the ISSUE-029 Stop & Escalate."
+  },
+  "gate": {
+    "Q-A": "PASS",
+    "Q-B": "FAIL — X-A/X-H",
+    "Q-C": "FAIL — 7/8",
+    "Q-D": "PASS",
+    "Q-E": "PASS — observable; rates require review",
+    "Q-F": "CONDITIONAL PASS — critical failures captured; JD/Match rejected-output parity remains a documented gap",
+    "Q-G": "PASS — unsupported JD modifier/waiver output 0 in completed chains",
+    "Q-H": "PASS — 350/350, lint, build",
+    "Q-I": "PASS",
+    "Q-J": "FAIL — unresolved release-blocking P1 ISSUE-029"
+  },
+  "recommendation": "PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5",
+  "nextAction": "Product Owner / QA review ISSUE-029 evidence and authorize a bounded Match Core cross-CF scope-isolation contract/fix or another disposition. Do not continue product changes or enter Phase 2.5 without authorization."
+}

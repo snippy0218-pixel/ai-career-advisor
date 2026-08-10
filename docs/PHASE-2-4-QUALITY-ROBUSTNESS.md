@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：AUTHORIZED / IN PROGRESS  
+> 状态：STOP & ESCALATE / BLOCKED ON ISSUE-029
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -16,16 +16,18 @@
 | ISSUE-012A | 标准 JD 单字符 typo 导致 evidence mismatch | 唯一单字符替换、唯一候选、Final 原文回落已覆盖 | Close / regression only | 否 |
 | ISSUE-012B | malformed/corrupted/truncated/reordered JD 造成 evidence 无法可靠恢复；历史 TC-03 1149 字符、TC-05 1284 字符坏输入 | 输入 min/max、evidence exact match、502 fail-closed 已有；坏输入 qualification 与全链 stop semantics 尚需系统验证 | Fix safe-failure coverage；不承诺任意坏输入修复 | 是：不得返回未经验证结果 |
 | ISSUE-014 | 信息严重不足时 Phase 1 recommendation level 3/3 固定 `worth_exploring`，缺少决策边界 | Phase 2 Recommendation Core 已冻结 allowed-level/status/unknown/hard-gap 决策协议；Phase 1 legacy 输出不作为 Phase 2 决策 | Obsolete / Superseded by Recommendation Core | 否；Phase 1 回归保留 |
-| ISSUE-017 | requirement extraction completeness；TC-06 片段化 2 次、preferred 独立从句遗漏 1 次 | M-J 只覆盖 Phase 1 已输出 REQ，不能发现上游遗漏；当前 normalization 只拆分模型已经提供的整句，遗漏仍可能发生 | Fix：窄范围、确定性 compound-clause completeness + targeted tests | 是：hard 遗漏或系统性遗漏阻塞 |
+| ISSUE-017 | requirement extraction completeness；TC-06 片段化 2 次、preferred 独立从句遗漏 1 次 | 已实现仅在模型命中同一 requirement line 的一个 exact clause 时补全另一个 verbatim separable sibling；不扩展为通用 JD parser | Fix implemented / static regression PASS；建议 Close，待 Gate review | 否；新 hard/systemic 遗漏则 reopen |
 | ISSUE-019 | Phase 1 `safeGreeting` 历史 fallback 15/33≈45.5%，主要影响自然度 | Phase 2.3 personalized repair/fallback 均 0，指标不可混合；无 Candidate Profile 仍走 Phase 1 | Observe / targeted reassessment；除非价值明确，不动冻结 Phase 1 greeting | 当前不阻塞；若信息损失/幻觉则阻塞 |
-| ISSUE-021 | 无 JD 依据增加 frequency/intensity/duration/scope/quantity/certainty；历史 13 次 | Contract 已冻结 Modifier Inference Contract；现有实现仅对 growth 与部分 Candidate modifier 有局部校验，跨模块不完整 | Fix：共享 deterministic modifier integrity，覆盖用户可见生成层 | 是：任何真实 modifier upgrade 阻塞 |
-| ISSUE-023 | TC-09 1/3：模型同时输出拆分项与整句，服务端二次拆分后产生重复 | 当前 `prepareAnalysis` append-only，未做最终 requirement 去重；机制仍存在 | Fix：基于 type/content/evidence 的稳定去重 + regression | 否，除非影响 hard/type/evidence |
+| ISSUE-021 | 无 JD 依据增加 frequency/intensity/duration/scope/quantity/certainty；历史 13 次 | 已新增共享 deterministic modifier integrity，并接入 JD normalization + Match M-K + Recommendation R-L + Strength SG-N + Greeting PG-N；`拜访客户` 不得升级 `频繁拜访客户` | Fix implemented / static + E2E completed-chain regression PASS；建议 Close | 新 modifier output 则阻塞 |
+| ISSUE-023 | TC-09 1/3：模型同时输出拆分项与整句，服务端二次拆分后产生重复 | 已在 normalized requirement final set 按 type/content/evidence 稳定去重；原始机制已有静态复现与回归 | Fix implemented；建议 Close | 否，除非影响 hard/type/evidence |
 | ISSUE-025 | Candidate Profile fact completeness / silent omission | Canonical CF/PF ledger、24-run matrix 与 downstream evidence 已关闭该问题 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-026 | unsupported hard waiver | Recommendation R-K 与 downstream waiver guard 已关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-027 | transferable Strength validator / Candidate claim upgrade stability | SG-M、post-fix 51 requests repair 0，已正式关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
-| ISSUE-028 | rejected AI output evidence preservation gap | Strength/Gap 与 Greeting 已完整保存 acceptance-only rejected evidence；Profile/Match/Recommendation 的早期诊断层级不完全等同 | Closed；保留现有回归点。早期模块差距记录为审计债，不做无 Gate 收益的全量重构 | 关键失败不可审计时阻塞 |
+| ISSUE-028 | rejected AI output evidence preservation gap | Strength/Gap 与 Greeting 原有机制回归通过；本轮因真实 QA 失败将同级 acceptance-only rejected raw 扩展到 Profile/Recommendation；JD/Match 仍无同级 rejected raw，但 final 关键 Match success context 已由 runner 保存 | Closed；保留 regression。JD/Match parity 继续记录，不因无实际 rejected-output blocker 做全量重构 | 关键失败不可审计时阻塞 |
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
+| ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | final suite 真实复现；Strength/Gap 以 SG-B/SG-M 正确 fail-closed，但 Match 已生成 unsupported Candidate scope | **Open / P1 / Stop & Escalate / Release Gate Blocker** | **是** |
+| OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
 
@@ -86,8 +88,30 @@
 - Q-I Error/Input Integrity
 - Q-J No New P0/P1
 
-当前 Gate：IN PROGRESS。全部通过后只能建议 `Phase 2.4 PASS / Ready for Phase 2.5`，等待 Product Owner / QA 决策。
+## 7. Final Static / Integration Evidence
 
-## 7. Test Results / Open Risks / Gate Recommendation
+- implementation commits：`30012f6` → `0d28da6` → `ce745ac` → `62a29a1` → `679268a`；失败、stale-server、targeted 与 final artifacts 全部保留。
+- automated regression：350/350 PASS；lint PASS；production build PASS。
+- targeted：RB-01/05/07 在 `ce745ac` 1/1；RB-06 在 `62a29a1` 1/1；RB-03 在 `679268a` 1/1。
+- final `E2E-RB-01～08 ×1`：7/8；完整链 6；RB-08 预期 400；RB-05 Strength/Gap 502；上游失败后下游调用 0；timeout 0。
+- final latency（ms）：JD avg 6,249/max 7,905；Profile avg 2,370/max 3,092；Match avg 3,445/max 5,847；Recommendation avg 2,192/max 2,775；Strength/Gap avg 3,510/max 5,695；Greeting avg 3,011/max 4,609；完整链总耗时 avg 20,790/max 24,049；样本不足 20，不报告 p95。
+- repairs：Profile 0/7；Match 0/7；Recommendation 0/7；Strength/Gap 3/7；Personalized Greeting 4/6；Personalized Greeting safe fallback 4/6；Phase 1 Greeting fallback 0/6；overall request fallback 4/8（或 greeting-stage 4/6）。
+- OBS-002：projection correction 6 次 / 4 of 7 Profile requests，deterministic canonicalization 4；完成链未见 tag 导致的错误 Match status，维持 Observe。
+- Evidence：Profile/Recommendation/Strength-Gap/Greeting rejected raw 为 acceptance-only body，header/正常产品响应不含 raw；final RB-05 的 Profile/Match/Recommendation context 与 SG initial/repair rejection 均可由单 artifact 审计。
 
-待实现与验证后填写。任何 Stop & Escalate 触发均保留失败证据，不以新成功覆盖。
+## 8. Gate Result / Open Risks
+
+| Gate | Result | Evidence |
+| --- | --- | --- |
+| Q-A | PASS | 所有 carry-over 与新项有 disposition |
+| Q-B | **FAIL** | X-A/X-H：ISSUE-029 cross-CF Candidate scope contamination |
+| Q-C | **FAIL** | final suite 7/8，RB-05 未完成 |
+| Q-D | PASS | malformed input 400；failure 后下游调用 0 |
+| Q-E | PASS / quality risk | 指标可区分；OBS-006 需后续复评 |
+| Q-F | CONDITIONAL PASS | 关键失败可审计；JD/Match rejected-output parity 仍是记录差距 |
+| Q-G | PASS | completed chains unsupported JD modifier / waiver 0 |
+| Q-H | PASS | 350/350、lint、build |
+| Q-I | PASS | no silent truncation；limits/error mapping 通过 |
+| Q-J | **FAIL** | 未解决 release-blocking P1 ISSUE-029 |
+
+当前 Gate：**STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。详见 `phase-2-4-stop-escalate-audit.json`。等待 Product Owner / QA 对 ISSUE-029 作出 bounded Match Core cross-CF scope-isolation 授权或其他 disposition；不得继续产品修改或进入 Phase 2.5。
