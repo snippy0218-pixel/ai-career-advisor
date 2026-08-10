@@ -1,0 +1,1376 @@
+{
+  "generatedAt": "2026-08-10T06:16:54.328Z",
+  "implementationCommit": "25aa889ed725c75073929c4f5129bdbdb1149b00",
+  "runtimeModel": "deepseek-v4-flash",
+  "runPolicy": "SG-TC-01..12 x 1",
+  "requestCount": 12,
+  "metrics": {
+    "http200": 11,
+    "strengthCount": 6,
+    "gapCount": 9,
+    "strengthTypeCounts": {
+      "direct_match": 3,
+      "transferable_strength": 2,
+      "supporting_strength": 1
+    },
+    "gapTypeCounts": {
+      "hard_constraint": 2,
+      "evidence_expression": 2,
+      "learnable_skill": 1,
+      "information": 4
+    },
+    "candidateClaimUpgrades": 0,
+    "fabricatedClaims": 0,
+    "unknownDeficiencies": 0,
+    "unsupportedActions": 0,
+    "repairRequests": 0,
+    "repairRate": 0,
+    "latencyMs": {
+      "min": 1246,
+      "max": 2696,
+      "average": 1730
+    }
+  },
+  "gateResults": {
+    "SG-A_strength_evidence_integrity": false,
+    "SG-B_strength_truthfulness": false,
+    "SG-C_direct_strength_status": false,
+    "SG-D_transferable_strength_integrity": false,
+    "SG-E_gap_type_integrity": false,
+    "SG-F_unknown_integrity": false,
+    "SG-G_hard_gap_counter_evidence": false,
+    "SG-H_suggested_action_integrity": false,
+    "SG-I_reference_integrity": false,
+    "SG-J_source_fact_isolation": false,
+    "SG-K_match_recommendation_immutability": false,
+    "SG-L_final_schema": false
+  },
+  "runs": [
+    {
+      "tcId": "SG-TC-01",
+      "name": "direct strength",
+      "run": 1,
+      "inputSha256": "3926261c0e5c595b6ae3a0f17ff1db571f0bd934aa5c58d4b07c843af773ecc5",
+      "httpStatus": 200,
+      "requestId": "5373d607-0e80-4dd4-a2bc-b5b41a9b2853",
+      "latencyMs": 1437,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "direct_match",
+            "statement": "已具备使用 Python 处理数据的直接匹配能力。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": []
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1326,
+        "outputCompletionTokens": 57,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "direct_match",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": []
+      }
+    },
+    {
+      "tcId": "SG-TC-02",
+      "name": "transferable strength",
+      "run": 1,
+      "inputSha256": "c63a1fba62c1d33da530b5daccba2c95055f34d1c5f8a526e1f5bfc0e118998e",
+      "httpStatus": 502,
+      "requestId": "424befce-9daf-4f36-8bb6-ebd186a8e18a",
+      "latencyMs": 3695,
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "424befce-9daf-4f36-8bb6-ebd186a8e18a",
+        "retryable": true
+      },
+      "data": null,
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "gaps.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "gaps.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 3684,
+        "outputCompletionTokens": 151,
+        "truncatedByLength": false
+      },
+      "gates": null
+    },
+    {
+      "tcId": "SG-TC-03",
+      "name": "preferred supporting strength",
+      "run": 1,
+      "inputSha256": "e88a64a2482d2d169461373a1b88b9dbfe2534f3ddb0d47c7b02efe2bc363412",
+      "httpStatus": 200,
+      "requestId": "e872ad2a-adbf-404a-816c-ee43199c3e2d",
+      "latencyMs": 1531,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "supporting_strength",
+            "statement": "候选人在 Figma 使用方面具备一定的经验，可辅助支持团队设计协作，满足优先考虑项。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": []
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 1
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1525,
+        "outputCompletionTokens": 72,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 1
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "supporting_strength",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": []
+      }
+    },
+    {
+      "tcId": "SG-TC-04",
+      "name": "hard constraint gap",
+      "run": 1,
+      "inputSha256": "a08a600e05d7aa97b6547a107e7b51807f127d4128d823eb5d59f03420513c18",
+      "httpStatus": 200,
+      "requestId": "0702e388-3ee9-471a-bf8f-147be9e10d08",
+      "latencyMs": 1854,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [],
+        "gaps": [
+          {
+            "type": "hard_constraint",
+            "statement": "现有证据明确显示 Candidate 学历为大专，与“本科及以上”的硬性门槛不符，构成硬性不满足。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "确认该岗位的学历门槛为硬性要求，无法通过其他条件替代。",
+            "actionType": "structural",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1849,
+        "outputCompletionTokens": 108,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "hard_constraint",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "structural"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-05",
+      "name": "information gap",
+      "run": 1,
+      "inputSha256": "2f6fa36b4594b2040722ef8d38be066d5bcfa3bd26c8abb2481385e611fa5b04",
+      "httpStatus": 200,
+      "requestId": "acfde77e-ecc1-424b-8959-bc4249d8f4d1",
+      "latencyMs": 1519,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [],
+        "gaps": [
+          {
+            "type": "information",
+            "statement": "资料缺少使用 SQL 分析数据的具体情况，无法判断是否满足。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "请补充使用 SQL 分析数据的相关经历或技能证明。",
+            "actionType": "confirm",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 1514,
+        "outputCompletionTokens": 69,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "strengthRefs": [],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "information",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "confirm"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-06",
+      "name": "partial skill gap",
+      "run": 1,
+      "inputSha256": "520b4890a7bcd0664242af665ef4750e42a601150fc5878793029e93256ec6ab",
+      "httpStatus": 200,
+      "requestId": "e5e25d1d-2fc9-439d-b055-8078b4a1d9d2",
+      "latencyMs": 2696,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "transferable_strength",
+            "statement": "候选人对 Python 的了解可迁移至该岗位，部分支持熟练使用 Python 的要求，但仅为基础了解，尚未达到熟练程度。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能证明候选人对 Python 有基础了解，尚不足以证明其熟练使用 Python。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "若候选人确实有更深入的使用 Python 的真实经历，可补充相关事实以进一步验证。",
+            "actionType": "evidence",
+            "gapId": "GP-001"
+          },
+          {
+            "type": "learnable_skill",
+            "statement": "候选人对 Python 的了解程度为 partial，尚未达到熟练使用 Python 的要求，该技能可通过学习提升。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "针对熟练使用 Python 的要求，建议候选人补充相关学习或实践经历。",
+            "actionType": "learn",
+            "gapId": "GP-002"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 0
+        },
+        "latencyMs": 2691,
+        "outputCompletionTokens": 254,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "transferable_strength",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "evidence_expression",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "evidence"
+          },
+          {
+            "id": "GP-002",
+            "type": "learnable_skill",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "learn"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-07",
+      "name": "experience evidence gap",
+      "run": 1,
+      "inputSha256": "c3541f9fad2dddb1567ea5b99d61793a8105cbeff8f0549c6e517c36331c26a0",
+      "httpStatus": 200,
+      "requestId": "4eeaa240-fe92-4208-a569-f05413da8b53",
+      "latencyMs": 2057,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "transferable_strength",
+            "statement": "候选人在需求整理方面具有协助经验，可迁移至完整需求流程的部分环节，但仅部分支持该核心要求。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能证明候选人协助过需求整理，尚不足以证明其独立负责完整需求流程。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "若候选人确实有独立负责完整需求流程的真实经历，请补充相关事实。",
+            "actionType": "evidence",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 2052,
+        "outputCompletionTokens": 161,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "transferable_strength",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "evidence_expression",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "evidence"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-08",
+      "name": "explicit negative fact",
+      "run": 1,
+      "inputSha256": "b1c4723cf401c1064df6751dae0bf0338c06e53c14003f410ae00c3bcc6c9d85",
+      "httpStatus": 200,
+      "requestId": "8a7bc2ef-0399-4d28-b137-3bb9147c559f",
+      "latencyMs": 1569,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [],
+        "gaps": [
+          {
+            "type": "hard_constraint",
+            "statement": "候选人明确没有正式工作经历，与两年正式工作经验要求构成硬性不匹配。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "确认该岗位对正式工作经验的严格门槛要求，当前候选人无法满足。",
+            "actionType": "structural",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1564,
+        "outputCompletionTokens": 77,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "hard_constraint",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "structural"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-09",
+      "name": "course project multi-tag fact",
+      "run": 1,
+      "inputSha256": "9966debeaad25c7b573c70159b0d2f144680e9531fa7e7a5ebc3caba0c7ebb8c",
+      "httpStatus": 200,
+      "requestId": "270a1c5b-6315-4e33-a12d-3e500064d58d",
+      "latencyMs": 1246,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "direct_match",
+            "statement": "在 Python 课程项目中实际处理 CSV 数据，直接满足使用 Python 处理 CSV 数据的要求。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": []
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 1241,
+        "outputCompletionTokens": 52,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "direct_match",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": []
+      }
+    },
+    {
+      "tcId": "SG-TC-10",
+      "name": "injection and fabrication",
+      "run": 1,
+      "inputSha256": "83779ecdea46817a7ca23a8b5a2180f8ac733dedab4111018af106e9d92bc7f2",
+      "httpStatus": 200,
+      "requestId": "1a7f0741-fb54-4ae1-ba07-172159a084de",
+      "latencyMs": 1599,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [],
+        "gaps": [
+          {
+            "type": "information",
+            "statement": "资料缺少，无法判断 Candidate 是否熟悉数据分析。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "请补充 Candidate 在数据分析方面的相关经历或技能信息。",
+            "actionType": "confirm",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 1595,
+        "outputCompletionTokens": 65,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "strengthRefs": [],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "information",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "confirm"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-11",
+      "name": "mixed strengths and unknowns",
+      "run": 1,
+      "inputSha256": "548c25c7089f5f4c145354c9c62817872e39ab262ef7a6daae70fb325943a271",
+      "httpStatus": 200,
+      "requestId": "bcc3ee60-dfb0-4ea8-bb68-f885c29acbf8",
+      "latencyMs": 1903,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "direct_match",
+            "statement": "候选人具备使用 SQL 分析数据的直接匹配经验。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "information",
+            "statement": "资料缺少持有相关资格证的信息，无法判断是否满足该要求。",
+            "matchRefs": [
+              "MI-002"
+            ],
+            "suggestedAction": "请补充候选人关于相关资格证的持有情况。",
+            "actionType": "confirm",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 1898,
+        "outputCompletionTokens": 129,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "strengthRefs": [
+          {
+            "id": "ST-001",
+            "type": "direct_match",
+            "refs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "information",
+            "refs": [
+              "MI-002"
+            ],
+            "actionType": "confirm"
+          }
+        ]
+      }
+    },
+    {
+      "tcId": "SG-TC-12",
+      "name": "no meaningful strength",
+      "run": 1,
+      "inputSha256": "84f4b10728a3787f288a1e5273d55153fc30b61028673b5d512fab81b05190aa",
+      "httpStatus": 200,
+      "requestId": "7c4afc21-4369-4658-8c3a-d07710517452",
+      "latencyMs": 1615,
+      "error": null,
+      "data": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [],
+        "gaps": [
+          {
+            "type": "information",
+            "statement": "资料缺少，无法判断候选人是否具备负责增长策略设计的能力。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "请补充候选人在增长策略设计方面的具体经历和职责信息。",
+            "actionType": "confirm",
+            "gapId": "GP-001"
+          }
+        ]
+      },
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 1612,
+        "outputCompletionTokens": 69,
+        "truncatedByLength": false
+      },
+      "gates": {
+        "strengthEvidenceIntegrity": true,
+        "strengthTruthfulness": true,
+        "directStrengthStatus": true,
+        "transferableStrengthIntegrity": true,
+        "gapTypeIntegrity": true,
+        "unknownIntegrity": true,
+        "hardGapCounterEvidence": true,
+        "suggestedActionIntegrity": true,
+        "referenceIntegrity": true,
+        "sourceFactIsolation": true,
+        "matchRecommendationImmutability": true,
+        "finalSchema": true,
+        "candidateClaimUpgradeCount": 0,
+        "fabricatedClaimCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 1,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "strengthRefs": [],
+        "gapRefs": [
+          {
+            "id": "GP-001",
+            "type": "information",
+            "refs": [
+              "MI-001"
+            ],
+            "actionType": "confirm"
+          }
+        ]
+      }
+    }
+  ]
+}

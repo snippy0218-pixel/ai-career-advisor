@@ -1,6 +1,6 @@
 # Phase 2 Contract — Schema / Evidence / Decision（Phase 2.0 冻结基线）
 
-> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = AUTHORIZED / IN PROGRESS；Phase 2.3 = NOT AUTHORIZED。**
+> 状态：**Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = STOP & ESCALATE / ISSUE-027 P1 GATE BLOCKER；Phase 2.3 = NOT AUTHORIZED。**
 > 生成日期：2026-08-08
 > 当前版本：**2.0.1（2026-08-09 Candidate Fact Canonicalization Amendment）**；本 amendment 经 Product Owner / QA 批准，不重新打开 Phase 2.0。
 > 基线：Phase 1 已关闭（PASS / Ready for Release，release baseline commit `2faca406…`）；`docs/analysis-schema.md` 为 Phase 1 唯一业务输出协议，本文件为 **Phase 2 实现、测试、QA 和后续 Codex 执行的唯一主要产品协议基线**（Phase 2 扩展最终将回写 `analysis-schema.md`，但实现前以本文件为冻结依据）。

@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-08-10T06:39:42.838Z",
+  "auditAt": "2026-08-10",
+  "sourceArtifact": "strength-gap-clean-matrix.json",
+  "sourceSha256": "659C2010C0C0310300EA76F9A3F482DC87FFC85B8DCA07562708F13DE79D7EF3",
+  "implementationCommit": "e217e09db287a0e6336448fd781a0c0358c7b993",
+  "requestCount": 36,
+  "http200": 33,
+  "failedRequests": 3,
+  "totalModelAttempts": 39,
+  "repairRequests": 3,
+  "repairSucceeded": 0,
+  "failedRuns": [
+    {
+      "tcId": "SG-TC-07",
+      "run": 1,
+      "httpStatus": 502,
+      "initialIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"],
+      "repairIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"]
+    },
+    {
+      "tcId": "SG-TC-07",
+      "run": 2,
+      "httpStatus": 502,
+      "initialIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"],
+      "repairIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"]
+    },
+    {
+      "tcId": "SG-TC-07",
+      "run": 3,
+      "httpStatus": 502,
+      "initialIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"],
+      "repairIssues": ["SG-D transferable strength cannot upgrade a Candidate fact", "SG-B Candidate claim upgrade is not present in positive Match evidence"]
+    }
+  ],
+  "classification": {
+    "issue": "ISSUE-027",
+    "severity": "P1 Gate Blocker",
+    "title": "Transferable Strength Candidate Claim Upgrade Stability",
+    "stopAndEscalateTrigger": 6,
+    "acceptedInvalidOutputCount": 0,
+    "note": "The service failed closed. The original artifact's repairRequests metric counted only HTTP 200 runs and therefore reports 0; per-run diagnostics are authoritative and show 3 attempted, 0 successful repairs."
+  }
+}
