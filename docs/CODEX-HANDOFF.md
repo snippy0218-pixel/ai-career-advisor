@@ -7,15 +7,15 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = ISSUE-026 STABILIZATION EVIDENCE COMPLETE / WAITING PRODUCT OWNER + QA FINAL GATE（尚未自行宣布 PASS）；Phase 2.2B Strength/Gap = NOT AUTHORIZED；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation 原 engineering evidence commit：`e2983c6…`；ISSUE-026 final candidate implementation commit：`616a169…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；OBS-003 / OBS-004 = SUPERSEDED BY ISSUE-026 / RESOLVED；Phase 2.2B-2 Strength + Gap Core = AUTHORIZED / IN PROGRESS；Phase 2.3 Personalized Greeting = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`；Phase 2.1 implementation/evidence baselines：`cfdd13c…` / `bf8f914…`；Phase 2.2A final runtime/evidence commits：`e7d71c1…` / `dabe3b5…`；Recommendation final implementation/evidence commits：`616a169…` / `3a0c970…`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
-- 当前唯一授权事项：修复 `ISSUE-026 — Unsupported Hard-Requirement Waiver Framing`。原 `e2983c6…` 的 10×1 / 10×3 工程 Gate 全绿，但离线复审确认旧 30 请求存在 4 条 unsupported waiver claim；原 evidence 永久保留但不能作为 stabilization final matrix；
-- final candidate `616a169…`：fresh 10×1 = 10/10、fresh 10×3 = 30/30，R-A～R-K 全绿；unsupported waiver / unknown→unmet / fabricated flexibility / Candidate/JD fabrication / Match mutation 全部 0；repair 0/40；internal 七维综合 4.79、最低 3.8、Hard Requirement Handling 4.92；
-- 下一步：停止工程实现，等待 Product Owner / QA Recommendation Final Gate Review。不得把本轮工程证据自行宣布为 Recommendation Core PASS；
+- Recommendation Core Final Gate 已由 Product Owner / QA 正式判定 PASS / CLOSED；ISSUE-026 CLOSED；其全部失败历史与 artifacts 永久保留；
+- 当前唯一授权事项：Phase 2.2B-2 Strength + Gap Core。只允许 validated Match Core → validated strengths/gaps、引用、gap taxonomy、bounded action、一次有界 repair、最小 API/UI；Recommendation 可并列展示但不是事实源；
+- 下一步：静态 SG-A～SG-L 与 SG-TC-01～12 全绿后执行 12×1；仅 preflight 全绿后执行同一 implementation commit 的 12×3，并完成 internal rubric；完成后停止等待 Product Owner / QA Final Gate；
 - 新增观察 `OBS-002 — Semantic Tag Classification Correction Frequency`：Phase 2.1 final matrix 为 11 corrections / 7 of 24 requests；只要 correction 不修改 canonical statement、不制造 Candidate Fact 且 PF-I 保持 100%，暂不升级 Issue；若影响 downstream match status，再升级并停止评审；
-- **只允许 ISSUE-026 窄语义稳定化；不得实现 Strength/Gap，不得进入 Phase 2.3，不得加入 score/confidence，不得修改 Match Core status、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 R-A～R-K 全绿也不得自行宣布 Recommendation Core PASS**。
+- **只允许 Strength + Gap Core；不得进入 Phase 2.3，不得实现 greeting/简历改写/面试建议/学习计划/score/confidence/多岗位比较/自动投递，不得修改 Match Core、Recommendation、Candidate Profile canonical facts 或 Phase 1 protected pipeline，不得更换 `deepseek-v4-flash`，不删除负向事实或历史失败，不修复 ISSUE-023/ISSUE-012B，不做无关重构；即使 SG-A～SG-L 全绿也不得自行宣布 Strength + Gap PASS**。
 
 ## 2. Phase 1 当前产品范围与边界
 

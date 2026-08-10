@@ -1,7 +1,7 @@
 # Phase 2.2B-1 Acceptance — Recommendation Core
 
 > 日期：2026-08-10
-> 状态：**ISSUE-026 STABILIZATION EVIDENCE COMPLETE → STOP FOR PRODUCT OWNER / QA FINAL GATE REVIEW**
+> 状态：**PASS / CLOSED（2026-08-10 Product Owner / QA Final Gate）**
 > Gate 边界：本文只记录 Recommendation Core；不自行宣布 PASS，不授权 Strength/Gap 或 Phase 2.3。
 
 ## 1. Scope 与基线
@@ -158,6 +158,6 @@ Allowed-level 层只决定合法区间，不用简单计数公式替代模型判
 
 - 最终 regression：269/269、lint、production build PASS；Phase 1 / Phase 2.1 / Phase 2.2A 自动测试无回归；
 - Match Core 未修改；Strength/Gap、Personalized Greeting、score/confidence 等未实现；runtime model 未更换；
-- 工程 Gate 建议：**ISSUE-026 stabilization evidence ready for Product Owner / QA Recommendation Final Gate review**；本文不自行宣布 Phase 2.2B-1 PASS；
+- Product Owner / QA Final Gate：**Recommendation Core PASS / CLOSED；ISSUE-026 CLOSED；OBS-003 / OBS-004 Superseded by ISSUE-026 / Resolved**；
 - Stop & Escalate：最终版本未发现系统性 level/status/unknown/counter-evidence 矛盾、事实幻觉或既有 Phase regression；
 - 在 Product Owner / QA 明确决策前，停止产品实现，不进入 Strength/Gap 或 Phase 2.3。
