@@ -85,7 +85,7 @@ describe("finalizeRawStrengthGap", () => {
     );
   });
 
-  it("does not require the literal word 参与 in an evidence-boundary Gap", () => {
+  it("applies evidence-boundary rules without forcing Candidate scope words into a Gap", () => {
     const fixture = STRENGTH_GAP_FIXTURES[1];
     const result = finalizeRawStrengthGap(
       {
@@ -93,7 +93,7 @@ describe("finalizeRawStrengthGap", () => {
         gaps: [
           {
             ...fixture.validRaw.gaps[0],
-            statement: "现有课程项目中的需求拆解经历尚不足以证明完整覆盖产品需求分析职责。",
+            statement: "现有需求拆解经历尚不足以证明完整覆盖产品需求分析职责。",
           },
         ],
       },

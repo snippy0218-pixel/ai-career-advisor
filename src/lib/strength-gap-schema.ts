@@ -252,7 +252,7 @@ function addStrengthTruthfulnessIssues(
   items: StrengthGapMatchLedgerItem[],
   path: string,
   issues: StrengthGapValidationIssue[],
-  options: { requireParticipationScope?: boolean } = {},
+  options: { preserveCandidateScope?: boolean } = {},
 ) {
   const source = items.map(positiveCandidateSource).join(" ");
   if (STRONG_CANDIDATE_CLAIM_PATTERN.test(statement)) {
@@ -263,13 +263,12 @@ function addStrengthTruthfulnessIssues(
       addIssue(issues, path, "SG-B Candidate claim upgrade is not present in positive Match evidence");
     }
   }
-  for (const rule of SCOPE_RULES) {
-    if (rule.source.source === "参与" && options.requireParticipationScope === false) {
-      continue;
-    }
-    if (rule.source.test(source) && !rule.output.test(statement)) {
-      addIssue(issues, path, "SG-B Candidate scope/modifier from Match evidence must be preserved");
-      break;
+  if (options.preserveCandidateScope !== false) {
+    for (const rule of SCOPE_RULES) {
+      if (rule.source.test(source) && !rule.output.test(statement)) {
+        addIssue(issues, path, "SG-B Candidate scope/modifier from Match evidence must be preserved");
+        break;
+      }
     }
   }
   const outputNumbers = statement.match(/\d+(?:\.\d+)?/g) ?? [];
@@ -422,7 +421,7 @@ export function finalizeRawStrengthGap(
         items,
         `${path}.statement`,
         issues,
-        { requireParticipationScope: false },
+        { preserveCandidateScope: false },
       );
     }
     if (
