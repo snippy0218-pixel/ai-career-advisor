@@ -252,6 +252,7 @@ function addStrengthTruthfulnessIssues(
   items: StrengthGapMatchLedgerItem[],
   path: string,
   issues: StrengthGapValidationIssue[],
+  options: { requireParticipationScope?: boolean } = {},
 ) {
   const source = items.map(positiveCandidateSource).join(" ");
   if (STRONG_CANDIDATE_CLAIM_PATTERN.test(statement)) {
@@ -263,6 +264,9 @@ function addStrengthTruthfulnessIssues(
     }
   }
   for (const rule of SCOPE_RULES) {
+    if (rule.source.source === "参与" && options.requireParticipationScope === false) {
+      continue;
+    }
     if (rule.source.test(source) && !rule.output.test(statement)) {
       addIssue(issues, path, "SG-B Candidate scope/modifier from Match evidence must be preserved");
       break;
@@ -418,6 +422,7 @@ export function finalizeRawStrengthGap(
         items,
         `${path}.statement`,
         issues,
+        { requireParticipationScope: false },
       );
     }
     if (
