@@ -1,0 +1,297 @@
+{
+  "phase": "2.4",
+  "generatedAt": "2026-08-11T04:55:41.3761221Z",
+  "authorization": {
+    "branch": "main",
+    "head": "8d9875f69f54535d4f0a884f744fdcb184924df7",
+    "gitStatusBeforeExecution": "clean",
+    "authorizedCase": "E2E-RB-05",
+    "authorizationClass": "NEW DETERMINISTIC BASELINE VERIFICATION",
+    "authorizedModelBackedRuns": 1,
+    "executedModelBackedRuns": 1,
+    "additionalModelBackedReruns": 0
+  },
+  "sourceExecutionArtifact": {
+    "path": "docs/acceptance-artifacts/phase-2-4/phase-2-4-post-028-032-rb-05.json",
+    "sha256": "94f7e93d588edf92324c33e7a5e3e121c6dc8c8095e09f3c9a0063985dfed4f8",
+    "implementationCommit": "8d9875f69f54535d4f0a884f744fdcb184924df7"
+  },
+  "acceptancePreflight": {
+    "status": "passed",
+    "modelCallsBeforeBusinessExecution": 0,
+    "capabilities": {
+      "profile": { "http": 200, "enabled": true, "rejectedOutputCapture": true },
+      "match": { "http": 200, "enabled": true, "rejectedOutputCapture": true },
+      "recommendation": { "http": 200, "enabled": true, "rejectedOutputCapture": true },
+      "strengthGap": { "http": 200, "enabled": true, "rejectedOutputCapture": true },
+      "greeting": { "http": 200, "enabled": true, "rejectedOutputCapture": true }
+    }
+  },
+  "frozenInput": {
+    "caseId": "E2E-RB-05",
+    "jd": {
+      "length": 138,
+      "sha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+      "historicalMatch": true
+    },
+    "profile": {
+      "length": 80,
+      "sha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745",
+      "historicalMatch": true
+    }
+  },
+  "stageMatrix": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "http": 200,
+      "latencyMs": 7827,
+      "attempts": { "state": "unknown", "count": null },
+      "repair": { "state": "unknown", "attempts": null },
+      "fallback": { "state": "unknown", "attempts": null },
+      "requestId": "0685f290-07b6-4ec1-9688-79a1df45ac16"
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "http": 200,
+      "latencyMs": 2137,
+      "attempts": { "state": "known", "count": 1 },
+      "repair": { "state": "not_needed", "attempts": 0 },
+      "fallback": { "state": "not_used", "attempts": 0 },
+      "requestId": "18ac34f1-4ab6-49c3-870d-a982eb4b038c"
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "http": 200,
+      "latencyMs": 10412,
+      "attempts": { "state": "known", "count": 2 },
+      "repair": { "state": "accepted", "attempts": 1 },
+      "fallback": { "state": "not_used", "attempts": 0 },
+      "requestId": "ee3e0d49-f0d7-40ad-b56b-2859637d34f0"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "failed",
+      "http": 502,
+      "latencyMs": 4462,
+      "attempts": { "state": "known", "count": 2 },
+      "repair": { "state": "failed", "attempts": 1 },
+      "fallback": { "state": "not_used", "attempts": 0 },
+      "requestId": "8f7c9eae-d08d-4183-b651-a0339752ec46",
+      "publicErrorCode": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "http": null,
+      "latencyMs": null,
+      "attempts": { "state": "not_run", "count": null },
+      "repair": { "state": "not_run", "attempts": null },
+      "fallback": { "state": "not_run", "attempts": null },
+      "requestId": null
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "http": null,
+      "latencyMs": null,
+      "attempts": { "state": "not_run", "count": null },
+      "repair": { "state": "not_run", "attempts": null },
+      "fallback": { "state": "not_run", "attempts": null },
+      "personalizedFallback": { "state": "not_run", "attempts": null },
+      "phase1Fallback": { "state": "not_run", "attempts": null },
+      "requestId": null
+    }
+  ],
+  "rejectedOutputs": [
+    {
+      "module": "match",
+      "stage": "initial",
+      "rawAvailable": true,
+      "rawTextLength": 3771,
+      "rawSha256": "c29e9aaeff64194219f74878aa464a8b1ab110efac6b7fce297f0e0aa44896a7",
+      "artifactTruncated": false,
+      "finishReason": "stop",
+      "parsedOutputAvailable": true,
+      "failureStage": "semantic_validation",
+      "failureCategory": "semantic_validation",
+      "validationIssues": [
+        {
+          "code": "M-CANDIDATE-LINEAGE",
+          "path": "matchItems.1.dimensions.1.reason",
+          "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且课程项目仅涉及数据展示作业"
+        },
+        {
+          "code": "M-K",
+          "path": "matchItems.1.dimensions.1.reason",
+          "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004"
+        },
+        {
+          "code": "M-CANDIDATE-LINEAGE",
+          "path": "matchItems.1.dimensions.2.reason",
+          "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 无法满足独立负责的要求"
+        },
+        {
+          "code": "M-CANDIDATE-LINEAGE",
+          "path": "matchItems.2.dimensions.0.reason",
+          "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 候选人参与过团队项目"
+        }
+      ],
+      "repairDisposition": "accepted"
+    },
+    {
+      "module": "recommendation",
+      "stage": "initial",
+      "rawAvailable": true,
+      "rawTextLength": 686,
+      "rawSha256": "cbe8387a1d3569bb2a838e2299f5264887b233897c4278b7e924ba8817046e38",
+      "artifactTruncated": false,
+      "finishReason": "stop",
+      "parsedOutputAvailable": true,
+      "failureStage": "semantic_validation",
+      "failureCategory": "semantic_validation",
+      "validationCodeOrRule": null,
+      "path": "summary",
+      "message": "MI-001 text contradicts Match Core status",
+      "summary": "Match Core 正向证据包括 MI-004（学历要求已满足）以及 MI-001、MI-003 的部分匹配；反证为 MI-002（正式数据产品工作经验未满足）。待确认项集中在 MI-001 与 MI-003 的掌握深度和主导程度。",
+      "repairDisposition": "rejected"
+    },
+    {
+      "module": "recommendation",
+      "stage": "repair",
+      "rawAvailable": true,
+      "rawTextLength": 686,
+      "rawSha256": "cbe8387a1d3569bb2a838e2299f5264887b233897c4278b7e924ba8817046e38",
+      "artifactTruncated": false,
+      "finishReason": "stop",
+      "parsedOutputAvailable": true,
+      "failureStage": "semantic_validation",
+      "failureCategory": "semantic_validation",
+      "validationCodeOrRule": null,
+      "path": "summary",
+      "message": "MI-001 text contradicts Match Core status",
+      "summary": "Match Core 正向证据包括 MI-004（学历要求已满足）以及 MI-001、MI-003 的部分匹配；反证为 MI-002（正式数据产品工作经验未满足）。待确认项集中在 MI-001 与 MI-003 的掌握深度和主导程度。",
+      "terminalDisposition": "AI_OUTPUT_INVALID"
+    }
+  ],
+  "acceptedMatchAudit": {
+    "statusCounts": { "met": 1, "partial": 2, "unmet": 1, "unknown": 0 },
+    "candidateFactPfContinuity": true,
+    "pfToRawProfileExact": true,
+    "jdEvidenceToRawJdExact": true,
+    "emptyCandidateFactRefs": 0,
+    "crossCfCourseContamination": 0,
+    "equivalentCourseParaphraseContamination": 0,
+    "nonFormalProjectAttribution": 0,
+    "candidateSemanticUpgrade": 0,
+    "modifierSemanticUpgrade": 0,
+    "note": "Initial Match raw contained course->CF-004 contamination; M-CANDIDATE-LINEAGE and M-K rejected it. The accepted repair removed it."
+  },
+  "issueAudits": {
+    "ISSUE-028": {
+      "verdict": "E2E NOT VERIFIED",
+      "evidenceCaptureCapability": "passed on all five actual routes",
+      "rawNoRawSemantics": "all observed rejected completions had rawAvailable=true; no completion-level no-raw failure occurred",
+      "rejectionLifecycle": "Match initial rejection and accepted repair preserved; Recommendation initial and rejected repair preserved",
+      "validationEvidence": "exact raw, path, message, lifecycle, finish reason and failure classification preserved; Recommendation rejection did not record a distinct validationCode/rule",
+      "productionLeakageBoundary": "public error object contained no raw; full raw remained in the acceptanceDiagnostics channel. Ordinary flags-off production execution was not invoked because an extra model-backed request was prohibited."
+    },
+    "ISSUE-032": {
+      "verdict": "E2E VERIFIED",
+      "notCalledNotRun": "Strength/Gap and Greeting explicitly preserved",
+      "unknownSemantics": "JD attempts/repair/fallback are unknown/null rather than zero",
+      "repairFallbackAggregates": "knownCount, unknownCount, notRunCount and complete all present",
+      "invariants": { "status": "not_run", "passed": null },
+      "safeFailure": false,
+      "safeFailureReason": "ordinary Recommendation 502 is not counted as safe failure",
+      "downstreamCallsAfterFailure": 0
+    },
+    "ISSUE-029": {
+      "verdict": "FIX VERIFIED",
+      "note": "The unsafe initial raw was detected and rejected; the accepted Match repair has zero cross-CF course contamination, zero empty Candidate refs and complete CF->PF->Raw Profile lineage."
+    },
+    "ISSUE-031": {
+      "verdict": "FIX NOT VERIFIED",
+      "failureClassification": "deterministic validator false positive",
+      "note": "Both initial and repair explicitly bind 已满足 to MI-004 and 部分匹配 to MI-001/MI-003, but both were rejected as MI-001 status contradiction."
+    },
+    "ISSUE-030": {
+      "verdict": "VERIFICATION INCONCLUSIVE",
+      "note": "Strength/Gap was not called after Recommendation failure."
+    }
+  },
+  "globalEvidenceAudit": {
+    "status": "partial_only",
+    "candidateClaimToCfToPfToRawProfile": "passed through accepted Match",
+    "jdClaimToJdEvidence": "passed through accepted Match",
+    "unknownVsUnmet": "passed for executed accepted Match; no unknown items in this case",
+    "absenceVsNegativeEvidence": "passed for executed accepted Match; unmet uses explicit CF-004 negative evidence",
+    "unsupportedWaiver": 0,
+    "candidateSemanticUpgrade": 0,
+    "jdToCandidateContamination": 0,
+    "crossCfQualifierContamination": 0,
+    "frequencyUpgrade": 0,
+    "intensityUpgrade": 0,
+    "scopeUpgrade": 0,
+    "durationUpgrade": 0,
+    "quantityUpgrade": 0,
+    "certaintyUpgrade": 0,
+    "ownershipUpgrade": 0,
+    "proficiencyUpgrade": 0,
+    "responsibilityUpgrade": 0,
+    "fullChainInvariantAudit": { "status": "not_run", "passed": null }
+  },
+  "metrics": {
+    "repairs": {
+      "profile": { "state": "not_needed", "attempts": 0 },
+      "match": { "state": "accepted", "attempts": 1 },
+      "recommendation": { "state": "failed", "attempts": 1 },
+      "strengthGap": { "state": "not_run", "attempts": null },
+      "greeting": { "state": "not_run", "attempts": null }
+    },
+    "fallbacks": {
+      "jd": { "state": "unknown", "attempts": null },
+      "profile": { "state": "not_used", "attempts": 0 },
+      "match": { "state": "not_used", "attempts": 0 },
+      "recommendation": { "state": "not_used", "attempts": 0 },
+      "strengthGap": { "state": "not_run", "attempts": null },
+      "greeting": { "state": "not_run", "attempts": null }
+    },
+    "executedChainLatencyMs": 24838,
+    "repairAggregates": {
+      "profile": { "knownCount": 0, "unknownCount": 0, "notRunCount": 0, "complete": true },
+      "match": { "knownCount": 1, "unknownCount": 0, "notRunCount": 0, "complete": true },
+      "recommendation": { "knownCount": 1, "unknownCount": 0, "notRunCount": 0, "complete": true },
+      "strengthGap": { "knownCount": 0, "unknownCount": 0, "notRunCount": 1, "complete": true },
+      "greeting": { "knownCount": 0, "unknownCount": 0, "notRunCount": 1, "complete": true }
+    }
+  },
+  "finalResult": {
+    "passed": false,
+    "completedChains": 0,
+    "stoppedAt": "recommendation",
+    "failureCategory": "deterministic_validator",
+    "failureCode": "AI_OUTPUT_INVALID",
+    "safeFailure": false,
+    "downstreamCallsAfterFailure": 0,
+    "rejectedOutputCount": 3,
+    "gateRecommendation": "Phase 2.4 仍 BLOCKED"
+  },
+  "scopeAudit": {
+    "codeChanges": false,
+    "fixtureChanges": false,
+    "contractPromptGateChanges": false,
+    "modelProviderTemperatureRetryTimeoutFallbackChanges": false,
+    "extraModelBackedRerun": false,
+    "phase25Work": false,
+    "historicalArtifactsOverwritten": false
+  }
+}
