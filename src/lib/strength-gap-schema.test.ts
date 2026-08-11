@@ -12,6 +12,42 @@ function validateFixture(index: number) {
   return finalizeRawStrengthGap(fixture.validRaw, fixture.matchCore);
 }
 
+function issue030MatchCore(
+  reason = "候选人在课程中了解 Python 基础语法，但未表明达到熟练程度。",
+) {
+  const matchCore = structuredClone(STRENGTH_GAP_FIXTURES[1].matchCore);
+  const item = matchCore.matchItems[0];
+  const dimension = item.requirementDimensions[0];
+  item.requirement = "熟练掌握 Python";
+  item.jdEvidence = ["熟练掌握 Python"];
+  dimension.requirementFragment = "熟练掌握 Python";
+  dimension.reason = reason;
+  dimension.jdEvidence = ["熟练掌握 Python"];
+  return matchCore;
+}
+
+function validateIssue030Statement(
+  statement: string,
+  matchCore = issue030MatchCore(),
+) {
+  return finalizeRawStrengthGap(
+    {
+      strengths: [],
+      gaps: [
+        {
+          type: "evidence_expression",
+          statement,
+          matchRefs: ["MI-001"],
+          suggestedAction:
+            "如果候选人确实有实际项目中使用 Python 的经历，可补充相关事实以证明熟练程度。",
+          actionType: "evidence",
+        },
+      ],
+    },
+    matchCore,
+  );
+}
+
 describe("finalizeRawStrengthGap", () => {
   it("accepts all twelve authorized scenarios and assigns stable server IDs", () => {
     for (const fixture of STRENGTH_GAP_FIXTURES) {
@@ -113,6 +149,113 @@ describe("finalizeRawStrengthGap", () => {
     );
     expect(result.issues).toEqual([]);
     expect(result.data).not.toBeNull();
+  });
+
+  describe("ISSUE-030 bounded evidence-expression structure", () => {
+    it("T1 accepts the original RB-05 sentence", () => {
+      const result = validateIssue030Statement(
+        "现有证据只能表明候选人在课程中了解 Python 基础语法，尚不足以证明其熟练掌握 Python。",
+      );
+      expect(result.issues).toEqual([]);
+      expect(result.data).not.toBeNull();
+    });
+
+    it("T2 accepts a supported positive clause longer than the former fixed window", () => {
+      const positiveClause =
+        "候选人在课程中了解 Python 基础语法并能说明变量、条件判断与循环的基本概念";
+      expect([...positiveClause].length).toBeGreaterThan(20);
+      const result = validateIssue030Statement(
+        `现有证据只能表明${positiveClause}，尚不足以证明其熟练掌握 Python。`,
+        issue030MatchCore(`${positiveClause}，但未表明达到熟练程度。`),
+      );
+      expect(result.issues).toEqual([]);
+    });
+
+    it("T3 accepts 当前证据 followed by 不足以证明", () => {
+      const result = validateIssue030Statement(
+        "当前证据表明候选人在课程中了解 Python 基础语法，不足以证明其熟练掌握 Python。",
+      );
+      expect(result.issues).toEqual([]);
+    });
+
+    it("T4 accepts 现有经历 followed by 未能完整证明", () => {
+      const result = validateIssue030Statement(
+        "现有经历只能证明候选人在课程中了解 Python 基础语法，未能完整证明其熟练掌握 Python。",
+      );
+      expect(result.issues).toEqual([]);
+    });
+
+    it("T5 rejects an evidence_expression without an insufficiency boundary", () => {
+      const result = validateIssue030Statement(
+        "现有证据表明候选人在课程中了解 Python 基础语法。",
+      );
+      expect(result.issues).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ message: expect.stringContaining("SG-E") }),
+        ]),
+      );
+    });
+
+    it("T6 rejects an insufficiency boundary without an evidence anchor", () => {
+      const result = validateIssue030Statement(
+        "尚不足以证明其熟练掌握 Python。",
+      );
+      expect(result.issues).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ message: expect.stringContaining("SG-E") }),
+        ]),
+      );
+    });
+
+    it("T7 rejects an anchor and unrelated boundary split across sentences", () => {
+      const result = validateIssue030Statement(
+        "现有证据表明候选人了解 Python。另一个岗位条件尚不足以确认。",
+      );
+      expect(result.issues).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ message: expect.stringContaining("SG-E") }),
+        ]),
+      );
+    });
+
+    it("T8 does not let a later boundary excuse a preceding Candidate upgrade", () => {
+      const result = validateIssue030Statement(
+        "候选人熟练掌握 Python，现有证据只能表明候选人在课程中了解 Python 基础语法，尚不足以证明其熟练掌握 Python。",
+      );
+      expect(result.issues).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ message: expect.stringContaining("SG-E") }),
+        ]),
+      );
+    });
+
+    it("T9 preserves the previously accepted compact short form", () => {
+      const result = finalizeRawStrengthGap(
+        {
+          ...STRENGTH_GAP_FIXTURES[1].validRaw,
+          gaps: [
+            {
+              ...STRENGTH_GAP_FIXTURES[1].validRaw.gaps[0],
+              statement:
+                "现有需求拆解经历尚不足以证明完整覆盖产品需求分析职责。",
+            },
+          ],
+        },
+        STRENGTH_GAP_FIXTURES[1].matchCore,
+      );
+      expect(result.issues).toEqual([]);
+    });
+
+    it("T10 rejects unrelated keyword coincidence", () => {
+      const result = validateIssue030Statement(
+        "现有证据已经归档，预算尚不足以确认采购计划。",
+      );
+      expect(result.issues).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ message: expect.stringContaining("SG-E") }),
+        ]),
+      );
+    });
   });
 
   it("SG-D rejects a transferable Strength presented as a mature match", () => {

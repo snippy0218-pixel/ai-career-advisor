@@ -2,7 +2,7 @@
 
 > 日期：2026-08-11  
 > 授权范围：仅 ISSUE-029 cross-CF Candidate qualifier isolation  
-> Gate 建议：**ISSUE-029 FIX NOT VERIFIED / PHASE 2.4 仍 BLOCKED**  
+> Gate 状态：**OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / FINAL E2E VERIFICATION PENDING**
 > Phase 2.5：NOT AUTHORIZED
 
 ## A. Root Cause
@@ -47,6 +47,8 @@
 | `phase-2-4-issue-029-rb-05-rerun-2.json` | 0/1 | Match 502 | guard 已触发 repair；initial/repair 均因合法“正式工作经验要求”比较短语误报而 fail-closed，raw 完整保存 |
 | `phase-2-4-issue-029-rb-05-rerun-3.json` | 0/1 | Strength/Gap 502 | Match 200 且无 CF-002→CF-003 course scope；Recommendation 200；SG initial/repair 均因 SG-E gap-type boundary 拒绝；Greeting 未调用 |
 
+Product Owner / QA forensic adjudication 已确认 rerun-3 的 SG initial/repair 均为 Classification B — SG-E False Positive，并建立独立 `ISSUE-030`。原 ISSUE-029 cross-CF contamination 在 rerun-3 为 **NOT OBSERVED**。ISSUE-029 实现不再修改；仅在 post-ISSUE-030 RB-05 完整链成功且 contamination 继续为 0 后，才由 Product Owner / QA 决定是否关闭。
+
 最终 rerun-3 的 Match：MI-001 partial（CF-002/PF-002 课程 Python 基础）、MI-002 unmet（CF-004/PF-004 明确无正式工作经历）、MI-003 unknown（无 course scope claim）、MI-004 met（CF-001/PF-001 本科）；JD evidence 全部保留。全链未完成，因此不得把 Match targeted success 视为 RB-05 PASS。
 
 ## F. Downstream Regression
@@ -88,5 +90,5 @@ rerun-3：JD 1 attempt、无 targeted/HR repair、无 HR fallback；Profile 1 at
 
 ## L. Gate Recommendation
 
-- **ISSUE-029 FIX NOT VERIFIED**：确定性 cross-CF guard 与 clean Match evidence 已完成，但授权要求的 RB-05 full chain 未成功。
-- **Phase 2.4 仍 BLOCKED**：不得宣布 Ready for Release，不得授权或进入 Phase 2.5。等待 Product Owner / QA 对 rerun-3 的 downstream SG-E fail-closed 作出 disposition。
+- **ISSUE-029 OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / FINAL E2E VERIFICATION PENDING**：确定性 cross-CF guard 与 clean Match evidence 已完成，rerun-3 未观察到 contamination；等待 post-ISSUE-030 RB-05 full-chain verification。
+- **Phase 2.4 仍 BLOCKED**：不得宣布 Ready for Release，不得授权或进入 Phase 2.5。等待 ISSUE-030 deterministic fix 与单次 post-fix RB-05 evidence 完成后由 Product Owner / QA 复核。

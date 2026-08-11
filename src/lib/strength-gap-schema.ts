@@ -219,8 +219,13 @@ function findDuplicate(values: string[]) {
 
 const TRANSFERABLE_LANGUAGE_PATTERN =
   /(?:可迁移|迁移价值|一定相关|部分支持|具有相关性|基础支持|有限支持|相关基础|借鉴价值|参考价值|提供.{0,8}(?:基础|支持|支撑|参考)|有助于)/;
-const EVIDENCE_BOUNDARY_PATTERN =
-  /(?:现有|当前).{0,16}(?:证据|经历).{0,20}(?:尚不足|不足以|只能证明|仅能证明|部分证明|未能完整证明)/;
+const EVIDENCE_UNIT_SEPARATOR_PATTERN = /[。！？!?；;\r\n]+/;
+const EVIDENCE_ANCHOR_PATTERN =
+  /^(?:(?:基于|根据)\s*)?(?:现有|当前)([^，,]*?)(?:证据|经历)/;
+const POSITIVE_EVIDENCE_CLAUSE_PATTERN =
+  /^(?:(?:只能|仅能|仅|部分)(?:部分)?)?(?:表明|证明|说明|显示|反映|支持|来自).+/;
+const EVIDENCE_LIMITATION_CLAUSE_PATTERN =
+  /^(?:(?:尚不足以|不足以)(?:完整|充分)?|未能(?:完整|充分)?)(?:证明|确认|判断|说明|表明).+/;
 const UNKNOWN_DEFICIENCY_PATTERN =
   /(?:(?:你|候选人).{0,16}(?:缺少|不会|不具备|未掌握|能力不足|经验不足)|(?:需要|应当|应该).{0,8}(?:学习|补强|提升|掌握))/;
 const FORBIDDEN_ADVICE_PATTERN =
@@ -242,6 +247,38 @@ const TARGET_RELATION_SUFFIX_PATTERN =
   /(?:要求|职责|岗位|场景|具有|可迁移|相关)/;
 const INSTRUCTION_TEXT_PATTERN =
   /忽略.{0,16}(?:规则|提示|之前|以上)|声称.{0,20}(?:经验|技能|能力)|虚构|编造/i;
+
+function hasEvidenceExpressionBoundary(statement: string) {
+  const semanticUnits = statement
+    .split(EVIDENCE_UNIT_SEPARATOR_PATTERN)
+    .map((unit) => unit.trim())
+    .filter(Boolean);
+  if (semanticUnits.length !== 1) return false;
+
+  const unit = semanticUnits[0];
+  const anchor = EVIDENCE_ANCHOR_PATTERN.exec(unit);
+  if (!anchor) return false;
+
+  const remainder = unit.slice(anchor[0].length).trim();
+  const clauses = remainder.split(/[，,]/).map((clause) => clause.trim());
+  const limitationIndex = clauses.findIndex((clause) =>
+    EVIDENCE_LIMITATION_CLAUSE_PATTERN.test(clause),
+  );
+  if (limitationIndex > 0) {
+    const positiveClause = clauses.slice(0, limitationIndex).join("，");
+    const limitationClause = clauses.slice(limitationIndex).join("，");
+    return (
+      POSITIVE_EVIDENCE_CLAUSE_PATTERN.test(positiveClause) &&
+      EVIDENCE_LIMITATION_CLAUSE_PATTERN.test(limitationClause)
+    );
+  }
+
+  const anchorEvidence = anchor[1].replace(/[的在\s]/g, "");
+  return (
+    anchorEvidence.length > 0 &&
+    EVIDENCE_LIMITATION_CLAUSE_PATTERN.test(remainder)
+  );
+}
 
 const SCOPE_RULES = [
   { source: /课程/, output: /课程/ },
@@ -524,7 +561,7 @@ export function finalizeRawStrengthGap(
     if (
       entry.type === "evidence_expression" &&
       (!items.every((item) => item.status === "partial" && hasPositiveEvidence(item)) ||
-        !EVIDENCE_BOUNDARY_PATTERN.test(entry.statement))
+        !hasEvidenceExpressionBoundary(entry.statement))
     ) {
       addIssue(issues, path, "SG-E evidence_expression requires partial positive evidence and an evidence boundary");
     }
