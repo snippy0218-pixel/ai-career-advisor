@@ -27,7 +27,7 @@
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
 | ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | bounded stabilization 已实现；rerun-3 contamination NOT OBSERVED；等待 post-ISSUE-030 RB-05 full chain | **Open / P1 / Fix Implemented / Local Verification Pass / Final E2E Verification Pending** | **是** |
-| ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | Product Owner / QA 已裁决 rerun-3 initial/repair 为 Classification B；授权 bounded deterministic validator stabilization | **Open / P1 / Fix Implemented / E2E Verification Pending / Release Gate Blocker** | **是** |
+| ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 与 373/373、lint/build PASS；唯一 post-fix RB-05 在 JD 503 停止，未到达 SG-E | **Open / P1 / Fix Implemented / Local Verification Pass / E2E Verification Blocked / Fix Not Verified / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -115,7 +115,7 @@
 | Q-I | PASS | no silent truncation；limits/error mapping 通过 |
 | Q-J | **FAIL** | release-blocking P1 ISSUE-029 与 ISSUE-030 尚未完成 Final E2E verification |
 
-当前 Gate：**STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。ISSUE-029 已实现且等待 Final E2E verification；ISSUE-030 已获 bounded deterministic validator stabilization 授权。除单次 post-fix RB-05 与证据收尾外，不得继续产品修改或进入 Phase 2.5。
+当前 Gate：**STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。ISSUE-029 已实现但 post-fix audit 因 JD 503 为 indeterminate；ISSUE-030 deterministic/local Gate PASS，但 E2E 未到达 SG-E。唯一一次 post-fix RB-05 已消耗且不得 rerun；当前只允许证据收尾，不得继续产品修改或进入 Phase 2.5。
 
 ## 9. ISSUE-029 Bounded Stabilization Result（2026-08-11）
 
@@ -130,4 +130,6 @@
 - Product Owner / QA 接受 SG-E forensic adjudication：rerun-3 initial/repair 均为 Classification B — SG-E False Positive；原 ISSUE-029 contamination NOT OBSERVED；
 - 建立 `ISSUE-030 — SG-E Evidence Boundary False Positive on Valid Long Clause`（P1 / OPEN / Release Gate Blocker）；
 - bounded fix 仅修改 Strength/Gap deterministic evidence-boundary recognition，不修改 Prompt、Contract、Match 或其他产品模块；
-- 详细实现、T1～T10 与 post-fix RB-05 evidence 见 `PHASE-2-4-ISSUE-030-STABILIZATION.md`。
+- T1～T10、83/83 targeted、373/373 full、lint/build 均 PASS；
+- 唯一一次 post-fix RB-05 写入 `phase-2-4-issue-030-rb-05-post-fix.json`，但在 JD 阶段 83 ms 返回 503 `AI_SERVICE_UNAVAILABLE`，下游调用 0；未到达 SG-E，按 Gate 不 rerun；
+- 工程建议 ISSUE-030 `FIX NOT VERIFIED`、Phase 2.4 仍 BLOCKED。详细 evidence 见 `PHASE-2-4-ISSUE-030-STABILIZATION.md`。

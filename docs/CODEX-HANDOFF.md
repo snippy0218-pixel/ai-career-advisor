@@ -18,9 +18,11 @@
 - 三次 RB-05 worktree rerun 均独立保留且 0/1：第 1 次暴露跨分句 negation 漏拦，第 2 次暴露 JD requirement phrase 误报，第 3 次 Match/Recommendation 已 200 且无 CF-002→CF-003 course scope，但 Strength/Gap initial/repair 均被 SG-E 拒绝并 502，Greeting 未调用；该 SG-E failure 后续已由 Product Owner / QA 裁决为独立 ISSUE-030；
 - Product Owner / QA 已裁决 rerun-3 SG initial/repair 为 Classification B — SG-E False Positive，并建立 `ISSUE-030 — SG-E Evidence Boundary False Positive on Valid Long Clause`（P1 / OPEN / Release Gate Blocker）；ISSUE-029 更新为 OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / FINAL E2E VERIFICATION PENDING，rerun-3 contamination NOT OBSERVED；
 - ISSUE-030 bounded stabilization 仅允许修改 Strength/Gap deterministic evidence-boundary validation；不得修改 Match、Prompt、CLOSED Contract 或其他产品模块。完成确定性 Gate 后只允许一次冻结 fixture 的 post-fix RB-05；详见 `docs/PHASE-2-4-ISSUE-030-STABILIZATION.md`；
+- ISSUE-030 implementation commit `b30e7be…`：以 sentence/clause semantic unit 结构替换 SG-E fixed window；T1～T10、83/83 targeted、373/373 full、lint/build PASS；
+- 唯一 post-fix RB-05 artifact `phase-2-4-issue-030-rb-05-post-fix.json` 为 0/1：JD 在 83 ms 返回 503 `AI_SERVICE_UNAVAILABLE`，Profile 及全部下游调用 0；按 Gate 未 rerun。该次未到达 Match/SG，因此 ISSUE-029 post-fix audit = indeterminate，ISSUE-030 = FIX NOT VERIFIED，Phase 2.4 仍 BLOCKED；
 - final Phase 2.4 suite 固定 `679268a…`：7/8；六条完整链、RB-08 预期 400、RB-05 blocked；350/350、lint/build PASS；不得用 targeted success 覆盖 final failure；
 - `OBS-006 — Full-chain Personalized Greeting Fallback Interaction`：final six greeting requests 中 repair 4/6、personalized safe fallback 4/6、Phase 1 fallback 0/6；均安全但与 isolated Phase 2.3 0/36 显著不同，待 ISSUE-029 review 后复评；
-- 当前只允许 Product Owner / QA 明确授权的 ISSUE-030 bounded stabilization、一次 post-fix RB-05 与 ISSUE-029/030 evidence 收尾；不得继续普通产品修改，不得进入 Phase 2.5。
+- 当前授权的 ISSUE-030 implementation 与唯一一次 post-fix RB-05 已完成；该次在 JD 503 停止且不得 rerun。当前只允许 ISSUE-029/030 evidence 收尾并等待 Product Owner / QA Review；不得继续普通产品修改，不得进入 Phase 2.5。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

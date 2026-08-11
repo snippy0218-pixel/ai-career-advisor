@@ -1,0 +1,113 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "b30e7bebaf572a40296be4be7bfe91c9b5ec2595",
+  "generatedAt": "2026-08-11T02:42:49.860Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 1,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 83,
+      "average": 83,
+      "median": 83,
+      "p95": null,
+      "max": 83
+    },
+    "profile": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "match": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "recommendation": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "failureContext": {
+        "candidateProfile": null,
+        "matchCore": null,
+        "recommendation": null
+      },
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 503,
+          "latencyMs": 83,
+          "requestId": "6c74a720-ea9b-4389-8bca-4c88ecf62b4b",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "6c74a720-ea9b-4389-8bca-4c88ecf62b4b",
+            "retryable": true
+          }
+        }
+      ]
+    }
+  ]
+}

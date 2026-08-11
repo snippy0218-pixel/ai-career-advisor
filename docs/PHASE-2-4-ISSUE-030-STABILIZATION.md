@@ -56,14 +56,29 @@ Focused schema：35/35 PASS。Strength/Gap、modifier-integrity、ISSUE-027/028 
 
 - ISSUE-030 focused + existing schema：35/35 PASS；
 - authorized targeted：83/83 PASS；
-- full suite：待执行；
-- lint：待执行；
-- production build：待执行。
+- full suite：21 files / 373 tests PASS；
+- lint：PASS；
+- production build：PASS。
 
 ## F. Post-fix RB-05
 
-待全部确定性 Gate PASS 后执行一次；使用冻结 fixture，写入新 artifact，不覆盖 rerun-1/2/3。
+确定性 Gate 全部 PASS 后，在 implementation commit `b30e7bebaf572a40296be4be7bfe91c9b5ec2595` 上使用冻结 fixture 执行了唯一一次 post-fix RB-05：
 
-## G. Gate
+- artifact：`docs/acceptance-artifacts/phase-2-4/phase-2-4-issue-030-rb-05-post-fix.json`；rerun-1/2/3 未覆盖；
+- result：0/1，`completedChains=0`，`safeFailures=1`；
+- stoppedAt：`jd`；HTTP 503；error `AI_SERVICE_UNAVAILABLE`；request id `6c74a720-ea9b-4389-8bca-4c88ecf62b4b`；
+- latency：JD 83 ms；Profile/Match/Recommendation/Strength-Gap/Greeting samples 均为 0；
+- downstreamCallsAfterFailure：0；所有 repair/fallback counters 均为 0；
+- artifact 保留冻结 JD/Profile 字符数与 SHA-256；由于 JD upstream failure，未产生 Profile、Match、Recommendation、Strength/Gap initial/repair 或 Greeting raw output。
 
-当前 ISSUE-030 仍为 OPEN / FIX IMPLEMENTED / E2E VERIFICATION PENDING。Phase 2.4 仍 BLOCKED，Phase 2.5 NOT AUTHORIZED。
+该失败发生在 SG-E 之前，属于新的 upstream/service-availability failure mode。Artifact 无法进一步区分上游 HTTP failure 与本地受限网络 fetch failure；按 Product Owner / QA 指令不执行第二次 rerun。
+
+## G. ISSUE-029 / ISSUE-030 Audit
+
+- ISSUE-029 contamination：**indeterminate**（post-fix run 未到达 Match；rerun-3 的 NOT OBSERVED 历史事实不被覆盖）；
+- ISSUE-030：**FIX NOT VERIFIED**（deterministic/local Gate PASS，但唯一 E2E 未到达 Strength/Gap）；
+- repair semantics：rerun-3 initial/repair 仍确认为 semantically valid；当时 repair 为 validator-induced unnecessary repair。本次 post-fix run 未到达 Strength/Gap，因此没有 repair 可重新观测。
+
+## H. Gate
+
+当前 ISSUE-030 为 OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / E2E VERIFICATION BLOCKED；工程建议 **FIX NOT VERIFIED**。Phase 2.4 仍 BLOCKED，Phase 2.5 NOT AUTHORIZED。
