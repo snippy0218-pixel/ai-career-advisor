@@ -99,3 +99,11 @@ Terminal failure 不是 infrastructure/provider/transport/timeout，也不是 ev
 ## 8. Gate Recommendation
 
 建议：`Phase 2.4 仍 BLOCKED`。不得自行关闭 ISSUE-028～032、Phase 2.4，不得授权 Phase 2.5。等待 Product Owner / QA 对 terminal Match evidence及 possible M-CANDIDATE-LINEAGE false-positive observation 做 Gate Review。
+
+## 9. Subsequent Product Owner / QA Disposition
+
+本节只追加后续裁决，不修改或覆盖上述 runtime artifact 事实：
+
+- `无法满足独立负责的要求` 与 `并非主导角色` 归入新 P1 `ISSUE-033 — Match Repair Unsupported Negative-Claim Stability`；原 deterministic guard 正确拒绝，bounded work 聚焦 repair robustness；
+- `与正式工作经验要求不符` 归入新 P1 `ISSUE-034 — Match Lineage False Positive on Supported CF↔JD Relational Conclusion`；经修改前 lineage adjudication，CF-004/PF-004/Raw Profile 与 JD requirement 语义充分支持该同维度 relation，结论 `FALSE POSITIVE CONFIRMED`；
+- bounded deterministic stabilization 与 G33/L34 evidence 见 `PHASE-2-4-ISSUE-033-034-STABILIZATION.md`；本次历史 RB-05 仍保持唯一、未覆盖、不得当作 post-fix E2E evidence。

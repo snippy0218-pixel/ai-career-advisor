@@ -434,4 +434,148 @@ describe("analyzeMatchWithDeepSeek", () => {
       requirementCount: 4,
     });
   });
+
+  it("G33-9 repairs an unsupported negative into a legal uncertainty boundary", async () => {
+    const requirement = "主导跨团队项目并对个人交付结果负责";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "partial",
+          dimensions: [
+            {
+              dimensionType: "responsibility",
+              requirementFragment: requirement,
+              status: "partial",
+              reason:
+                "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但并非主导角色。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: "是否担任主导角色",
+              verificationQuestion: "请说明是否担任过主导角色？",
+            },
+          ],
+        },
+      ],
+    };
+    const repaired = {
+      matchItems: [
+        {
+          ...invalid.matchItems[0],
+          dimensions: [
+            {
+              ...invalid.matchItems[0].dimensions[0],
+              reason:
+                "候选人与四人团队共同完成数据展示作业并协助整理需求和测试；现有资料未表明候选人担任过主导角色。",
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(completion(invalid))
+      .mockResolvedValueOnce(completion(repaired));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(result.matchItems[0].status).toBe("partial");
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: true,
+      matchRepairSucceeded: true,
+      repairState: "accepted",
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: false }),
+      ],
+    });
+    const initialBody = JSON.parse(
+      String((fetchImpl.mock.calls[0][1] as RequestInit).body),
+    ) as { messages: Array<{ content: string }> };
+    expect(initialBody.messages[0].content).toContain(
+      "必须区分 explicit counter-evidence 与 absence of evidence",
+    );
+    const repairBody = JSON.parse(
+      String((fetchImpl.mock.calls[1][1] as RequestInit).body),
+    ) as { messages: Array<{ content: string }> };
+    expect(repairBody.messages[1].content).toContain("M-CANDIDATE-LINEAGE 专项修复");
+    expect(repairBody.messages[1].content).toContain("不得换用另一种否定措辞");
+    expect(repairBody.messages[1].content).toContain("现有资料未表明候选人担任过主导角色");
+  });
+
+  it("G33-10 remains fail-closed when repair keeps the unsupported negative", async () => {
+    const requirement = "主导跨团队项目并对个人交付结果负责";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "partial",
+          dimensions: [
+            {
+              dimensionType: "responsibility",
+              requirementFragment: requirement,
+              status: "partial",
+              reason:
+                "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但并非主导角色。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: "是否担任主导角色",
+              verificationQuestion: "请说明是否担任过主导角色？",
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    await expect(
+      analyzeMatchWithDeepSeek(request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: true,
+      matchRepairSucceeded: false,
+      repairState: "rejected",
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: true }),
+      ],
+    });
+  });
 });

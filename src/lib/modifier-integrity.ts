@@ -128,7 +128,7 @@ function isNegatedOrRequirementQualifier(
     Math.min(clauseEnd, index + value.length + 10),
   );
   if (
-    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|是否|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
+    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|是否|未表明|未体现|不足以证明|尚无证据证明|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
     /^(?:并)?(?:不能|无法|不得|并非|不是)/.test(after)
   ) {
     return true;

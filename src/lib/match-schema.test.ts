@@ -990,3 +990,341 @@ describe("ISSUE-029 M-CANDIDATE-LINEAGE regression matrix", () => {
     );
   });
 });
+
+describe("ISSUE-033 unsupported negative-claim stability", () => {
+  type FixtureFacts = Parameters<typeof buildMatchFixture>[1];
+
+  function resultFor({
+    requirement = "主导跨团队项目并对个人交付结果负责",
+    facts = [
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+    ],
+    status,
+    reason,
+    refs,
+    dimensionType = "responsibility",
+  }: {
+    requirement?: string;
+    facts?: FixtureFacts;
+    status: "met" | "partial" | "unmet" | "unknown";
+    reason: string;
+    refs: Array<{ factId: string; role: "positive" | "counter" }>;
+    dimensionType?: RawMatchCore["matchItems"][number]["dimensions"][number]["dimensionType"];
+  }) {
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      facts,
+    );
+    const unresolved = status === "partial" || status === "unknown";
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: status,
+          dimensions: [
+            dimension({
+              dimensionType,
+              requirementFragment: requirement,
+              status,
+              reason,
+              jdEvidence: [requirement],
+              candidateEvidence: refs,
+              missingInformation: unresolved ? "相关能力或经历仍需确认" : null,
+              verificationQuestion: unresolved ? "请补充相关能力或经历？" : null,
+            }),
+          ],
+        },
+      ],
+    };
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  const expectLineageReject = (result: ReturnType<typeof resultFor>) => {
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: expect.stringContaining("M-CANDIDATE-LINEAGE"),
+        }),
+      ]),
+    );
+  };
+
+  it("G33-1 rejects an unsupported assertion that the candidate was not the lead", () => {
+    expectLineageReject(
+      resultFor({
+        status: "partial",
+        reason: "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但并非主导角色。",
+        refs: [{ factId: "CF-001", role: "positive" }],
+      }),
+    );
+  });
+
+  it("G33-2 accepts an uncertainty boundary when leadership is not evidenced", () => {
+    const result = resultFor({
+      status: "partial",
+      reason:
+        "候选人与四人团队共同完成数据展示作业并协助整理需求和测试；现有资料未表明候选人担任过主导角色。",
+      refs: [{ factId: "CF-001", role: "positive" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("G33-3 rejects an unsupported claim that the candidate cannot independently own work", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "具有独立负责数据产品的经验",
+        status: "unknown",
+        reason: "候选人无法满足独立负责的要求。",
+        refs: [],
+      }),
+    );
+  });
+
+  it("G33-4 accepts an uncertainty boundary for independent ownership", () => {
+    const result = resultFor({
+      requirement: "具有独立负责数据产品的经验",
+      status: "unknown",
+      reason: "现有资料未表明候选人具有独立负责经验。",
+      refs: [],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("G33-5 preserves an explicit negative fact as valid unmet evidence", () => {
+    const result = resultFor({
+      requirement: "具有正式数据产品工作经验",
+      facts: [
+        {
+          statement: "没有正式数据产品工作经历",
+          semanticTags: ["experience"],
+        },
+      ],
+      status: "unmet",
+      reason: "候选人没有正式数据产品工作经历，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+      dimensionType: "employment_type",
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("G33-6 rejects explicit negative wording for an unknown requirement", () => {
+    for (const reason of [
+      "候选人不具备主导经验。",
+      "候选人无法满足主导要求。",
+      "候选人不是主导角色。",
+      "候选人并非主导角色。",
+      "候选人没有主导经验。",
+    ]) {
+      expectLineageReject(resultFor({ status: "unknown", reason, refs: [] }));
+    }
+  });
+
+  it("G33-7 accepts partial evidence with an insufficiency boundary", () => {
+    const result = resultFor({
+      status: "partial",
+      reason:
+        "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但尚不足以证明其担任过主导角色。",
+      refs: [{ factId: "CF-001", role: "positive" }],
+    });
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[0].status).toBe("partial");
+  });
+
+  it("G33-8 rejects both exact unsupported claims from the current repair", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "具有独立负责数据产品的经验",
+        status: "unknown",
+        reason: "候选人无法满足独立负责的要求。",
+        refs: [],
+      }),
+    );
+    expectLineageReject(
+      resultFor({
+        status: "partial",
+        reason: "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，并非主导角色。",
+        refs: [{ factId: "CF-001", role: "positive" }],
+      }),
+    );
+  });
+});
+
+describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
+  type FixtureFacts = Parameters<typeof buildMatchFixture>[1];
+
+  function relationResult({
+    requirement = "具有正式数据产品工作经验",
+    requirementFragment = requirement,
+    facts,
+    status = "unmet",
+    reason,
+    refs,
+    dimensionType = "employment_type",
+  }: {
+    requirement?: string;
+    requirementFragment?: string;
+    facts: FixtureFacts;
+    status?: "partial" | "unmet" | "unknown";
+    reason: string;
+    refs: Array<{ factId: string; role: "positive" | "counter" }>;
+    dimensionType?: RawMatchCore["matchItems"][number]["dimensions"][number]["dimensionType"];
+  }) {
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      facts,
+    );
+    const unresolved = status !== "unmet";
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: status,
+          dimensions: [
+            dimension({
+              dimensionType,
+              requirementFragment,
+              status,
+              reason,
+              jdEvidence: [requirement],
+              candidateEvidence: refs,
+              missingInformation: unresolved ? "正式工作经验仍需确认" : null,
+              verificationQuestion: unresolved ? "是否具有正式工作经验？" : null,
+            }),
+          ],
+        },
+      ],
+    };
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  const negativeFact = {
+    statement: "没有正式数据产品工作经历",
+    semanticTags: ["experience"],
+  } satisfies Parameters<typeof buildMatchFixture>[1][number];
+  const neutralProject = {
+    statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+    semanticTags: ["experience"],
+  } satisfies Parameters<typeof buildMatchFixture>[1][number];
+
+  it("L34-1 accepts a same-dimension explicit-negative requirement mismatch", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("L34-2 rejects mismatch wording without an explicit negative fact", () => {
+    const result = relationResult({
+      facts: [neutralProject],
+      reason: "候选人参与过数据展示项目，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("M-CANDIDATE-LINEAGE"))).toBe(
+      true,
+    );
+  });
+
+  it("L34-3 rejects projecting candidate-level absence onto another project", () => {
+    const result = relationResult({
+      facts: [neutralProject, negativeFact],
+      reason: "候选人的数据展示项目不是正式工作。",
+      refs: [{ factId: "CF-002", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-4 rejects an explicit negative fact from an unrelated dimension", () => {
+    const unrelatedSkill = relationResult({
+      requirement: "熟练掌握 Python",
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与 Python 熟练度要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(unrelatedSkill.data).toBeNull();
+
+    const responsibilitySubdimension = relationResult({
+      requirement: "具有独立负责数据产品的正式工作经验",
+      requirementFragment: "独立负责",
+      dimensionType: "responsibility",
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与独立负责要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(responsibilitySubdimension.data).toBeNull();
+  });
+
+  it("L34-5 rejects mismatch wording when status is unknown", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      status: "unknown",
+      reason: "现有资料不符合正式工作经验要求。",
+      refs: [],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-6 rejects complete mismatch wording when status is partial", () => {
+    const result = relationResult({
+      facts: [neutralProject],
+      status: "partial",
+      reason: "候选人参与过数据展示项目，但不符合正式工作经验要求。",
+      refs: [{ factId: "CF-001", role: "positive" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-7 accepts an equivalent bounded requirement-level mismatch", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，没有满足该正式经验要求。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("L34-8 rejects using one negative fact to qualify another referenced fact", () => {
+    const result = relationResult({
+      facts: [neutralProject, negativeFact],
+      reason: "候选人的数据展示项目不是正式工作。",
+      refs: [
+        { factId: "CF-001", role: "counter" },
+        { factId: "CF-002", role: "counter" },
+      ],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-9 accepts the exact currently rejected phrase with full lineage", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("L34-10 keeps the original ISSUE-029 course contamination rejected", () => {
+    const result = relationResult({
+      facts: [neutralProject, negativeFact],
+      reason: "候选人的团队数据展示作业属于课程项目，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-002", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("M-K"))).toBe(true);
+  });
+});

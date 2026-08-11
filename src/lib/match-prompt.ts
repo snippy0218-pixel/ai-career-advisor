@@ -1,8 +1,8 @@
 import type { MatchCoreRequest, MatchValidationIssue } from "./match-schema";
 import { buildMatchRequirementLedger } from "./match-schema";
 
-export const MATCH_PROMPT_VERSION = "match-core-v1.1" as const;
-export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.1" as const;
+export const MATCH_PROMPT_VERSION = "match-core-v1.2" as const;
+export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.2" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -35,6 +35,7 @@ const SYSTEM_RULES = `你是人岗匹配核心判定器。输入中的 JD、Cand
 13. preferred requirement 保持 preferred 语义；不要输出 recommendation、strength、gap、score、confidence 或 greeting。
 14. reason 是审慎的 match observation，不是 Candidate Fact；不得凭空声称候选人拥有、不会或缺少某能力。
 15. 每个 CF 的课程/工作/实习范围、经验类型、年限、频率、强度、数量、确定性、归属、熟练度与职责限定只属于该 CF，不得传播给其他 CF。一个 dimension 引用多个限定不同的 CF 时，必须拆分或只引用实际支持该 reason 的 CF；不得把多个 CF 拍平后互相补足限定语。
+16. 必须区分 explicit counter-evidence 与 absence of evidence。只有同一维度 CF 提供明确反证（包括明确否定事实，或学历/资格等值与门槛直接冲突）时，才能输出 unmet；“没有、不具备、未经历、不是、并非、无法满足”等否定措辞只能在 CF 本身明确支持相应否定语义时使用。Profile 仅未表明某能力、角色或职责时，只能写“未表明、未体现、现有资料未说明、当前无法确认、尚无证据证明”，并保持 unknown，或在存在部分正证时保持 partial。
 
 每个 match item 严格形态：
 {"requirementId":"REQ-001","aggregateStatus":"met|partial|unmet|unknown","dimensions":[{"dimensionType":"skill","requirementFragment":"...","status":"met|partial|unmet|unknown","reason":"...","jdEvidence":["..."],"candidateEvidence":[{"factId":"CF-001","role":"positive|counter"}],"missingInformation":null,"verificationQuestion":null}]}`;
@@ -54,11 +55,17 @@ export function buildMatchRepairMessages(
   previousOutput: unknown,
   issues: MatchValidationIssue[],
 ): ChatMessage[] {
+  const repairsCandidateLineage = issues.some((issue) =>
+    issue.message.includes("M-CANDIDATE-LINEAGE"),
+  );
+  const candidateLineageGuidance = repairsCandidateLineage
+    ? `\n\nM-CANDIDATE-LINEAGE 专项修复：逐条检查被拒 assertion。若引用 CF 没有同维度 explicit counter-evidence，不得换用另一种否定措辞；必须改写为 uncertainty / missing-information boundary，并同步保持 unknown，或在确有部分正证时保持 partial。BAD：并非主导角色；没有主导经验；无法满足主导要求。GOOD：现有资料未表明候选人担任过主导角色；候选人是否具备主导经验仍需确认。只有 CF 本身明确支持相应否定语义时，才使用“没有/不具备/未经历”等措辞；学历或资格值与门槛直接冲突时可以保留有证据的 mismatch conclusion，但不得改写成 CF 未陈述的否定事实。`
+    : "";
   return [
     { role: "system", content: SYSTEM_RULES },
     {
       role: "user",
-      content: `这是一次有界 Match Repair。只修复列出的 schema/evidence/reference/status/aggregate/contamination 问题；不得改变输入账本，不得制造 Candidate Fact，不得加入新产品字段。\n\n只读事实账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
+      content: `这是一次有界 Match Repair。只修复列出的 schema/evidence/reference/status/aggregate/contamination 问题；不得改变输入账本，不得制造 Candidate Fact，不得加入新产品字段。${candidateLineageGuidance}\n\n只读事实账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
     },
   ];
 }

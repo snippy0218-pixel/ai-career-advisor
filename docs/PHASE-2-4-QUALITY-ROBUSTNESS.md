@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：STOP & ESCALATE / BLOCKED ON ISSUE-028 + ISSUE-029 + ISSUE-030 + ISSUE-031 + ISSUE-032
+> 状态：FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～ISSUE-034
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -30,6 +30,8 @@
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
 | ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant state 与 acceptance capability 已在 post-028/032 E2E 验证；等待完整链 closure | **Open / P1 / E2E Verified / Closure Pending Full-chain** | **是** |
+| ISSUE-033 | Match repair 将 absence of evidence 持续改写为 `无法满足独立负责`、`并非主导角色` 等 unsupported negative claim | Match prompt/repair v1.2 明确 counter-evidence 与 evidence absence；lineage repair 使用 uncertainty boundary；非法 repair 继续 fail-closed | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-034 | `与正式工作经验要求不符` 有 CF-004 explicit negative + JD formal-work requirement 支持，但 M-CANDIDATE-LINEAGE 错误拒绝 | 修改前 lineage adjudication=`FALSE POSITIVE CONFIRMED`；新增 employment_type 同维度 narrow relational mismatch recognition，跨 CF/property/维度继续拒绝 | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -115,7 +117,7 @@
 | Gate | Result | Evidence |
 | --- | --- | --- |
 | Q-A | PASS | 所有 carry-over 与新项有 disposition |
-| Q-B | **FAIL** | ISSUE-029 / ISSUE-030 均等待同一次 post-fix RB-05 full-chain verification |
+| Q-B | **FAIL** | ISSUE-028～034 尚未完成 Product Owner / QA closure；ISSUE-033/034 仅有 local deterministic evidence |
 | Q-C | **FAIL** | final suite 7/8，RB-05 未完成 |
 | Q-D | PASS | malformed input 400；failure 后下游调用 0 |
 | Q-E | PASS / quality risk | 指标可区分；OBS-006 需后续复评 |
@@ -123,9 +125,9 @@
 | Q-G | PASS | completed chains unsupported JD modifier / waiver 0 |
 | Q-H | PASS | 350/350、lint、build |
 | Q-I | PASS | no silent truncation；limits/error mapping 通过 |
-| Q-J | **FAIL** | release-blocking P1 ISSUE-029 与 ISSUE-030 尚未完成 Final E2E verification |
+| Q-J | **FAIL** | release-blocking P1 ISSUE-028～034 仍 OPEN；Phase 2.5 未授权 |
 
-当前 Gate：**STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。ISSUE-029 已实现但 post-fix audit 因 JD 503 为 indeterminate；ISSUE-030 deterministic/local Gate PASS，但 E2E 未到达 SG-E。唯一一次 post-fix RB-05 已消耗且不得 rerun；当前只允许证据收尾，不得继续产品修改或进入 Phase 2.5。
+当前 Gate：**FAIL / STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。ISSUE-033/034 bounded stabilization 已取得 local deterministic evidence，但没有 runtime/E2E closure evidence；不得自行运行 RB-05、关闭 Issue、授权 Phase 2.5 或降低 Gate。下一步仅能等待 Product Owner / QA Review 与新的明确 E2E 授权。
 
 ## 9. ISSUE-029 Bounded Stabilization Result（2026-08-11）
 
@@ -176,3 +178,12 @@
 - `与正式工作经验要求不符` 实际由 CF-004 与 JD requirement 共同支持，却被仅按 CF anchor 的 lineage guard 拒绝，记录为待 QA 裁决的 possible false-positive observation；它不是 terminal failure 的唯一原因；
 - ISSUE-028/031/030 均因对应下游未调用而 INCONCLUSIVE；ISSUE-029 guard safety preservation 无回归但无 Final accepted Match；ISSUE-032 state semantics PASS；
 - artifact `phase-2-4-post-028-031-completion-rb-05.json` 独立保存，SHA-256 `ecdcbe2e612d2f5fd9d77eba03d3ad8548baa3ec32fefb2016e231d4ab2a64b3`；严格未 rerun。Phase 2.4 仍 BLOCKED，Phase 2.5 NOT AUTHORIZED。
+
+## 15. ISSUE-033 / ISSUE-034 Bounded Stabilization（2026-08-11）
+
+- starting baseline：`main / 717f7a272996fd8f40554a854815ddfb40876c40`；无模型调用、无 RB-05；
+- ISSUE-033 根因是 repair instruction 没有把 `M-CANDIDATE-LINEAGE` 的 unsupported negative 定向改写为 uncertainty boundary，导致模型用否定近义词保留 `无法满足独立负责` / `并非主导角色`；Match core/repair prompt v1.2 已补齐明确 counter-evidence、absence boundary 与 BAD/GOOD examples；
+- ISSUE-034 在 validator 修改前完成 adjudication：CF-004/PF-004/Raw Profile 的明确 formal-work negative 与 JD formal-work requirement 支持 `与正式工作经验要求不符`，结论 `FALSE POSITIVE CONFIRMED`；
+- bounded validator fix 只接受 `employment_type + unmet + all counter + explicit negative + exact JD evidence + formal/fulltime/internship semantic match` 的 requirement-level relation；具体项目属性投射、其他 dimension、unknown/partial 与原 ISSUE-029 course contamination 继续拒绝；
+- G33-1～G33-10、L34-1～L34-10 PASS；focused 78/78、authorized targeted 281/281、full 471/471、lint/build/diff PASS；
+- 工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`。Phase 2.4 仍 BLOCKED；只可请求 Product Owner / QA 授权一次新的 full-chain E2E，不自行执行或进入 Phase 2.5。完整记录见 `PHASE-2-4-ISSUE-033-034-STABILIZATION.md`。

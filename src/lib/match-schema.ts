@@ -306,6 +306,21 @@ function factSupportsCandidateClause(
   clause: string,
   facts: FinalCanonicalCandidateFact[],
 ) {
+  const specificNegativeProperty = clause.match(
+    /(?:项目|作业|经历).{0,16}(?:不是|并非|不属于).{0,16}(?:正式工作|全职|实习|课程|校园)/,
+  );
+  if (
+    specificNegativeProperty &&
+    !facts.some(
+      (fact) =>
+        /(?:项目|作业|经历)/.test(fact.statement) &&
+        /(?:不是|并非|不属于).{0,16}(?:正式工作|全职|实习|课程|校园)/.test(
+          fact.statement,
+        ),
+    )
+  ) {
+    return false;
+  }
   const clauseAnchors = meaningfulClaimAnchors(clause);
   if (clauseAnchors.length === 0) return false;
   return facts.some((fact) => {
@@ -316,6 +331,57 @@ function factSupportsCandidateClause(
         (anchor.length >= 3 ||
           /[a-z0-9]/i.test(anchor) ||
           DISTINCTIVE_SHORT_CLAIM_ANCHORS.has(anchor)),
+    );
+  });
+}
+
+const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
+  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
+const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
+  /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|不符合).{0,24}(?:要求|条件|门槛|标准)/;
+const SPECIFIC_FACT_RELATIONAL_PROJECTION_PATTERN =
+  /(?:项目|作业|经历|技能|学历).{0,16}(?:不是|并非|不属于|不符合|不满足)/;
+
+function isSupportedRequirementMismatchClause(
+  clause: string,
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  requirement: MatchRequirementLedgerItem,
+  referencedFacts: FinalCanonicalCandidateFact[],
+) {
+  if (
+    dimension.dimensionType !== "employment_type" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length === 0 ||
+    dimension.candidateEvidence.some((entry) => entry.role !== "counter") ||
+    dimension.jdEvidence.length === 0 ||
+    dimension.jdEvidence.some(
+      (evidence) => !requirement.jdEvidence.includes(evidence),
+    ) ||
+    !REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause) ||
+    SPECIFIC_FACT_RELATIONAL_PROJECTION_PATTERN.test(clause)
+  ) {
+    return false;
+  }
+
+  const explicitNegativeFacts = referencedFacts.filter(
+    (fact) =>
+      EXPLICIT_NEGATIVE_CANDIDATE_PATTERN.test(fact.statement) &&
+      !EVIDENCE_BOUNDARY_PATTERN.test(fact.statement),
+  );
+  if (explicitNegativeFacts.length === 0) return false;
+
+  const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(
+    " ",
+  )} ${requirement.requirement}`;
+  return explicitNegativeFacts.some((fact) => {
+    const statement = fact.statement;
+    return (
+      (/正式/.test(requirementContext) &&
+        /(?:工作|经历|经验)/.test(requirementContext) &&
+        /正式/.test(statement) &&
+        /(?:工作|经历|经验)/.test(statement)) ||
+      (/全职/.test(requirementContext) && /全职/.test(statement)) ||
+      (/实习/.test(requirementContext) && /实习/.test(statement))
     );
   });
 }
@@ -504,7 +570,15 @@ export function finalizeRawMatchCore(
           const fact = factById.get(factId);
           return fact ? [fact] : [];
         });
-        if (!factSupportsCandidateClause(clause, referencedCanonicalFacts)) {
+        if (
+          !factSupportsCandidateClause(clause, referencedCanonicalFacts) &&
+          !isSupportedRequirementMismatchClause(
+            clause,
+            dimension,
+            requirement,
+            referencedCanonicalFacts,
+          )
+        ) {
           addIssue(
             issues,
             `${dimensionPath}.reason`,
