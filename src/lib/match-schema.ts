@@ -225,6 +225,101 @@ function explicitSameDimensionPositiveFacts(
 const INSTRUCTION_TEXT_PATTERN =
   /忽略.{0,16}(?:规则|提示|之前|以上)|把我描述成|虚构|编造.{0,12}(?:经历|经验|技能)|system\s*prompt|developer\s*message/i;
 
+const CANDIDATE_ASSERTION_PATTERN =
+  /(?:候选人|本人|其).{0,36}(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理|学历|经历|经验)|^(?:并|且|同时)?(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理)|(?:项目|作业|经历|经验|学历|技能|工作).{0,20}(?:为|是|属于|来自|涉及|使用|负责|完成|持续|包含|承担)|(?:课程|课堂|校园|实习|全职|正式工作|非正式工作|频繁|高频|经常|长期|多年|熟练|精通|独立负责|全面负责|主导|牵头|\d+\s*(?:年|个月|月|周|天))/;
+const EVIDENCE_BOUNDARY_PATTERN =
+  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
+const CLAIM_CLAUSE_SEPARATOR = /[，。；;！？!?]|(?:\s|^)(?:但|且|并且|同时)(?:\s|$)/;
+const JD_ONLY_CLAIM_PATTERN = /(?:JD|岗位|职位|任职).{0,10}(?:要求|需要|门槛|标准)/i;
+const NON_DISTINCTIVE_CLAIM_ANCHORS = new Set([
+  "候选",
+  "选人",
+  "候选人",
+  "资料",
+  "信息",
+  "证据",
+  "事实",
+  "项目",
+  "作业",
+  "经历",
+  "经验",
+  "相关",
+  "要求",
+  "维度",
+  "明确",
+  "提供",
+  "支持",
+  "匹配",
+  "工作",
+]);
+const DISTINCTIVE_SHORT_CLAIM_ANCHORS = new Set([
+  "本科",
+  "大专",
+  "硕士",
+  "博士",
+  "学历",
+  "课程",
+]);
+
+function candidateAssertionClauses(content: string) {
+  return content
+    .split(CLAIM_CLAUSE_SEPARATOR)
+    .map((clause) => clause.trim())
+    .filter(
+      (clause) =>
+        clause.length > 0 &&
+        CANDIDATE_ASSERTION_PATTERN.test(clause) &&
+        !JD_ONLY_CLAIM_PATTERN.test(clause) &&
+        !EVIDENCE_BOUNDARY_PATTERN.test(clause),
+    );
+}
+
+function normalizedClaimText(content: string) {
+  return content
+    .replace(
+      /候选人|本人|明确|已经|曾经|曾|相关|相应|该项|该维度|这一维度|资料|信息|证据|事实|要求|项目|经历|经验|工作|提供|支持|匹配/g,
+      "",
+    )
+    .replace(/[^\p{Script=Han}A-Za-z0-9+#.]/gu, "")
+    .toLowerCase();
+}
+
+function meaningfulClaimAnchors(content: string) {
+  const normalized = normalizedClaimText(content);
+  const anchors = new Set<string>();
+  for (const token of normalized.match(/[a-z][a-z0-9+#.]{1,}|\d+(?:\.\d+)?/g) ?? []) {
+    anchors.add(token);
+  }
+  const hanRuns = normalized.match(/[\p{Script=Han}]+/gu) ?? [];
+  for (const run of hanRuns) {
+    for (let size = Math.min(6, run.length); size >= 2; size -= 1) {
+      for (let index = 0; index + size <= run.length; index += 1) {
+        const anchor = run.slice(index, index + size);
+        if (!NON_DISTINCTIVE_CLAIM_ANCHORS.has(anchor)) anchors.add(anchor);
+      }
+    }
+  }
+  return [...anchors];
+}
+
+function factSupportsCandidateClause(
+  clause: string,
+  facts: FinalCanonicalCandidateFact[],
+) {
+  const clauseAnchors = meaningfulClaimAnchors(clause);
+  if (clauseAnchors.length === 0) return false;
+  return facts.some((fact) => {
+    const statement = normalizedClaimText(fact.statement);
+    return clauseAnchors.some(
+      (anchor) =>
+        statement.includes(anchor) &&
+        (anchor.length >= 3 ||
+          /[a-z0-9]/i.test(anchor) ||
+          DISTINCTIVE_SHORT_CLAIM_ANCHORS.has(anchor)),
+    );
+  });
+}
+
 export function finalizeRawMatchCore(
   raw: RawMatchCore,
   jobAnalysis: JobAnalysis,
@@ -395,6 +490,28 @@ export function finalizeRawMatchCore(
         const fact = factById.get(factId);
         return fact ? [{ factId, statement: fact.statement }] : [];
       });
+      const factualClauses = candidateAssertionClauses(dimension.reason);
+      for (const clause of factualClauses) {
+        if (referencedFacts.length === 0) {
+          addIssue(
+            issues,
+            `${dimensionPath}.reason`,
+            `M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: ${clause}`,
+          );
+          continue;
+        }
+        const referencedCanonicalFacts = referencedFacts.flatMap(({ factId }) => {
+          const fact = factById.get(factId);
+          return fact ? [fact] : [];
+        });
+        if (!factSupportsCandidateClause(clause, referencedCanonicalFacts)) {
+          addIssue(
+            issues,
+            `${dimensionPath}.reason`,
+            `M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: ${clause}`,
+          );
+        }
+      }
       const candidateObservationFields = [
         { path: "reason", value: dimension.reason },
         { path: "missingInformation", value: dimension.missingInformation },

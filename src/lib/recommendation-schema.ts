@@ -287,29 +287,209 @@ function allReferencedMatchRefs(raw: RawRecommendation) {
   ];
 }
 
-function textClaimsContradictStatus(
-  raw: RawRecommendation,
-  item: RecommendationMatchLedgerItem,
+type StatusClaimKind = "unknown" | "positive" | "negative";
+
+const STATUS_CLAIM_PATTERNS: ReadonlyArray<{
+  kind: StatusClaimKind;
+  pattern: RegExp;
+}> = [
+  {
+    kind: "negative",
+    pattern: /明确不满足|未满足|完全不符合|无法满足/g,
+  },
+  {
+    kind: "positive",
+    pattern: /完全满足|(?:已经|已)满足(?!部分)|明确符合|充分符合/g,
+  },
+  {
+    kind: "unknown",
+    pattern: /未知|不明确|待确认|需要确认|尚未提供|无法确认|信息不足/g,
+  },
+];
+
+interface RecommendationTextSource {
+  path: string;
+  text: string;
+  structuredRefs: string[];
+}
+
+function explicitRefOccurrences(
+  text: string,
+  ledger: RecommendationMatchLedgerItem[],
 ) {
-  const fragments = [
-    raw.summary,
-    ...raw.limitations.map((entry) => entry.content),
-    ...raw.questionsToConfirm.map((entry) => entry.question),
-  ]
-    .flatMap((text) => text.split(/[，。；;！？!?\n]/))
-    .filter(
-      (text) =>
-        text.includes(item.matchItemRef) || text.includes(item.requirement),
-    );
-  const unknownPattern = /(?:未知|不明确|待确认|需要确认|尚未提供|无法确认|信息不足)/;
-  const positivePattern = /(?:完全满足|(?:已经|已)满足(?!部分)|明确符合|充分符合)/;
-  const negativePattern = /(?:明确不满足|完全不符合|无法满足)/;
-  return fragments.some((text) => {
-    if (unknownPattern.test(text)) return item.status === "met";
-    if (positivePattern.test(text)) return item.status !== "met";
-    if (negativePattern.test(text)) return item.status !== "unmet";
-    return false;
+  return ledger.flatMap((item) => {
+    const occurrences: Array<{ ref: string; start: number; end: number }> = [];
+    let start = text.indexOf(item.matchItemRef);
+    while (start >= 0) {
+      occurrences.push({
+        ref: item.matchItemRef,
+        start,
+        end: start + item.matchItemRef.length,
+      });
+      start = text.indexOf(item.matchItemRef, start + item.matchItemRef.length);
+    }
+    return occurrences;
   });
+}
+
+function requirementOccurrences(
+  text: string,
+  ledger: RecommendationMatchLedgerItem[],
+) {
+  return ledger.flatMap((item) => {
+    const occurrences: Array<{ ref: string; start: number; end: number }> = [];
+    let start = text.indexOf(item.requirement);
+    while (start >= 0) {
+      occurrences.push({
+        ref: item.matchItemRef,
+        start,
+        end: start + item.requirement.length,
+      });
+      start = text.indexOf(item.requirement, start + item.requirement.length);
+    }
+    return occurrences;
+  });
+}
+
+function nearestUniqueTarget(
+  claimStart: number,
+  claimEnd: number,
+  occurrences: Array<{ ref: string; start: number; end: number }>,
+  maxDistance: number,
+) {
+  const ranked = occurrences
+    .map((occurrence) => ({
+      ...occurrence,
+      distance:
+        occurrence.start >= claimEnd
+          ? occurrence.start - claimEnd
+          : claimStart >= occurrence.end
+            ? claimStart - occurrence.end
+            : 0,
+    }))
+    .filter((occurrence) => occurrence.distance <= maxDistance)
+    .sort((left, right) => left.distance - right.distance);
+  if (ranked.length === 0) return null;
+  const closestRefs = [
+    ...new Set(
+      ranked
+        .filter((occurrence) => occurrence.distance === ranked[0].distance)
+        .map((occurrence) => occurrence.ref),
+    ),
+  ];
+  return closestRefs.length === 1 ? closestRefs[0] : null;
+}
+
+function inspectStatusClaimIntegrity(
+  raw: RawRecommendation,
+  ledger: RecommendationMatchLedgerItem[],
+) {
+  const sources: RecommendationTextSource[] = [
+    { path: "summary", text: raw.summary, structuredRefs: [] },
+    ...raw.limitations.map((entry, index) => ({
+      path: `limitations.${index}.content`,
+      text: entry.content,
+      structuredRefs: entry.matchItemRefs,
+    })),
+    ...raw.questionsToConfirm.map((entry, index) => ({
+      path: `questionsToConfirm.${index}.question`,
+      text: entry.question,
+      structuredRefs: entry.matchItemRefs,
+    })),
+  ];
+  const byRef = new Map(ledger.map((item) => [item.matchItemRef, item]));
+  const issues: RecommendationValidationIssue[] = [];
+
+  for (const source of sources) {
+    for (const fragment of source.text.split(/[。；;！？!?\n]/)) {
+      const refOccurrences = explicitRefOccurrences(fragment, ledger);
+      const requirementTargets = requirementOccurrences(fragment, ledger);
+      for (const { kind, pattern } of STATUS_CLAIM_PATTERNS) {
+        pattern.lastIndex = 0;
+        for (const match of fragment.matchAll(pattern)) {
+          const start = match.index;
+          if (start === undefined) continue;
+          const end = start + match[0].length;
+          const groupedPrefixRefs = refOccurrences.filter(
+            (occurrence) =>
+              occurrence.end <= start && start - occurrence.end <= 24,
+          );
+          const groupedPrefixText =
+            groupedPrefixRefs.length > 1
+              ? fragment.slice(
+                  Math.min(...groupedPrefixRefs.map((occurrence) => occurrence.start)),
+                  start,
+                )
+              : "";
+          const hasAmbiguousGroupedPrefix =
+            groupedPrefixRefs.length > 1 && /(?:与|和|及|、)/.test(groupedPrefixText);
+          const parentheticalSuffixRef = refOccurrences.find(
+            (occurrence) =>
+              occurrence.start >= end &&
+              occurrence.start - end <= 4 &&
+              /^[\s（(]*$/.test(fragment.slice(end, occurrence.start)),
+          )?.ref;
+          const immediatePrefixRef = [...refOccurrences]
+            .filter(
+              (occurrence) =>
+                occurrence.end <= start &&
+                start - occurrence.end <= 6 &&
+                /^[\s的:：-]*$/.test(fragment.slice(occurrence.end, start)),
+            )
+            .sort((left, right) => right.end - left.end)[0]?.ref;
+          const uniformGroupedRefs =
+            hasAmbiguousGroupedPrefix && /(?:均为|均是|均)$/.test(groupedPrefixText)
+              ? [...new Set(groupedPrefixRefs.map((occurrence) => occurrence.ref))]
+              : [];
+          const targetRef =
+            parentheticalSuffixRef ??
+            (hasAmbiguousGroupedPrefix
+              ? null
+              : immediatePrefixRef ??
+                nearestUniqueTarget(start, end, refOccurrences, 14) ??
+                nearestUniqueTarget(start, end, requirementTargets, 24) ??
+                (source.structuredRefs.length === 1
+                  ? source.structuredRefs[0]
+                  : refOccurrences.length === 1
+                    ? refOccurrences[0].ref
+                    : null));
+
+          if (!targetRef && uniformGroupedRefs.length === 0) {
+            const possibleRefs = new Set([
+              ...source.structuredRefs,
+              ...refOccurrences.map((occurrence) => occurrence.ref),
+              ...requirementTargets.map((occurrence) => occurrence.ref),
+            ]);
+            if (possibleRefs.size > 1) {
+              addIssue(
+                issues,
+                source.path,
+                `ambiguous status phrase attribution: ${match[0]}`,
+              );
+            }
+            continue;
+          }
+
+          for (const resolvedRef of targetRef ? [targetRef] : uniformGroupedRefs) {
+            const item = byRef.get(resolvedRef);
+            if (!item) continue;
+            const contradicts =
+              (kind === "unknown" && item.status === "met") ||
+              (kind === "positive" && item.status !== "met") ||
+              (kind === "negative" && item.status !== "unmet");
+            if (contradicts) {
+              addIssue(
+                issues,
+                source.path,
+                `${resolvedRef} text contradicts Match Core status`,
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+  return issues;
 }
 
 const UNGROUNDED_CANDIDATE_FACT_PATTERN =
@@ -626,11 +806,7 @@ export function finalizeRawRecommendation(
   const waiverIntegrity = inspectWaiverEvidenceIntegrity(raw, matchCore);
   issues.push(...waiverIntegrity.issues);
 
-  for (const item of ledger) {
-    if (textClaimsContradictStatus(raw, item)) {
-      addIssue(issues, "summary", `${item.matchItemRef} text contradicts Match Core status`);
-    }
-  }
+  issues.push(...inspectStatusClaimIntegrity(raw, ledger));
 
   const freeTexts = [
     raw.summary,

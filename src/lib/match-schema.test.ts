@@ -791,3 +791,202 @@ describe("ISSUE-029 cross-CF qualifier ownership", () => {
     );
   });
 });
+
+describe("ISSUE-029 M-CANDIDATE-LINEAGE regression matrix", () => {
+  const request = buildMatchFixture(
+    [
+      {
+        content: "主导跨团队项目并承担交付责任",
+        requirementType: "core_requirement",
+      },
+    ],
+    [
+      { statement: "学历：本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["project_experience"],
+      },
+      {
+        statement: "没有正式数据产品工作经历",
+        semanticTags: ["experience"],
+      },
+    ],
+  );
+
+  function lineageResult(
+    reason: string,
+    candidateEvidence: RawMatchCore["matchItems"][number]["dimensions"][number]["candidateEvidence"],
+    status: "met" | "partial" | "unmet" | "unknown" = "partial",
+  ) {
+    const unresolved = status === "partial" || status === "unknown";
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: status,
+          dimensions: [
+            dimension({
+              dimensionType: "responsibility",
+              requirementFragment: "主导跨团队项目并承担交付责任",
+              status,
+              reason,
+              jdEvidence: ["主导跨团队项目并承担交付责任"],
+              candidateEvidence,
+              missingInformation: unresolved ? "是否主导以及个人交付责任" : null,
+              verificationQuestion: unresolved
+                ? "请说明是否主导项目及个人负责的交付物？"
+                : null,
+            }),
+          ],
+        },
+      ],
+    };
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  const expectLineageFailure = (result: ReturnType<typeof lineageResult>) => {
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: expect.stringContaining("M-CANDIDATE-LINEAGE"),
+        }),
+      ]),
+    );
+  };
+
+  it("M1 rejects a positive Candidate claim with no refs", () => {
+    expectLineageFailure(
+      lineageResult(
+        "候选人参与团队项目并协助整理需求和测试，但未体现主导角色。",
+        [],
+        "unknown",
+      ),
+    );
+  });
+
+  it("M2 accepts a no-ref unknown evidence boundary", () => {
+    const result = lineageResult(
+      "现有资料未表明候选人是否主导过跨团队项目。",
+      [],
+      "unknown",
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("M3 accepts positive claims supported by CF-003", () => {
+    const result = lineageResult(
+      "候选人与四人团队共同完成数据展示作业，并协助整理需求和测试，但未表明主导该项目。",
+      [{ factId: "CF-003", role: "positive" }],
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[0].requirementDimensions[0].candidateFactRefs).toEqual([
+      "CF-003",
+    ]);
+  });
+
+  it("M4 rejects a foreign course qualifier attached to CF-003", () => {
+    const result = lineageResult(
+      "候选人与四人团队共同完成课程项目，并协助整理需求和测试。",
+      [{ factId: "CF-003", role: "positive" }],
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("cross-CF"))).toBe(true);
+  });
+
+  it("M5 rejects a wrong CF ref for the team and testing claim", () => {
+    expectLineageFailure(
+      lineageResult(
+        "候选人与四人团队共同完成数据展示作业，并协助整理需求和测试。",
+        [{ factId: "CF-002", role: "positive" }],
+      ),
+    );
+  });
+
+  it("M6 rejects multiple refs when only CF-002 owns course scope", () => {
+    const result = lineageResult(
+      "候选人在课程中与四人团队共同完成数据展示作业，并协助整理需求和测试。",
+      [
+        { factId: "CF-002", role: "positive" },
+        { factId: "CF-003", role: "positive" },
+      ],
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("cross-CF"))).toBe(true);
+  });
+
+  it("M7 accepts explicit negative Candidate evidence with a counter ref", () => {
+    const result = lineageResult(
+      "候选人明确表示没有正式数据产品工作经历。",
+      [{ factId: "CF-004", role: "counter" }],
+      "unmet",
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("M8 does not treat a JD-only statement as a Candidate assertion", () => {
+    const result = lineageResult(
+      "JD 要求候选人主导跨团队项目并承担交付责任。",
+      [],
+      "unknown",
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("M9 accepts course scope owned by the same CF", () => {
+    const scopedRequest = buildMatchFixture(
+      [{ content: "使用 Python 完成数据处理", requirementType: "core_requirement" }],
+      [
+        {
+          statement: "在课程项目中使用 Python 完成数据处理",
+          semanticTags: ["project_experience", "skill_usage"],
+        },
+      ],
+    );
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "met",
+          dimensions: [
+            dimension({
+              dimensionType: "skill",
+              requirementFragment: "使用 Python 完成数据处理",
+              status: "met",
+              reason: "候选人在课程项目中使用 Python 完成数据处理。",
+              jdEvidence: ["使用 Python 完成数据处理"],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+          ],
+        },
+      ],
+    };
+    expect(
+      finalizeRawMatchCore(
+        rawMatchCoreSchema.parse(raw),
+        scopedRequest.jobAnalysis,
+        scopedRequest.candidateProfile,
+      ).issues,
+    ).toEqual([]);
+  });
+
+  it("M10 rejects the exact replacement MI-003 reason", () => {
+    expectLineageFailure(
+      lineageResult(
+        "候选人参与团队项目并协助整理需求和测试，但未体现主导角色，且项目为课程作业，非正式工作。",
+        [],
+        "unknown",
+      ),
+    );
+  });
+});

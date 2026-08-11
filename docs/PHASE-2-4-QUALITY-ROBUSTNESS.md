@@ -28,6 +28,7 @@
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
 | ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | bounded stabilization 已实现；rerun-3 contamination NOT OBSERVED；等待 post-ISSUE-030 RB-05 full chain | **Open / P1 / Fix Implemented / Local Verification Pass / Final E2E Verification Pending** | **是** |
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 与 373/373、lint/build PASS；唯一 post-fix RB-05 在 JD 503 停止，未到达 SG-E | **Open / P1 / Fix Implemented / Local Verification Pass / E2E Verification Blocked / Fix Not Verified / Release Gate Blocker** | **是** |
+| ISSUE-031 | Recommendation 同一 text unit 内把 MI-004 的“已满足”错误归给 partial MI-003 | status phrase 改按显式 MI、requirement、clause locality 与 structured ref 归属；R1～R10、full 394/394 PASS | **Open / P1 / Fix Implemented / Deterministic Gate Pass / E2E Pending / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -133,3 +134,10 @@
 - T1～T10、83/83 targeted、373/373 full、lint/build 均 PASS；
 - 唯一一次 post-fix RB-05 写入 `phase-2-4-issue-030-rb-05-post-fix.json`，但在 JD 阶段 83 ms 返回 503 `AI_SERVICE_UNAVAILABLE`，下游调用 0；未到达 SG-E，按 Gate 不 rerun；
 - 工程建议 ISSUE-030 `FIX NOT VERIFIED`、Phase 2.4 仍 BLOCKED。详细 evidence 见 `PHASE-2-4-ISSUE-030-STABILIZATION.md`。
+
+## 11. ISSUE-029 Restabilization + ISSUE-031 Bounded Stabilization（2026-08-11）
+
+- Replacement RB-05 正式证明原 ISSUE-029 guard 可被 `candidateFactRefs=[]` 绕过：raw-to-final 映射不删除 refs，空 refs Candidate factual reason 由原 validator 接受；新增 `M-CANDIDATE-LINEAGE` 后，Candidate factual assertion 必须由引用 CF 语义支持，空 refs 仅允许 evidence absence / unknown boundary；原逐 CF qualifier ownership 保留为第二层；
+- 新建 ISSUE-031：旧 Recommendation validator 将同一逗号 unit 内 MI-004 的“已满足”错误归给 MI-003；status phrase 现按显式 MI、exact requirement、clause locality 与单一 structured ref 绑定，歧义 grouped phrase fail-closed；
+- M1～M10、R1～R10 与 mock repair preservation PASS；focused 93/93、targeted 184/184、full 394/394、lint/build/diff check PASS；ISSUE-030 implementation 未修改；
+- 当前仍为 Phase 2.4 BLOCKED。只有固定本 implementation commit 后，才允许一次 post-029/031 RB-05；不得追加 stochastic sampling，不得进入 Phase 2.5。

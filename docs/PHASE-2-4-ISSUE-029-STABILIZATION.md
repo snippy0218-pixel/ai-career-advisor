@@ -2,7 +2,7 @@
 
 > 日期：2026-08-11  
 > 授权范围：仅 ISSUE-029 cross-CF Candidate qualifier isolation  
-> Gate 状态：**OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / FINAL E2E VERIFICATION PENDING**
+> Gate 状态：**OPEN / FIX INSUFFICIENT / BOUNDED RESTABILIZATION IMPLEMENTED / DETERMINISTIC GATE PASS / E2E PENDING**
 > Phase 2.5：NOT AUTHORIZED
 
 ## A. Root Cause
@@ -92,3 +92,18 @@ rerun-3：JD 1 attempt、无 targeted/HR repair、无 HR fallback；Profile 1 at
 
 - **ISSUE-029 OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / FINAL E2E VERIFICATION PENDING**：确定性 cross-CF guard 与 clean Match evidence 已完成，rerun-3 未观察到 contamination；等待 post-ISSUE-030 RB-05 full-chain verification。
 - **Phase 2.4 仍 BLOCKED**：不得宣布 Ready for Release，不得授权或进入 Phase 2.5。等待 ISSUE-030 deterministic fix 与单次 post-fix RB-05 evidence 完成后由 Product Owner / QA 复核。
+
+## M. Bounded Restabilization — Candidate Claim Lineage
+
+Replacement RB-05 后，Product Owner / QA 推翻“原 qualifier guard 已充分覆盖”的结论。保存的 Final Match 中，MI-003 unknown reason 写入“候选人参与团队项目并协助整理需求和测试……项目为课程作业，非正式工作”，但 `candidateFactRefs=[]`、`pfEvidence=[]`。代码链路确认 raw `candidateEvidence` 由 Zod 校验后被 finalizer 一对一映射为 `candidateFactRefs`；finalizer 不删除引用，因此空 refs 已存在于 accepted raw。acceptance evidence 机制只保存 rejected raw，无法恢复 accepted raw JSON，但该确定性映射足以排除 finalizer 丢失 refs。
+
+原 validator 强制 unknown 的 `candidateEvidence=[]`，却没有限制空 refs reason 只能表达 evidence absence；随后 qualifier guard 因 `referencedFacts=[]` 直接返回空数组。因此 Candidate positive assertion 与 cross-CF scope 同时绕过。`课程`只存在于 CF-002 Candidate context，可确认发生跨 CF context contamination；`非正式工作`可能由 CF-004、JD 或模型 synthesis 诱发，现有 artifact 无模型内部 lineage，来源保持 indeterminate。
+
+本轮在 `match-schema.ts` 增加独立 `M-CANDIDATE-LINEAGE` 层：
+
+- Candidate factual assertion 必须具有 Candidate Fact refs；空 refs 只允许“未提供、未表明、无法确认、不能证明”等 evidence boundary 或明确 JD-only statement；
+- 有 refs 时，assertion 必须与引用 CF 的实质语义锚点一致，wrong-CF ref deterministic reject；
+- 原逐 CF qualifier ownership 继续作为第二层，多个 refs 不允许用任意一个 CF 为其他 CF 的 scope / experience type / duration / frequency / intensity / quantity / certainty / ownership / proficiency / responsibility 背书；
+- negative Candidate fact 仍必须通过显式 counter ref；不与无 refs 的 absence-of-evidence 混淆。
+
+M1～M10 全部 PASS：无 refs positive claim、wrong CF、foreign/multi-CF qualifier 与 replacement exact reason 均 reject；unknown boundary、correct CF、negative counter、JD-only 与 same-CF scope 均 pass。原 Case A～F 与 positive control 保持 PASS。deterministic gate：Match/Recommendation focused 93/93；跨 Profile/Match/Recommendation/Strength-Gap/Greeting targeted 184/184；full 394/394；lint、production build、`git diff --check` PASS。未调用模型；E2E 尚未执行。

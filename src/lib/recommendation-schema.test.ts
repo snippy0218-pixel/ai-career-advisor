@@ -416,3 +416,178 @@ describe("Recommendation Core deterministic contract", () => {
     expect(matchCore.matchItems[0].status).toBe("unknown");
   });
 });
+
+describe("ISSUE-031 status phrase attribution regression matrix", () => {
+  const replacementMatchCore = buildRecommendationMatchCore([
+    {
+      requirement: "熟练掌握 Python",
+      requirementType: "core_requirement",
+      status: "partial",
+      dimensionType: "proficiency",
+    },
+    {
+      requirement: "具有正式数据产品工作经验",
+      requirementType: "hard_requirement",
+      status: "unmet",
+      dimensionType: "employment_type",
+    },
+    {
+      requirement: "主导跨团队项目并承担交付责任",
+      requirementType: "core_requirement",
+      status: "partial",
+      dimensionType: "responsibility",
+    },
+    {
+      requirement: "本科及以上",
+      requirementType: "hard_requirement",
+      status: "met",
+      dimensionType: "qualification",
+    },
+  ]);
+  const exactReplacementRaw = {
+    recommendationLevel: "cautious" as const,
+    summary:
+      "Match Core 正向证据包括学历要求已满足（MI-004）及跨团队项目中承担部分交付责任（MI-003 部分维度）；反证为正式数据产品工作经验未满足（MI-002）；待确认项为 Python 熟练度（MI-001）及跨团队项目主导角色（MI-003）。",
+    supportingMatchRefs: ["MI-001", "MI-003", "MI-004"],
+    counterMatchRefs: ["MI-002"],
+    limitations: [
+      {
+        content: "正式数据产品工作经验要求未满足，属于硬性门槛。",
+        matchItemRefs: ["MI-002"],
+      },
+      {
+        content: "Python 熟练度证据不足，需确认实际应用水平。",
+        matchItemRefs: ["MI-001"],
+      },
+      {
+        content: "跨团队项目主导角色未知，需确认具体职责。",
+        matchItemRefs: ["MI-003"],
+      },
+    ],
+    questionsToConfirm: [
+      {
+        question: "请描述你在实际项目中使用 Python 的具体场景和熟练程度。",
+        matchItemRefs: ["MI-001"],
+      },
+      {
+        question: "请描述你在团队项目中是否担任主导角色，以及如何协调跨团队合作。",
+        matchItemRefs: ["MI-003"],
+      },
+      {
+        question: "请具体说明你在项目中个人负责的交付物及其结果。",
+        matchItemRefs: ["MI-003"],
+      },
+      {
+        question: "请确认正式数据产品工作经验是否为严格筛选门槛，以及具体口径。",
+        matchItemRefs: ["MI-002"],
+      },
+    ],
+  };
+
+  it("R1 accepts the original replacement multi-MI meaning", () => {
+    expect(
+      finalizeRawRecommendation(exactReplacementRaw, replacementMatchCore).issues,
+    ).toEqual([]);
+  });
+
+  it("R2 accepts clearly local met and partial wording in one sentence", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "本科及以上", requirementType: "hard_requirement", status: "met" },
+      { requirement: "熟练使用 Python", requirementType: "core_requirement", status: "partial" },
+    ]);
+    const raw = {
+      recommendationLevel: "try" as const,
+      summary: "MI-001 已满足，MI-002 仅有部分支持。",
+      supportingMatchRefs: ["MI-001", "MI-002"],
+      counterMatchRefs: [],
+      limitations: [{ content: "MI-002 仅为部分匹配。", matchItemRefs: ["MI-002"] }],
+      questionsToConfirm: [{ question: "请补充 MI-002 的应用程度？", matchItemRefs: ["MI-002"] }],
+    };
+    expect(finalizeRawRecommendation(raw, matchCore).issues).toEqual([]);
+  });
+
+  it("R3 accepts clearly local met and unknown wording in one sentence", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "本科及以上", requirementType: "hard_requirement", status: "met" },
+      { requirement: "持有资格证", requirementType: "core_requirement", status: "unknown" },
+    ]);
+    const raw = {
+      recommendationLevel: "try" as const,
+      summary: "MI-001 已满足，MI-002 待确认。",
+      supportingMatchRefs: ["MI-001"],
+      counterMatchRefs: [],
+      limitations: [{ content: "MI-002 当前未知。", matchItemRefs: ["MI-002"] }],
+      questionsToConfirm: [{ question: "请确认 MI-002 的资格信息？", matchItemRefs: ["MI-002"] }],
+    };
+    expect(finalizeRawRecommendation(raw, matchCore).issues).toEqual([]);
+  });
+
+  it("R4 rejects a true explicit contradiction for a partial MI", () => {
+    const fixture = RECOMMENDATION_FIXTURES[3];
+    const result = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "MI-001 已完全满足。" },
+      fixture.matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("MI-001 text contradicts"))).toBe(true);
+  });
+
+  it("R5 rejects an explicit unmet claim for a met MI", () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const result = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "MI-001 未满足。" },
+      fixture.matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("MI-001 text contradicts"))).toBe(true);
+  });
+
+  it("R6 binds a status phrase through exact requirement wording", () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const valid = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "本科及以上已满足。" },
+      fixture.matchCore,
+    );
+    expect(valid.issues).toEqual([]);
+    const invalid = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "本科及以上未满足。" },
+      fixture.matchCore,
+    );
+    expect(invalid.issues.some((issue) => issue.message.includes("MI-001 text contradicts"))).toBe(true);
+  });
+
+  it("R7 fail-closes an ambiguous grouped multi-MI status phrase", () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const result = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "MI-001 与 MI-002 已满足。" },
+      fixture.matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("ambiguous status phrase attribution"))).toBe(true);
+  });
+
+  it("R8 preserves existing single-MI contradiction validation", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const result = finalizeRawRecommendation(
+      { ...fixture.validRaw, summary: "MI-001 已经满足。" },
+      fixture.matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("MI-001 text contradicts"))).toBe(true);
+  });
+
+  it("R9 keeps a legal initial eligible without validator-induced repair", () => {
+    const result = finalizeRawRecommendation(exactReplacementRaw, replacementMatchCore);
+    expect(result.data).not.toBeNull();
+    expect(result.issues).toEqual([]);
+  });
+
+  it("R10 accepts the exact rejected replacement raw summary", () => {
+    const result = finalizeRawRecommendation(
+      { ...exactReplacementRaw },
+      replacementMatchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.summary).toBe(exactReplacementRaw.summary);
+  });
+});

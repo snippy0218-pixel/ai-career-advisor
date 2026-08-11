@@ -6,6 +6,7 @@ import {
   type RecommendationDiagnostics,
 } from "./recommendation-deepseek";
 import { RECOMMENDATION_FIXTURES } from "@/test/recommendation-fixtures";
+import { buildRecommendationMatchCore } from "@/test/recommendation-fixtures";
 
 function completion(payload: unknown, finishReason = "stop") {
   return new Response(
@@ -94,6 +95,53 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     ) as { messages: Array<{ content: string }> };
     expect(repairBody.messages[1].content).toContain("有界 Recommendation Repair");
     expect(repairBody.messages[1].content).toContain("allowed-level");
+  });
+
+  it("R9 does not repair a legal multi-MI status expression", async () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "本科及以上",
+        requirementType: "hard_requirement",
+        status: "met",
+      },
+      {
+        requirement: "熟练使用 Python",
+        requirementType: "core_requirement",
+        status: "partial",
+      },
+    ]);
+    const validRaw = {
+      recommendationLevel: "try" as const,
+      summary: "学历要求已满足（MI-001），Python 要求有部分支持（MI-002）。",
+      supportingMatchRefs: ["MI-001", "MI-002"],
+      counterMatchRefs: [],
+      limitations: [
+        { content: "MI-002 仅为部分匹配。", matchItemRefs: ["MI-002"] },
+      ],
+      questionsToConfirm: [
+        { question: "请补充 MI-002 的实际应用程度？", matchItemRefs: ["MI-002"] },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(validRaw));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    const result = await analyzeRecommendationWithDeepSeek(
+      { matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(result.summary).toBe(validRaw.summary);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(diagnostics).toMatchObject({
+      recommendationRepairAttempted: false,
+      upstreamAttempts: 1,
+    });
   });
 
   it("fails closed when the one repair still omits an unknown", async () => {
