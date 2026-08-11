@@ -5,6 +5,7 @@ import {
   computeAllowedRecommendationLevels,
   finalizeRawRecommendation,
   finalRecommendationSchema,
+  inspectRecommendationStatusClaimIntegrity,
 } from "./recommendation-schema";
 import { RECOMMENDATION_FIXTURES } from "@/test/recommendation-fixtures";
 import { buildRecommendationMatchCore } from "@/test/recommendation-fixtures";
@@ -559,7 +560,10 @@ describe("ISSUE-031 status phrase attribution regression matrix", () => {
   it("R7 fail-closes an ambiguous grouped multi-MI status phrase", () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
     const result = finalizeRawRecommendation(
-      { ...fixture.validRaw, summary: "MI-001 与 MI-002 已满足。" },
+      {
+        ...fixture.validRaw,
+        summary: "MI-001 与 MI-002 的状态综合来看，整体已满足。",
+      },
       fixture.matchCore,
     );
     expect(result.data).toBeNull();
@@ -589,5 +593,283 @@ describe("ISSUE-031 status phrase attribution regression matrix", () => {
     );
     expect(result.issues).toEqual([]);
     expect(result.data?.summary).toBe(exactReplacementRaw.summary);
+  });
+});
+
+describe("ISSUE-031 exact runtime MI/status attribution", () => {
+  const runtimeMatchCore = buildRecommendationMatchCore([
+    {
+      requirement: "熟练掌握 Python",
+      requirementType: "core_requirement",
+      status: "partial",
+      dimensionType: "proficiency",
+    },
+    {
+      requirement: "具有独立负责数据产品的正式工作经验",
+      requirementType: "core_requirement",
+      status: "unmet",
+      dimensionType: "employment_type",
+    },
+    {
+      requirement: "能主导跨团队项目并对个人交付结果负责",
+      requirementType: "core_requirement",
+      status: "partial",
+      dimensionType: "responsibility",
+    },
+    {
+      requirement: "本科及以上学历",
+      requirementType: "hard_requirement",
+      status: "met",
+      dimensionType: "qualification",
+    },
+  ]);
+  const exactSummary =
+    "Match Core 正向证据包括 MI-004（学历要求已满足）以及 MI-001、MI-003 的部分匹配；反证为 MI-002（正式数据产品工作经验未满足）。待确认项集中在 MI-001 与 MI-003 的掌握深度和主导程度。";
+  const exactRaw = {
+    recommendationLevel: "cautious" as const,
+    summary: exactSummary,
+    supportingMatchRefs: ["MI-001", "MI-003", "MI-004"],
+    counterMatchRefs: ["MI-002"],
+    limitations: [
+      {
+        content:
+          "MI-002 硬性要求未满足：候选人明确表示没有正式数据产品工作经历，该要求为正式工作经验，需确认是否为严格筛选门槛。",
+        matchItemRefs: ["MI-002"],
+      },
+    ],
+    questionsToConfirm: [
+      {
+        question:
+          "请描述您使用 Python 完成的具体项目或任务，以及您对 Python 高级特性的熟悉程度。",
+        matchItemRefs: ["MI-001"],
+      },
+      {
+        question:
+          "请描述您在团队项目中承担的具体职责，以及您如何协调跨团队合作。",
+        matchItemRefs: ["MI-003"],
+      },
+      {
+        question: "请举例说明您在项目中如何对个人交付结果负责。",
+        matchItemRefs: ["MI-003"],
+      },
+      {
+        question:
+          "该正式数据产品工作经验是否为严格筛选门槛？请确认具体口径。",
+        matchItemRefs: ["MI-002"],
+      },
+    ],
+  };
+  const statusRaw = (summary: string) => ({
+    recommendationLevel: "try" as const,
+    summary,
+    supportingMatchRefs: [],
+    counterMatchRefs: [],
+    limitations: [],
+    questionsToConfirm: [],
+  });
+
+  it("E28-R2 emits a stable structured R-C identity for a real contradiction", () => {
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001 已满足。"),
+      buildRecommendationMatchCore([
+        { requirement: "A", requirementType: "core_requirement", status: "partial" },
+      ]),
+    );
+    expect(issues).toEqual([
+      expect.objectContaining({
+        validationLayer: "semantic_validation",
+        validationCode: "R-C_STATUS_CONTRADICTION",
+        rule: "R-C",
+        path: "summary",
+        message: "MI-001 text contradicts Match Core status",
+      }),
+    ]);
+  });
+
+  it("R31-1 accepts the exact current failure with four correct attribution groups", () => {
+    expect(
+      inspectRecommendationStatusClaimIntegrity(exactRaw, runtimeMatchCore),
+    ).toEqual([]);
+  });
+
+  it("R31-2 accepts reordered locally attributed groups", () => {
+    const summary =
+      "MI-001、MI-003 的部分匹配，MI-002（正式工作经验未满足），MI-004（学历要求已满足）。";
+    expect(
+      inspectRecommendationStatusClaimIntegrity(statusRaw(summary), runtimeMatchCore),
+    ).toEqual([]);
+  });
+
+  it("R31-3 binds one shared partial phrase to multiple partial MIs", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "partial" },
+      { requirement: "B", requirementType: "core_requirement", status: "partial" },
+    ]);
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001、MI-002 的部分匹配。"),
+        matchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-4 accepts mixed met and partial groups in one sentence", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "met" },
+      { requirement: "B", requirementType: "core_requirement", status: "partial" },
+    ]);
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001（已满足），MI-002 的部分匹配。"),
+        matchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-5 accepts mixed met and unknown groups", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "met" },
+      { requirement: "B", requirementType: "core_requirement", status: "unknown" },
+    ]);
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001（已满足），MI-002（信息待确认）。"),
+        matchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-6 accepts mixed unmet and partial groups", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "unmet" },
+      { requirement: "B", requirementType: "core_requirement", status: "partial" },
+    ]);
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001（未满足），MI-002 的部分匹配。"),
+        matchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-7 rejects a true met contradiction", () => {
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001 已满足。"),
+      buildRecommendationMatchCore([
+        { requirement: "A", requirementType: "core_requirement", status: "partial" },
+      ]),
+    );
+    expect(issues).toEqual([
+      expect.objectContaining({
+        validationCode: "R-C_STATUS_CONTRADICTION",
+        rule: "R-C",
+        matchItemRefs: ["MI-001"],
+      }),
+    ]);
+  });
+
+  it("R31-8 rejects a true unmet contradiction", () => {
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001 未满足。"),
+      buildRecommendationMatchCore([
+        { requirement: "A", requirementType: "core_requirement", status: "met" },
+      ]),
+    );
+    expect(issues[0]).toMatchObject({
+      validationCode: "R-C_STATUS_CONTRADICTION",
+      matchItemRefs: ["MI-001"],
+    });
+  });
+
+  it("R31-9 rejects every contradicted member of an explicit MI group", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "partial" },
+      { requirement: "B", requirementType: "core_requirement", status: "partial" },
+    ]);
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001、MI-002 均已满足。"),
+      matchCore,
+    );
+    expect(issues.map((issue) => issue.matchItemRefs?.[0])).toEqual([
+      "MI-001",
+      "MI-002",
+    ]);
+  });
+
+  it("R31-10 keeps parenthetical status ownership on the preceding MI", () => {
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-004（学历要求已满足），MI-001 待确认。"),
+        runtimeMatchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-11 binds a nearby partial phrase to its explicit MI group", () => {
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001、MI-003 的部分匹配。"),
+        runtimeMatchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-12 does not propagate status across a semicolon boundary", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "met" },
+      { requirement: "B", requirementType: "core_requirement", status: "unmet" },
+    ]);
+    expect(
+      inspectRecommendationStatusClaimIntegrity(
+        statusRaw("MI-001 已满足；MI-002 未满足。"),
+        matchCore,
+      ),
+    ).toEqual([]);
+  });
+
+  it("R31-13 fail-closes a genuinely ambiguous phrase without fabricating an MI ref", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "met" },
+      { requirement: "B", requirementType: "core_requirement", status: "met" },
+    ]);
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001 与 MI-002 的状态综合来看，整体已满足。"),
+      matchCore,
+    );
+    expect(issues).toEqual([
+      expect.objectContaining({
+        validationCode: "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+        rule: "R-C",
+      }),
+    ]);
+    expect(issues[0].matchItemRefs).toBeUndefined();
+  });
+
+  it("R31-14 preserves the existing single-MI contradiction guard", () => {
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("MI-001 已经满足。"),
+      buildRecommendationMatchCore([
+        { requirement: "A", requirementType: "core_requirement", status: "unknown" },
+      ]),
+    );
+    expect(issues[0]).toMatchObject({
+      validationCode: "R-C_STATUS_CONTRADICTION",
+      message: "MI-001 text contradicts Match Core status",
+    });
+  });
+
+  it("R31-15 accepts the exact valid initial through the full Recommendation validator", () => {
+    const result = finalizeRawRecommendation(exactRaw, runtimeMatchCore);
+    expect(result.issues).toEqual([]);
+    expect(result.data?.summary).toBe(exactSummary);
+  });
+
+  it("R31-16 accepts the byte-equivalent repair output through the same validator", () => {
+    const result = finalizeRawRecommendation(
+      JSON.parse(JSON.stringify(exactRaw)),
+      runtimeMatchCore,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.summary).toBe(exactSummary);
   });
 });

@@ -23,13 +23,13 @@
 | ISSUE-025 | Candidate Profile fact completeness / silent omission | Canonical CF/PF ledger、24-run matrix 与 downstream evidence 已关闭该问题 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-026 | unsupported hard waiver | Recommendation R-K 与 downstream waiver guard 已关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-027 | transferable Strength validator / Candidate claim upgrade stability | SG-M、post-fix 51 requests repair 0，已正式关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
-| ISSUE-028 | rejected AI output evidence preservation gap | post-029/031 RB-05 的 Match 502 未保留 diagnostics/raw，正式 reopen；bounded stabilization 已加入五 route capability preflight、completion lifecycle、Match-specific evidence 与 acceptance 5xx preservation | **Reopened / P1 / Multiple-layer gap / Local Fix Verified / E2E Pending** | **是** |
+| ISSUE-028 | rejected AI output evidence preservation gap | Match/route/runner E2E 已部分验证；本轮补齐 Recommendation 专用 evidence serializer，R-C layer/code/rule/MI refs 可直接进入 acceptance diagnostics，歧义不伪造 ref，production response 不泄漏 | **Open / P1 / E2E Partially Verified / Local Completion Verified / New Full-chain E2E Pending** | **是** |
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
-| ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | bounded stabilization 已实现；rerun-3 contamination NOT OBSERVED；等待 post-ISSUE-030 RB-05 full chain | **Open / P1 / Fix Implemented / Local Verification Pass / Final E2E Verification Pending** | **是** |
-| ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 与 373/373、lint/build PASS；唯一 post-fix RB-05 在 JD 503 停止，未到达 SG-E | **Open / P1 / Fix Implemented / Local Verification Pass / E2E Verification Blocked / Fix Not Verified / Release Gate Blocker** | **是** |
-| ISSUE-031 | Recommendation 同一 text unit 内把 MI-004 的“已满足”错误归给 partial MI-003 | status phrase 改按显式 MI、requirement、clause locality 与 structured ref 归属；R1～R10、full 394/394 PASS | **Open / P1 / Fix Implemented / Deterministic Gate Pass / E2E Pending / Release Gate Blocker** | **是** |
-| ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant pass/fail/not_run/unknown、ledger-derived downstream count 与统一 safeFailure 已实现 | **Open / P1 / QA Artifact Integrity / Local Fix Verified / E2E Pending** | **是** |
+| ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | post-028/032 runtime Match 已验证原 contamination 与等价 paraphrase 为 0；仍等待完整链 closure evidence | **Open / P1 / Fix Verified at Match Runtime / Closure Pending Full-chain** | **是** |
+| ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
+| ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant state 与 acceptance capability 已在 post-028/032 E2E 验证；等待完整链 closure | **Open / P1 / E2E Verified / Closure Pending Full-chain** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -92,6 +92,14 @@
 - Q-J No New P0/P1
 
 ## 7. Final Static / Integration Evidence
+
+### ISSUE-028 / ISSUE-031 bounded completion（2026-08-11）
+
+- starting baseline：`4ec6cb499a1db0c2cbff4a3e8fe4d792b6b666e0`；仅修改 Recommendation validator/evidence adapter 与相应测试、文档；
+- ISSUE-028：Recommendation R-C 结构化 `validationLayer/validationCode/rule/matchItemRefs` 由 validator 直接产生并通过专用 serializer 保存；不从 message 猜测，不可靠时 `rejectedItem=null`，production response 不泄漏；
+- ISSUE-031：删除 status-to-MI 字符距离猜测；支持 `MI（status）` owner、`status（MI）`、显式 MI group、partial status、exact requirement 与单 ref fallback；真正歧义 fail-closed；
+- E28-R1～R8、R31-1～R31-16 全绿；focused 79/79、authorized targeted 261/261、full 451/451、lint/build/diff PASS；模型调用 0、E2E 0；
+- 工程建议 ISSUE-028 `LOCAL COMPLETION VERIFIED`、ISSUE-031 `LOCAL FIX VERIFIED`；Phase 2.4 仍 BLOCKED，等待 Product Owner / QA 决定是否授权新的 full-chain E2E。完整记录见 `docs/PHASE-2-4-ISSUE-028-031-COMPLETION.md`。
 
 - implementation commits：`30012f6` → `0d28da6` → `ce745ac` → `62a29a1` → `679268a`；失败、stale-server、targeted 与 final artifacts 全部保留。
 - automated regression：350/350 PASS；lint PASS；production build PASS。

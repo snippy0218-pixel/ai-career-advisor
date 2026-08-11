@@ -34,10 +34,24 @@ describe("POST /api/recommendation/analyze", () => {
     expect(analyzeRecommendationWithDeepSeek).not.toHaveBeenCalled();
   });
 
-  it("preserves acceptance diagnostics on a Recommendation 502", async () => {
+  it("E28-R6 preserves structured acceptance diagnostics on a Recommendation 502", async () => {
     process.env.RECOMMENDATION_ACCEPTANCE_DIAGNOSTICS = "1";
     const outputEvidence = [
-      { stage: "initial", rejected: true, rawText: "rejected recommendation" },
+      {
+        stage: "initial",
+        rejected: true,
+        rawText: "rejected recommendation",
+        validationIssues: [
+          {
+            validationLayer: "semantic_validation",
+            validationCode: "R-C_STATUS_CONTRADICTION",
+            rule: "R-C",
+            path: "summary",
+            message: "MI-001 text contradicts Match Core status",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
     ];
     analyzeRecommendationWithDeepSeek.mockImplementation(
       async (_request, options) => {
@@ -60,11 +74,29 @@ describe("POST /api/recommendation/analyze", () => {
     const body = await response.json();
     expect(response.status).toBe(502);
     expect(body.acceptanceDiagnostics.outputEvidence).toEqual(outputEvidence);
+    expect(
+      body.acceptanceDiagnostics.outputEvidence[0].validationIssues[0],
+    ).toMatchObject({
+      validationCode: "R-C_STATUS_CONTRADICTION",
+      rule: "R-C",
+      path: "summary",
+    });
   });
 
-  it("does not expose rejected raw in ordinary production mode", async () => {
-    analyzeRecommendationWithDeepSeek.mockRejectedValue(
-      new ApiError("AI_OUTPUT_INVALID", 502),
+  it("E28-R5 does not expose rejected raw or internal rules in production mode", async () => {
+    analyzeRecommendationWithDeepSeek.mockImplementation(
+      async (_request, options) => {
+        options.onDiagnostics({
+          outputEvidence: [
+            {
+              rawText: "rejected recommendation",
+              validationCode: "R-C_STATUS_CONTRADICTION",
+              rule: "R-C",
+            },
+          ],
+        });
+        throw new ApiError("AI_OUTPUT_INVALID", 502);
+      },
     );
     const response = await POST(
       new Request("http://localhost/api/recommendation/analyze", {
@@ -78,5 +110,7 @@ describe("POST /api/recommendation/analyze", () => {
     const body = await response.json();
     expect(body).not.toHaveProperty("acceptanceDiagnostics");
     expect(JSON.stringify(body)).not.toContain("rejected recommendation");
+    expect(JSON.stringify(body)).not.toContain("R-C_STATUS_CONTRADICTION");
+    expect(JSON.stringify(body)).not.toContain('"rule":"R-C"');
   });
 });

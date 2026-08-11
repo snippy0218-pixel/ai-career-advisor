@@ -76,6 +76,12 @@ export interface RecommendationMatchLedgerItem {
 export interface RecommendationValidationIssue {
   path: string;
   message: string;
+  validationLayer?: "semantic_validation";
+  validationCode?:
+    | "R-C_STATUS_CONTRADICTION"
+    | "R-C_AMBIGUOUS_STATUS_ATTRIBUTION";
+  rule?: "R-C";
+  matchItemRefs?: string[];
 }
 
 export function buildRecommendationMatchLedger(
@@ -287,19 +293,23 @@ function allReferencedMatchRefs(raw: RawRecommendation) {
   ];
 }
 
-type StatusClaimKind = "unknown" | "positive" | "negative";
+type StatusClaimKind = "unknown" | "met" | "partial" | "unmet";
 
 const STATUS_CLAIM_PATTERNS: ReadonlyArray<{
   kind: StatusClaimKind;
   pattern: RegExp;
 }> = [
   {
-    kind: "negative",
+    kind: "unmet",
     pattern: /明确不满足|未满足|完全不符合|无法满足/g,
   },
   {
-    kind: "positive",
+    kind: "met",
     pattern: /完全满足|(?:已经|已)满足(?!部分)|明确符合|充分符合/g,
+  },
+  {
+    kind: "partial",
+    pattern: /部分匹配|部分满足|部分支持|仅有部分支持|部分维度/g,
   },
   {
     kind: "unknown",
@@ -351,39 +361,118 @@ function requirementOccurrences(
   });
 }
 
-function nearestUniqueTarget(
+function uniqueRefs(
+  occurrences: Array<{ ref: string; start: number; end: number }>,
+) {
+  return [...new Set(occurrences.map((occurrence) => occurrence.ref))];
+}
+
+function parentheticalTargetRefs(
+  text: string,
   claimStart: number,
   claimEnd: number,
   occurrences: Array<{ ref: string; start: number; end: number }>,
-  maxDistance: number,
 ) {
-  const ranked = occurrences
-    .map((occurrence) => ({
-      ...occurrence,
-      distance:
-        occurrence.start >= claimEnd
-          ? occurrence.start - claimEnd
-          : claimStart >= occurrence.end
-            ? claimStart - occurrence.end
-            : 0,
-    }))
-    .filter((occurrence) => occurrence.distance <= maxDistance)
-    .sort((left, right) => left.distance - right.distance);
-  if (ranked.length === 0) return null;
-  const closestRefs = [
-    ...new Set(
-      ranked
-        .filter((occurrence) => occurrence.distance === ranked[0].distance)
-        .map((occurrence) => occurrence.ref),
+  const openingCandidates = [
+    { index: text.lastIndexOf("（", claimStart), close: "）" },
+    { index: text.lastIndexOf("(", claimStart), close: ")" },
+  ].filter((candidate) => candidate.index >= 0);
+  const opening = openingCandidates.sort((left, right) => right.index - left.index)[0];
+  if (opening) {
+    const lastCloseBeforeClaim = Math.max(
+      text.lastIndexOf("）", claimStart),
+      text.lastIndexOf(")", claimStart),
+    );
+    const closeIndex = text.indexOf(opening.close, claimEnd);
+    if (opening.index > lastCloseBeforeClaim && closeIndex >= claimEnd) {
+      const insideRefs = uniqueRefs(
+        occurrences.filter(
+          (occurrence) =>
+            occurrence.start > opening.index && occurrence.end <= closeIndex,
+        ),
+      );
+      if (insideRefs.length === 1) return insideRefs;
+      if (insideRefs.length === 0) {
+        const owner = [...occurrences]
+          .filter(
+            (occurrence) =>
+              occurrence.end <= opening.index &&
+              /^\s*$/.test(text.slice(occurrence.end, opening.index)),
+          )
+          .sort((left, right) => right.end - left.end)[0];
+        if (owner) return [owner.ref];
+      }
+    }
+  }
+
+  const suffix = text.slice(claimEnd);
+  const suffixOpening = suffix.match(/^\s*[（(]/);
+  if (!suffixOpening) return [];
+  const openIndex = claimEnd + suffixOpening[0].length - 1;
+  const openCharacter = text[openIndex];
+  const closeIndex = text.indexOf(openCharacter === "（" ? "）" : ")", openIndex + 1);
+  if (closeIndex < 0) return [];
+  const suffixRefs = uniqueRefs(
+    occurrences.filter(
+      (occurrence) => occurrence.start > openIndex && occurrence.end <= closeIndex,
     ),
-  ];
-  return closestRefs.length === 1 ? closestRefs[0] : null;
+  );
+  return suffixRefs.length === 1 ? suffixRefs : [];
 }
 
-function inspectStatusClaimIntegrity(
-  raw: RawRecommendation,
-  ledger: RecommendationMatchLedgerItem[],
+function prefixGroupTargetRefs(
+  text: string,
+  claimStart: number,
+  occurrences: Array<{ ref: string; start: number; end: number }>,
 ) {
+  const before = occurrences
+    .filter((occurrence) => occurrence.end <= claimStart)
+    .sort((left, right) => left.start - right.start);
+  const last = before.at(-1);
+  if (!last) return [];
+  if (
+    !/^\s*(?:(?:的\s*)?(?:信息|状态|资格|要求|证据|情况)\s*)?(?:当前\s*)?(?:(?:的|均|均为|均是|都|皆)\s*)?$/.test(
+      text.slice(last.end, claimStart),
+    )
+  ) {
+    return [];
+  }
+  const group = [last];
+  for (let index = before.length - 2; index >= 0; index -= 1) {
+    const candidate = before[index];
+    const current = group[0];
+    if (!/^\s*(?:、|,|，|和|与|及|以及)\s*$/.test(text.slice(candidate.end, current.start))) {
+      break;
+    }
+    group.unshift(candidate);
+  }
+  return uniqueRefs(group);
+}
+
+function addStatusIssue(
+  issues: RecommendationValidationIssue[],
+  path: string,
+  validationCode:
+    | "R-C_STATUS_CONTRADICTION"
+    | "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+  message: string,
+  matchItemRefs?: string[],
+) {
+  issues.push({
+    path,
+    message,
+    validationLayer: "semantic_validation",
+    validationCode,
+    rule: "R-C",
+    ...(matchItemRefs && matchItemRefs.length > 0 ? { matchItemRefs } : {}),
+  });
+}
+
+export function inspectRecommendationStatusClaimIntegrity(
+  raw: RawRecommendation,
+  matchCore: FinalMatchCore,
+) {
+  const ledger = buildRecommendationMatchLedger(matchCore);
   const sources: RecommendationTextSource[] = [
     { path: "summary", text: raw.summary, structuredRefs: [] },
     ...raw.limitations.map((entry, index) => ({
@@ -410,78 +499,70 @@ function inspectStatusClaimIntegrity(
           const start = match.index;
           if (start === undefined) continue;
           const end = start + match[0].length;
-          const groupedPrefixRefs = refOccurrences.filter(
-            (occurrence) =>
-              occurrence.end <= start && start - occurrence.end <= 24,
+          const parentheticalRefs = parentheticalTargetRefs(
+            fragment,
+            start,
+            end,
+            refOccurrences,
           );
-          const groupedPrefixText =
-            groupedPrefixRefs.length > 1
-              ? fragment.slice(
-                  Math.min(...groupedPrefixRefs.map((occurrence) => occurrence.start)),
-                  start,
-                )
-              : "";
-          const hasAmbiguousGroupedPrefix =
-            groupedPrefixRefs.length > 1 && /(?:与|和|及|、)/.test(groupedPrefixText);
-          const parentheticalSuffixRef = refOccurrences.find(
-            (occurrence) =>
-              occurrence.start >= end &&
-              occurrence.start - end <= 4 &&
-              /^[\s（(]*$/.test(fragment.slice(end, occurrence.start)),
-          )?.ref;
-          const immediatePrefixRef = [...refOccurrences]
-            .filter(
-              (occurrence) =>
-                occurrence.end <= start &&
-                start - occurrence.end <= 6 &&
-                /^[\s的:：-]*$/.test(fragment.slice(occurrence.end, start)),
-            )
-            .sort((left, right) => right.end - left.end)[0]?.ref;
-          const uniformGroupedRefs =
-            hasAmbiguousGroupedPrefix && /(?:均为|均是|均)$/.test(groupedPrefixText)
-              ? [...new Set(groupedPrefixRefs.map((occurrence) => occurrence.ref))]
-              : [];
-          const targetRef =
-            parentheticalSuffixRef ??
-            (hasAmbiguousGroupedPrefix
-              ? null
-              : immediatePrefixRef ??
-                nearestUniqueTarget(start, end, refOccurrences, 14) ??
-                nearestUniqueTarget(start, end, requirementTargets, 24) ??
-                (source.structuredRefs.length === 1
-                  ? source.structuredRefs[0]
-                  : refOccurrences.length === 1
-                    ? refOccurrences[0].ref
-                    : null));
+          const prefixRefs = prefixGroupTargetRefs(
+            fragment,
+            start,
+            refOccurrences,
+          );
+          const requirementRefs = prefixGroupTargetRefs(
+            fragment,
+            start,
+            requirementTargets,
+          );
+          const targetRefs =
+            parentheticalRefs.length > 0
+              ? parentheticalRefs
+              : prefixRefs.length > 0
+                ? prefixRefs
+                : requirementRefs.length === 1
+                  ? requirementRefs
+                  : source.structuredRefs.length === 1
+                    ? [source.structuredRefs[0]]
+                    : uniqueRefs(refOccurrences).length === 1
+                      ? uniqueRefs(refOccurrences)
+                      : [];
 
-          if (!targetRef && uniformGroupedRefs.length === 0) {
+          if (targetRefs.length === 0) {
             const possibleRefs = new Set([
               ...source.structuredRefs,
               ...refOccurrences.map((occurrence) => occurrence.ref),
               ...requirementTargets.map((occurrence) => occurrence.ref),
             ]);
-            if (possibleRefs.size > 1) {
-              addIssue(
+            const unknownCannotContradictPossibleRefs =
+              kind === "unknown" &&
+              [...possibleRefs].every((ref) => byRef.get(ref)?.status !== "met");
+            if (possibleRefs.size > 1 && !unknownCannotContradictPossibleRefs) {
+              addStatusIssue(
                 issues,
                 source.path,
+                "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
                 `ambiguous status phrase attribution: ${match[0]}`,
               );
             }
             continue;
           }
 
-          for (const resolvedRef of targetRef ? [targetRef] : uniformGroupedRefs) {
+          for (const resolvedRef of targetRefs) {
             const item = byRef.get(resolvedRef);
             if (!item) continue;
             const contradicts =
               (kind === "unknown" && item.status === "met") ||
-              (kind === "positive" && item.status !== "met") ||
-              (kind === "negative" && item.status !== "unmet");
+              (kind === "met" && item.status !== "met") ||
+              (kind === "partial" && item.status !== "partial") ||
+              (kind === "unmet" && item.status !== "unmet");
             if (contradicts) {
-              addIssue(
+              addStatusIssue(
                 issues,
                 source.path,
+                "R-C_STATUS_CONTRADICTION",
                 `${resolvedRef} text contradicts Match Core status`,
+                [resolvedRef],
               );
             }
           }
@@ -806,7 +887,7 @@ export function finalizeRawRecommendation(
   const waiverIntegrity = inspectWaiverEvidenceIntegrity(raw, matchCore);
   issues.push(...waiverIntegrity.issues);
 
-  issues.push(...inspectStatusClaimIntegrity(raw, ledger));
+  issues.push(...inspectRecommendationStatusClaimIntegrity(raw, matchCore));
 
   const freeTexts = [
     raw.summary,

@@ -24,7 +24,7 @@ function completion(payload: unknown, finishReason = "stop") {
 }
 
 describe("analyzeRecommendationWithDeepSeek", () => {
-  it("returns a validated Recommendation without mutating Match Core", async () => {
+  it("E28-R1 accepts a legal output without manufacturing rejection evidence", async () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
     const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
     const before = JSON.stringify(fixture.matchCore);
@@ -51,7 +51,95 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       finalSchemaValidationPassed: true,
       matchCoreImmutable: true,
       fabricatedClaimCount: 0,
+      initialAttempt: {
+        validationResult: "passed",
+      },
+      repairState: "not_needed",
+      outputEvidence: [],
     });
+  });
+
+  it("E28-R3 preserves a structured R-C initial rejection and accepted repair", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[3];
+    const invalid = { ...fixture.validRaw, summary: "MI-001 已满足。" };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(completion(invalid))
+      .mockResolvedValueOnce(completion(fixture.validRaw));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    await analyzeRecommendationWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        stage: "initial",
+        rejected: true,
+        validationIssues: [
+          expect.objectContaining({
+            validationLayer: "semantic_validation",
+            validationCode: "R-C_STATUS_CONTRADICTION",
+            rule: "R-C",
+            path: "summary",
+            matchItemRefs: ["MI-001"],
+          }),
+        ],
+        rejectedItem: { path: "summary", matchItemRef: "MI-001" },
+      }),
+      expect.objectContaining({
+        stage: "repair",
+        rejected: false,
+        validationIssues: [],
+      }),
+    ]);
+    expect(diagnostics?.repairState).toBe("accepted");
+  });
+
+  it("E28-R4 preserves structured rule/code and raw for rejected initial and repair", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[3];
+    const invalid = { ...fixture.validRaw, summary: "MI-001 已满足。" };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    await expect(
+      analyzeRecommendationWithDeepSeek(
+        { matchCore: fixture.matchCore },
+        {
+          apiKey: "test-key",
+          fetchImpl,
+          captureRejectedEvidence: true,
+          onDiagnostics: (value) => {
+            diagnostics = value;
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(diagnostics?.outputEvidence).toHaveLength(2);
+    for (const evidence of diagnostics?.outputEvidence ?? []) {
+      expect(evidence).toMatchObject({
+        rejected: true,
+        rawAvailable: true,
+        validationIssues: [
+          expect.objectContaining({
+            validationCode: "R-C_STATUS_CONTRADICTION",
+            rule: "R-C",
+            path: "summary",
+          }),
+        ],
+      });
+      expect(evidence.rawText).toContain("MI-001 已满足");
+    }
+    expect(diagnostics?.repairState).toBe("rejected");
   });
 
   it("performs exactly one bounded repair for a forbidden level", async () => {
@@ -150,6 +238,95 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     });
   });
 
+  it("R31-15 accepts the exact runtime summary without validator-induced repair", async () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "熟练掌握 Python", requirementType: "core_requirement", status: "partial" },
+      { requirement: "具有独立负责数据产品的正式工作经验", requirementType: "core_requirement", status: "unmet", dimensionType: "employment_type" },
+      { requirement: "能主导跨团队项目并对个人交付结果负责", requirementType: "core_requirement", status: "partial", dimensionType: "responsibility" },
+      { requirement: "本科及以上学历", requirementType: "hard_requirement", status: "met", dimensionType: "qualification" },
+    ]);
+    const validRaw = {
+      recommendationLevel: "cautious" as const,
+      summary:
+        "Match Core 正向证据包括 MI-004（学历要求已满足）以及 MI-001、MI-003 的部分匹配；反证为 MI-002（正式数据产品工作经验未满足）。待确认项集中在 MI-001 与 MI-003 的掌握深度和主导程度。",
+      supportingMatchRefs: ["MI-001", "MI-003", "MI-004"],
+      counterMatchRefs: ["MI-002"],
+      limitations: [
+        {
+          content:
+            "MI-002 硬性要求未满足：候选人明确表示没有正式数据产品工作经历，该要求为正式工作经验，需确认是否为严格筛选门槛。",
+          matchItemRefs: ["MI-002"],
+        },
+      ],
+      questionsToConfirm: [
+        { question: "请描述您使用 Python 完成的具体项目或任务，以及您对 Python 高级特性的熟悉程度。", matchItemRefs: ["MI-001"] },
+        { question: "请描述您在团队项目中承担的具体职责，以及您如何协调跨团队合作。", matchItemRefs: ["MI-003"] },
+        { question: "请举例说明您在项目中如何对个人交付结果负责。", matchItemRefs: ["MI-003"] },
+        { question: "该正式数据产品工作经验是否为严格筛选门槛？请确认具体口径。", matchItemRefs: ["MI-002"] },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(validRaw));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    const result = await analyzeRecommendationWithDeepSeek(
+      { matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(result.summary).toBe(validRaw.summary);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(diagnostics).toMatchObject({
+      recommendationRepairAttempted: false,
+      recommendationRepairSucceeded: false,
+      repairState: "not_needed",
+      outputEvidence: [],
+    });
+  });
+
+  it("E28-R7 preserves an ambiguous R-C code without fabricating an MI reference", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const ambiguous = {
+      ...fixture.validRaw,
+      summary: "MI-001 与 MI-002 的状态综合来看，整体已满足。",
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(completion(ambiguous))
+      .mockResolvedValueOnce(completion(fixture.validRaw));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    await analyzeRecommendationWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(diagnostics?.outputEvidence[0]).toMatchObject({
+      rejected: true,
+      rejectedItem: null,
+      validationIssues: [
+        expect.objectContaining({
+          validationCode: "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+          rule: "R-C",
+          matchItemRefs: [],
+        }),
+      ],
+    });
+  });
+
   it("fails closed when the one repair still omits an unknown", async () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const invalid = {
@@ -216,6 +393,36 @@ describe("analyzeRecommendationWithDeepSeek", () => {
         rawAvailable: true,
         finishReason: "length",
         failureCategory: "truncated",
+        validationIssues: [],
+        rejectedItem: null,
+      }),
+    ]);
+  });
+
+  it("E28-R8 does not assign an R-C rule to a provider failure", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const fetchImpl = vi.fn(async () => new Response("unavailable", { status: 503 }));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    await expect(
+      analyzeRecommendationWithDeepSeek(
+        { matchCore: fixture.matchCore },
+        {
+          apiKey: "test-key",
+          fetchImpl,
+          captureRejectedEvidence: true,
+          onDiagnostics: (value) => {
+            diagnostics = value;
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_SERVICE_UNAVAILABLE" });
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        rawAvailable: false,
+        failureCategory: "provider",
+        validationIssues: [],
+        rejectedItem: null,
       }),
     ]);
   });

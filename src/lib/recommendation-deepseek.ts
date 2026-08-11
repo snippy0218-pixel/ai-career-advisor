@@ -8,9 +8,9 @@ import {
   type RepairLifecycleState,
 } from "./generation-evidence";
 import {
-  captureStrengthGapOutputEvidence,
-  type StrengthGapOutputEvidence,
-} from "./strength-gap-evidence";
+  captureRecommendationOutputEvidence,
+  type RecommendationOutputEvidence,
+} from "./recommendation-evidence";
 import {
   finalizeRawRecommendation,
   rawRecommendationSchema,
@@ -63,7 +63,7 @@ export interface RecommendationDiagnostics {
   initialAttempt: GenerationAttemptDiagnostics;
   repairState: RepairLifecycleState;
   repairAttempt: GenerationAttemptDiagnostics;
-  outputEvidence: StrengthGapOutputEvidence[];
+  outputEvidence: RecommendationOutputEvidence[];
 }
 
 export interface RecommendationOptions {
@@ -408,7 +408,7 @@ export async function analyzeRecommendationWithDeepSeek(
         markCompletionFailure(diagnostics.initialAttempt, error);
         if (diagnostics.evidenceCaptureEnabled) {
           diagnostics.outputEvidence.push(
-            captureStrengthGapOutputEvidence({
+            captureRecommendationOutputEvidence({
               stage: "initial",
               rawText: error.evidence.rawText ?? "",
               parsedOutput: null,
@@ -460,7 +460,7 @@ export async function analyzeRecommendationWithDeepSeek(
       }
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
-          captureStrengthGapOutputEvidence({
+          captureRecommendationOutputEvidence({
             stage: "initial",
             rawText: content,
             parsedOutput: parsed,
@@ -499,7 +499,7 @@ export async function analyzeRecommendationWithDeepSeek(
           diagnostics.repairState = "completion_failed";
           if (diagnostics.evidenceCaptureEnabled) {
             diagnostics.outputEvidence.push(
-              captureStrengthGapOutputEvidence({
+              captureRecommendationOutputEvidence({
                 stage: "repair",
                 rawText: error.evidence.rawText ?? "",
                 parsedOutput: null,
@@ -549,7 +549,7 @@ export async function analyzeRecommendationWithDeepSeek(
       }
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
-          captureStrengthGapOutputEvidence({
+          captureRecommendationOutputEvidence({
             stage: "repair",
             rawText: repairContent,
             parsedOutput: repairParsed,
