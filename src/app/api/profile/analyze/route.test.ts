@@ -55,6 +55,39 @@ const validProfileResponse = {
 };
 
 describe("POST /api/profile/analyze", () => {
+  it("PF5 reports disabled capability without parsing or calling DeepSeek", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await POST(
+      new Request("http://localhost/api/profile/analyze", {
+        method: "POST",
+        headers: { "X-Phase-2-Acceptance-Preflight": "1" },
+      }),
+    );
+    expect(response.status).toBe(503);
+    expect((await response.json()).error.code).toBe(
+      "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE",
+    );
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("PF5 proves enabled Profile capture without calling DeepSeek", async () => {
+    process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS = "1";
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await POST(
+      new Request("http://localhost/api/profile/analyze", {
+        method: "POST",
+        headers: { "X-Phase-2-Acceptance-Preflight": "1" },
+      }),
+    );
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      data: { module: "profile", rejectedOutputCapture: true },
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("rejects short input before calling DeepSeek", async () => {
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
@@ -160,5 +193,41 @@ describe("POST /api/profile/analyze", () => {
         finalValidationPassed: true,
       }),
     );
+  });
+
+  it("EC7 preserves Profile rejected raw on an acceptance-mode 502", async () => {
+    process.env.DEEPSEEK_API_KEY = "test-key";
+    process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS = "1";
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            choices: [
+              { finish_reason: "stop", message: { content: "{invalid" } },
+            ],
+          }),
+          { status: 200 },
+        ),
+      ),
+    );
+    const response = await POST(
+      new Request("http://localhost/api/profile/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profileText: "计算机本科，应届生，了解 Python。参与过课程项目。",
+        }),
+      }),
+    );
+    const body = await response.json();
+    expect(response.status).toBe(502);
+    expect(body.acceptanceDiagnostics.outputEvidence).toEqual([
+      expect.objectContaining({
+        stage: "initial",
+        rawAvailable: true,
+        parseError: "JSON_PARSE_ERROR",
+      }),
+    ]);
   });
 });

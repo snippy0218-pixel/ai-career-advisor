@@ -213,6 +213,79 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     );
   });
 
+  it("EC2 preserves rejected initial and accepted Profile repair raw", async () => {
+    const initial = validCoverage();
+    initial.coverage = initial.coverage.filter((item) => item.pfId !== "PF-003");
+    const repair = { coverage: [validCoverage().coverage[2]] };
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(successfulProfileResponse(initial))
+      .mockResolvedValueOnce(successfulProfileResponse(repair));
+    const diagnostics = vi.fn();
+    await analyzeProfileWithDeepSeek(
+      { profileText },
+      {
+        fetchImpl: fetchMock,
+        apiKey: "test-key",
+        captureRejectedEvidence: true,
+        onDiagnostics: diagnostics,
+      },
+    );
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({
+        repairState: "accepted",
+        outputEvidence: [
+          expect.objectContaining({ stage: "initial", rejected: true }),
+          expect.objectContaining({ stage: "repair", rejected: false }),
+        ],
+      }),
+    );
+  });
+
+  it("EC4 preserves truncated Profile raw before terminal completion failure", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          choices: [
+            {
+              finish_reason: "length",
+              message: { content: JSON.stringify(validCoverage()) },
+            },
+          ],
+        }),
+        { status: 200 },
+      ),
+    );
+    const diagnostics = vi.fn();
+    await expect(
+      analyzeProfileWithDeepSeek(
+        { profileText },
+        {
+          fetchImpl: fetchMock,
+          apiKey: "test-key",
+          captureRejectedEvidence: true,
+          onDiagnostics: diagnostics,
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({
+        initialAttempt: expect.objectContaining({
+          rawAvailable: true,
+          finishReason: "length",
+          failureCategory: "truncated",
+        }),
+        outputEvidence: [
+          expect.objectContaining({
+            rawAvailable: true,
+            finishReason: "length",
+            failureCategory: "truncated",
+          }),
+        ],
+      }),
+    );
+  });
+
   it("repairs a PF when one atomic claim fails strict semantic validation", async () => {
     const initial = validCoverage();
     initial.coverage[2] = candidatePf("PF-003", [

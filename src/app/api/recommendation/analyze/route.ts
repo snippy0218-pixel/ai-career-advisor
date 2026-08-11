@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
+import { handleAcceptanceDiagnosticsPreflight } from "@/lib/acceptance-diagnostics";
 import {
   analyzeRecommendationWithDeepSeek,
   type RecommendationDiagnostics,
@@ -14,6 +15,12 @@ export async function POST(request: Request) {
   let diagnosticsForAcceptance: RecommendationDiagnostics | null = null;
   const acceptanceDiagnosticsEnabled =
     process.env.RECOMMENDATION_ACCEPTANCE_DIAGNOSTICS === "1";
+  const preflight = handleAcceptanceDiagnosticsPreflight(request, {
+    module: "recommendation",
+    enabled: acceptanceDiagnosticsEnabled,
+    requestId,
+  });
+  if (preflight) return preflight;
   const responseBody = <T extends Record<string, unknown>>(body: T) =>
     acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
       ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }

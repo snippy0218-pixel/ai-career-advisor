@@ -1,6 +1,14 @@
 import { z } from "zod";
 
 import { ApiError } from "./api-errors";
+import {
+  CompletionEvidenceError,
+  initialAttemptDiagnostics,
+  markCompletionFailure,
+  markCompletionReceived,
+  type GenerationAttemptDiagnostics,
+  type RepairLifecycleState,
+} from "./generation-evidence";
 import { findNormalizedEvidenceSpans, isEvidenceInJd } from "./analysis-schema";
 import {
   captureStrengthGapOutputEvidence,
@@ -77,6 +85,9 @@ export interface ProfileDiagnostics {
   truncatedByLength: boolean;
   outputCompletionTokens: number;
   evidenceCaptureEnabled: boolean;
+  initialAttempt: GenerationAttemptDiagnostics;
+  repairState: RepairLifecycleState;
+  repairAttempt: GenerationAttemptDiagnostics;
   outputEvidence: StrengthGapOutputEvidence[];
 }
 
@@ -204,7 +215,22 @@ async function requestCompletion(
       },
     );
 
-    if (!response.ok) throw mapHttpError(response.status);
+    if (!response.ok) {
+      const apiError = mapHttpError(response.status);
+      throw new CompletionEvidenceError(
+        apiError.code,
+        apiError.status,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        apiError.autoRetryable,
+      );
+    }
 
     let payload: {
       choices?: Array<{
@@ -216,12 +242,38 @@ async function requestCompletion(
     try {
       payload = (await response.json()) as typeof payload;
     } catch {
-      throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        true,
+      );
     }
 
     const choice = payload.choices?.[0];
     const content = choice?.message?.content?.trim();
-    if (!choice || !content) throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+    if (!choice || !content) {
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: Boolean(choice),
+          rawText: null,
+          rawAvailable: false,
+          finishReason: choice?.finish_reason ?? null,
+          failureStage: "completion",
+          failureCategory: "empty_output",
+        },
+        true,
+      );
+    }
 
     if (typeof payload.usage?.completion_tokens === "number") {
       diagnostics.outputCompletionTokens = Math.max(
@@ -231,9 +283,23 @@ async function requestCompletion(
     }
     if (choice.finish_reason === "length") {
       diagnostics.truncatedByLength = true;
-      console.warn("[profile] output truncated by max_tokens");
+      throw new CompletionEvidenceError("AI_OUTPUT_INVALID", 502, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "length",
+        failureStage: "completion",
+        failureCategory: "truncated",
+      });
     } else if (choice.finish_reason === "content_filter") {
-      throw new ApiError("AI_CONTENT_BLOCKED", 422);
+      throw new CompletionEvidenceError("AI_CONTENT_BLOCKED", 422, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "content_filter",
+        failureStage: "completion",
+        failureCategory: "content_filter",
+      });
     } else if (
       choice.finish_reason &&
       choice.finish_reason !== "stop" &&
@@ -243,13 +309,27 @@ async function requestCompletion(
         finishReason: choice.finish_reason,
       });
     }
-    return content;
+    return { content, finishReason: choice.finish_reason ?? null };
   } catch (error) {
     if (error instanceof ApiError) throw error;
     if (error instanceof Error && error.name === "AbortError") {
-      throw new ApiError("AI_TIMEOUT", 504);
+      throw new CompletionEvidenceError("AI_TIMEOUT", 504, {
+        completionReceived: false,
+        rawText: null,
+        rawAvailable: false,
+        finishReason: null,
+        failureStage: "provider_request",
+        failureCategory: "timeout",
+      });
     }
-    throw new ApiError("AI_SERVICE_UNAVAILABLE", 503);
+    throw new CompletionEvidenceError("AI_SERVICE_UNAVAILABLE", 503, {
+      completionReceived: false,
+      rawText: null,
+      rawAvailable: false,
+      finishReason: null,
+      failureStage: "provider_request",
+      failureCategory: "transport",
+    });
   } finally {
     clearTimeout(timeout);
   }
@@ -893,6 +973,9 @@ export async function analyzeProfileWithDeepSeek(
     truncatedByLength: false,
     outputCompletionTokens: 0,
     evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    initialAttempt: initialAttemptDiagnostics(),
+    repairState: "not_attempted",
+    repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
   };
 
@@ -902,17 +985,50 @@ export async function analyzeProfileWithDeepSeek(
     diagnostics.pfLedgerCount = ledger.length;
     diagnostics.pfTotal = ledger.length;
 
-    const content = await requestInitialCoverage(
-      request,
-      ledger,
-      configuration,
-      deadline,
-      diagnostics,
-    );
+    diagnostics.initialAttempt.called = true;
+    let initialCompletion: Awaited<ReturnType<typeof requestInitialCoverage>>;
+    try {
+      initialCompletion = await requestInitialCoverage(
+        request,
+        ledger,
+        configuration,
+        deadline,
+        diagnostics,
+      );
+    } catch (error) {
+      if (error instanceof CompletionEvidenceError) {
+        markCompletionFailure(diagnostics.initialAttempt, error);
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureStrengthGapOutputEvidence({
+              stage: "initial",
+              rawText: error.evidence.rawText ?? "",
+              parsedOutput: null,
+              parseError: null,
+              validationIssues: [],
+              rejected: true,
+              completionReceived: error.evidence.completionReceived,
+              finishReason: error.evidence.finishReason,
+              failureStage: error.evidence.failureStage,
+              failureCategory: error.evidence.failureCategory,
+              secrets: [apiKey],
+            }),
+          );
+        }
+      }
+      throw error;
+    }
+    const { content, finishReason } = initialCompletion;
+    markCompletionReceived(diagnostics.initialAttempt, content, finishReason);
     let parsed: unknown;
     try {
       parsed = parseJson(content, "invalid JSON output (coverage)");
+      diagnostics.initialAttempt.parseResult = "passed";
     } catch (error) {
+      diagnostics.initialAttempt.parseResult = "failed";
+      diagnostics.initialAttempt.failureStage = "parse";
+      diagnostics.initialAttempt.failureCategory = "parse";
+      diagnostics.initialAttempt.rejectionReason = "JSON_PARSE_ERROR";
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
           captureStrengthGapOutputEvidence({
@@ -922,6 +1038,9 @@ export async function analyzeProfileWithDeepSeek(
             parseError: "JSON_PARSE_ERROR",
             validationIssues: [],
             rejected: true,
+            finishReason,
+            failureStage: "parse",
+            failureCategory: "parse",
             secrets: [apiKey],
           }),
         );
@@ -937,8 +1056,14 @@ export async function analyzeProfileWithDeepSeek(
       diagnostics,
     );
     diagnostics.rawSchemaValidationPassed = validation.problems.size === 0;
+    diagnostics.initialAttempt.validationResult =
+      validation.problems.size === 0 ? "passed" : "failed";
 
     if (validation.problems.size > 0) {
+      diagnostics.initialAttempt.failureStage = "semantic_validation";
+      diagnostics.initialAttempt.failureCategory = "semantic_validation";
+      diagnostics.initialAttempt.rejectionReason =
+        coverageProblemIssues(validation.problems)[0]?.message ?? "PROFILE_VALIDATION_REJECTED";
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
           captureStrengthGapOutputEvidence({
@@ -948,11 +1073,16 @@ export async function analyzeProfileWithDeepSeek(
             parseError: null,
             validationIssues: coverageProblemIssues(validation.problems),
             rejected: true,
+            finishReason,
+            failureStage: "semantic_validation",
+            failureCategory: "semantic_validation",
             secrets: [apiKey],
           }),
         );
       }
       diagnostics.profileRepairAttempted = true;
+      diagnostics.repairState = "attempted";
+      diagnostics.repairAttempt.called = true;
       diagnostics.completenessRepairUsed = true;
       const problemPfs = ledger.filter((item) => validation.problems.has(item.id));
       const reasons = problemPfs.flatMap((pf) =>
@@ -960,20 +1090,53 @@ export async function analyzeProfileWithDeepSeek(
           (reason) => `${pf.id}: ${reason}`,
         ),
       );
-      const repairContent = await requestCoverageRepair(
-        problemPfs,
-        reasons,
-        configuration,
-        deadline,
-        diagnostics,
-      );
+      let repairCompletion: Awaited<ReturnType<typeof requestCoverageRepair>>;
+      try {
+        repairCompletion = await requestCoverageRepair(
+          problemPfs,
+          reasons,
+          configuration,
+          deadline,
+          diagnostics,
+        );
+      } catch (error) {
+        if (error instanceof CompletionEvidenceError) {
+          markCompletionFailure(diagnostics.repairAttempt, error);
+          diagnostics.repairState = "completion_failed";
+          if (diagnostics.evidenceCaptureEnabled) {
+            diagnostics.outputEvidence.push(
+              captureStrengthGapOutputEvidence({
+                stage: "repair",
+                rawText: error.evidence.rawText ?? "",
+                parsedOutput: null,
+                parseError: null,
+                validationIssues: [],
+                rejected: true,
+                completionReceived: error.evidence.completionReceived,
+                finishReason: error.evidence.finishReason,
+                failureStage: error.evidence.failureStage,
+                failureCategory: error.evidence.failureCategory,
+                secrets: [apiKey],
+              }),
+            );
+          }
+        }
+        throw error;
+      }
+      const { content: repairContent, finishReason: repairFinishReason } = repairCompletion;
+      markCompletionReceived(diagnostics.repairAttempt, repairContent, repairFinishReason);
       let repairParsed: unknown;
       try {
         repairParsed = parseJson(
           repairContent,
           "invalid JSON output (coverage repair)",
         );
+        diagnostics.repairAttempt.parseResult = "passed";
       } catch (error) {
+        diagnostics.repairAttempt.parseResult = "failed";
+        diagnostics.repairAttempt.failureStage = "parse";
+        diagnostics.repairAttempt.failureCategory = "parse";
+        diagnostics.repairAttempt.rejectionReason = "JSON_PARSE_ERROR";
         if (diagnostics.evidenceCaptureEnabled) {
           diagnostics.outputEvidence.push(
             captureStrengthGapOutputEvidence({
@@ -983,6 +1146,9 @@ export async function analyzeProfileWithDeepSeek(
               parseError: "JSON_PARSE_ERROR",
               validationIssues: [],
               rejected: true,
+              finishReason: repairFinishReason,
+              failureStage: "parse",
+              failureCategory: "parse",
               secrets: [apiKey],
             }),
           );
@@ -998,20 +1164,33 @@ export async function analyzeProfileWithDeepSeek(
       );
       diagnostics.completenessRepairSucceeded = repaired.problems.size === 0;
       diagnostics.profileRepairSucceeded = repaired.problems.size === 0;
+      diagnostics.repairAttempt.validationResult =
+        repaired.problems.size === 0 ? "passed" : "failed";
+      diagnostics.repairState =
+        repaired.problems.size === 0 ? "accepted" : "rejected";
+      if (diagnostics.evidenceCaptureEnabled) {
+        diagnostics.outputEvidence.push(
+          captureStrengthGapOutputEvidence({
+            stage: "repair",
+            rawText: repairContent,
+            parsedOutput: repairParsed,
+            parseError: null,
+            validationIssues: coverageProblemIssues(repaired.problems),
+            rejected: repaired.problems.size > 0,
+            finishReason: repairFinishReason,
+            failureStage:
+              repaired.problems.size > 0 ? "semantic_validation" : null,
+            failureCategory:
+              repaired.problems.size > 0 ? "semantic_validation" : null,
+            secrets: [apiKey],
+          }),
+        );
+      }
       if (repaired.problems.size > 0) {
-        if (diagnostics.evidenceCaptureEnabled) {
-          diagnostics.outputEvidence.push(
-            captureStrengthGapOutputEvidence({
-              stage: "repair",
-              rawText: repairContent,
-              parsedOutput: repairParsed,
-              parseError: null,
-              validationIssues: coverageProblemIssues(repaired.problems),
-              rejected: true,
-              secrets: [apiKey],
-            }),
-          );
-        }
+        diagnostics.repairAttempt.failureStage = "semantic_validation";
+        diagnostics.repairAttempt.failureCategory = "semantic_validation";
+        diagnostics.repairAttempt.rejectionReason =
+          coverageProblemIssues(repaired.problems)[0]?.message ?? "PROFILE_VALIDATION_REJECTED";
         diagnostics.unprocessedPfCount = repaired.problems.size;
         diagnostics.unusedPfCount = repaired.problems.size;
         throw new ApiError("AI_OUTPUT_INVALID", 502);
@@ -1022,6 +1201,8 @@ export async function analyzeProfileWithDeepSeek(
       for (const pfId of repaired.accepted.keys()) {
         validation.problems.delete(pfId);
       }
+    } else {
+      diagnostics.repairState = "not_needed";
     }
 
     diagnostics.unprocessedPfCount = ledger.length - validation.accepted.size;
@@ -1044,6 +1225,13 @@ export async function analyzeProfileWithDeepSeek(
     return final;
   } finally {
     diagnostics.latencyMs = Date.now() - startedAt;
-    options.onDiagnostics?.({ ...diagnostics });
+    options.onDiagnostics?.({
+      ...diagnostics,
+      initialAttempt: { ...diagnostics.initialAttempt },
+      repairAttempt: { ...diagnostics.repairAttempt },
+      outputEvidence: diagnostics.outputEvidence.map((entry) =>
+        structuredClone(entry),
+      ),
+    });
   }
 }

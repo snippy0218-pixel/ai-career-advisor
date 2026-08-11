@@ -337,4 +337,30 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     expect(serialized).not.toContain(cookie);
     expect(serialized).not.toContain("credential-secret-111111");
   });
+
+  it("EC4 preserves truncated Strength/Gap raw", async () => {
+    const fixture = STRENGTH_GAP_FIXTURES[0];
+    const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
+    let diagnostics: StrengthGapDiagnostics | null = null;
+    await expect(
+      analyzeStrengthGapWithDeepSeek(
+        { matchCore: fixture.matchCore },
+        {
+          apiKey: "test-key",
+          fetchImpl,
+          captureRejectedEvidence: true,
+          onDiagnostics: (value) => {
+            diagnostics = value;
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        rawAvailable: true,
+        finishReason: "length",
+        failureCategory: "truncated",
+      }),
+    ]);
+  });
 });

@@ -1,5 +1,13 @@
 import { ApiError } from "./api-errors";
 import {
+  CompletionEvidenceError,
+  initialAttemptDiagnostics,
+  markCompletionFailure,
+  markCompletionReceived,
+  type GenerationAttemptDiagnostics,
+  type RepairLifecycleState,
+} from "./generation-evidence";
+import {
   captureStrengthGapOutputEvidence,
   type StrengthGapOutputEvidence,
 } from "./strength-gap-evidence";
@@ -63,6 +71,9 @@ export interface StrengthGapDiagnostics {
   outputCompletionTokens: number;
   truncatedByLength: boolean;
   evidenceCaptureEnabled: boolean;
+  initialAttempt: GenerationAttemptDiagnostics;
+  repairState: RepairLifecycleState;
+  repairAttempt: GenerationAttemptDiagnostics;
   outputEvidence: StrengthGapOutputEvidence[];
 }
 
@@ -134,7 +145,22 @@ async function requestCompletion(
         signal: controller.signal,
       },
     );
-    if (!response.ok) throw mapHttpError(response.status);
+    if (!response.ok) {
+      const apiError = mapHttpError(response.status);
+      throw new CompletionEvidenceError(
+        apiError.code,
+        apiError.status,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        apiError.autoRetryable,
+      );
+    }
     let payload: {
       choices?: Array<{
         finish_reason?: string;
@@ -145,11 +171,37 @@ async function requestCompletion(
     try {
       payload = (await response.json()) as typeof payload;
     } catch {
-      throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        true,
+      );
     }
     const choice = payload.choices?.[0];
     const content = choice?.message?.content?.trim();
-    if (!choice || !content) throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+    if (!choice || !content) {
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: Boolean(choice),
+          rawText: null,
+          rawAvailable: false,
+          finishReason: choice?.finish_reason ?? null,
+          failureStage: "completion",
+          failureCategory: "empty_output",
+        },
+        true,
+      );
+    }
     if (typeof payload.usage?.completion_tokens === "number") {
       diagnostics.outputCompletionTokens = Math.max(
         diagnostics.outputCompletionTokens,
@@ -158,18 +210,46 @@ async function requestCompletion(
     }
     if (choice.finish_reason === "length") {
       diagnostics.truncatedByLength = true;
-      throw new ApiError("AI_OUTPUT_INVALID", 502);
+      throw new CompletionEvidenceError("AI_OUTPUT_INVALID", 502, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "length",
+        failureStage: "completion",
+        failureCategory: "truncated",
+      });
     }
     if (choice.finish_reason === "content_filter") {
-      throw new ApiError("AI_CONTENT_BLOCKED", 422);
+      throw new CompletionEvidenceError("AI_CONTENT_BLOCKED", 422, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "content_filter",
+        failureStage: "completion",
+        failureCategory: "content_filter",
+      });
     }
-    return content;
+    return { content, finishReason: choice.finish_reason ?? null };
   } catch (error) {
     if (error instanceof ApiError) throw error;
     if (error instanceof Error && error.name === "AbortError") {
-      throw new ApiError("AI_TIMEOUT", 504);
+      throw new CompletionEvidenceError("AI_TIMEOUT", 504, {
+        completionReceived: false,
+        rawText: null,
+        rawAvailable: false,
+        finishReason: null,
+        failureStage: "provider_request",
+        failureCategory: "timeout",
+      });
     }
-    throw new ApiError("AI_SERVICE_UNAVAILABLE", 503);
+    throw new CompletionEvidenceError("AI_SERVICE_UNAVAILABLE", 503, {
+      completionReceived: false,
+      rawText: null,
+      rawAvailable: false,
+      finishReason: null,
+      failureStage: "provider_request",
+      failureCategory: "transport",
+    });
   } finally {
     clearTimeout(timeout);
   }
@@ -339,29 +419,76 @@ export async function analyzeStrengthGapWithDeepSeek(
     outputCompletionTokens: 0,
     truncatedByLength: false,
     evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    initialAttempt: initialAttemptDiagnostics(),
+    repairState: "not_attempted",
+    repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
   };
 
   try {
-    const content = await requestInitial(
-      request,
-      configuration,
-      deadline,
-      diagnostics,
-    );
+    diagnostics.initialAttempt.called = true;
+    let initialCompletion: Awaited<ReturnType<typeof requestInitial>>;
+    try {
+      initialCompletion = await requestInitial(
+        request,
+        configuration,
+        deadline,
+        diagnostics,
+      );
+    } catch (error) {
+      if (error instanceof CompletionEvidenceError) {
+        markCompletionFailure(diagnostics.initialAttempt, error);
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureStrengthGapOutputEvidence({
+              stage: "initial",
+              rawText: error.evidence.rawText ?? "",
+              parsedOutput: null,
+              parseError: null,
+              validationIssues: [],
+              rejected: true,
+              completionReceived: error.evidence.completionReceived,
+              finishReason: error.evidence.finishReason,
+              failureStage: error.evidence.failureStage,
+              failureCategory: error.evidence.failureCategory,
+              secrets: [apiKey],
+            }),
+          );
+        }
+      }
+      throw error;
+    }
+    const { content, finishReason } = initialCompletion;
+    markCompletionReceived(diagnostics.initialAttempt, content, finishReason);
     const initialJson = parseJsonForEvidence(content);
     diagnostics.jsonParsePassed = initialJson.parseError === null;
+    diagnostics.initialAttempt.parseResult = initialJson.parseError
+      ? "failed"
+      : "passed";
     const parsed =
       initialJson.parseError === null
         ? initialJson.parsed
         : { invalidJson: content };
     let validation = validateStrengthGapOutput(parsed, request);
     diagnostics.rawSchemaValidationPassed = validation.rawValid;
+    diagnostics.initialAttempt.validationResult = validation.data ? "passed" : "failed";
     diagnostics.initialValidationIssues = validation.issues.map((issue) => ({
       ...issue,
     }));
 
     if (!validation.data) {
+      diagnostics.initialAttempt.failureStage = initialJson.parseError
+        ? "parse"
+        : validation.rawValid
+          ? "semantic_validation"
+          : "raw_schema";
+      diagnostics.initialAttempt.failureCategory = initialJson.parseError
+        ? "parse"
+        : validation.rawValid
+          ? "semantic_validation"
+          : "schema";
+      diagnostics.initialAttempt.rejectionReason =
+        initialJson.parseError ?? validation.issues[0]?.message ?? "STRENGTH_GAP_VALIDATION_REJECTED";
       if (options.captureRejectedEvidence === true) {
         diagnostics.outputEvidence.push(
           captureStrengthGapOutputEvidence({
@@ -371,30 +498,82 @@ export async function analyzeStrengthGapWithDeepSeek(
             parseError: initialJson.parseError,
             validationIssues: validation.issues,
             rejected: true,
+            finishReason,
+            failureStage: diagnostics.initialAttempt.failureStage,
+            failureCategory: diagnostics.initialAttempt.failureCategory,
             secrets: [apiKey],
           }),
         );
       }
       diagnostics.strengthGapRepairAttempted = true;
+      diagnostics.repairState = "attempted";
+      diagnostics.repairAttempt.called = true;
       const remaining = deadline - Date.now();
       if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
       diagnostics.upstreamAttempts += 1;
-      const repairContent = await requestCompletion(
-        buildStrengthGapRepairMessages(request, parsed, validation.issues),
-        configuration,
-        remaining,
-        diagnostics,
-      );
+      let repairCompletion: Awaited<ReturnType<typeof requestCompletion>>;
+      try {
+        repairCompletion = await requestCompletion(
+          buildStrengthGapRepairMessages(request, parsed, validation.issues),
+          configuration,
+          remaining,
+          diagnostics,
+        );
+      } catch (error) {
+        if (error instanceof CompletionEvidenceError) {
+          markCompletionFailure(diagnostics.repairAttempt, error);
+          diagnostics.repairState = "completion_failed";
+          if (diagnostics.evidenceCaptureEnabled) {
+            diagnostics.outputEvidence.push(
+              captureStrengthGapOutputEvidence({
+                stage: "repair",
+                rawText: error.evidence.rawText ?? "",
+                parsedOutput: null,
+                parseError: null,
+                validationIssues: [],
+                rejected: true,
+                completionReceived: error.evidence.completionReceived,
+                finishReason: error.evidence.finishReason,
+                failureStage: error.evidence.failureStage,
+                failureCategory: error.evidence.failureCategory,
+                secrets: [apiKey],
+              }),
+            );
+          }
+        }
+        throw error;
+      }
+      const { content: repairContent, finishReason: repairFinishReason } = repairCompletion;
+      markCompletionReceived(diagnostics.repairAttempt, repairContent, repairFinishReason);
       const repairJson = parseJsonForEvidence(repairContent);
+      diagnostics.repairAttempt.parseResult = repairJson.parseError
+        ? "failed"
+        : "passed";
       const repairParsed =
         repairJson.parseError === null
           ? repairJson.parsed
           : { invalidJson: repairContent };
       validation = validateStrengthGapOutput(repairParsed, request);
+      diagnostics.repairAttempt.validationResult = validation.data ? "passed" : "failed";
       diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
         ...issue,
       }));
       diagnostics.strengthGapRepairSucceeded = validation.data !== null;
+      diagnostics.repairState = validation.data ? "accepted" : "rejected";
+      if (!validation.data) {
+        diagnostics.repairAttempt.failureStage = repairJson.parseError
+          ? "parse"
+          : validation.rawValid
+            ? "semantic_validation"
+            : "raw_schema";
+        diagnostics.repairAttempt.failureCategory = repairJson.parseError
+          ? "parse"
+          : validation.rawValid
+            ? "semantic_validation"
+            : "schema";
+        diagnostics.repairAttempt.rejectionReason =
+          repairJson.parseError ?? validation.issues[0]?.message ?? "STRENGTH_GAP_VALIDATION_REJECTED";
+      }
       if (options.captureRejectedEvidence === true) {
         diagnostics.outputEvidence.push(
           captureStrengthGapOutputEvidence({
@@ -404,11 +583,16 @@ export async function analyzeStrengthGapWithDeepSeek(
             parseError: repairJson.parseError,
             validationIssues: validation.issues,
             rejected: validation.data === null,
+            finishReason: repairFinishReason,
+            failureStage: validation.data ? null : diagnostics.repairAttempt.failureStage,
+            failureCategory: validation.data ? null : diagnostics.repairAttempt.failureCategory,
             secrets: [apiKey],
           }),
         );
       }
       if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
+    } else {
+      diagnostics.repairState = "not_needed";
     }
 
     diagnostics.matchCoreImmutable =
@@ -433,6 +617,8 @@ export async function analyzeStrengthGapWithDeepSeek(
       outputEvidence: diagnostics.outputEvidence.map((entry) =>
         structuredClone(entry),
       ),
+      initialAttempt: { ...diagnostics.initialAttempt },
+      repairAttempt: { ...diagnostics.repairAttempt },
     });
   }
 }

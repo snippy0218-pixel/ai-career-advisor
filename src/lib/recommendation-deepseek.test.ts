@@ -35,6 +35,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       {
         apiKey: "test-key",
         fetchImpl,
+        captureRejectedEvidence: true,
         onDiagnostics: (value) => {
           diagnostics = value;
         },
@@ -71,6 +72,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       {
         apiKey: "test-key",
         fetchImpl,
+        captureRejectedEvidence: true,
         onDiagnostics: (value) => {
           diagnostics = value;
         },
@@ -82,6 +84,10 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     expect(diagnostics).toMatchObject({
       recommendationRepairAttempted: true,
       recommendationRepairSucceeded: true,
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: false }),
+      ],
       upstreamAttempts: 2,
     });
     expect(diagnostics?.initialValidationIssues).toEqual(
@@ -186,6 +192,32 @@ describe("analyzeRecommendationWithDeepSeek", () => {
         expect.objectContaining({ stage: "repair", rejected: true }),
       ],
     });
+  });
+
+  it("EC4 preserves truncated Recommendation raw", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
+    let diagnostics: RecommendationDiagnostics | null = null;
+    await expect(
+      analyzeRecommendationWithDeepSeek(
+        { matchCore: fixture.matchCore },
+        {
+          apiKey: "test-key",
+          fetchImpl,
+          captureRejectedEvidence: true,
+          onDiagnostics: (value) => {
+            diagnostics = value;
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        rawAvailable: true,
+        finishReason: "length",
+        failureCategory: "truncated",
+      }),
+    ]);
   });
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {

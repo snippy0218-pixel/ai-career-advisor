@@ -1,8 +1,16 @@
 import { ApiError } from "./api-errors";
 import {
-  captureStrengthGapOutputEvidence,
-  type StrengthGapOutputEvidence,
-} from "./strength-gap-evidence";
+  CompletionEvidenceError,
+  initialAttemptDiagnostics,
+  markCompletionFailure,
+  markCompletionReceived,
+  type GenerationAttemptDiagnostics,
+  type RepairLifecycleState,
+} from "./generation-evidence";
+import {
+  captureMatchOutputEvidence,
+  type MatchOutputEvidence,
+} from "./match-evidence";
 import {
   finalizeRawMatchCore,
   rawMatchCoreSchema,
@@ -42,7 +50,10 @@ export interface MatchDiagnostics {
   outputCompletionTokens: number;
   truncatedByLength: boolean;
   evidenceCaptureEnabled: boolean;
-  outputEvidence: StrengthGapOutputEvidence[];
+  initialAttempt: GenerationAttemptDiagnostics;
+  repairState: RepairLifecycleState;
+  repairAttempt: GenerationAttemptDiagnostics;
+  outputEvidence: MatchOutputEvidence[];
 }
 
 export interface MatchOptions {
@@ -115,7 +126,20 @@ async function requestCompletion(
     );
     if (!response.ok) {
       console.warn("[match] upstream HTTP failure", { status: response.status });
-      throw mapHttpError(response.status);
+      const apiError = mapHttpError(response.status);
+      throw new CompletionEvidenceError(
+        apiError.code,
+        apiError.status,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        apiError.autoRetryable,
+      );
     }
 
     let payload: {
@@ -128,11 +152,37 @@ async function requestCompletion(
     try {
       payload = (await response.json()) as typeof payload;
     } catch {
-      throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: false,
+          rawText: null,
+          rawAvailable: false,
+          finishReason: null,
+          failureStage: "provider_response",
+          failureCategory: "provider",
+        },
+        true,
+      );
     }
     const choice = payload.choices?.[0];
     const content = choice?.message?.content?.trim();
-    if (!choice || !content) throw new ApiError("AI_EMPTY_RESPONSE", 502, true);
+    if (!choice || !content) {
+      throw new CompletionEvidenceError(
+        "AI_EMPTY_RESPONSE",
+        502,
+        {
+          completionReceived: Boolean(choice),
+          rawText: null,
+          rawAvailable: false,
+          finishReason: choice?.finish_reason ?? null,
+          failureStage: "completion",
+          failureCategory: "empty_output",
+        },
+        true,
+      );
+    }
     if (typeof payload.usage?.completion_tokens === "number") {
       diagnostics.outputCompletionTokens = Math.max(
         diagnostics.outputCompletionTokens,
@@ -141,16 +191,37 @@ async function requestCompletion(
     }
     if (choice.finish_reason === "length") {
       diagnostics.truncatedByLength = true;
-      throw new ApiError("AI_OUTPUT_INVALID", 502);
+      throw new CompletionEvidenceError("AI_OUTPUT_INVALID", 502, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "length",
+        failureStage: "completion",
+        failureCategory: "truncated",
+      });
     }
     if (choice.finish_reason === "content_filter") {
-      throw new ApiError("AI_CONTENT_BLOCKED", 422);
+      throw new CompletionEvidenceError("AI_CONTENT_BLOCKED", 422, {
+        completionReceived: true,
+        rawText: content,
+        rawAvailable: true,
+        finishReason: "content_filter",
+        failureStage: "completion",
+        failureCategory: "content_filter",
+      });
     }
-    return content;
+    return { content, finishReason: choice.finish_reason ?? null };
   } catch (error) {
     if (error instanceof ApiError) throw error;
     if (error instanceof Error && error.name === "AbortError") {
-      throw new ApiError("AI_TIMEOUT", 504);
+      throw new CompletionEvidenceError("AI_TIMEOUT", 504, {
+        completionReceived: false,
+        rawText: null,
+        rawAvailable: false,
+        finishReason: null,
+        failureStage: "provider_request",
+        failureCategory: "timeout",
+      });
     }
     console.warn("[match] upstream network failure", {
       name: error instanceof Error ? error.name : "UnknownError",
@@ -162,7 +233,14 @@ async function requestCompletion(
           ? String(error.cause.code)
           : null,
     });
-    throw new ApiError("AI_SERVICE_UNAVAILABLE", 503);
+    throw new CompletionEvidenceError("AI_SERVICE_UNAVAILABLE", 503, {
+      completionReceived: false,
+      rawText: null,
+      rawAvailable: false,
+      finishReason: null,
+      failureStage: "provider_request",
+      failureCategory: "transport",
+    });
   } finally {
     clearTimeout(timeout);
   }
@@ -289,29 +367,85 @@ export async function analyzeMatchWithDeepSeek(
     outputCompletionTokens: 0,
     truncatedByLength: false,
     evidenceCaptureEnabled: options.captureRejectedEvidence === true,
+    initialAttempt: initialAttemptDiagnostics(),
+    repairState: "not_attempted",
+    repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
   };
 
   try {
-    const content = await requestInitial(request, configuration, deadline, diagnostics);
+    diagnostics.initialAttempt.called = true;
+    let initialCompletion: Awaited<ReturnType<typeof requestInitial>>;
+    try {
+      initialCompletion = await requestInitial(
+        request,
+        configuration,
+        deadline,
+        diagnostics,
+      );
+    } catch (error) {
+      if (error instanceof CompletionEvidenceError) {
+        markCompletionFailure(diagnostics.initialAttempt, error);
+        if (diagnostics.evidenceCaptureEnabled) {
+          diagnostics.outputEvidence.push(
+            captureMatchOutputEvidence({
+              stage: "initial",
+              rejected: true,
+              rawText: error.evidence.rawText,
+              parsedOutput: null,
+              parseError: null,
+              validationIssues: [],
+              rawSchemaValid: null,
+              finishReason: error.evidence.finishReason,
+              completionReceived: error.evidence.completionReceived,
+              failureStage: error.evidence.failureStage,
+              failureCategory: error.evidence.failureCategory,
+              secrets: [apiKey],
+            }),
+          );
+        }
+      }
+      throw error;
+    }
+    const { content, finishReason } = initialCompletion;
+    markCompletionReceived(diagnostics.initialAttempt, content, finishReason);
     let parsed: unknown;
     try {
       parsed = parseJson(content);
       diagnostics.jsonParsePassed = true;
+      diagnostics.initialAttempt.parseResult = "passed";
     } catch {
       parsed = { invalidJson: content };
+      diagnostics.initialAttempt.parseResult = "failed";
+      diagnostics.initialAttempt.failureStage = "parse";
+      diagnostics.initialAttempt.failureCategory = "parse";
+      diagnostics.initialAttempt.rejectionReason = "JSON_PARSE_ERROR";
     }
     let validation = validateOutput(parsed, request);
     diagnostics.rawSchemaValidationPassed = validation.rawValid;
+    diagnostics.initialAttempt.validationResult = validation.data
+      ? "passed"
+      : "failed";
     diagnostics.initialValidationIssues = validation.issues.map((issue) => ({
       ...issue,
     }));
 
     if (!validation.data) {
+      if (diagnostics.initialAttempt.failureStage !== "parse") {
+        diagnostics.initialAttempt.failureStage = validation.rawValid
+          ? "semantic_validation"
+          : "raw_schema";
+        diagnostics.initialAttempt.failureCategory = validation.rawValid
+          ? "semantic_validation"
+          : "schema";
+        diagnostics.initialAttempt.rejectionReason =
+          validation.issues[0]?.message ?? "MATCH_VALIDATION_REJECTED";
+      }
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
-          captureStrengthGapOutputEvidence({
+          captureMatchOutputEvidence({
             stage: "initial",
+            rejected: true,
             rawText: content,
             parsedOutput: parsed,
             parseError:
@@ -321,36 +455,95 @@ export async function analyzeMatchWithDeepSeek(
                 ? "JSON_PARSE_ERROR"
                 : null,
             validationIssues: validation.issues,
-            rejected: true,
+            rawSchemaValid: validation.rawValid,
+            finishReason,
+            failureStage: diagnostics.initialAttempt.failureStage,
+            failureCategory: diagnostics.initialAttempt.failureCategory,
             secrets: [apiKey],
           }),
         );
       }
       diagnostics.matchRepairAttempted = true;
+      diagnostics.repairState = "attempted";
+      diagnostics.repairAttempt.called = true;
       const remaining = deadline - Date.now();
       if (remaining <= 0) throw new ApiError("AI_TIMEOUT", 504);
       diagnostics.upstreamAttempts += 1;
-      const repairContent = await requestCompletion(
-        buildMatchRepairMessages(request, parsed, validation.issues),
-        configuration,
-        remaining,
-        diagnostics,
+      let repairCompletion: Awaited<ReturnType<typeof requestCompletion>>;
+      try {
+        repairCompletion = await requestCompletion(
+          buildMatchRepairMessages(request, parsed, validation.issues),
+          configuration,
+          remaining,
+          diagnostics,
+        );
+      } catch (error) {
+        if (error instanceof CompletionEvidenceError) {
+          markCompletionFailure(diagnostics.repairAttempt, error);
+          diagnostics.repairState = "completion_failed";
+          if (diagnostics.evidenceCaptureEnabled) {
+            diagnostics.outputEvidence.push(
+              captureMatchOutputEvidence({
+                stage: "repair",
+                rejected: true,
+                rawText: error.evidence.rawText,
+                parsedOutput: null,
+                parseError: null,
+                validationIssues: [],
+                rawSchemaValid: null,
+                finishReason: error.evidence.finishReason,
+                completionReceived: error.evidence.completionReceived,
+                failureStage: error.evidence.failureStage,
+                failureCategory: error.evidence.failureCategory,
+                secrets: [apiKey],
+              }),
+            );
+          }
+        }
+        throw error;
+      }
+      const { content: repairContent, finishReason: repairFinishReason } =
+        repairCompletion;
+      markCompletionReceived(
+        diagnostics.repairAttempt,
+        repairContent,
+        repairFinishReason,
       );
       let repairParsed: unknown;
       try {
         repairParsed = parseJson(repairContent);
+        diagnostics.repairAttempt.parseResult = "passed";
       } catch {
         repairParsed = { invalidJson: repairContent };
+        diagnostics.repairAttempt.parseResult = "failed";
+        diagnostics.repairAttempt.failureStage = "parse";
+        diagnostics.repairAttempt.failureCategory = "parse";
+        diagnostics.repairAttempt.rejectionReason = "JSON_PARSE_ERROR";
       }
       validation = validateOutput(repairParsed, request);
+      diagnostics.repairAttempt.validationResult = validation.data
+        ? "passed"
+        : "failed";
       diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
         ...issue,
       }));
       diagnostics.matchRepairSucceeded = validation.data !== null;
+      diagnostics.repairState = validation.data ? "accepted" : "rejected";
+      if (!validation.data && diagnostics.repairAttempt.failureStage !== "parse") {
+        diagnostics.repairAttempt.failureStage = validation.rawValid
+          ? "semantic_validation"
+          : "raw_schema";
+        diagnostics.repairAttempt.failureCategory = validation.rawValid
+          ? "semantic_validation"
+          : "schema";
+        diagnostics.repairAttempt.rejectionReason =
+          validation.issues[0]?.message ?? "MATCH_VALIDATION_REJECTED";
+      }
       if (diagnostics.evidenceCaptureEnabled) {
         diagnostics.outputEvidence.push(
-          captureStrengthGapOutputEvidence({
+          captureMatchOutputEvidence({
             stage: "repair",
+            rejected: validation.data === null,
             rawText: repairContent,
             parsedOutput: repairParsed,
             parseError:
@@ -360,12 +553,21 @@ export async function analyzeMatchWithDeepSeek(
                 ? "JSON_PARSE_ERROR"
                 : null,
             validationIssues: validation.issues,
-            rejected: validation.data === null,
+            rawSchemaValid: validation.rawValid,
+            finishReason: repairFinishReason,
+            failureStage: validation.data
+              ? null
+              : diagnostics.repairAttempt.failureStage,
+            failureCategory: validation.data
+              ? null
+              : diagnostics.repairAttempt.failureCategory,
             secrets: [apiKey],
           }),
         );
       }
       if (!validation.data) throw new ApiError("AI_OUTPUT_INVALID", 502);
+    } else {
+      diagnostics.repairState = "not_needed";
     }
 
     diagnostics.candidateProfileImmutable =
@@ -389,6 +591,8 @@ export async function analyzeMatchWithDeepSeek(
       outputEvidence: diagnostics.outputEvidence.map((evidence) => ({
         ...evidence,
       })),
+      initialAttempt: { ...diagnostics.initialAttempt },
+      repairAttempt: { ...diagnostics.repairAttempt },
     });
   }
 }

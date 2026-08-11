@@ -1,4 +1,8 @@
 import type { StrengthGapValidationIssue } from "./strength-gap-schema";
+import type {
+  GenerationFailureCategory,
+  GenerationFailureStage,
+} from "./generation-evidence";
 
 export const STRENGTH_GAP_RAW_CAPTURE_LIMIT = 12_000;
 
@@ -17,11 +21,17 @@ export interface StrengthGapRejectedItemEvidence {
 export interface StrengthGapOutputEvidence {
   stage: "initial" | "repair";
   rejected: boolean;
+  completionReceived: boolean;
+  rawAvailable: boolean;
   rawText: string;
   rawTextLength: number;
   artifactTruncated: boolean;
   parseError: "JSON_PARSE_ERROR" | null;
+  parsedOutputAvailable: boolean;
   parsedOutput: unknown;
+  finishReason: string | null;
+  failureStage: GenerationFailureStage | null;
+  failureCategory: GenerationFailureCategory | null;
   validationIssues: StrengthGapValidationIssue[];
   rejectedItems: StrengthGapRejectedItemEvidence[];
 }
@@ -33,6 +43,10 @@ interface CaptureOptions {
   parseError: StrengthGapOutputEvidence["parseError"];
   validationIssues: StrengthGapValidationIssue[];
   rejected: boolean;
+  completionReceived?: boolean;
+  finishReason?: string | null;
+  failureStage?: GenerationFailureStage | null;
+  failureCategory?: GenerationFailureCategory | null;
   secrets?: string[];
 }
 
@@ -65,12 +79,12 @@ export function scrubStrengthGapEvidenceText(
     .replace(API_KEY_PATTERN, "[REDACTED_SECRET]");
 }
 
-function scrubUnknown(value: unknown, secrets: string[]): unknown {
+export function scrubEvidenceValue(value: unknown, secrets: string[]): unknown {
   if (typeof value === "string") {
     return scrubStrengthGapEvidenceText(value, secrets);
   }
   if (Array.isArray(value)) {
-    return value.map((entry) => scrubUnknown(entry, secrets));
+    return value.map((entry) => scrubEvidenceValue(entry, secrets));
   }
   if (value && typeof value === "object") {
     return Object.fromEntries(
@@ -80,7 +94,7 @@ function scrubUnknown(value: unknown, secrets: string[]): unknown {
           key,
         )
           ? "[REDACTED_SECRET]"
-          : scrubUnknown(entry, secrets),
+          : scrubEvidenceValue(entry, secrets),
       ]),
     );
   }
@@ -172,17 +186,27 @@ export function captureStrengthGapOutputEvidence({
   parseError,
   validationIssues,
   rejected,
+  completionReceived = true,
+  finishReason = null,
+  failureStage = null,
+  failureCategory = null,
   secrets = [],
 }: CaptureOptions): StrengthGapOutputEvidence {
   const scrubbedRaw = scrubStrengthGapEvidenceText(rawText, secrets);
   return {
     stage,
     rejected,
+    completionReceived,
+    rawAvailable: rawText.length > 0,
     rawText: scrubbedRaw.slice(0, STRENGTH_GAP_RAW_CAPTURE_LIMIT),
     rawTextLength: scrubbedRaw.length,
     artifactTruncated: scrubbedRaw.length > STRENGTH_GAP_RAW_CAPTURE_LIMIT,
     parseError,
-    parsedOutput: scrubUnknown(parsedOutput, secrets),
+    parsedOutputAvailable: parsedOutput !== null,
+    parsedOutput: scrubEvidenceValue(parsedOutput, secrets),
+    finishReason,
+    failureStage,
+    failureCategory,
     validationIssues: validationIssues.map((issue) => ({
       path: scrubStrengthGapEvidenceText(issue.path, secrets),
       message: scrubStrengthGapEvidenceText(issue.message, secrets),

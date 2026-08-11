@@ -73,6 +73,28 @@ describe("POST /api/strength-gap/analyze", () => {
     });
   });
 
+  it("PF3/PF5 proves Strength+Gap capability at the route boundary", async () => {
+    const disabled = await POST(
+      new Request("http://localhost/api/strength-gap/analyze", {
+        method: "POST",
+        headers: { "X-Phase-2-Acceptance-Preflight": "1" },
+      }),
+    );
+    expect(disabled.status).toBe(503);
+    process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS = "1";
+    const enabled = await POST(
+      new Request("http://localhost/api/strength-gap/analyze", {
+        method: "POST",
+        headers: { "X-Phase-2-Acceptance-Preflight": "1" },
+      }),
+    );
+    expect(enabled.status).toBe(200);
+    expect(await enabled.json()).toMatchObject({
+      data: { module: "strengthGap", rejectedOutputCapture: true },
+    });
+    expect(analyzeStrengthGapWithDeepSeek).not.toHaveBeenCalled();
+  });
+
   it("persists full evidence only in the acceptance response body", async () => {
     process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS = "1";
     const data = {
@@ -126,5 +148,31 @@ describe("POST /api/strength-gap/analyze", () => {
       expect.anything(),
       expect.objectContaining({ captureRejectedEvidence: true }),
     );
+  });
+
+  it("EC7 preserves Strength/Gap evidence on an acceptance-mode 502", async () => {
+    process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS = "1";
+    const outputEvidence = [
+      { stage: "initial", rejected: true, rawText: "rejected strength" },
+    ];
+    analyzeStrengthGapWithDeepSeek.mockImplementation(
+      async (_request, options) => {
+        options.onDiagnostics({
+          strengthGapRepairAttempted: true,
+          outputEvidence,
+        });
+        throw new ApiError("AI_OUTPUT_INVALID", 502);
+      },
+    );
+    const response = await POST(
+      new Request("http://localhost/api/strength-gap/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchCore: STRENGTH_GAP_FIXTURES[0].matchCore }),
+      }),
+    );
+    const body = await response.json();
+    expect(response.status).toBe(502);
+    expect(body.acceptanceDiagnostics.outputEvidence).toEqual(outputEvidence);
   });
 });

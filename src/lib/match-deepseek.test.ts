@@ -106,6 +106,17 @@ describe("analyzeMatchWithDeepSeek", () => {
     expect(diagnostics).toMatchObject({
       matchRepairAttempted: true,
       matchRepairSucceeded: true,
+      repairState: "accepted",
+      initialAttempt: {
+        called: true,
+        completionReceived: true,
+        rawAvailable: true,
+        validationResult: "failed",
+      },
+      repairAttempt: {
+        called: true,
+        validationResult: "passed",
+      },
       upstreamAttempts: 2,
       initialValidationIssues: expect.arrayContaining([
         expect.objectContaining({ message: expect.stringContaining("JD evidence") }),
@@ -152,6 +163,196 @@ describe("analyzeMatchWithDeepSeek", () => {
     expect(caught).toBeInstanceOf(ApiError);
     expect((caught as ApiError).code).toBe("AI_OUTPUT_INVALID");
     expect(fetchImpl).toHaveBeenCalledTimes(2);
+  });
+
+  it("captures Match-specific rule, path, item and dimension on rejection", async () => {
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unknown",
+          dimensions: [
+            {
+              ...validRaw.matchItems[0].dimensions[0],
+              status: "unknown",
+              reason: "候选人明确具备本科学历。",
+              candidateEvidence: [],
+              missingInformation: "尚未提供更多学历证明。",
+              verificationQuestion: "请确认学历信息？",
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    await expect(
+      analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(diagnostics?.repairState).toBe("rejected");
+    expect(diagnostics?.outputEvidence).toHaveLength(2);
+    expect(diagnostics?.outputEvidence[0]).toMatchObject({
+      stage: "initial",
+      validationLayer: "semantic_validation",
+      rawAvailable: true,
+      parsedOutputAvailable: true,
+      validationIssues: expect.arrayContaining([
+        expect.objectContaining({
+          validationCode: "M-CANDIDATE-LINEAGE",
+          rule: "M-CANDIDATE-LINEAGE",
+          path: "matchItems.0.dimensions.0.reason",
+          rejectedItem: expect.objectContaining({
+            itemIndex: 0,
+            dimensionIndex: 0,
+          }),
+        }),
+      ]),
+    });
+  });
+
+  it("preserves partial raw when finish_reason=length fails before validation", async () => {
+    const fetchImpl = vi.fn(async () => completion(validRaw, "length"));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    await expect(
+      analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(diagnostics).toMatchObject({
+      truncatedByLength: true,
+      repairState: "not_attempted",
+      initialAttempt: {
+        completionReceived: true,
+        rawAvailable: true,
+        finishReason: "length",
+        failureStage: "completion",
+        failureCategory: "truncated",
+      },
+      outputEvidence: [
+        expect.objectContaining({
+          rawAvailable: true,
+          finishReason: "length",
+          failureStage: "completion",
+          failureCategory: "truncated",
+        }),
+      ],
+    });
+    expect(diagnostics?.outputEvidence[0].rawText).toContain("matchItems");
+  });
+
+  it("records rawAvailable=false for an empty completion without fabricating evidence", async () => {
+    const fetchImpl = vi.fn(async () =>
+      new Response(
+        JSON.stringify({
+          choices: [{ finish_reason: "stop", message: { content: "" } }],
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+    let diagnostics: MatchDiagnostics | null = null;
+
+    await expect(
+      analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_EMPTY_RESPONSE" });
+
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        completionReceived: true,
+        rawAvailable: false,
+        rawText: "",
+        failureCategory: "empty_output",
+      }),
+    ]);
+  });
+
+  it("classifies provider failure with no model raw", async () => {
+    const fetchImpl = vi.fn(async () => new Response("unavailable", { status: 503 }));
+    let diagnostics: MatchDiagnostics | null = null;
+    await expect(
+      analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_SERVICE_UNAVAILABLE" });
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        completionReceived: false,
+        rawAvailable: false,
+        failureStage: "provider_response",
+        failureCategory: "provider",
+      }),
+    ]);
+  });
+
+  it("preserves initial rejection and truncated repair raw with terminal lifecycle", async () => {
+    const invalidInitial = {
+      matchItems: [
+        {
+          ...validRaw.matchItems[0],
+          dimensions: [
+            {
+              ...validRaw.matchItems[0].dimensions[0],
+              jdEvidence: ["not in JD"],
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(completion(invalidInitial))
+      .mockResolvedValueOnce(completion(validRaw, "length"));
+    let diagnostics: MatchDiagnostics | null = null;
+    await expect(
+      analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+    expect(diagnostics).toMatchObject({
+      repairState: "completion_failed",
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({
+          stage: "repair",
+          rejected: true,
+          rawAvailable: true,
+          finishReason: "length",
+          failureCategory: "truncated",
+        }),
+      ],
+    });
   });
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {

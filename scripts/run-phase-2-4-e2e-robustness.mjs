@@ -3,6 +3,17 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import process from "node:process";
 
+import {
+  aggregateLifecycle,
+  buildExplicitStageLedger,
+  buildInvariantAudit,
+  downstreamCallsAfterFailure,
+  expectationPassed,
+  isSafeFailure,
+  probeAcceptanceCapabilities,
+  summarizeSafeFailures,
+} from "./phase-2-4-runner-utils.mjs";
+
 const args = new Map();
 for (let index = 2; index < process.argv.length; index += 2) {
   args.set(process.argv[index], process.argv[index + 1]);
@@ -121,6 +132,35 @@ const diagnosticHeaders = {
   greeting: "x-greeting-acceptance-diagnostics",
 };
 
+const preflight = await probeAcceptanceCapabilities({ baseUrl });
+if (!preflight.available) {
+  const artifact = {
+    phase: "2.4",
+    suite: "Phase 2 End-to-End Robustness Suite",
+    implementationCommit,
+    generatedAt: new Date().toISOString(),
+    runPolicy: selectedCase ? `${selectedCase} x 1 targeted` : "E2E-RB-01..08 x 1",
+    baseUrl,
+    executionState: "preflight_failed",
+    preflight,
+    summary: {
+      requestCount: 0,
+      modelCalls: 0,
+      passed: 0,
+      completedChains: 0,
+      safeFailures: 0,
+      downstreamCallsAfterFailure: 0,
+    },
+    results: [],
+  };
+  await mkdir(dirname(artifactPath), { recursive: true });
+  await writeFile(artifactPath, `${JSON.stringify(artifact, null, 2)}\n`, "utf8");
+  process.stderr.write(
+    `ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE; modelCalls=0; artifact ${artifactPath}\n`,
+  );
+  process.exit(1);
+}
+
 function decodeDiagnostics(value) {
   if (!value) return null;
   try {
@@ -229,28 +269,24 @@ function inspectInvariants(state) {
 const results = [];
 for (const testCase of cases) {
   const state = { jdText: testCase.jdText, profileText: testCase.profileText };
-  const stages = [];
+  const calledStages = [];
   let stoppedAt = null;
   for (const [stage, path, body] of stageConfig) {
     const result = await requestStage(stage, path, body(state));
-    stages.push({ ...result, data: undefined });
+    calledStages.push(result);
     if (result.status !== 200 || result.data === null) {
       stoppedAt = stage;
       break;
     }
     state[stage] = result.data;
   }
+  const stages = buildExplicitStageLedger(calledStages);
   const completed = !stoppedAt && Boolean(state.greeting);
-  const safeFailure = Boolean(stoppedAt) && stages.length === 1;
-  const expectationPassed =
-    testCase.expected === "success"
-      ? completed
-      : testCase.expected === "safe_failure"
-        ? safeFailure && stages[0].status === 400
-        : completed || safeFailure;
-  const invariants = completed ? inspectInvariants(state) : null;
-  const invariantsPassed = invariants ? Object.values(invariants).every(Boolean) : true;
-  results.push({
+  const invariantAudit = buildInvariantAudit(
+    completed,
+    completed ? inspectInvariants(state) : null,
+  );
+  const result = {
     id: testCase.id,
     name: testCase.name,
     input: {
@@ -262,6 +298,7 @@ for (const testCase of cases) {
     expected: testCase.expected,
     completed,
     stoppedAt,
+    downstreamCallsAfterFailure: downstreamCallsAfterFailure(stages),
     failureContext: stoppedAt
       ? {
           candidateProfile: state.profile ?? null,
@@ -269,11 +306,16 @@ for (const testCase of cases) {
           recommendation: state.recommendation ?? null,
         }
       : null,
-    expectationPassed,
-    invariants,
-    invariantsPassed,
+    safeFailure: false,
+    expectationPassed: false,
+    invariantAudit,
+    invariants: invariantAudit.values,
+    invariantsPassed: invariantAudit.passed,
     stages,
-  });
+  };
+  result.safeFailure = isSafeFailure(result);
+  result.expectationPassed = expectationPassed(result);
+  results.push(result);
 }
 
 const percentile = (values, ratio) => {
@@ -284,7 +326,9 @@ const percentile = (values, ratio) => {
 const latency = Object.fromEntries(
   stageConfig.map(([stage]) => {
     const values = results.flatMap((result) =>
-      result.stages.filter((item) => item.stage === stage).map((item) => item.latencyMs),
+      result.stages
+        .filter((item) => item.stage === stage && item.callState === "called")
+        .map((item) => item.latencyMs),
     );
     return [stage, {
       samples: values.length,
@@ -296,16 +340,6 @@ const latency = Object.fromEntries(
     }];
   }),
 );
-const metricCount = (stageName, pattern) => results.reduce(
-  (total, result) => total + result.stages.filter((stage) =>
-    stage.stage === stageName &&
-    stage.diagnostics &&
-    Object.entries(stage.diagnostics).some(
-      ([key, value]) => pattern.test(key) && value === true,
-    ),
-  ).length,
-  0,
-);
 const artifact = {
   phase: "2.4",
   suite: "Phase 2 End-to-End Robustness Suite",
@@ -313,27 +347,60 @@ const artifact = {
   generatedAt: new Date().toISOString(),
   runPolicy: selectedCase ? `${selectedCase} x 1 targeted` : "E2E-RB-01..08 x 1",
   baseUrl,
+  executionState: "completed",
+  preflight,
   summary: {
     requestCount: results.length,
-    passed: results.filter((item) => item.expectationPassed && item.invariantsPassed).length,
+    stageCalls: results.reduce(
+      (total, result) =>
+        total + result.stages.filter((stage) => stage.callState === "called").length,
+      0,
+    ),
+    passed: results.filter(
+      (item) =>
+        item.expectationPassed &&
+        (item.completed ? item.invariantsPassed === true : item.safeFailure),
+    ).length,
     completedChains: results.filter((item) => item.completed).length,
-    safeFailures: results.filter((item) => item.stoppedAt).length,
-    downstreamCallsAfterFailure: 0,
+    safeFailures: summarizeSafeFailures(results),
+    downstreamCallsAfterFailure: results.reduce(
+      (total, result) => total + result.downstreamCallsAfterFailure,
+      0,
+    ),
   },
   metrics: {
-    profileRepairRequests: metricCount("profile", /repair.*attempted/i),
-    matchRepairRequests: metricCount("match", /repair.*attempted/i),
-    recommendationRepairRequests: metricCount("recommendation", /repair.*attempted/i),
-    strengthGapRepairRequests: metricCount("strengthGap", /repair.*attempted/i),
-    personalizedGreetingRepairRequests: metricCount("greeting", /repair.*attempted/i),
-    personalizedGreetingSafeFallbackRequests: metricCount("greeting", /personalized.*fallback/i),
-    requestFallbackCount: results.filter((result) =>
-      result.stages.some((stage) =>
-        stage.diagnostics && Object.entries(stage.diagnostics).some(
-          ([key, value]) => /fallbackused$/i.test(key) && value === true,
-        ),
-      ),
-    ).length,
+    profileRepairRequests: aggregateLifecycle(results, "profile", "repair"),
+    matchRepairRequests: aggregateLifecycle(results, "match", "repair"),
+    recommendationRepairRequests: aggregateLifecycle(
+      results,
+      "recommendation",
+      "repair",
+    ),
+    strengthGapRepairRequests: aggregateLifecycle(
+      results,
+      "strengthGap",
+      "repair",
+    ),
+    personalizedGreetingRepairRequests: aggregateLifecycle(
+      results,
+      "greeting",
+      "repair",
+    ),
+    personalizedGreetingSafeFallbackRequests: aggregateLifecycle(
+      results,
+      "greeting",
+      "personalizedFallback",
+    ),
+    phase1GreetingFallbackRequests: aggregateLifecycle(
+      results,
+      "greeting",
+      "phase1Fallback",
+    ),
+    requestFallbackRequests: aggregateLifecycle(
+      results,
+      "greeting",
+      "fallback",
+    ),
   },
   latency,
   results,

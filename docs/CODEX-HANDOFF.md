@@ -7,12 +7,15 @@
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；ISSUE-028 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = **STOP & ESCALATE / BLOCKED ON ISSUE-029 + ISSUE-030 + ISSUE-031**；Phase 2.5 Final Regression / Release Gate = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** Phase 2.4 starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`；current bounded-stabilization starting baseline：`2f5ec7dbb8447a262c9f9706e5954009e73eace5`；Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = **STOP & ESCALATE / BLOCKED ON ISSUE-028 + ISSUE-029 + ISSUE-030 + ISSUE-031 + ISSUE-032**；Phase 2.5 Final Regression / Release Gate = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** ISSUE-028 = REOPENED / P1 / LOCAL FIX VERIFIED / E2E PENDING；ISSUE-032 = OPEN / P1 / LOCAL FIX VERIFIED / E2E PENDING。Phase 2.4 starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`；current bounded-stabilization starting baseline：`4828fae5a506873b4c4fd4c553f521c2d22b6c15`；Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`。
 
 - Product Owner / QA 已正式判定 Phase 2.3 Personalized Greeting PASS / CLOSED，并接受 12/12 preflight、36/36 clean matrix、PG-A～PG-M、333/333、lint/build 与 upstream regression 0；
 - Phase 2.4 仅治理 backlog、robustness、failure path、cross-module consistency、latency/repair/fallback、input/error、evidence/diagnostics 与小型 raw-input full-chain integration；不得增加用户功能；
 - `OBS-005 — Long-tail Phase 2 Latency` = Observe：Phase 2.3 历史 average 约 3,656 ms、max 37,268 ms；先测量各生成阶段，不为单个 outlier 建复杂架构；
 - 本阶段主文档与 Gate 状态见 `docs/PHASE-2-4-QUALITY-ROBUSTNESS.md`；即使 Q-A～Q-J 全绿，也只能申请 Phase 2.4 PASS / Ready for Phase 2.5，不得自行进入 Phase 2.5。
+- post-029/031 RB-05 的 Match 502 因 acceptance diagnostics 未启用而不可审计，Product Owner / QA 已正式 reopen `ISSUE-028`（P1 / multiple-layer gap）并建立 `ISSUE-032`（P1 / QA Artifact Integrity / Observability Semantics）；
+- `4828fae…` 上的 bounded stabilization 已完成：五 route acceptance capability probe 在业务请求前 fail-fast；五 adapter completion lifecycle 区分 raw/no-raw、provider/transport、length/empty/content-filter、parse/schema/semantic/repair；Match 使用独立 rejection evidence；runner 显式保存 called/not_called、completed/failed/not_run、unknown/known zero 与 invariant state；
+- deterministic Gate：focused 91/91、ISSUE-029/030/031 targeted 148/148、full 429/429、lint/build/diff PASS，模型调用 0，RB-05 未执行；工程建议 ISSUE-028/032 `LOCAL FIX VERIFIED`，等待 Product Owner / QA 决定是否授权新的 E2E verification；详见 `docs/PHASE-2-4-ISSUE-028-032-STABILIZATION.md`；
 - **ISSUE-029 — Cross-CF Candidate Scope Contamination in Match Reason = P1 / OPEN / RELEASE GATE BLOCKER**：final E2E-RB-05 中 Match 把 CF-002 的“课程”作用域传播到独立 CF-003，写成“项目为课程作业”；Strength/Gap 经 SG-B/SG-M 正确 502 fail-closed，但 Match 已产生 unsupported Candidate scope；已触发 Stop & Escalate，证据见 `docs/acceptance-artifacts/phase-2-4/phase-2-4-stop-escalate-audit.json`；
 - Product Owner / QA 已授权 ISSUE-029 bounded stabilization：新增逐 CF qualifier ownership validator、Match Prompt v1.1 与 acceptance-only initial/repair raw evidence；Case A～F + positive control、259/259 targeted、363/363 full regression、lint/build 均 PASS；
 - 三次 RB-05 worktree rerun 均独立保留且 0/1：第 1 次暴露跨分句 negation 漏拦，第 2 次暴露 JD requirement phrase 误报，第 3 次 Match/Recommendation 已 200 且无 CF-002→CF-003 course scope，但 Strength/Gap initial/repair 均被 SG-E 拒绝并 502，Greeting 未调用；该 SG-E failure 后续已由 Product Owner / QA 裁决为独立 ISSUE-030；
@@ -26,7 +29,7 @@
 - Product Owner / QA 已明确授权并完成 `044d935…` 上唯一 post-029/031 RB-05：frozen fixture hash 相同；JD 200、Profile 200、Match 502 `AI_OUTPUT_INVALID`，其余阶段未调用，downstream calls after failure=0。Match acceptance diagnostics 未启用/未进入 artifact，rejected raw 与 validation reason 不可恢复；因此底层 failure=`unknown`，ISSUE-029/030/031 均只能建议 `VERIFICATION INCONCLUSIVE`，并暴露 mandatory rejected-evidence preservation regression。Artifact：`phase-2-4-post-029-031-rb-05.json`；禁止 rerun；
 - final Phase 2.4 suite 固定 `679268a…`：7/8；六条完整链、RB-08 预期 400、RB-05 blocked；350/350、lint/build PASS；不得用 targeted success 覆盖 final failure；
 - `OBS-006 — Full-chain Personalized Greeting Fallback Interaction`：final six greeting requests 中 repair 4/6、personalized safe fallback 4/6、Phase 1 fallback 0/6；均安全但与 isolated Phase 2.3 0/36 显著不同，待 ISSUE-029 review 后复评；
-- 当前授权的 post-029/031 RB-05 已消费；当前只允许 evidence 收尾并等待 Product Owner / QA Review；不得继续普通产品修改、不得追加模型调用、不得进入 Phase 2.5。
+- 本轮 ISSUE-028/032 deterministic stabilization 授权已完成；当前必须停止并等待 Product Owner / QA Gate Review。不得自行运行 RB-05、调用模型、关闭 Issue、修改业务模块或进入 Phase 2.5。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；
@@ -224,7 +227,7 @@ TikTok生活服务业务在国际化布局早期阶段，我们聚焦生服领�
 
 ## 10. 当前绝对不能做的事情
 
-- 不进入 Phase 2.4；不实现简历改写、Cover Letter、面试回答、多轮 HR Agent、自动发送、招聘网站接入、模板库、多人格风格、score 或 confidence；
+- Phase 2.4 继续 BLOCKED；不得在新授权前执行 RB-05、模型调用、stochastic sampling 或 Phase 2.5；不实现简历改写、Cover Letter、面试回答、多轮 HR Agent、自动发送、招聘网站接入、模板库、多人格风格、score 或 confidence；
 - 不修改 Phase 1 protected pipeline、Candidate Profile canonical facts、Match Core、Recommendation 或 Strength/Gap；不更换 `deepseek-v4-flash`；
 - 不放宽 PG-A～PG-M、Candidate Claim/PF/JD evidence、unknown、semantic upgrade、waiver 或 fail-closed Gate；不以 internal score 掩盖 Hard Gate failure；
 - 不删除 `greeting-preflight-infrastructure-failure-01.json`、`greeting-preflight-failed-bce6280.json`、`greeting-preflight-invalid-stale-server-b2751c0.json` 或此前任何负向历史；

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
+import { handleAcceptanceDiagnosticsPreflight } from "@/lib/acceptance-diagnostics";
 import {
   analyzeStrengthGapWithDeepSeek,
   type StrengthGapDiagnostics,
@@ -13,6 +14,12 @@ export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
   const acceptanceDiagnosticsEnabled =
     process.env.STRENGTH_GAP_ACCEPTANCE_DIAGNOSTICS === "1";
+  const preflight = handleAcceptanceDiagnosticsPreflight(request, {
+    module: "strengthGap",
+    enabled: acceptanceDiagnosticsEnabled,
+    requestId,
+  });
+  if (preflight) return preflight;
   let diagnosticsForAcceptance: StrengthGapDiagnostics | null = null;
   const responseBody = <T extends Record<string, unknown>>(body: T) =>
     acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null

@@ -201,6 +201,29 @@ describe("analyzeGreetingWithDeepSeek", () => {
     expect(serialized).not.toContain("sk-fake-secret-123456");
   });
 
+  it("EC4 preserves truncated Greeting raw before safe fallback", async () => {
+    const fixture = GREETING_FIXTURES[0];
+    const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
+    let diagnostics: GreetingDiagnostics | null = null;
+    const result = await analyzeGreetingWithDeepSeek(fixture.request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+    expect(result.personalizationStatus).toBe("personalized");
+    expect(diagnostics?.personalizedGreetingSafeFallbackUsed).toBe(true);
+    expect(diagnostics?.outputEvidence).toEqual([
+      expect.objectContaining({
+        rawAvailable: true,
+        finishReason: "length",
+        failureCategory: "truncated",
+      }),
+    ]);
+  });
+
   it("uses the authorized runtime model and bounded temperature", async () => {
     const fixture = GREETING_FIXTURES[0];
     const fetchImpl = vi.fn(async () => completion(fixture.validRaw));

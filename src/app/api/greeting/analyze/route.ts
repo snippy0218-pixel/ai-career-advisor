@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
+import { handleAcceptanceDiagnosticsPreflight } from "@/lib/acceptance-diagnostics";
 import {
   analyzeGreetingWithDeepSeek,
   type GreetingDiagnostics,
@@ -13,6 +14,12 @@ export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
   const acceptanceDiagnosticsEnabled =
     process.env.GREETING_ACCEPTANCE_DIAGNOSTICS === "1";
+  const preflight = handleAcceptanceDiagnosticsPreflight(request, {
+    module: "greeting",
+    enabled: acceptanceDiagnosticsEnabled,
+    requestId,
+  });
+  if (preflight) return preflight;
   let diagnosticsForAcceptance: GreetingDiagnostics | null = null;
   const responseBody = <T extends Record<string, unknown>>(body: T) =>
     acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null

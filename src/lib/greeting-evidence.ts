@@ -1,4 +1,8 @@
 import { scrubStrengthGapEvidenceText } from "./strength-gap-evidence";
+import type {
+  GenerationFailureCategory,
+  GenerationFailureStage,
+} from "./generation-evidence";
 import type { GreetingValidationIssue } from "./greeting-schema";
 
 export const GREETING_RAW_CAPTURE_LIMIT = 12_000;
@@ -13,11 +17,17 @@ export interface GreetingRejectedFragmentEvidence {
 export interface GreetingOutputEvidence {
   stage: "initial" | "repair";
   rejected: boolean;
+  completionReceived: boolean;
+  rawAvailable: boolean;
   rawText: string;
   rawTextLength: number;
   artifactTruncated: boolean;
   parseError: "JSON_PARSE_ERROR" | null;
+  parsedOutputAvailable: boolean;
   parsedOutput: unknown;
+  finishReason: string | null;
+  failureStage: GenerationFailureStage | null;
+  failureCategory: GenerationFailureCategory | null;
   validationIssues: GreetingValidationIssue[];
   rejectedGreeting: string | null;
   rejectedFragments: GreetingRejectedFragmentEvidence[];
@@ -30,6 +40,10 @@ interface CaptureOptions {
   parseError: GreetingOutputEvidence["parseError"];
   validationIssues: GreetingValidationIssue[];
   rejected: boolean;
+  completionReceived?: boolean;
+  finishReason?: string | null;
+  failureStage?: GenerationFailureStage | null;
+  failureCategory?: GenerationFailureCategory | null;
   secrets?: string[];
 }
 
@@ -74,6 +88,10 @@ export function captureGreetingOutputEvidence({
   parseError,
   validationIssues,
   rejected,
+  completionReceived = true,
+  finishReason = null,
+  failureStage = null,
+  failureCategory = null,
   secrets = [],
 }: CaptureOptions): GreetingOutputEvidence {
   const scrubbedRaw = scrubStrengthGapEvidenceText(rawText, secrets);
@@ -88,11 +106,17 @@ export function captureGreetingOutputEvidence({
   return {
     stage,
     rejected,
+    completionReceived,
+    rawAvailable: rawText.length > 0,
     rawText: scrubbedRaw.slice(0, GREETING_RAW_CAPTURE_LIMIT),
     rawTextLength: scrubbedRaw.length,
     artifactTruncated: scrubbedRaw.length > GREETING_RAW_CAPTURE_LIMIT,
     parseError,
+    parsedOutputAvailable: parsedOutput !== null,
     parsedOutput: scrubUnknown(parsedOutput, secrets),
+    finishReason,
+    failureStage,
+    failureCategory,
     validationIssues: scrubbedIssues,
     rejectedGreeting:
       typeof parsed?.greeting === "string"

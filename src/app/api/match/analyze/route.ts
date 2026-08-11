@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
+import { handleAcceptanceDiagnosticsPreflight } from "@/lib/acceptance-diagnostics";
 import { analyzeMatchWithDeepSeek, type MatchDiagnostics } from "@/lib/match-deepseek";
 import { matchCoreRequestSchema } from "@/lib/match-schema";
 
@@ -11,6 +12,12 @@ export async function POST(request: Request) {
   let diagnosticsForAcceptance: MatchDiagnostics | null = null;
   const acceptanceDiagnosticsEnabled =
     process.env.MATCH_ACCEPTANCE_DIAGNOSTICS === "1";
+  const preflight = handleAcceptanceDiagnosticsPreflight(request, {
+    module: "match",
+    enabled: acceptanceDiagnosticsEnabled,
+    requestId,
+  });
+  if (preflight) return preflight;
   const responseBody = <T extends Record<string, unknown>>(body: T) =>
     acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
       ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }

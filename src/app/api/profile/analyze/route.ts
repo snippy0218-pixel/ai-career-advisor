@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiError, toPublicError } from "@/lib/api-errors";
+import { handleAcceptanceDiagnosticsPreflight } from "@/lib/acceptance-diagnostics";
 import { analyzeProfileWithDeepSeek } from "@/lib/profile-deepseek";
 import type { ProfileDiagnostics } from "@/lib/profile-deepseek";
 import { analyzeProfileRequestSchema } from "@/lib/profile-schema";
@@ -12,6 +13,12 @@ export async function POST(request: Request) {
   let diagnosticsForAcceptance: ProfileDiagnostics | null = null;
   const acceptanceDiagnosticsEnabled =
     process.env.PROFILE_ACCEPTANCE_DIAGNOSTICS === "1";
+  const preflight = handleAcceptanceDiagnosticsPreflight(request, {
+    module: "profile",
+    enabled: acceptanceDiagnosticsEnabled,
+    requestId,
+  });
+  if (preflight) return preflight;
   const responseBody = <T extends Record<string, unknown>>(body: T) =>
     acceptanceDiagnosticsEnabled && diagnosticsForAcceptance !== null
       ? { ...body, acceptanceDiagnostics: diagnosticsForAcceptance }

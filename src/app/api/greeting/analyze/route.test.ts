@@ -57,6 +57,21 @@ describe("POST /api/greeting/analyze", () => {
     expect(response.headers.get("X-Request-ID")).toBeTruthy();
   });
 
+  it("PF5 proves Greeting capability without invoking generation", async () => {
+    process.env.GREETING_ACCEPTANCE_DIAGNOSTICS = "1";
+    const response = await POST(
+      new Request("http://localhost/api/greeting/analyze", {
+        method: "POST",
+        headers: { "X-Phase-2-Acceptance-Preflight": "1" },
+      }),
+    );
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      data: { module: "greeting", rejectedOutputCapture: true },
+    });
+    expect(analyzeGreetingWithDeepSeek).not.toHaveBeenCalled();
+  });
+
   it("puts full rejected evidence only in the acceptance response body", async () => {
     process.env.GREETING_ACCEPTANCE_DIAGNOSTICS = "1";
     const data = {

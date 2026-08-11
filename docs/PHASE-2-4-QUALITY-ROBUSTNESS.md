@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：STOP & ESCALATE / BLOCKED ON ISSUE-029 + ISSUE-030
+> 状态：STOP & ESCALATE / BLOCKED ON ISSUE-028 + ISSUE-029 + ISSUE-030 + ISSUE-031 + ISSUE-032
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -23,12 +23,13 @@
 | ISSUE-025 | Candidate Profile fact completeness / silent omission | Canonical CF/PF ledger、24-run matrix 与 downstream evidence 已关闭该问题 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-026 | unsupported hard waiver | Recommendation R-K 与 downstream waiver guard 已关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-027 | transferable Strength validator / Candidate claim upgrade stability | SG-M、post-fix 51 requests repair 0，已正式关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
-| ISSUE-028 | rejected AI output evidence preservation gap | Strength/Gap 与 Greeting 原有机制回归通过；本轮因真实 QA 失败将同级 acceptance-only rejected raw 扩展到 Profile/Recommendation；JD/Match 仍无同级 rejected raw，但 final 关键 Match success context 已由 runner 保存 | Closed；保留 regression。JD/Match parity 继续记录，不因无实际 rejected-output blocker 做全量重构 | 关键失败不可审计时阻塞 |
+| ISSUE-028 | rejected AI output evidence preservation gap | post-029/031 RB-05 的 Match 502 未保留 diagnostics/raw，正式 reopen；bounded stabilization 已加入五 route capability preflight、completion lifecycle、Match-specific evidence 与 acceptance 5xx preservation | **Reopened / P1 / Multiple-layer gap / Local Fix Verified / E2E Pending** | **是** |
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
 | ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | bounded stabilization 已实现；rerun-3 contamination NOT OBSERVED；等待 post-ISSUE-030 RB-05 full chain | **Open / P1 / Fix Implemented / Local Verification Pass / Final E2E Verification Pending** | **是** |
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 与 373/373、lint/build PASS；唯一 post-fix RB-05 在 JD 503 停止，未到达 SG-E | **Open / P1 / Fix Implemented / Local Verification Pass / E2E Verification Blocked / Fix Not Verified / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 同一 text unit 内把 MI-004 的“已满足”错误归给 partial MI-003 | status phrase 改按显式 MI、requirement、clause locality 与 structured ref 归属；R1～R10、full 394/394 PASS | **Open / P1 / Fix Implemented / Deterministic Gate Pass / E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant pass/fail/not_run/unknown、ledger-derived downstream count 与统一 safeFailure 已实现 | **Open / P1 / QA Artifact Integrity / Local Fix Verified / E2E Pending** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -148,3 +149,13 @@
 - 唯一运行：JD 200 / 8,716 ms；Profile 200 / 2,052 ms；Match 502 `AI_OUTPUT_INVALID` / 10,395 ms；Recommendation、Strength/Gap、Greeting `not_called`；总已执行阶段 latency 21,163 ms；failure 后下游调用 0；
 - artifact 未包含 Match acceptance diagnostics，initial/repair rejected raw、validation reason、repair/attempt 与 truncation 状态不可恢复；runner counters 的 repair=0 仅表示 diagnostics 缺失，不能证明未 repair；底层 Match failure 归类 `unknown`，同时存在确定的 rejected-evidence integrity regression；
 - ISSUE-029 / ISSUE-031 / ISSUE-030 均建议 `VERIFICATION INCONCLUSIVE`；Phase 2.4 仍 BLOCKED；原始 artifact 独立保存，未覆盖历史，未追加 rerun。
+
+## 13. ISSUE-028 / ISSUE-032 Bounded Stabilization（2026-08-11）
+
+- Product Owner / QA 将 ISSUE-028 reopen 为 P1 / multiple-layer gap，并建立 ISSUE-032 P1 QA Artifact Integrity blocker；授权基线 `4828fae…`，仅 deterministic implementation/tests；
+- 正式 runner 在所有五个 Phase 2 generation route 上执行 acceptance capability probe；任一 route 未实际启用 capture 时，在业务调用前以 `ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE`、`modelCalls=0` fail-fast；
+- Profile/Match/Recommendation/Strength-Gap/Greeting completion lifecycle 区分 provider/transport、length、empty、content filter、parse、schema、semantic validation 与 repair；有 raw 则保存 acceptance-only evidence，无 raw 则显式记录；
+- Match 使用独立 validation layer/code/rule/path/item/dimension evidence，不再依赖 SG parser；普通 production response 仍不暴露 raw；
+- runner artifact 显式保存未调用 stages、unknown/not_run/known zero、invariant audit state、ledger-derived downstream calls，并统一 safeFailure；
+- deterministic evidence：focused 91/91、ISSUE-029/030/031 targeted 148/148、full 429/429、lint/build/diff PASS，模型调用 0、RB-05 未执行；完整证据见 `PHASE-2-4-ISSUE-028-032-STABILIZATION.md`；
+- 工程建议 ISSUE-028/032 `LOCAL FIX VERIFIED`，Phase 2.4 可申请新的 E2E verification authorization；在新授权前继续 BLOCKED，Phase 2.5 NOT AUTHORIZED。
