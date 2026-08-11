@@ -37,3 +37,7 @@ Replacement RB-05 Recommendation initial 与 repair raw 完全相同。summary �
 | R10 exact replacement raw summary | PASS |
 
 Focused Match/Recommendation/repair：93/93；authorized targeted：184/184；full suite：394/394；lint、production build、diff check PASS。deterministic Gate 完成前模型调用为 0。下一步只允许固定新 implementation commit 后的一次 post-029/031 RB-05；无论成功或失败均停止。
+
+## Post-029/031 RB-05 Result
+
+唯一正式 E2E 在 Match 502 停止，Recommendation `not_called`，因此没有 multi-MI runtime sample，也无法验证 initial 是否避免 validator-induced repair。ISSUE-031 建议 `VERIFICATION INCONCLUSIVE`。该结果不推翻 R1～R10 deterministic evidence，也不能据此宣称 E2E fix verified；严格未追加 rerun。

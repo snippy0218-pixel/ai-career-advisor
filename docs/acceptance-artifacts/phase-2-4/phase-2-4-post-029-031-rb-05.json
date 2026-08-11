@@ -1,0 +1,221 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "044d9353de4c6622de1b1bb86e494d39df2d67ff",
+  "generatedAt": "2026-08-11T03:38:19.004Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "summary": {
+    "requestCount": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 1,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": 0,
+    "matchRepairRequests": 0,
+    "recommendationRepairRequests": 0,
+    "strengthGapRepairRequests": 0,
+    "personalizedGreetingRepairRequests": 0,
+    "personalizedGreetingSafeFallbackRequests": 0,
+    "requestFallbackCount": 0
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 8716,
+      "average": 8716,
+      "median": 8716,
+      "p95": null,
+      "max": 8716
+    },
+    "profile": {
+      "samples": 1,
+      "min": 2052,
+      "average": 2052,
+      "median": 2052,
+      "p95": null,
+      "max": 2052
+    },
+    "match": {
+      "samples": 1,
+      "min": 10395,
+      "average": 10395,
+      "median": 10395,
+      "p95": null,
+      "max": 10395
+    },
+    "recommendation": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "match",
+      "failureContext": {
+        "candidateProfile": {
+          "schemaVersion": "candidate-profile-v2",
+          "profileProvided": true,
+          "candidateProfile": {
+            "canonicalFacts": [
+              {
+                "factId": "CF-001",
+                "statement": "教育背景：信息管理本科",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-001"
+                ],
+                "semanticTags": [
+                  "education"
+                ]
+              },
+              {
+                "factId": "CF-002",
+                "statement": "课程项目：在课程中了解 Python 基础语法",
+                "sourceType": "normalized_stated",
+                "pfEvidence": [
+                  "PF-002"
+                ],
+                "semanticTags": [
+                  "project_experience",
+                  "skill_usage"
+                ]
+              },
+              {
+                "factId": "CF-003",
+                "statement": "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-003"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              },
+              {
+                "factId": "CF-004",
+                "statement": "没有正式数据产品工作经历",
+                "sourceType": "profile_stated",
+                "pfEvidence": [
+                  "PF-004"
+                ],
+                "semanticTags": [
+                  "experience"
+                ]
+              }
+            ],
+            "careerTarget": null,
+            "education": [
+              "CF-001"
+            ],
+            "experiences": [
+              "CF-003",
+              "CF-004"
+            ],
+            "projects": [
+              "CF-002"
+            ],
+            "skills": [
+              "CF-002"
+            ],
+            "certificates": [],
+            "portfolio": [],
+            "preferences": [],
+            "derivedObservations": [],
+            "unknowns": [],
+            "questionsToConfirm": [],
+            "evidence": [
+              {
+                "id": "PF-001",
+                "text": "教育背景：信息管理本科"
+              },
+              {
+                "id": "PF-002",
+                "text": "课程项目：在课程中了解 Python 基础语法"
+              },
+              {
+                "id": "PF-003",
+                "text": "团队经历：与四人团队共同完成数据展示作业，我协助整理需求和测试"
+              },
+              {
+                "id": "PF-004",
+                "text": "没有正式数据产品工作经历"
+              }
+            ]
+          }
+        },
+        "matchCore": null,
+        "recommendation": null
+      },
+      "expectationPassed": false,
+      "invariants": null,
+      "invariantsPassed": true,
+      "stages": [
+        {
+          "stage": "jd",
+          "status": 200,
+          "latencyMs": 8716,
+          "requestId": "b9f3a596-c77e-4d78-b6bb-7f1b3b4fb1e8",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "profile",
+          "status": 200,
+          "latencyMs": 2052,
+          "requestId": "992be621-5626-42b0-8405-6aa40d64fda2",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null
+        },
+        {
+          "stage": "match",
+          "status": 502,
+          "latencyMs": 10395,
+          "requestId": "9157635e-67ec-4cfc-a308-13d4e4e3a7c3",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": {
+            "code": "AI_OUTPUT_INVALID",
+            "message": "本次分析生成失败，请重新尝试。",
+            "request_id": "9157635e-67ec-4cfc-a308-13d4e4e3a7c3",
+            "retryable": true
+          }
+        }
+      ]
+    }
+  ]
+}

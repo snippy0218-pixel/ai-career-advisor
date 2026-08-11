@@ -141,3 +141,10 @@
 - 新建 ISSUE-031：旧 Recommendation validator 将同一逗号 unit 内 MI-004 的“已满足”错误归给 MI-003；status phrase 现按显式 MI、exact requirement、clause locality 与单一 structured ref 绑定，歧义 grouped phrase fail-closed；
 - M1～M10、R1～R10 与 mock repair preservation PASS；focused 93/93、targeted 184/184、full 394/394、lint/build/diff check PASS；ISSUE-030 implementation 未修改；
 - 当前仍为 Phase 2.4 BLOCKED。只有固定本 implementation commit 后，才允许一次 post-029/031 RB-05；不得追加 stochastic sampling，不得进入 Phase 2.5。
+
+## 12. Post-029/031 RB-05 Result（2026-08-11）
+
+- 授权基线：`main / 044d9353de4c6622de1b1bb86e494d39df2d67ff`；frozen JD/Profile length 与 SHA-256 均与历史一致；
+- 唯一运行：JD 200 / 8,716 ms；Profile 200 / 2,052 ms；Match 502 `AI_OUTPUT_INVALID` / 10,395 ms；Recommendation、Strength/Gap、Greeting `not_called`；总已执行阶段 latency 21,163 ms；failure 后下游调用 0；
+- artifact 未包含 Match acceptance diagnostics，initial/repair rejected raw、validation reason、repair/attempt 与 truncation 状态不可恢复；runner counters 的 repair=0 仅表示 diagnostics 缺失，不能证明未 repair；底层 Match failure 归类 `unknown`，同时存在确定的 rejected-evidence integrity regression；
+- ISSUE-029 / ISSUE-031 / ISSUE-030 均建议 `VERIFICATION INCONCLUSIVE`；Phase 2.4 仍 BLOCKED；原始 artifact 独立保存，未覆盖历史，未追加 rerun。

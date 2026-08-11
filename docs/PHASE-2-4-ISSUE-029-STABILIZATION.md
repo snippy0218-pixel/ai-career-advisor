@@ -107,3 +107,9 @@ Replacement RB-05 后，Product Owner / QA 推翻“原 qualifier guard 已充�
 - negative Candidate fact 仍必须通过显式 counter ref；不与无 refs 的 absence-of-evidence 混淆。
 
 M1～M10 全部 PASS：无 refs positive claim、wrong CF、foreign/multi-CF qualifier 与 replacement exact reason 均 reject；unknown boundary、correct CF、negative counter、JD-only 与 same-CF scope 均 pass。原 Case A～F 与 positive control 保持 PASS。deterministic gate：Match/Recommendation focused 93/93；跨 Profile/Match/Recommendation/Strength-Gap/Greeting targeted 184/184；full 394/394；lint、production build、`git diff --check` PASS。未调用模型；E2E 尚未执行。
+
+## N. Post-029/031 RB-05（唯一正式运行）
+
+Product Owner / QA 明确授权在 `main / 044d9353de4c6622de1b1bb86e494d39df2d67ff` 上执行一次 new deterministic-baseline RB-05。fixture precheck 与历史 frozen length/SHA-256 完全一致。唯一运行在 Match 停止：JD 200 / 8,716 ms，Profile 200 / 2,052 ms，Match 502 `AI_OUTPUT_INVALID` / 10,395 ms；Recommendation、Strength/Gap、Greeting 均 `not_called`，failure 后下游调用 0。
+
+本次 Match response 未包含 acceptance diagnostics，artifact 因而没有 initial/repair rejected raw、具体 validation issues、attempt/repair 诊断或 truncation 状态。无法判断是 M-CANDIDATE-LINEAGE 正确拦截污染、错误拒绝合法 Match、raw schema failure，还是其他 Match validation failure；不得猜测。ISSUE-029 建议 `VERIFICATION INCONCLUSIVE`，Phase 2.4 仍 BLOCKED。原始 artifact 为 `phase-2-4-post-029-031-rb-05.json`，未覆盖任何历史 artifact，且严格未 rerun。

@@ -23,9 +23,10 @@
 - replacement RB-05 到达 Match 后再次出现 ISSUE-029：MI-003 reason 含 Candidate positive claim、`课程作业` 与 `非正式工作`，但 refs/PF 均为空；随后 Recommendation initial/repair exact raw 因 cross-MI status phrase attribution false positive 被拒绝，正式建立 ISSUE-031；
 - ISSUE-029 restabilization 已新增 `M-CANDIDATE-LINEAGE`（空 refs 只允许 evidence boundary；有 refs 必须语义支持）并保留逐 CF qualifier ownership；ISSUE-031 已将 status phrase 绑定到显式 MI/requirement/locality/structured ref，歧义 grouped phrase fail-closed；M1～M10、R1～R10、focused 93/93、targeted 184/184、full 394/394、lint/build/diff PASS；
 - ISSUE-030 代码未修改，状态保持 OPEN / LOCAL FIX VERIFIED / E2E PENDING。下一步只允许固定本轮 implementation commit 后执行一次 post-029/031 RB-05；不得追加抽样；
+- Product Owner / QA 已明确授权并完成 `044d935…` 上唯一 post-029/031 RB-05：frozen fixture hash 相同；JD 200、Profile 200、Match 502 `AI_OUTPUT_INVALID`，其余阶段未调用，downstream calls after failure=0。Match acceptance diagnostics 未启用/未进入 artifact，rejected raw 与 validation reason 不可恢复；因此底层 failure=`unknown`，ISSUE-029/030/031 均只能建议 `VERIFICATION INCONCLUSIVE`，并暴露 mandatory rejected-evidence preservation regression。Artifact：`phase-2-4-post-029-031-rb-05.json`；禁止 rerun；
 - final Phase 2.4 suite 固定 `679268a…`：7/8；六条完整链、RB-08 预期 400、RB-05 blocked；350/350、lint/build PASS；不得用 targeted success 覆盖 final failure；
 - `OBS-006 — Full-chain Personalized Greeting Fallback Interaction`：final six greeting requests 中 repair 4/6、personalized safe fallback 4/6、Phase 1 fallback 0/6；均安全但与 isolated Phase 2.3 0/36 显著不同，待 ISSUE-029 review 后复评；
-- 当前授权的 ISSUE-030 implementation 与唯一一次 post-fix RB-05 已完成；该次在 JD 503 停止且不得 rerun。当前只允许 ISSUE-029/030 evidence 收尾并等待 Product Owner / QA Review；不得继续普通产品修改，不得进入 Phase 2.5。
+- 当前授权的 post-029/031 RB-05 已消费；当前只允许 evidence 收尾并等待 Product Owner / QA Review；不得继续普通产品修改、不得追加模型调用、不得进入 Phase 2.5。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

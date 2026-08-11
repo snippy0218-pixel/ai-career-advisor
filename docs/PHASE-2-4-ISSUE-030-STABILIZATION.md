@@ -82,3 +82,7 @@ Focused schema：35/35 PASS。Strength/Gap、modifier-integrity、ISSUE-027/028 
 ## H. Gate
 
 当前 ISSUE-030 为 OPEN / FIX IMPLEMENTED / LOCAL VERIFICATION PASS / E2E VERIFICATION BLOCKED；工程建议 **FIX NOT VERIFIED**。Phase 2.4 仍 BLOCKED，Phase 2.5 NOT AUTHORIZED。
+
+## I. Post-029/031 RB-05 Follow-up
+
+在新 deterministic baseline `044d9353de4c6622de1b1bb86e494d39df2d67ff` 上获授权的唯一 RB-05 于 Match 502 停止，Strength/Gap `not_called`。因此没有新的 SG-E runtime evidence，ISSUE-030 建议 `VERIFICATION INCONCLUSIVE`；T1～T10 与本地 regression 继续有效，但不得据此自行关闭 Issue。严格未 rerun。
