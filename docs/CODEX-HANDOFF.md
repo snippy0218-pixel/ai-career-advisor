@@ -32,7 +32,11 @@
 - Product Owner / QA 在 post-028/032 RB-05 review 后仅授权 ISSUE-028 Recommendation structured rule/code completion 与 ISSUE-031 deterministic restabilization；starting baseline `4ec6cb4…`。本轮已新增 Recommendation 专用 rejected-evidence serializer，R-C validation layer/code/rule/MI refs 直接沿 adapter → acceptance diagnostics 保存，歧义不伪造 rejected item，production response 继续不泄漏内部证据；
 - ISSUE-031 的确切漏测语序为 `MI-004（学历要求已满足）以及 MI-001、MI-003 的部分匹配`：旧距离启发式把括号内 `已满足` 错归给更近的后置 MI-001，且未建模 `部分匹配`。现按括号 owner、显式 MI group、exact requirement 与 single structured ref 归属，真正歧义 fail-closed；R31-1～R31-16 全绿；
 - 本轮 deterministic evidence：focused 79/79、authorized targeted 261/261、full 451/451、lint/build/diff PASS；模型调用 0，未执行 RB-05，未修改 frozen fixture/Prompt/Contract/Match/Strength-Gap/Greeting/runner。工程建议 ISSUE-028 `LOCAL COMPLETION VERIFIED`、ISSUE-031 `LOCAL FIX VERIFIED`，二者均等待新的 full-chain E2E 授权；详见 `docs/PHASE-2-4-ISSUE-028-031-COMPLETION.md`；
-- 当前必须停止并等待 Product Owner / QA Gate Review。不得自行运行 RB-05、调用模型、关闭 Issue、修改 ISSUE-029/030/032、进入 Phase 2.5 或追加 stochastic sampling。
+- Product Owner / QA 已接受 `901c7b6…` deterministic baseline 并授权唯一一次 post-028/031 completion RB-05；五路 capability 与 frozen fixture hash preflight 全部通过，execution 前 model calls=0；
+- 唯一运行结果 0/1：JD 200 / 7,325 ms、Profile 200 / 2,463 ms、Match 502 / 10,624 ms；Match initial 7 条 issues、repair 3 条 issues，Recommendation/Strength-Gap/Greeting `not_called/not_run`，downstream calls after failure=0，invariant audit `not_run/passed=null`；
+- Initial 的 `课程->CF-004/CF-003` cross-CF contamination 被 M-K 正确拒绝；repair course contamination=0，但 `无法满足独立负责`、`并非主导角色` 两条 unsupported negative upgrade 仍被 M-CANDIDATE-LINEAGE 正确拒绝。`与正式工作经验要求不符` 由 CF-004 + JD 共同支持却也被拒绝，记录为待 QA 裁决的 possible deterministic false-positive observation；即使排除此项，repair 仍因另外两条合法失败；
+- ISSUE-028/031/030 runtime verdict 均 INCONCLUSIVE（相应下游未调用）；ISSUE-029 safety preservation 无 accepted contamination release，但 full-chain closure evidence 未取得；ISSUE-032 preservation PASS。Artifact：`phase-2-4-post-028-031-completion-rb-05.json`；完整审计见 `docs/PHASE-2-4-POST-028-031-COMPLETION-RB-05.md`；
+- 当前必须停止并等待 Product Owner / QA Gate Review。model-backed RB-05 executions=1，additional reruns=0；不得自行运行第二次、关闭 Issue、修改实现、进入 Phase 2.5 或追加 stochastic sampling。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

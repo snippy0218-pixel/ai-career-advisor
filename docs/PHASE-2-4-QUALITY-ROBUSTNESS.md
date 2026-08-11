@@ -167,3 +167,12 @@
 - runner artifact 显式保存未调用 stages、unknown/not_run/known zero、invariant audit state、ledger-derived downstream calls，并统一 safeFailure；
 - deterministic evidence：focused 91/91、ISSUE-029/030/031 targeted 148/148、full 429/429、lint/build/diff PASS，模型调用 0、RB-05 未执行；完整证据见 `PHASE-2-4-ISSUE-028-032-STABILIZATION.md`；
 - 工程建议 ISSUE-028/032 `LOCAL FIX VERIFIED`，Phase 2.4 可申请新的 E2E verification authorization；在新授权前继续 BLOCKED，Phase 2.5 NOT AUTHORIZED。
+
+## 14. Post-028/031 Completion RB-05（2026-08-11）
+
+- authorization baseline：`main / 901c7b6f3e37990d11ac4534ab60d0c582547faa`；五路 acceptance capability、modelCallsBeforeBusinessExecution=0、frozen RB-05 length/SHA-256 全部通过；
+- 唯一 model-backed run 0/1：JD 200 / 7,325 ms、Profile 200 / 2,463 ms、Match 502 / 10,624 ms；Recommendation/Strength-Gap/Greeting not_called；failure 后下游调用 0；
+- Match initial 7 条 rejection issues，含被 M-K 正确拦截的 `课程->CF-004/CF-003` cross-CF contamination；repair 将 course contamination 清零，但仍生成 `无法满足独立负责`、`并非主导角色` 两条无 CF 独立支持的 negative upgrade并被 M-CANDIDATE-LINEAGE 正确拒绝；
+- `与正式工作经验要求不符` 实际由 CF-004 与 JD requirement 共同支持，却被仅按 CF anchor 的 lineage guard 拒绝，记录为待 QA 裁决的 possible false-positive observation；它不是 terminal failure 的唯一原因；
+- ISSUE-028/031/030 均因对应下游未调用而 INCONCLUSIVE；ISSUE-029 guard safety preservation 无回归但无 Final accepted Match；ISSUE-032 state semantics PASS；
+- artifact `phase-2-4-post-028-031-completion-rb-05.json` 独立保存，SHA-256 `ecdcbe2e612d2f5fd9d77eba03d3ad8548baa3ec32fefb2016e231d4ab2a64b3`；严格未 rerun。Phase 2.4 仍 BLOCKED，Phase 2.5 NOT AUTHORIZED。

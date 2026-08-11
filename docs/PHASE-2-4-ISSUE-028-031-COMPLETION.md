@@ -66,3 +66,11 @@ targeted regression 同时保留 ISSUE-029 的 `M-CANDIDATE-LINEAGE` / qualifier
 - Phase 2.5：仍 **NOT AUTHORIZED**。
 
 本文件不关闭任何 Issue，也不授权 E2E、模型调用或下一 Phase。
+
+## 6. Authorized Full-chain Follow-up
+
+Product Owner / QA 随后授权在本 implementation baseline 上执行唯一一次 post-028/031 completion RB-05。该运行于 Match 502 停止：JD 200、Profile 200；Match initial 7 条与 repair 3 条 deterministic issues，Recommendation/Strength-Gap/Greeting 未调用，failure 后下游调用 0。
+
+Initial 的 `课程->CF-004/CF-003` cross-CF contamination 被 M-K 正确拒绝；repair 已移除 course contamination，但保留两条 unsupported negative Candidate upgrade，仍被 M-CANDIDATE-LINEAGE 正确 fail-closed。另有 `与正式工作经验要求不符` comparison 由 CF-004 + JD 支持却被 lineage guard 拒绝，记录为待 QA 裁决的 possible false-positive observation；它不是本次 terminal failure 的唯一原因。
+
+ISSUE-028=`INCONCLUSIVE`、ISSUE-031=`VERIFICATION INCONCLUSIVE`、ISSUE-030=`VERIFICATION INCONCLUSIVE`；ISSUE-029 safety preservation 未回归但没有 Final accepted Match；ISSUE-032 artifact semantics preservation PASS。完整证据见 `docs/PHASE-2-4-POST-028-031-COMPLETION-RB-05.md`。Phase 2.4 仍 BLOCKED，未追加 rerun。
