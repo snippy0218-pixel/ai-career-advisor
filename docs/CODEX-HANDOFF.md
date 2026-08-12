@@ -65,6 +65,11 @@
 - `f668589…` 新增 preflight-failure artifact builder，复用冻结 `buildExplicitStageLedger([])` 与 invariant state：顶层完整物化六阶段 not_called/not_run、invariant not_run/passed=null、safeFailure=false 与 business/model/downstream known zero；`results=[]` 继续只表示 business case loop 未运行；
 - capability ledger 仅补存已有 response 的 `rejectedOutputCapture` boolean，未扩展 request ID/latency Gate；P32-1～12 与 immutable historical artifact reconstruction PASS；focused 26/26、targeted 340/340、full 530/530、lint/build/diff/scope/secret PASS；模型调用/E2E 0；
 - 工程建议 ISSUE-032 `LOCAL RESTABILIZATION VERIFIED`，Phase 2.4 ready to request one replacement full-chain E2E；正式状态仍 BLOCKED，等待 Product Owner / QA Review。详见 `docs/PHASE-2-4-ISSUE-032-PRECHECK-RESTABILIZATION.md`。
+- Product Owner / QA 正式接受 ISSUE-032 local restabilization，并在 `main / b2c0c726…` 授权一个 replacement post-035/036 RB-05；server 启动前显式启用五个 acceptance-only flags，实际 routes preflight 5/5 为 `enabled=true / rejectedOutputCapture=true`；
+- 唯一 replacement 0/1：JD 200 / 9,482 ms、Profile 200 / 2,528 ms、Match 502 / 11,946 ms；Recommendation/StrengthGap/Greeting not_called，downstream calls=0，invariants not_run/passed=null，strictly no rerun；
+- initial 的 CF-004→domain/responsibility negatives 与 course→CF-004 contamination 被 lineage/M-K 正确拒绝；repair 已保持 employment unmet、domain/responsibility unknown、course contamination 0，ISSUE-035 old positive-evidence false positive 与 ISSUE-036 old M-K work false positive均未出现；
+- repair 被新的 M-CANDIDATE-LINEAGE false positive 终止：合法 boundary reason 的分号后 meta-evidence clause“CF-004 仅否定正式工作经历，不构成……明确反证”被当作无 refs Candidate assertion；这不是 ISSUE-035/036 regression。本轮不修、不编号，等待 PO/QA adjudication；
+- 工程建议 ISSUE-035=`FIX VERIFIED`、ISSUE-036/028/030/031=`INCONCLUSIVE`；ISSUE-029/032/033/034 preservation PASS；Phase 2.4 remains BLOCKED。Artifact：`phase-2-4-post-035-036-replacement-rb-05.json`；详见 `docs/PHASE-2-4-POST-035-036-REPLACEMENT-RB-05.md`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

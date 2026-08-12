@@ -241,3 +241,12 @@
 - capability probe ledger 仅显式保存已有 `rejectedOutputCapture` boolean；production defaults、acceptance flag policy 与 raw boundary 不变；
 - P32-1～12 和 historical artifact reconstruction PASS；focused 26/26、targeted 340/340、full 530/530、lint/build/diff/scope/secret PASS；model calls/RB-05=0；
 - implementation commit=`f66858987f89b3c209eda511e51709c1b7ad9f11`；工程建议 ISSUE-032 `LOCAL RESTABILIZATION VERIFIED`，Phase 2.4 ready to request one replacement full-chain E2E。正式 Phase 2.4 仍 BLOCKED。完整证据见 `PHASE-2-4-ISSUE-032-PRECHECK-RESTABILIZATION.md`。
+
+## 22. Post-035/036 Replacement RB-05（2026-08-12）
+
+- authorization HEAD=`main / b2c0c726347bf575f80422e9773a28c7a501e8b1`；五个 flags 在 server process 显式设为 1，actual-route preflight 5/5 PASS，execution 前 model calls=0；
+- 唯一 business execution 0/1：JD 200、Profile 200、Match initial/repair semantic 502；后三阶段 not_called，downstream calls 0，invariant not_run/passed=null，additional reruns=0；
+- initial domain/responsibility negative reuse 与 course→CF-004 被正确拒绝；repair 为 employment unmet + domain/responsibility unknown，old ISSUE-035 status false positive 与 ISSUE-036 M-K work false positive均未出现；
+- repair terminal 原因是分号后的 meta-evidence clause“CF-004 仅否定正式工作经历，不构成……明确反证”被 M-CANDIDATE-LINEAGE 当作无 refs Candidate assertion；合法 dimension-local boundary 被 false-positive 拒绝；
+- 工程建议 ISSUE-035 `FIX VERIFIED`、ISSUE-036 `VERIFICATION INCONCLUSIVE`；ISSUE-029/032/033/034 preservation PASS；Recommendation/SG 未调用，ISSUE-028/030/031 inconclusive；
+- artifact `phase-2-4-post-035-036-replacement-rb-05.json`，SHA-256 `5febd1400a781771d5f5cccb5414e2ef3ac40bfbc9ed9843f970f00afcb8fb82`；历史 artifacts 未覆盖。Phase 2.4 remains BLOCKED；完整 evidence 见 `PHASE-2-4-POST-035-036-REPLACEMENT-RB-05.md`。
