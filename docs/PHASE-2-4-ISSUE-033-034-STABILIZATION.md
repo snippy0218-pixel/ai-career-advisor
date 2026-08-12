@@ -119,3 +119,9 @@ system rule 14 虽有“reason 是审慎的 match observation，不是 Candidate
 - 工程建议 ISSUE-033：`LOCAL FIX VERIFIED`；
 - 工程建议 ISSUE-034：`LOCAL FIX VERIFIED`；
 - Phase 2.4 正式状态仍为 `BLOCKED`。在 Product Owner / QA 接受 deterministic stabilization 后，可申请**一次新的完整链 E2E authorization**；本轮不自行授权或执行。
+
+## 7. Authorized Runtime Follow-up（2026-08-12）
+
+Product Owner / QA 接受上述 local evidence 后，授权在 `cc9fa37608b532a9fe48927bf4480ff1da3b6a75` 上执行唯一一次 post-033/034 RB-05。运行 0/1，在 Match repair 502 停止：initial course→CF-004 contamination 被正确拒绝；repair 清除 course contamination，但将 CF-004 formal-work negative 传播成 responsibility `与独立负责要求直接冲突`，由 M-CANDIDATE-LINEAGE/M-K 正确拒绝。employment_type narrow relation 未被拒绝，但 domain sibling relation 也未产生 validation issue；Final Match 不存在。
+
+工程建议更新为 ISSUE-033=`FIX NOT VERIFIED`、ISSUE-034=`FIX NOT VERIFIED`；Phase 2.4 仍 BLOCKED。artifact、逐阶段证据与 scope audit 见 `PHASE-2-4-POST-033-034-RB-05.md`。本次 model-backed executions=1、additional reruns=0。

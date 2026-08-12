@@ -40,6 +40,11 @@
 - ISSUE-034 在 validator 修改前完成 lineage adjudication：`CF-004/PF-004/Raw Profile=没有正式数据产品工作经历` 与 JD `具有独立负责数据产品的正式工作经验` 充分支持同一 employment_type 维度的 `与正式工作经验要求不符`，正式结论 `FALSE POSITIVE CONFIRMED`；
 - ISSUE-033 已将 Match core/repair prompt 升级 v1.2：明确 explicit counter-evidence 与 absence of evidence，M-CANDIDATE-LINEAGE repair 必须把 unsupported negative 改为 uncertainty boundary；ISSUE-034 仅新增 employment_type + unmet + all-counter + explicit-negative + exact JD evidence 的窄 relational mismatch recognition，禁止向具体项目/其他维度投射；
 - G33-1～10、L34-1～10 全绿；focused 78/78、authorized targeted 281/281、full 471/471、lint/build/diff PASS；模型调用 0、RB-05 0、fixture/Contract/Gate 未修改。工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`；Phase 2.4 正式状态仍 BLOCKED，下一步等待 Product Owner / QA Review，只有新授权后才可执行一次完整链 E2E。详见 `docs/PHASE-2-4-ISSUE-033-034-STABILIZATION.md`。
+- Product Owner / QA 接受 deterministic evidence 并授权在 `cc9fa376…` 上执行唯一 post-033/034 full-chain RB-05；五路 capability 与 frozen fixture hash preflight PASS，execution 前 model calls=0；
+- 唯一运行 0/1：JD 200 / 10,464 ms、Profile 200 / 2,799 ms、Match 502 / 12,634 ms；Recommendation/Strength-Gap/Greeting not_called，downstream calls after failure=0，invariants not_run/passed=null；
+- Match initial 的 course→CF-004 domain/responsibility contamination 被 M-CANDIDATE-LINEAGE/M-K 正确拒绝；repair 清除 course contamination，但生成 `没有正式数据产品工作经历，与独立负责要求直接冲突`，把 CF-004 employment negative 传播成 responsibility/ownership conclusion，再次被 lineage/M-K 正确拒绝；
+- ISSUE-034 employment_type relation 未被拒绝，但 domain sibling 的 `与数据产品领域要求直接冲突` 亦未触发 issue；在“仅限 employment_type narrow relation”Gate 下不能判定 verified。工程建议 ISSUE-033/034 均 `FIX NOT VERIFIED`；ISSUE-029 preservation PASS；ISSUE-028/030/031 inconclusive；ISSUE-032 preservation PASS；
+- Artifact `phase-2-4-post-033-034-rb-05.json` 独立保存，SHA-256 `f4b874ef7f9d9a72ba211cc3c65eee2b434f510497a866b4870ce65448ef0f8c`；model-backed executions=1，additional reruns=0。Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review；不得再运行 RB-05、修改实现或进入 Phase 2.5。完整审计见 `docs/PHASE-2-4-POST-033-034-RB-05.md`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

@@ -187,3 +187,12 @@
 - bounded validator fix 只接受 `employment_type + unmet + all counter + explicit negative + exact JD evidence + formal/fulltime/internship semantic match` 的 requirement-level relation；具体项目属性投射、其他 dimension、unknown/partial 与原 ISSUE-029 course contamination 继续拒绝；
 - G33-1～G33-10、L34-1～L34-10 PASS；focused 78/78、authorized targeted 281/281、full 471/471、lint/build/diff PASS；
 - 工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`。Phase 2.4 仍 BLOCKED；只可请求 Product Owner / QA 授权一次新的 full-chain E2E，不自行执行或进入 Phase 2.5。完整记录见 `PHASE-2-4-ISSUE-033-034-STABILIZATION.md`。
+
+## 16. Post-033/034 Full-chain RB-05（2026-08-12）
+
+- authorization baseline：`main / cc9fa37608b532a9fe48927bf4480ff1da3b6a75`；五路 capability、frozen JD/Profile length/SHA-256 与 modelCallsBeforeBusinessExecution=0 全部通过；
+- exactly one model-backed run 0/1：JD 200、Profile 200、Match initial/repair semantic validation 502；其余三阶段 not_called，downstream calls after failure=0，invariant not_run/passed=null；
+- initial course→CF-004 contamination 被 lineage/M-K 正确拒绝；repair course contamination=0，但把 CF-004 formal-work negative 传播成 responsibility `与独立负责要求直接冲突`，由 lineage/M-K 正确拒绝；
+- employment_type 的 supported CF↔JD relation 未被拒绝，但 domain sibling relation 也未产生 issue；无 Final Match，ISSUE-034 narrow runtime Gate 不成立；
+- 工程建议 ISSUE-033/034 `FIX NOT VERIFIED`、ISSUE-029 preservation PASS、ISSUE-028/030/031 inconclusive、ISSUE-032 preservation PASS；Phase 2.4 仍 BLOCKED；
+- artifact `phase-2-4-post-033-034-rb-05.json`，SHA-256 `f4b874ef7f9d9a72ba211cc3c65eee2b434f510497a866b4870ce65448ef0f8c`；strictly no rerun。完整证据见 `PHASE-2-4-POST-033-034-RB-05.md`。
