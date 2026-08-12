@@ -31,11 +31,11 @@
 
 - Q-A backlog disposition：PASS / needs final ledger closure。
 - Q-B blocker closure：FAIL，ISSUE-028～037 尚未全部关闭。
-- Q-C full-chain robustness：FAIL，最新 RB-05 停在 Match。
+- Q-C full-chain robustness：FAIL，batch 2 为 1/3 complete；batch 3 pending。
 - Q-D safe failure：PASS on recorded paths。
 - Q-E metrics：PASS / OBS-006 remains observation pending full chain。
 - Q-F evidence auditability：PASS on latest replacement artifact。
 - Q-G cross-module integrity：PASS on completed historical chains; new full chain pending。
-- Q-H automated regression：baseline 2 has 548/548、lint、production build PASS。
+- Q-H automated regression：baseline 3 has 556/556、lint、production build PASS。
 - Q-I input/error handling：PASS。
 - Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。

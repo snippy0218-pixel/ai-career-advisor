@@ -7,13 +7,13 @@
 | ISSUE-028 Rejected-output evidence preservation | P1 | OPEN / local completion + preflight runtime verified | Recommendation runtime rejected-evidence path |
 | ISSUE-029 Cross-CF Candidate scope contamination | P1 | OPEN / Match runtime fix verified; preservation PASS | final closure audit |
 | ISSUE-030 SG-E valid evidence-boundary false positive | P1 | OPEN / local fix verified | Strength/Gap runtime acceptance + guards |
-| ISSUE-031 Recommendation status attribution | P1 | OPEN / autonomous deterministic restabilization PASS | batch-2 Recommendation runtime |
+| ISSUE-031 Recommendation status attribution | P1 | OPEN / cycle 3 deterministic restabilization PASS | batch-3 Recommendation runtime + final closure audit |
 | ISSUE-032 runner artifact-state semantics | P1 | OPEN / business-failure runtime + precheck local/runtime preservation PASS | final closure audit |
 | ISSUE-033 Match repair unsupported negative stability | P1 | OPEN / fix verified at repair runtime; preservation PASS | final closure audit |
 | ISSUE-034 dimension-local relational conclusion | P1 | OPEN / fix verified at relation runtime; preservation PASS | final closure audit |
 | ISSUE-035 Match same-domain evidence polarity | P1 | OPEN / latest runtime verdict FIX VERIFIED | final closure audit |
 | ISSUE-036 Match experience-type lexical precision | P1 | OPEN / local fix verified; latest runtime inconclusive | accepted Match runtime |
-| ISSUE-037 Match lineage semantic classification | P1 | OPEN / stabilization cycle 2 deterministic PASS | batch-2 Match runtime + final closure audit |
+| ISSUE-037 Match lineage semantic classification | P1 | OPEN / stabilization cycle 3 deterministic PASS | batch-3 Match runtime + final closure audit |
 
 ## ISSUE-037 root cause record
 
@@ -22,3 +22,4 @@
 - Distinctness: not ISSUE-029 qualifier contamination; not ISSUE-033 unsupported negative generation; not ISSUE-035 polarity set; not ISSUE-036 lexical work qualifier.
 - Authorized surface: internal Match deterministic validator/tests and durable Phase 2.4 records only. No Contract, schema, prompt, fixture, provider or Phase 2.5 change.
 - Batch-1 adjacent finding: the same M-CANDIDATE-LINEAGE support layer rejected the weaker `参与团队项目` claim despite CF-003 proving four-person team completion and assistance. The Issue scope now covers bounded evidence-relation classification plus conservative weaker-entailment recognition; no sentence-level Issue was added.
+- Batch-2 adjacent evidence: a legal terminal evidence-force boundary was split between Match lineage and M-K, while explicit `CF-xxx` factual narration could omit its CF from structured refs and evade dimension-local review. Cycle 3 centralizes evidence-force semantics and requires explicit CF narration ownership; this exhausts the 3-cycle budget for the broad lineage/status lexical root.

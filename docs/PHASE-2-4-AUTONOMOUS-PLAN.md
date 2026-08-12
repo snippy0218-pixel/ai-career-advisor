@@ -2,7 +2,7 @@
 
 > Updated: 2026-08-12
 > Branch / starting HEAD: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`
-> Deterministic implementation commit: `f8567f4…`
+> Deterministic implementation commit: `4c12ed6…`
 > Formal phase state: `FAIL / BLOCKED`; Phase 2.5 `NOT AUTHORIZED`
 
 ## Objective
@@ -16,7 +16,9 @@ Autonomous batch 1 在 ISSUE-037 初始修复 baseline 上完成固定 3-run，0
 - `CF-004 仅否定正式工作经历`
 - `不构成对独立负责能力的明确反证`
 
-第二 deterministic baseline 已完成 systemic bounded fix：R-C suffix group 逐 MI 检查、Match team-project weaker entailment、Match prompt/repair v1.4 unknown/qualifier ownership constraints。当前 hypothesis：该 baseline 应使 Match/Recommendation 稳定进入后续 Strength/Gap；任何新 failure 以 batch 2 全部 evidence 裁决。
+Batch 2 在第二 deterministic baseline 上固定执行 3 次，1/3 complete。run 1 完成全链；run 2 的 Recommendation 合法 described-prefix MI group 被 R-C 误判；run 3 的 Match evidence-force boundary 被 M-CANDIDATE-LINEAGE/M-K 误判，同时 raw 中更深的 explicit-CF narration/structured-ref 与跨维度问题原本可能绕过 lineage。三份 artifact 均已保存，无第 4 次。
+
+第三 deterministic baseline 完成 bounded architecture review：Match 与 M-K 共用 evidence-force 语义；显式 `CF-xxx 表明/涉及/...` factual narration 强制进入 structured-ref ownership 与 dimension-local review；Recommendation R-C 解析带描述括号的 prefix MI group 并逐项校验。这是同一 broad status/lineage lexical root 的第 3/3、最后 implementation cycle。
 
 ## Execution sequence
 
@@ -24,7 +26,7 @@ Autonomous batch 1 在 ISSUE-037 初始修复 baseline 上完成固定 3-run，0
 2. 实现 bounded meta-evidence boundary classifier；不改 Contract/public Schema/prompt/provider/fixture。（完成）
 3. 运行 focused → Match targeted → full suite → lint → build → diff/scope/secret checks。（完成）
 4. 更新 issue/gate/handoff/changelog，提交新的 deterministic baseline。（baseline 2 完成）
-5. 在同一 baseline、同一 frozen RB-05 fixture、无代码间改动下执行固定三次 model-backed E2E batch；每次保存独立 artifact。（batch 1 完成；batch 2 pending）
+5. 在同一 baseline、同一 frozen RB-05 fixture、无代码间改动下执行固定三次 model-backed E2E batch；每次保存独立 artifact。（batch 1、batch 2 完成；batch 3 pending）
 6. 审计三次完整 stage ledger、raw/rejected evidence、Candidate/JD lineage、repair/fallback/latency 与所有 open Issue closure evidence。
 7. 若出现新的 Contract 内 deterministic defect，保存整批 evidence 后建立新 baseline 并循环；若满足 Stop & Escalate 或 Final Acceptance 条件则提交最终 package。
 
@@ -34,11 +36,13 @@ Autonomous batch 1 在 ISSUE-037 初始修复 baseline 上完成固定 3-run，0
 - Post-fix: ISSUE-037 focused 9/9、Match targeted 140/140、full 23 files / 539 tests、lint、production build、diff/scope/secret checks PASS。
 - Baseline 2: focused 9/9、Match targeted 145/145、Recommendation targeted 83/83、full 23 files / 548 tests、lint、production build、diff/scope/secret checks PASS。
 - Batch 1: exactly 3 runs / 0 completed chains; all artifacts preserved in `PHASE-2-4-AUTONOMOUS-BATCH-1.md`。
+- Batch 2: exactly 3 runs / 1 completed chain; all artifacts preserved in `PHASE-2-4-AUTONOMOUS-BATCH-2.md`。
+- Baseline 3: focused 8/8、Match targeted 150/150、Recommendation targeted 86/86、full 23 files / 556 tests、lint、production build、diff/scope/secret checks PASS。
 - Git worktree before plan creation: clean。
 - Latest artifact SHA-256: `5febd1400a781771d5f5cccb5414e2ef3ac40bfbc9ed9843f970f00afcb8fb82`。
 
 ## Remaining work
 
-- Frozen three-run E2E batch 2 on `f8567f4…` implementation baseline。
+- Frozen three-run E2E batch 3 on `4c12ed6…` implementation baseline；若同一 broad status/lineage root 仍阻断，立即 STOP & ESCALATE。
 - ISSUE-028～037 closure/disposition audit。
 - Phase 2.4 Final Closure Audit；不得进入 Phase 2.5。
