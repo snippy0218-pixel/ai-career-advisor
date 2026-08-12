@@ -1,13 +1,13 @@
 # AI 求职顾问项目交接文档（Codex Handoff）
 
-> 更新日期：2026-08-11
+> 更新日期：2026-08-12
 > 用途：让一个**没有当前 conversation history、但可读取本仓库**的新 Codex thread 能准确继续当前任务。
 > 工作协议：`docs/CODEX-OPERATING-PROTOCOL.md` 为后续 thread 的**固定工作协议**（自主事项、停止升级条件、禁止事项、Issue 处理原则、冻结 Pass Gate）。
 > 事实来源：以仓库当前状态为准（`docs/验收执行报告.md`、`docs/analysis-schema.md`、`docs/测试案例.md`、`docs/更新日志.md`、`src/`）。
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = **FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～034**；Phase 2.5 Final Regression / Release Gate = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** ISSUE-028 = OPEN / LOCAL COMPLETION VERIFIED / Recommendation runtime pending；ISSUE-029 = OPEN / FIX VERIFIED AT MATCH RUNTIME / closure pending；ISSUE-030 = OPEN / LOCAL FIX VERIFIED / E2E INCONCLUSIVE；ISSUE-031 = OPEN / LOCAL FIX VERIFIED / E2E INCONCLUSIVE；ISSUE-032 = OPEN / E2E VERIFIED / closure pending；ISSUE-033 = OPEN / bounded stabilization local Gate PASS / E2E pending；ISSUE-034 = OPEN / FALSE POSITIVE CONFIRMED / bounded stabilization local Gate PASS / E2E pending。Phase 2.4 starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`；ISSUE-033/034 starting baseline：`717f7a272996fd8f40554a854815ddfb40876c40`；Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = **FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～034**；Phase 2.5 Final Regression / Release Gate = NOT AUTHORIZED；Runtime Model Benchmark = DEFERRED / NOT REQUIRED。** ISSUE-028 = OPEN / LOCAL COMPLETION VERIFIED / Recommendation runtime pending；ISSUE-029 = OPEN / FIX VERIFIED AT MATCH RUNTIME / closure pending；ISSUE-030 = OPEN / LOCAL FIX VERIFIED / E2E INCONCLUSIVE；ISSUE-031 = OPEN / LOCAL FIX VERIFIED / E2E INCONCLUSIVE；ISSUE-032 = OPEN / E2E VERIFIED / closure pending；ISSUE-033/034 的最新正式 Gate = `LOCAL FIX NOT VERIFIED / BOUNDED RESTABILIZATION REQUIRED`，本轮 deterministic restabilization 的工程建议为 `LOCAL FIX VERIFIED / Product Owner / QA review pending`。Phase 2.4 starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`；ISSUE-033/034 initial stabilization baseline：`717f7a272996fd8f40554a854815ddfb40876c40`；本轮 restabilization starting HEAD：`be74c95c4ddc33d8f8586b60b3ad5f6538879c6c`；Release baseline：`2faca406…`；Contract baseline：`8bf6cf6…`。
 
 - Product Owner / QA 已正式判定 Phase 2.3 Personalized Greeting PASS / CLOSED，并接受 12/12 preflight、36/36 clean matrix、PG-A～PG-M、333/333、lint/build 与 upstream regression 0；
 - Phase 2.4 仅治理 backlog、robustness、failure path、cross-module consistency、latency/repair/fallback、input/error、evidence/diagnostics 与小型 raw-input full-chain integration；不得增加用户功能；
@@ -45,6 +45,11 @@
 - Match initial 的 course→CF-004 domain/responsibility contamination 被 M-CANDIDATE-LINEAGE/M-K 正确拒绝；repair 清除 course contamination，但生成 `没有正式数据产品工作经历，与独立负责要求直接冲突`，把 CF-004 employment negative 传播成 responsibility/ownership conclusion，再次被 lineage/M-K 正确拒绝；
 - ISSUE-034 employment_type relation 未被拒绝，但 domain sibling 的 `与数据产品领域要求直接冲突` 亦未触发 issue；在“仅限 employment_type narrow relation”Gate 下不能判定 verified。工程建议 ISSUE-033/034 均 `FIX NOT VERIFIED`；ISSUE-029 preservation PASS；ISSUE-028/030/031 inconclusive；ISSUE-032 preservation PASS；
 - Artifact `phase-2-4-post-033-034-rb-05.json` 独立保存，SHA-256 `f4b874ef7f9d9a72ba211cc3c65eee2b434f510497a866b4870ce65448ef0f8c`；model-backed executions=1，additional reruns=0。Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review；不得再运行 RB-05、修改实现或进入 Phase 2.5。完整审计见 `docs/PHASE-2-4-POST-033-034-RB-05.md`。
+- Product Owner / QA 将 ISSUE-033/034 更新为 `LOCAL FIX NOT VERIFIED / BOUNDED RESTABILIZATION REQUIRED`，不新建 ISSUE-035，并仅授权 deterministic restabilization；starting HEAD=`be74c95…`；
+- 静态 trace 确认 v1.2 未把 explicit negative dimension locality 写成 repair hard rule；domain sibling phrase 因 relation clause 未进入 Candidate assertion selection 而绕过 lineage，前半句又因 generic `数据产品` anchor 被误判支持；该 phrase 没有命中旧 ISSUE-034 exception；
+- v1.3 冻结 `EXPLICIT NEGATIVE EVIDENCE IS DIMENSION-LOCAL` 与 `RELATIONAL CONCLUSION MUST BE DIMENSION-LOCAL`：relation clause 强制审查、relation 禁走 generic anchor、employment target 自身必须含正式工作/全职/实习 qualifier；
+- G33-1～20、L34-1～20、exact initial/repair artifact replay 全绿；focused 100/100、targeted 303/303、full 493/493、lint/build/diff/forbidden-surface/secret scan PASS；模型调用 0、RB-05 0；
+- 工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`；Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Review 与新的明确 E2E 授权。详见 `docs/PHASE-2-4-ISSUE-033-034-RESTABILIZATION.md`。
 
 - TC-09（TikTok 生活服务活动/综合运营）已于 2026-08-08 通过：3/3 HTTP 200、Final Schema/evidence 3/3、候选人事实幻觉 0、八维综合 4.50、运营岗位专项 4.73；ISSUE-022 经真实回归验证后关闭；
 - ISSUE-023 = P2 / Open / Observe（任职要求偶发重复，TC-09 第1次 1/3），当前不修复、不阻塞；

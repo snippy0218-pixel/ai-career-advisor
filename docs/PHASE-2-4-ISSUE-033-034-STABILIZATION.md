@@ -125,3 +125,7 @@ system rule 14 虽有“reason 是审慎的 match observation，不是 Candidate
 Product Owner / QA 接受上述 local evidence 后，授权在 `cc9fa37608b532a9fe48927bf4480ff1da3b6a75` 上执行唯一一次 post-033/034 RB-05。运行 0/1，在 Match repair 502 停止：initial course→CF-004 contamination 被正确拒绝；repair 清除 course contamination，但将 CF-004 formal-work negative 传播成 responsibility `与独立负责要求直接冲突`，由 M-CANDIDATE-LINEAGE/M-K 正确拒绝。employment_type narrow relation 未被拒绝，但 domain sibling relation 也未产生 validation issue；Final Match 不存在。
 
 工程建议更新为 ISSUE-033=`FIX NOT VERIFIED`、ISSUE-034=`FIX NOT VERIFIED`；Phase 2.4 仍 BLOCKED。artifact、逐阶段证据与 scope audit 见 `PHASE-2-4-POST-033-034-RB-05.md`。本次 model-backed executions=1、additional reruns=0。
+
+## 8. Product Owner / QA Restabilization Disposition（2026-08-12）
+
+Product Owner / QA 接受 post-033/034 RB-05 归因，将 ISSUE-033/034 更新为 `LOCAL FIX NOT VERIFIED / BOUNDED RESTABILIZATION REQUIRED`，不新建 ISSUE-035。后续 v1.3 dimension-local repair/validator fix、G33-1～20、L34-1～20 与 exact artifact replay 见 `PHASE-2-4-ISSUE-033-034-RESTABILIZATION.md`；原 local evidence 与 runtime failure 历史继续保留。

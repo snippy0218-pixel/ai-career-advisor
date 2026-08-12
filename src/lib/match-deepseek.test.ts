@@ -518,7 +518,9 @@ describe("analyzeMatchWithDeepSeek", () => {
     ) as { messages: Array<{ content: string }> };
     expect(repairBody.messages[1].content).toContain("M-CANDIDATE-LINEAGE 专项修复");
     expect(repairBody.messages[1].content).toContain("不得换用另一种否定措辞");
-    expect(repairBody.messages[1].content).toContain("现有资料未表明候选人担任过主导角色");
+    expect(repairBody.messages[1].content).toContain(
+      "现有资料未表明候选人具有独立负责数据产品的经验",
+    );
   });
 
   it("G33-10 remains fail-closed when repair keeps the unsupported negative", async () => {
@@ -553,6 +555,139 @@ describe("analyzeMatchWithDeepSeek", () => {
         },
       ],
     };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    await expect(
+      analyzeMatchWithDeepSeek(request, {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      }),
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: true,
+      matchRepairSucceeded: false,
+      repairState: "rejected",
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: true }),
+      ],
+    });
+  });
+
+  function dimensionLocalRepairFixture() {
+    const requirement = "具有独立负责数据产品的正式工作经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "没有正式数据产品工作经历",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unmet",
+          dimensions: [
+            {
+              dimensionType: "employment_type",
+              requirementFragment: "正式工作经验",
+              status: "unmet",
+              reason:
+                "候选人没有正式数据产品工作经历，与正式工作经验要求直接冲突。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            },
+            {
+              dimensionType: "responsibility",
+              requirementFragment: "独立负责",
+              status: "unmet",
+              reason:
+                "候选人明确表示没有正式数据产品工作经历，与独立负责要求直接冲突。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            },
+          ],
+        },
+      ],
+    };
+    const repaired = {
+      matchItems: [
+        {
+          ...invalid.matchItems[0],
+          dimensions: [
+            invalid.matchItems[0].dimensions[0],
+            {
+              ...invalid.matchItems[0].dimensions[1],
+              status: "unknown",
+              reason:
+                "现有资料未表明候选人具有独立负责数据产品的经验。",
+              candidateEvidence: [],
+              missingInformation: "候选人是否具有独立负责数据产品的经验仍需确认。",
+              verificationQuestion: "请说明是否具有独立负责数据产品的经验？",
+            },
+          ],
+        },
+      ],
+    };
+    return { request, invalid, repaired };
+  }
+
+  it("G33-19 repairs a cross-dimension negative into a responsibility uncertainty boundary", async () => {
+    const { request, invalid, repaired } = dimensionLocalRepairFixture();
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(completion(invalid))
+      .mockResolvedValueOnce(completion(repaired));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(result.matchItems[0].status).toBe("unmet");
+    expect(result.matchItems[0].requirementDimensions[1]).toMatchObject({
+      dimensionType: "responsibility",
+      status: "unknown",
+      candidateFactRefs: [],
+    });
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: true,
+      matchRepairSucceeded: true,
+      repairState: "accepted",
+    });
+    const repairBody = JSON.parse(
+      String((fetchImpl.mock.calls[1][1] as RequestInit).body),
+    ) as { messages: Array<{ content: string }> };
+    expect(repairBody.messages[1].content).toContain(
+      "explicit counter-evidence 只能支持它自身的 semantic dimension",
+    );
+    expect(repairBody.messages[1].content).toContain(
+      "没有正式工作经历，与独立负责要求冲突",
+    );
+  });
+
+  it("G33-20 remains fail-closed when repair reuses employment evidence for responsibility", async () => {
+    const { request, invalid } = dimensionLocalRepairFixture();
     const fetchImpl = vi.fn(async () => completion(invalid));
     let diagnostics: MatchDiagnostics | null = null;
 

@@ -154,3 +154,9 @@ rejected outputs=`2`：Match initial + Match repair。两者均保存 raw、raw 
 ## 15. Gate Recommendation
 
 建议：`Phase 2.4 仍 BLOCKED`。不得自行关闭 ISSUE-028～034、Phase 2.4，不得授权 Phase 2.5 或宣布 Phase 2 Ready for Release。等待 Product Owner / QA Gate Review。
+
+## 16. Subsequent Product Owner / QA Disposition
+
+Product Owner / QA 接受本次归因，将 ISSUE-033/034 均更新为 `LOCAL FIX NOT VERIFIED / BOUNDED RESTABILIZATION REQUIRED`，不新建 ISSUE-035。正式 invariant 为 explicit negative evidence 与 relational conclusion 均必须 dimension-local。
+
+后续 deterministic restabilization 的静态 allow-path trace、v1.3 fix、G33/L34 matrix 与 exact raw replay 见 `PHASE-2-4-ISSUE-033-034-RESTABILIZATION.md`。本节不改变或覆盖本次 0/1 runtime artifact；没有追加 RB-05。

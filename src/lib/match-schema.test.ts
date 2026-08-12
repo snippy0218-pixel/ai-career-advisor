@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
 import {
@@ -923,13 +925,14 @@ describe("ISSUE-029 M-CANDIDATE-LINEAGE regression matrix", () => {
     expect(result.issues.some((issue) => issue.message.includes("cross-CF"))).toBe(true);
   });
 
-  it("M7 accepts explicit negative Candidate evidence with a counter ref", () => {
-    const result = lineageResult(
-      "候选人明确表示没有正式数据产品工作经历。",
-      [{ factId: "CF-004", role: "counter" }],
-      "unmet",
+  it("M7 rejects explicit employment negative evidence in a responsibility dimension", () => {
+    expectLineageFailure(
+      lineageResult(
+        "候选人明确表示没有正式数据产品工作经历。",
+        [{ factId: "CF-004", role: "counter" }],
+        "unmet",
+      ),
     );
-    expect(result.issues).toEqual([]);
   });
 
   it("M8 does not treat a JD-only statement as a Candidate assertion", () => {
@@ -1155,6 +1158,120 @@ describe("ISSUE-033 unsupported negative-claim stability", () => {
       }),
     );
   });
+
+  const employmentNegative = {
+    statement: "没有正式数据产品工作经历",
+    semanticTags: ["experience"],
+  } satisfies FixtureFacts[number];
+
+  it("G33-11 rejects employment counter-evidence used for a responsibility conflict", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "具有独立负责数据产品的正式工作经验",
+        facts: [employmentNegative],
+        status: "unmet",
+        reason: "候选人没有正式数据产品工作经历，与独立负责要求直接冲突。",
+        refs: [{ factId: "CF-001", role: "counter" }],
+      }),
+    );
+  });
+
+  it("G33-12 rejects a direct inability claim inferred from employment absence", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "独立负责数据产品",
+        facts: [employmentNegative],
+        status: "unmet",
+        reason: "候选人没有正式数据产品工作经历，无法独立负责数据产品。",
+        refs: [{ factId: "CF-001", role: "counter" }],
+      }),
+    );
+  });
+
+  it("G33-13 rejects a leadership negative inferred from employment absence", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "主导数据产品项目",
+        facts: [employmentNegative],
+        status: "unmet",
+        reason: "候选人没有正式数据产品工作经历，并非主导角色。",
+        refs: [{ factId: "CF-001", role: "counter" }],
+        dimensionType: "role",
+      }),
+    );
+  });
+
+  it("G33-14 accepts a responsibility uncertainty boundary", () => {
+    const result = resultFor({
+      requirement: "独立负责数据产品",
+      facts: [employmentNegative],
+      status: "unknown",
+      reason: "现有资料未表明候选人具有独立负责数据产品的经验。",
+      refs: [],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("G33-15 accepts employment counter-evidence only in employment_type", () => {
+    const result = resultFor({
+      requirement: "具有正式数据产品工作经验",
+      facts: [employmentNegative],
+      status: "unmet",
+      reason: "候选人没有正式数据产品工作经历，正式工作经验要求未满足。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+      dimensionType: "employment_type",
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("G33-16 rejects education counter-evidence in a responsibility dimension", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "独立负责数据产品",
+        facts: [
+          {
+            statement: "未取得本科学历",
+            semanticTags: ["education"],
+          },
+        ],
+        status: "unmet",
+        reason: "候选人未取得本科学历，与独立负责要求直接冲突。",
+        refs: [{ factId: "CF-001", role: "counter" }],
+      }),
+    );
+  });
+
+  it("G33-17 prevents one negative fact from making another fact negative", () => {
+    expectLineageReject(
+      resultFor({
+        facts: [
+          employmentNegative,
+          {
+            statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+            semanticTags: ["experience"],
+          },
+        ],
+        status: "unmet",
+        reason: "候选人没有正式数据产品工作经历，因此在团队作业中并非主导角色。",
+        refs: [
+          { factId: "CF-001", role: "counter" },
+          { factId: "CF-002", role: "counter" },
+        ],
+      }),
+    );
+  });
+
+  it("G33-18 rejects the exact current repair sentence", () => {
+    expectLineageReject(
+      resultFor({
+        requirement: "具有独立负责数据产品的正式工作经验",
+        facts: [employmentNegative],
+        status: "unmet",
+        reason: "候选人明确表示没有正式数据产品工作经历，与独立负责要求直接冲突。",
+        refs: [{ factId: "CF-001", role: "counter" }],
+      }),
+    );
+  });
 });
 
 describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
@@ -1326,5 +1443,252 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
     });
     expect(result.data).toBeNull();
     expect(result.issues.some((issue) => issue.message.includes("M-K"))).toBe(true);
+  });
+
+  it("L34-11 accepts an explicit formal-work conflict in employment_type", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与正式工作经验要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("L34-12 rejects a broad domain relation in employment_type", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与数据产品领域要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-13 rejects an employment negative in responsibility", () => {
+    const result = relationResult({
+      requirement: "具有独立负责数据产品的正式工作经验",
+      requirementFragment: "独立负责",
+      dimensionType: "responsibility",
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与独立负责要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-14 rejects an employment negative in a leadership role dimension", () => {
+    const result = relationResult({
+      requirement: "主导数据产品项目",
+      requirementFragment: "主导项目",
+      dimensionType: "role",
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与主导项目要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-15 permits only the employment sibling of a compound requirement", () => {
+    const request = buildMatchFixture(
+      [
+        {
+          content: "具有独立负责数据产品的正式工作经验",
+          requirementType: "core_requirement",
+        },
+      ],
+      [negativeFact],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unmet",
+            dimensions: [
+              dimension({
+                dimensionType: "employment_type",
+                requirementFragment: "正式工作经验",
+                status: "unmet",
+                reason: "候选人没有正式数据产品工作经历，与正式工作经验要求直接冲突。",
+                jdEvidence: ["具有独立负责数据产品的正式工作经验"],
+                candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+                missingInformation: null,
+                verificationQuestion: null,
+              }),
+              dimension({
+                dimensionType: "responsibility",
+                requirementFragment: "独立负责",
+                status: "unmet",
+                reason: "候选人没有正式数据产品工作经历，与独立负责要求直接冲突。",
+                jdEvidence: ["具有独立负责数据产品的正式工作经验"],
+                candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+                missingInformation: null,
+                verificationQuestion: null,
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "matchItems.0.dimensions.1.reason",
+          message: expect.stringContaining("M-CANDIDATE-LINEAGE"),
+        }),
+      ]),
+    );
+    expect(result.issues.some((issue) => issue.path === "matchItems.0.dimensions.0.reason")).toBe(
+      false,
+    );
+  });
+
+  it("L34-16 requires an employment-defining qualifier in the relation target", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与数据产品要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-17 accepts the relation but rejects a specific-project projection", () => {
+    const relation = relationResult({
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与正式工作经验要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(relation.issues).toEqual([]);
+
+    const projection = relationResult({
+      facts: [neutralProject, negativeFact],
+      reason: "候选人的数据展示项目不是正式工作。",
+      refs: [{ factId: "CF-002", role: "counter" }],
+    });
+    expect(projection.data).toBeNull();
+  });
+
+  it("L34-18 prevents relation evidence from bleeding across sibling dimensions", () => {
+    const domain = relationResult({
+      requirement: "具有独立负责数据产品的正式工作经验",
+      requirementFragment: "数据产品领域",
+      dimensionType: "domain",
+      facts: [negativeFact],
+      reason: "候选人没有正式数据产品工作经历，与数据产品领域要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(domain.data).toBeNull();
+  });
+
+  it("L34-19 rejects the exact escaped domain phrase", () => {
+    const result = relationResult({
+      requirement: "具有独立负责数据产品的正式工作经验",
+      requirementFragment: "数据产品",
+      dimensionType: "domain",
+      facts: [negativeFact],
+      reason: "候选人明确表示没有正式数据产品工作经历，与数据产品领域要求直接冲突。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("L34-20 keeps the original valid exact phrase accepted", () => {
+    const result = relationResult({
+      facts: [negativeFact],
+      reason: "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+});
+
+describe("post-033/034 exact Match artifact replay", () => {
+  interface ArtifactStage {
+    stage: string;
+    data?: unknown;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: string; rawText?: string }>;
+    } | null;
+  }
+
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-post-033-034-rb-05.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { results: Array<{ stages: ArtifactStage[] }> };
+  const stages = artifact.results[0].stages;
+  const request = buildMatchFixture(
+    [
+      { content: "熟练掌握 Python", requirementType: "core_requirement" },
+      {
+        content: "具有独立负责数据产品的正式工作经验",
+        requirementType: "core_requirement",
+      },
+      {
+        content: "能主导跨团队项目并对个人交付结果负责",
+        requirementType: "core_requirement",
+      },
+      { content: "本科及以上学历", requirementType: "hard_requirement" },
+    ],
+    [
+      { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      {
+        statement: "没有正式数据产品工作经历",
+        semanticTags: ["experience"],
+      },
+    ],
+  );
+  const matchEvidence = stages.find((stage) => stage.stage === "match")
+    ?.acceptanceDiagnostics?.outputEvidence;
+
+  function replay(stageName: "initial" | "repair") {
+    const rawText = matchEvidence?.find((entry) => entry.stage === stageName)?.rawText;
+    if (!rawText) throw new Error(`missing ${stageName} raw Match evidence`);
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(JSON.parse(rawText)),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  it("rejects the exact initial raw Match with course cross-CF evidence", () => {
+    const result = replay("initial");
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("experience_type:课程->CF-004") }),
+      ]),
+    );
+  });
+
+  it("rejects the exact repair raw Match for responsibility and domain sibling relations", () => {
+    const result = replay("repair");
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "matchItems.1.dimensions.1.reason",
+          message: expect.stringContaining("与数据产品领域要求直接冲突"),
+        }),
+        expect.objectContaining({
+          path: "matchItems.1.dimensions.2.reason",
+          message: expect.stringContaining("与独立负责要求直接冲突"),
+        }),
+      ]),
+    );
   });
 });

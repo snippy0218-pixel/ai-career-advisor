@@ -196,3 +196,11 @@
 - employment_type 的 supported CF↔JD relation 未被拒绝，但 domain sibling relation 也未产生 issue；无 Final Match，ISSUE-034 narrow runtime Gate 不成立；
 - 工程建议 ISSUE-033/034 `FIX NOT VERIFIED`、ISSUE-029 preservation PASS、ISSUE-028/030/031 inconclusive、ISSUE-032 preservation PASS；Phase 2.4 仍 BLOCKED；
 - artifact `phase-2-4-post-033-034-rb-05.json`，SHA-256 `f4b874ef7f9d9a72ba211cc3c65eee2b434f510497a866b4870ce65448ef0f8c`；strictly no rerun。完整证据见 `PHASE-2-4-POST-033-034-RB-05.md`。
+
+## 17. ISSUE-033 / ISSUE-034 Bounded Restabilization（2026-08-12）
+
+- Product Owner / QA 正式裁决 explicit negative 与 relational conclusion 必须 dimension-local；不新建 ISSUE-035，仅 restabilize ISSUE-033/034；
+- root cause：v1.2 repair 未明确禁止 sibling negative reuse；domain relation clause 未进入旧 Candidate assertion selection，generic anchor 又允许 CF-004 的“数据产品”支持 domain，最早在 relation exception 之前漏检；
+- Match prompt/repair v1.3 加入逐 dimension BAD/GOOD guidance；validator 强制 relation clause 进入检查、禁止 relation generic-anchor bypass，并要求 employment relation target 自身保留正式工作/全职/实习 qualifier；
+- G33-1～20、L34-1～20 与 exact saved initial/repair raw replay PASS；focused 100/100、targeted 303/303、full 493/493、lint/build/diff PASS；model calls=0、RB-05=0；
+- 工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`；正式 Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review。完整证据见 `PHASE-2-4-ISSUE-033-034-RESTABILIZATION.md`。

@@ -229,6 +229,12 @@ const CANDIDATE_ASSERTION_PATTERN =
   /(?:候选人|本人|其).{0,36}(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理|学历|经历|经验)|^(?:并|且|同时)?(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理)|(?:项目|作业|经历|经验|学历|技能|工作).{0,20}(?:为|是|属于|来自|涉及|使用|负责|完成|持续|包含|承担)|(?:课程|课堂|校园|实习|全职|正式工作|非正式工作|频繁|高频|经常|长期|多年|熟练|精通|独立负责|全面负责|主导|牵头|\d+\s*(?:年|个月|月|周|天))/;
 const EVIDENCE_BOUNDARY_PATTERN =
   /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
+const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
+  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
+const NEGATIVE_CANDIDATE_CONCLUSION_PATTERN =
+  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|无法|不能|不是|并非|不属于)/;
+const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
+  /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|不符合).{0,24}(?:要求|条件|门槛|标准)|(?:要求|条件|门槛|标准).{0,12}(?:未满足|不满足|不符|不符合|不一致|冲突)/;
 const CLAIM_CLAUSE_SEPARATOR = /[，。；;！？!?]|(?:\s|^)(?:但|且|并且|同时)(?:\s|$)/;
 const JD_ONLY_CLAIM_PATTERN = /(?:JD|岗位|职位|任职).{0,10}(?:要求|需要|门槛|标准)/i;
 const NON_DISTINCTIVE_CLAIM_ANCHORS = new Set([
@@ -268,7 +274,8 @@ function candidateAssertionClauses(content: string) {
     .filter(
       (clause) =>
         clause.length > 0 &&
-        CANDIDATE_ASSERTION_PATTERN.test(clause) &&
+        (CANDIDATE_ASSERTION_PATTERN.test(clause) ||
+          REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)) &&
         !JD_ONLY_CLAIM_PATTERN.test(clause) &&
         !EVIDENCE_BOUNDARY_PATTERN.test(clause),
     );
@@ -335,12 +342,85 @@ function factSupportsCandidateClause(
   });
 }
 
-const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
-  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
-const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
-  /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|不符合).{0,24}(?:要求|条件|门槛|标准)/;
 const SPECIFIC_FACT_RELATIONAL_PROJECTION_PATTERN =
   /(?:项目|作业|经历|技能|学历).{0,16}(?:不是|并非|不属于|不符合|不满足)/;
+const EMPLOYMENT_RELATION_TARGET_PATTERN =
+  /(?:正式.{0,6}(?:工作|经历|经验)|全职|实习)/;
+const EDUCATION_LEVELS = ["高中", "中专", "大专", "本科", "硕士", "博士"] as const;
+
+function explicitNegativeFactDimensions(statement: string) {
+  const dimensions = new Set<
+    RawMatchCore["matchItems"][number]["dimensions"][number]["dimensionType"]
+  >();
+  if (!EXPLICIT_NEGATIVE_CANDIDATE_PATTERN.test(statement)) return dimensions;
+
+  if (/(?:正式.{0,6}(?:工作|经历|经验)|全职|实习)/.test(statement)) {
+    dimensions.add("employment_type");
+    return dimensions;
+  }
+  if (/(?:学历|本科|大专|硕士|博士|证书|资格)/.test(statement)) {
+    dimensions.add("qualification");
+    dimensions.add("credential");
+  }
+  if (/(?:独立负责|主导|牵头|负责|责任|交付)/.test(statement)) {
+    dimensions.add("responsibility");
+  }
+  if (/(?:熟练|精通|掌握|熟悉)/.test(statement)) {
+    dimensions.add("proficiency");
+  }
+  if (/(?:Python|SQL|技能|使用)/i.test(statement)) dimensions.add("skill");
+  if (/(?:领域|行业|产品|运营|数据分析)/.test(statement)) dimensions.add("domain");
+  return dimensions;
+}
+
+function explicitNegativeFactsSupportDimension(
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  facts: FinalCanonicalCandidateFact[],
+) {
+  return facts.some((fact) =>
+    explicitNegativeFactDimensions(fact.statement).has(dimension.dimensionType),
+  );
+}
+
+function isSupportedQualificationThresholdMismatch(
+  clause: string,
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  requirement: MatchRequirementLedgerItem,
+  referencedFacts: FinalCanonicalCandidateFact[],
+) {
+  if (
+    dimension.dimensionType !== "qualification" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length === 0 ||
+    dimension.candidateEvidence.some((entry) => entry.role !== "counter") ||
+    dimension.jdEvidence.length === 0 ||
+    dimension.jdEvidence.some(
+      (evidence) => !requirement.jdEvidence.includes(evidence),
+    ) ||
+    !REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)
+  ) {
+    return false;
+  }
+
+  const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(
+    " ",
+  )} ${requirement.requirement}`;
+  const requiredLevel = EDUCATION_LEVELS.find((level) =>
+    new RegExp(`${level}.{0,4}(?:及以上|以上|最低|门槛)`).test(
+      requirementContext,
+    ),
+  );
+  if (!requiredLevel || !clause.includes(requiredLevel)) return false;
+  const requiredRank = EDUCATION_LEVELS.indexOf(requiredLevel);
+  return referencedFacts.some((fact) => {
+    const factLevel = EDUCATION_LEVELS.find((level) =>
+      fact.statement.includes(level),
+    );
+    return factLevel
+      ? EDUCATION_LEVELS.indexOf(factLevel) < requiredRank
+      : false;
+  });
+}
 
 function isSupportedRequirementMismatchClause(
   clause: string,
@@ -348,6 +428,16 @@ function isSupportedRequirementMismatchClause(
   requirement: MatchRequirementLedgerItem,
   referencedFacts: FinalCanonicalCandidateFact[],
 ) {
+  if (
+    isSupportedQualificationThresholdMismatch(
+      clause,
+      dimension,
+      requirement,
+      referencedFacts,
+    )
+  ) {
+    return true;
+  }
   if (
     dimension.dimensionType !== "employment_type" ||
     dimension.status !== "unmet" ||
@@ -358,6 +448,7 @@ function isSupportedRequirementMismatchClause(
       (evidence) => !requirement.jdEvidence.includes(evidence),
     ) ||
     !REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause) ||
+    !EMPLOYMENT_RELATION_TARGET_PATTERN.test(clause) ||
     SPECIFIC_FACT_RELATIONAL_PROJECTION_PATTERN.test(clause)
   ) {
     return false;
@@ -570,8 +661,18 @@ export function finalizeRawMatchCore(
           const fact = factById.get(factId);
           return fact ? [fact] : [];
         });
+        const isRelationalConclusion =
+          REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause);
+        const hasDimensionLocalNegativeSupport =
+          !NEGATIVE_CANDIDATE_CONCLUSION_PATTERN.test(clause) ||
+          explicitNegativeFactsSupportDimension(
+            dimension,
+            referencedCanonicalFacts,
+          );
         if (
-          !factSupportsCandidateClause(clause, referencedCanonicalFacts) &&
+          (!hasDimensionLocalNegativeSupport ||
+            isRelationalConclusion ||
+            !factSupportsCandidateClause(clause, referencedCanonicalFacts)) &&
           !isSupportedRequirementMismatchClause(
             clause,
             dimension,
