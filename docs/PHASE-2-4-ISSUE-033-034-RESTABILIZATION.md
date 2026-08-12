@@ -136,3 +136,9 @@ Tests 直接读取已提交的 `phase-2-4-post-033-034-rb-05.json` raw Match evi
 - 工程建议 ISSUE-033=`LOCAL FIX VERIFIED`；
 - 工程建议 ISSUE-034=`LOCAL FIX VERIFIED`；
 - Phase 2.4 正式状态仍 BLOCKED；可请求 Product Owner / QA 授权一次新的 full-chain E2E，本轮不自行执行或进入 Phase 2.5。
+
+## 10. Authorized Runtime Follow-up
+
+Product Owner / QA 接受本页 deterministic evidence 后，在 `main / eb10e8a46096265cbc48475c0cf7869dae2e6b01` 上授权唯一一次 post-restabilization RB-05。运行到 Match 后 502：initial 的 CF-004→domain/responsibility negatives 均被正确拒绝；repair 已改为 legal unknown boundaries，但 validator 把 CF-004 employment negative 误认成 domain 的 explicit positive evidence，且 repair 保留 `部分工作` 导致 M-K `experience_type:工作->CF-003`。
+
+无 Final Match，Recommendation/Strength-Gap/Greeting 未调用；严格未 rerun。工程建议 ISSUE-033=`FIX NOT VERIFIED`、ISSUE-034=`VERIFICATION INCONCLUSIVE`，Phase 2.4 仍 BLOCKED。完整 evidence 见 `PHASE-2-4-POST-033-034-RESTABILIZATION-RB-05.md`。

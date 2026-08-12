@@ -204,3 +204,12 @@
 - Match prompt/repair v1.3 加入逐 dimension BAD/GOOD guidance；validator 强制 relation clause 进入检查、禁止 relation generic-anchor bypass，并要求 employment relation target 自身保留正式工作/全职/实习 qualifier；
 - G33-1～20、L34-1～20 与 exact saved initial/repair raw replay PASS；focused 100/100、targeted 303/303、full 493/493、lint/build/diff PASS；model calls=0、RB-05=0；
 - 工程建议 ISSUE-033/034 `LOCAL FIX VERIFIED`；正式 Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review。完整证据见 `PHASE-2-4-ISSUE-033-034-RESTABILIZATION.md`。
+
+## 18. Post-033/034 Restabilization RB-05（2026-08-12）
+
+- authorization baseline：`main / eb10e8a46096265cbc48475c0cf7869dae2e6b01`；五路 acceptance capability、frozen JD/Profile length/SHA-256 与 modelCallsBeforeBusinessExecution=0 全部通过；
+- 唯一运行 0/1：JD 200、Profile 200、Match 502；Recommendation/Strength-Gap/Greeting not_called；downstream calls 0；invariants not_run/passed=null；
+- initial CF-004→domain/responsibility negatives 被正确拒绝；repair 清除两类 cross-dimension negative，但被 `unknown omitted explicit same-domain positive evidence: CF-004` 与 `M-K experience_type:工作->CF-003` 拒绝；
+- 静态证据确认前者把 CF-004 employment negative 错认成 domain positive，是 deterministic validator false positive；无 Final Match；
+- 工程建议 ISSUE-033 `FIX NOT VERIFIED`、ISSUE-034 `VERIFICATION INCONCLUSIVE`；ISSUE-029/032 preservation PASS，ISSUE-028/030/031 inconclusive；Phase 2.4 仍 BLOCKED；
+- artifact：`phase-2-4-post-033-034-restabilization-rb-05.json`；strictly one model-backed execution，additional reruns=0。完整证据见 `PHASE-2-4-POST-033-034-RESTABILIZATION-RB-05.md`。
