@@ -1,0 +1,61 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "ee6ac4c5773698a185dc8cb63827ae4d0512293b",
+  "generatedAt": "2026-08-12T06:38:32.203Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "executionState": "preflight_failed",
+  "preflight": {
+    "status": "failed",
+    "available": false,
+    "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE",
+    "modelCalls": 0,
+    "capabilities": [
+      {
+        "module": "profile",
+        "path": "/api/profile/analyze",
+        "status": 503,
+        "enabled": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "match",
+        "path": "/api/match/analyze",
+        "status": 503,
+        "enabled": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "recommendation",
+        "path": "/api/recommendation/analyze",
+        "status": 503,
+        "enabled": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "strengthGap",
+        "path": "/api/strength-gap/analyze",
+        "status": 503,
+        "enabled": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "greeting",
+        "path": "/api/greeting/analyze",
+        "status": 503,
+        "enabled": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      }
+    ]
+  },
+  "summary": {
+    "requestCount": 0,
+    "modelCalls": 0,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "results": []
+}

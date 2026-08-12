@@ -32,8 +32,8 @@
 | ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant state 与 acceptance capability 已在 post-028/032 E2E 验证；等待完整链 closure | **Open / P1 / E2E Verified / Closure Pending Full-chain** | **是** |
 | ISSUE-033 | Match repair 将 absence of evidence 持续改写为 unsupported negative claim | post-restabilization runtime initial 被拒绝、repair 改为 domain/responsibility unknown、cross-dimension reuse=0，employment unmet 保留 | **Open / P1 / Fix Verified at Repair Runtime / Closure Pending** | **是** |
 | ISSUE-034 | supported formal-work relation false positive 与 sibling relation leakage | runtime 合法 employment relation 未拒绝，非法 domain/responsibility relation 未进入 repaired path | **Open / P1 / Fix Verified at Relation Runtime / Closure Pending** | **是** |
-| ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
-| ISSUE-036 | `仅参与部分工作` 的 generic noun 被 M-K 裸 `工作` regex 误认 employment_type | bounded phrase classifier；claim/evidence 两侧同一 ownership 语义；M36-1～12 与 exact replay PASS | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS；post-fix E2E 在 capability preflight 前置条件失败，业务 Match 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
+| ISSUE-036 | `仅参与部分工作` 的 generic noun 被 M-K 裸 `工作` regex 误认 employment_type | bounded phrase classifier；claim/evidence 两侧同一 ownership 语义；M36-1～12 与 exact replay PASS；post-fix E2E 在 capability preflight 前置条件失败，M-K runtime 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -223,3 +223,12 @@
 - ISSUE-036 root cause：experience_type regex 含裸 `工作`，support 又用 substring；现以 bounded `在/正式/全职/实习工作`、`工作中/期间/经历/经验/岗位/项目` 识别，generic task noun 不触发，工作项目按 frozen Case B 保持 fail-closed；
 - E35-1～10、M36-1～12、exact saved initial/repair replay PASS；focused 110/110、targeted 327/327、full 517/517、lint/build/diff/scope/secret PASS；model calls=0、RB-05=0；
 - 工程建议 ISSUE-035/036 `LOCAL FIX VERIFIED`；Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review。完整证据见 `PHASE-2-4-ISSUE-035-036-STABILIZATION.md`。
+
+## 20. Post-035/036 RB-05 Preflight Failure（2026-08-12）
+
+- authorization baseline：`main / ee6ac4c5773698a185dc8cb63827ae4d0512293b`；frozen JD/Profile length 与 SHA-256 均匹配历史 RB-05；
+- production server 正常监听，但 Profile、Match、Recommendation、Strength/Gap、Greeting 五路 capability probe 均返回 503 `ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE`；五个 acceptance diagnostics flags 均未启用；
+- runner 在任何 business/model-backed stage 前 fail-fast：formal invocation=1，business request/model calls=0，additional reruns=0；没有设置 flag 后追加第二次；
+- ISSUE-035/036、ISSUE-028/030/031 runtime verdict 均 INCONCLUSIVE；ISSUE-033/034/029 无新 runtime evidence；Greeting/OBS-006 无新 sample；
+- artifact 正确保存 preflight failure 与 known zero，但没有物化六条 `not_called/not_run` stage ledger 或 probe request IDs/latency；ISSUE-032 preservation 不能建议 PASS，等待 QA 裁决；
+- artifact `phase-2-4-post-035-036-rb-05.json`，SHA-256 `a84f4a1ee4731481b587a7ae207cd2de3f0635badbf5ef80e8064399253db509`；历史 artifact 未覆盖。完整审计见 `PHASE-2-4-POST-035-036-RB-05.md`。
