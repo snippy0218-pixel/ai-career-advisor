@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it, vi } from "vitest";
 
 import {
@@ -6,6 +8,7 @@ import {
   aggregateLifecycle,
   buildExplicitStageLedger,
   buildInvariantAudit,
+  buildPreflightFailureArtifact,
   downstreamCallsAfterFailure,
   executeAfterPreflight,
   isSafeFailure,
@@ -42,6 +45,25 @@ function enabledResponse(module) {
       headers: { [ACCEPTANCE_CAPABILITY_HEADER]: "enabled" },
     },
   );
+}
+
+function unavailableResponse() {
+  return Response.json(
+    { data: null, error: { code: ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE } },
+    { status: 503 },
+  );
+}
+
+function preflightFailureArtifact(preflight) {
+  return buildPreflightFailureArtifact({
+    phase: "2.4",
+    suite: "test",
+    implementationCommit: "test-commit",
+    generatedAt: "2026-08-12T00:00:00.000Z",
+    runPolicy: "E2E-RB-05 x 1 targeted",
+    baseUrl: "http://localhost",
+    preflight,
+  });
 }
 
 describe("Phase 2.4 runner artifact semantics", () => {
@@ -239,5 +261,196 @@ describe("Phase 2 acceptance capability preflight", () => {
     expect(result.modelCalls).toBe(0);
     expect(result.error).toBe(ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE);
     expect(execute).not.toHaveBeenCalled();
+  });
+});
+
+describe("ISSUE-032 precheck-path restabilization", () => {
+  it("P32-1 keeps all-unavailable preflight before business execution", async () => {
+    const preflight = await probeAcceptanceCapabilities({
+      baseUrl: "http://localhost",
+      fetchImpl: vi.fn(async () => unavailableResponse()),
+    });
+    const execute = vi.fn(async () => 1);
+
+    expect(preflight).toMatchObject({
+      status: "failed",
+      available: false,
+      modelCalls: 0,
+    });
+    expect(preflight.capabilities).toHaveLength(5);
+    expect(preflight.capabilities.every((item) => item.rejectedOutputCapture === false)).toBe(true);
+    expect(await executeAfterPreflight(preflight, execute)).toMatchObject({
+      executed: false,
+      modelCalls: 0,
+    });
+    expect(execute).not.toHaveBeenCalled();
+  });
+
+  it("P32-2 materializes all six expected stages on preflight failure", () => {
+    const artifact = preflightFailureArtifact({ available: false });
+    expect(artifact.stages).toHaveLength(6);
+    expect(artifact.stages.every((stage) =>
+      stage.callState === "not_called" && stage.resultState === "not_run"
+    )).toBe(true);
+  });
+
+  it("P32-3 preserves every expected stage name in serialized JSON", () => {
+    const serialized = JSON.stringify(preflightFailureArtifact({ available: false }));
+    for (const stage of ["jd", "profile", "match", "recommendation", "strengthGap", "greeting"]) {
+      expect(serialized).toContain(`\"stage\":\"${stage}\"`);
+    }
+  });
+
+  it("P32-4 records unexecuted invariant audit as not_run and null", () => {
+    expect(preflightFailureArtifact({ available: false }).invariantAudit).toEqual({
+      status: "not_run",
+      values: null,
+      passed: null,
+    });
+  });
+
+  it("P32-5 keeps every stage lifecycle at not_run", () => {
+    const { stages } = preflightFailureArtifact({ available: false });
+    for (const stage of stages) {
+      expect(stage.attempts).toEqual({ state: "not_run", count: null });
+      expect(stage.repair).toEqual({ state: "not_run", attempts: null });
+      expect(stage.fallback).toEqual({ state: "not_run", attempts: null });
+    }
+  });
+
+  it("P32-6 records business, model, and downstream calls as known zero", () => {
+    expect(preflightFailureArtifact({ available: false }).summary).toMatchObject({
+      businessCallCount: 0,
+      stageCalls: 0,
+      modelCalls: 0,
+      modelCallsBeforeBusinessExecution: 0,
+      downstreamCallsAfterFailure: 0,
+    });
+  });
+
+  it("P32-7 does not count a precondition failure as product safeFailure", () => {
+    const artifact = preflightFailureArtifact({ available: false });
+    expect(artifact.executionState).toBe("preflight_failed");
+    expect(artifact.safeFailure).toBe(false);
+    expect(artifact.summary.safeFailures).toBe(0);
+  });
+
+  it("P32-8 keeps a complete ledger when one capability is missing", async () => {
+    const fetchImpl = vi.fn(async (url) =>
+      String(url).includes("/match/") ? unavailableResponse() : enabledResponse("module")
+    );
+    const preflight = await probeAcceptanceCapabilities({
+      baseUrl: "http://localhost",
+      fetchImpl,
+    });
+    const execute = vi.fn(async () => 1);
+    const artifact = preflightFailureArtifact(preflight);
+
+    expect(await executeAfterPreflight(preflight, execute)).toMatchObject({
+      executed: false,
+      modelCalls: 0,
+    });
+    expect(execute).not.toHaveBeenCalled();
+    expect(artifact.stages).toHaveLength(6);
+    expect(artifact.stages.every((stage) => stage.callState === "not_called")).toBe(true);
+  });
+
+  it("P32-9 proceeds only when all capabilities are available", async () => {
+    const preflight = await probeAcceptanceCapabilities({
+      baseUrl: "http://localhost",
+      fetchImpl: vi.fn(async () => enabledResponse("module")),
+    });
+    const execute = vi.fn(async () => 6);
+
+    expect(await executeAfterPreflight(preflight, execute)).toEqual({
+      executed: true,
+      modelCalls: 6,
+      error: null,
+    });
+    expect(execute).toHaveBeenCalledOnce();
+  });
+
+  it("P32-10 preserves the preflight-failure state through serialization", () => {
+    const restored = JSON.parse(JSON.stringify(preflightFailureArtifact({ available: false })));
+    expect(restored.executionState).toBe("preflight_failed");
+    expect(restored.invariantAudit).toMatchObject({ status: "not_run", passed: null });
+    expect(restored.summary).toMatchObject({ businessCallCount: 0, modelCalls: 0 });
+    expect(restored.stages.every((stage) =>
+      stage.callState === "not_called" && stage.resultState === "not_run"
+    )).toBe(true);
+  });
+
+  it("P32-11 preserves the verified business-stage failure path", () => {
+    const stages = buildExplicitStageLedger([
+      called("jd", { upstreamAttempts: 1 }),
+      called("profile", { upstreamAttempts: 1, profileRepairAttempted: false }),
+      called("match", { upstreamAttempts: 2, matchRepairAttempted: true, matchRepairSucceeded: false }, {
+        status: 502,
+        data: null,
+      }),
+    ]);
+    expect(stages.find((stage) => stage.stage === "match")).toMatchObject({
+      callState: "called",
+      resultState: "failed",
+      repair: { state: "failed", attempts: 1 },
+    });
+    expect(stages.slice(3).every((stage) => stage.resultState === "not_run")).toBe(true);
+    expect(downstreamCallsAfterFailure(stages)).toBe(0);
+  });
+
+  it("P32-12 preserves successful-chain state construction", () => {
+    const stages = buildExplicitStageLedger([
+      called("jd", { upstreamAttempts: 1 }),
+      called("profile", { upstreamAttempts: 1, profileRepairAttempted: false }),
+      called("match", { upstreamAttempts: 1, matchRepairAttempted: false }),
+      called("recommendation", { upstreamAttempts: 1, recommendationRepairAttempted: false }),
+      called("strengthGap", { upstreamAttempts: 1, strengthGapRepairAttempted: false }),
+      called("greeting", {
+        upstreamAttempts: 1,
+        personalizedGreetingRepairAttempted: false,
+        personalizedGreetingSafeFallbackUsed: false,
+        phase1GreetingFallbackUsed: false,
+      }),
+    ]);
+    expect(stages.every((stage) =>
+      stage.callState === "called" && stage.resultState === "completed"
+    )).toBe(true);
+    expect(buildInvariantAudit(true, { integrity: true })).toMatchObject({
+      status: "pass",
+      passed: true,
+    });
+  });
+
+  it("reconstructs the immutable current preflight artifact with the fixed state model", () => {
+    const historical = JSON.parse(readFileSync(
+      new URL(
+        "../docs/acceptance-artifacts/phase-2-4/phase-2-4-post-035-036-rb-05.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ));
+    const reconstructed = buildPreflightFailureArtifact({
+      phase: historical.phase,
+      suite: historical.suite,
+      implementationCommit: historical.implementationCommit,
+      generatedAt: historical.generatedAt,
+      runPolicy: historical.runPolicy,
+      baseUrl: historical.baseUrl,
+      preflight: historical.preflight,
+    });
+
+    expect(reconstructed.executionState).toBe(historical.executionState);
+    expect(reconstructed.stages).toHaveLength(6);
+    expect(reconstructed.stages.every((stage) => stage.resultState === "not_run")).toBe(true);
+    expect(reconstructed.summary).toMatchObject({
+      businessCallCount: 0,
+      modelCalls: 0,
+      downstreamCallsAfterFailure: 0,
+    });
+    expect(reconstructed.invariantAudit).toMatchObject({
+      status: "not_run",
+      passed: null,
+    });
+    expect(historical).not.toHaveProperty("stages");
   });
 });

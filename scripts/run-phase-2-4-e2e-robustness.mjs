@@ -7,6 +7,7 @@ import {
   aggregateLifecycle,
   buildExplicitStageLedger,
   buildInvariantAudit,
+  buildPreflightFailureArtifact,
   downstreamCallsAfterFailure,
   expectationPassed,
   isSafeFailure,
@@ -134,25 +135,15 @@ const diagnosticHeaders = {
 
 const preflight = await probeAcceptanceCapabilities({ baseUrl });
 if (!preflight.available) {
-  const artifact = {
+  const artifact = buildPreflightFailureArtifact({
     phase: "2.4",
     suite: "Phase 2 End-to-End Robustness Suite",
     implementationCommit,
     generatedAt: new Date().toISOString(),
     runPolicy: selectedCase ? `${selectedCase} x 1 targeted` : "E2E-RB-01..08 x 1",
     baseUrl,
-    executionState: "preflight_failed",
     preflight,
-    summary: {
-      requestCount: 0,
-      modelCalls: 0,
-      passed: 0,
-      completedChains: 0,
-      safeFailures: 0,
-      downstreamCallsAfterFailure: 0,
-    },
-    results: [],
-  };
+  });
   await mkdir(dirname(artifactPath), { recursive: true });
   await writeFile(artifactPath, `${JSON.stringify(artifact, null, 2)}\n`, "utf8");
   process.stderr.write(

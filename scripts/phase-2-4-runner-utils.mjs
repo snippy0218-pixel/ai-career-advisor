@@ -178,6 +178,46 @@ export function buildInvariantAudit(completed, values) {
   return { status: passed ? "pass" : "fail", values, passed };
 }
 
+export function buildPreflightFailureArtifact({
+  phase,
+  suite,
+  implementationCommit,
+  generatedAt,
+  runPolicy,
+  baseUrl,
+  preflight,
+}) {
+  const stages = buildExplicitStageLedger([]);
+  const invariantAudit = buildInvariantAudit(false, null);
+  return {
+    phase,
+    suite,
+    implementationCommit,
+    generatedAt,
+    runPolicy,
+    baseUrl,
+    executionState: "preflight_failed",
+    preflight,
+    stages,
+    invariantAudit,
+    invariants: invariantAudit.values,
+    invariantsPassed: invariantAudit.passed,
+    safeFailure: false,
+    summary: {
+      requestCount: 0,
+      businessCallCount: 0,
+      stageCalls: 0,
+      modelCalls: 0,
+      modelCallsBeforeBusinessExecution: 0,
+      passed: 0,
+      completedChains: 0,
+      safeFailures: 0,
+      downstreamCallsAfterFailure: 0,
+    },
+    results: [],
+  };
+}
+
 export function isSafeFailure(result) {
   if (!result.stoppedAt) return false;
   if (!['safe_failure', 'success_or_safe_failure'].includes(result.expected)) {
@@ -230,15 +270,18 @@ export async function probeAcceptanceCapabilities({ baseUrl, fetchImpl = fetch }
         headers: { [ACCEPTANCE_PREFLIGHT_HEADER]: "1" },
       });
       const payload = await response.json().catch(() => null);
+      const rejectedOutputCapture =
+        payload?.data?.rejectedOutputCapture === true;
       const enabled =
         response.status === 200 &&
         response.headers.get(ACCEPTANCE_CAPABILITY_HEADER) === "enabled" &&
-        payload?.data?.rejectedOutputCapture === true;
+        rejectedOutputCapture;
       capabilities.push({
         module,
         path,
         status: response.status,
         enabled,
+        rejectedOutputCapture,
         error: payload?.error?.code ?? null,
       });
     } catch {
@@ -247,6 +290,7 @@ export async function probeAcceptanceCapabilities({ baseUrl, fetchImpl = fetch }
         path,
         status: null,
         enabled: false,
+        rejectedOutputCapture: false,
         error: ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE,
       });
     }
