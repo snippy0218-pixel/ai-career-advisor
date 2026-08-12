@@ -258,3 +258,18 @@
 - bounded fix 分类 CF scope explanation 与 evidence-force boundary；前者必须满足 CF 存在、negative polarity 一致、normalized explained scope 由该 CF 支持；fabricated interpretation、missing CF、direct negative 与 cross-dimension negative 继续拒绝；
 - exact replacement artifact initial 继续失败，corrected repair PASS，unknown refs 保持空；E37-1～9、Match targeted 140/140、full 539/539、lint/build/diff/scope/secret PASS；模型调用/E2E 0；
 - implementation commit=`5dd7d06…`；ISSUE-037 建议 `LOCAL FIX VERIFIED / E2E PENDING`。Phase 2.4 仍 BLOCKED，下一步执行同一 frozen deterministic baseline 的固定三次 RB-05 evaluation batch；Phase 2.5 未授权。
+
+## 24. Autonomous RB-05 Batch 1（2026-08-12）
+
+- frozen HEAD=`894f3b4…`，同一 fixture/server/config 固定 3 次，无代码间改动、无第 4 次；preflight 3/3 五路 capability PASS 且 execution 前 model calls=0；
+- batch 0/3 complete：run 1 到 Recommendation，run 2/3 停在 Match；每次 failure 后 downstream calls=0，未把 incomplete invariant 记 PASS；
+- run 1 的 `部分匹配（MI-001、MI-003）` 是 ISSUE-031 deterministic false positive；run 2 的 direct Candidate negative 空 refs 正确拒绝，但 `参与团队项目` 是 CF-003 weaker-entailment false positive；run 3 的 `课程项目非正式工作` 是真实 cross-CF contamination 并被正确拒绝；
+- artifacts/hash/完整裁决见 `PHASE-2-4-AUTONOMOUS-BATCH-1.md`。Phase 2.4 仍 BLOCKED。
+
+## 25. Autonomous Deterministic Stabilization 2（2026-08-12）
+
+- R-C 现在解析 status 后显式括号 multi-MI group，并逐个检查 contradiction；
+- Match lineage 只在 positive fact 同时包含 team、project/assignment 与 actual involvement 时接受 weaker participation claim；team-less/project-less/ownership-upgrade controls 保持拒绝；
+- Match prompt/repair v1.4 收敛 unknown 空 refs、sibling evidence scope 和 experience qualifier ownership；
+- exact batch raw：Recommendation initial/repair PASS；run-2 participation false positive清除但其他非法 claim 继续拒绝；focused 9/9、Match 145/145、Recommendation 83/83、full 548/548、lint/build/diff/scope/secret PASS；
+- implementation commit=`f8567f4…`；下一步为同一新 baseline 固定三次 RB-05 batch 2。Phase 2.5 未授权。

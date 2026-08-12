@@ -36,6 +36,6 @@
 - Q-E metrics：PASS / OBS-006 remains observation pending full chain。
 - Q-F evidence auditability：PASS on latest replacement artifact。
 - Q-G cross-module integrity：PASS on completed historical chains; new full chain pending。
-- Q-H automated regression：ISSUE-037 baseline 539/539、lint、production build PASS。
+- Q-H automated regression：baseline 2 has 548/548、lint、production build PASS。
 - Q-I input/error handling：PASS。
 - Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。
