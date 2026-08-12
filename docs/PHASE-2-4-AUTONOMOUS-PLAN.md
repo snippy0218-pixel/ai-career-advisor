@@ -3,7 +3,7 @@
 > Updated: 2026-08-12
 > Branch / starting HEAD: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`
 > Deterministic implementation commit: `4c12ed6…`
-> Formal phase state: `FAIL / BLOCKED`; Phase 2.5 `NOT AUTHORIZED`
+> Formal phase state: `FAIL / STOP & ESCALATE / BLOCKED`; Phase 2.5 `NOT AUTHORIZED`
 
 ## Objective
 
@@ -20,13 +20,15 @@ Batch 2 在第二 deterministic baseline 上固定执行 3 次，1/3 complete。
 
 第三 deterministic baseline 完成 bounded architecture review：Match 与 M-K 共用 evidence-force 语义；显式 `CF-xxx 表明/涉及/...` factual narration 强制进入 structured-ref ownership 与 dimension-local review；Recommendation R-C 解析带描述括号的 prefix MI group 并逐项校验。这是同一 broad status/lineage lexical root 的第 3/3、最后 implementation cycle。
 
+Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS；run 1/3 均在 Match repair 后 502。两次 repair 都在 unknown refs=[] 中重复 positive CF-003 factual narration，违反 frozen unknown-reason rule，并都包含 CF-003 无法支持的 `个人交付/个人职责` ownership upgrade；lineage/M-K 均正确 fail-closed。原 ISSUE-037 合法 CF-004 explicit-negative meta boundary 在两次 repair 均被接受。该 broad root 的 3-cycle budget 已耗尽，正式 STOP & ESCALATE。
+
 ## Execution sequence
 
 1. 建立 ISSUE-037 exact artifact replay 与正/反例 matrix。（完成）
 2. 实现 bounded meta-evidence boundary classifier；不改 Contract/public Schema/prompt/provider/fixture。（完成）
 3. 运行 focused → Match targeted → full suite → lint → build → diff/scope/secret checks。（完成）
 4. 更新 issue/gate/handoff/changelog，提交新的 deterministic baseline。（baseline 2 完成）
-5. 在同一 baseline、同一 frozen RB-05 fixture、无代码间改动下执行固定三次 model-backed E2E batch；每次保存独立 artifact。（batch 1、batch 2 完成；batch 3 pending）
+5. 在同一 baseline、同一 frozen RB-05 fixture、无代码间改动下执行固定三次 model-backed E2E batch；每次保存独立 artifact。（batch 1～3 完成）
 6. 审计三次完整 stage ledger、raw/rejected evidence、Candidate/JD lineage、repair/fallback/latency 与所有 open Issue closure evidence。
 7. 若出现新的 Contract 内 deterministic defect，保存整批 evidence 后建立新 baseline 并循环；若满足 Stop & Escalate 或 Final Acceptance 条件则提交最终 package。
 
@@ -38,11 +40,11 @@ Batch 2 在第二 deterministic baseline 上固定执行 3 次，1/3 complete。
 - Batch 1: exactly 3 runs / 0 completed chains; all artifacts preserved in `PHASE-2-4-AUTONOMOUS-BATCH-1.md`。
 - Batch 2: exactly 3 runs / 1 completed chain; all artifacts preserved in `PHASE-2-4-AUTONOMOUS-BATCH-2.md`。
 - Baseline 3: focused 8/8、Match targeted 150/150、Recommendation targeted 86/86、full 23 files / 556 tests、lint、production build、diff/scope/secret checks PASS。
+- Batch 3: exactly 3 model-backed runs / 1 completed chain；另有一份 zero-call local preflight failure artifact，四份均 immutable preserved。完整裁决见 `PHASE-2-4-AUTONOMOUS-BATCH-3-STOP-ESCALATE.md`。
 - Git worktree before plan creation: clean。
 - Latest artifact SHA-256: `5febd1400a781771d5f5cccb5414e2ef3ac40bfbc9ed9843f970f00afcb8fb82`。
 
 ## Remaining work
 
-- Frozen three-run E2E batch 3 on `4c12ed6…` implementation baseline；若同一 broad status/lineage root 仍阻断，立即 STOP & ESCALATE。
-- ISSUE-028～037 closure/disposition audit。
-- Phase 2.4 Final Closure Audit；不得进入 Phase 2.5。
+- Product Owner / QA adjudication of the exhausted broad lineage/semantic-ownership root and the required next authority boundary。
+- Do not modify implementation, run another model sample, create another baseline, close Phase 2.4, or enter Phase 2.5 without a new Gate decision。

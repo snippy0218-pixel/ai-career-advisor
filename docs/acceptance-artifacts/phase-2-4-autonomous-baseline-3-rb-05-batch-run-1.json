@@ -1,0 +1,265 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "4c12ed65573d1a609abbcc044d67e9e72c6e3947",
+  "generatedAt": "2026-08-12T08:07:10.953Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "executionState": "preflight_failed",
+  "preflight": {
+    "status": "failed",
+    "available": false,
+    "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE",
+    "modelCalls": 0,
+    "capabilities": [
+      {
+        "module": "profile",
+        "path": "/api/profile/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "match",
+        "path": "/api/match/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "recommendation",
+        "path": "/api/recommendation/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "strengthGap",
+        "path": "/api/strength-gap/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "greeting",
+        "path": "/api/greeting/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      }
+    ]
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "profile",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "match",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "invariants": null,
+  "invariantsPassed": null,
+  "safeFailure": false,
+  "summary": {
+    "requestCount": 0,
+    "businessCallCount": 0,
+    "stageCalls": 0,
+    "modelCalls": 0,
+    "modelCallsBeforeBusinessExecution": 0,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "results": []
+}

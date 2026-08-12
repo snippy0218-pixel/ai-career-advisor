@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：FAIL / BLOCKED ON ISSUE-028～ISSUE-037 / AUTONOMOUS STABILIZATION ACTIVE
+> 状态：FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～ISSUE-037
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -30,11 +30,11 @@
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
 | ISSUE-032 | runner 将 missing diagnostics 聚合为 0、未运行 invariants 判 pass、未调用 stage 省略；post-035/036 又暴露 preflight-failed artifact `results=[]`、六阶段 absent | business-failure path 已 E2E verified；precheck path 现复用同一 stage/invariant model，P32-1～12 与 historical reconstruction PASS | **Open / P1 / E2E Verified on Business-failure Path / Precheck-path Locally Restabilized / QA Review Pending** | **是** |
-| ISSUE-033 | Match repair 将 absence of evidence 持续改写为 unsupported negative claim | post-restabilization runtime initial 被拒绝、repair 改为 domain/responsibility unknown、cross-dimension reuse=0，employment unmet 保留 | **Open / P1 / Fix Verified at Repair Runtime / Closure Pending** | **是** |
+| ISSUE-033 | Match repair 将 unsupported Candidate claim 改写为合法 uncertainty/evidence boundary 的稳定性；原始证据为 unsupported negative | batch 3 run 1/3 repairs 均保留 positive CF narration in unknown refs=[]，并生成 unsupported `个人交付/个人职责` ownership synthesis；lineage/M-K 正确 fail-closed | **Open / P1 / Repair Robustness Not Verified / 3-Cycle Budget Exhausted / Stop & Escalate** | **是** |
 | ISSUE-034 | supported formal-work relation false positive 与 sibling relation leakage | runtime 合法 employment relation 未拒绝，非法 domain/responsibility relation 未进入 repaired path | **Open / P1 / Fix Verified at Relation Runtime / Closure Pending** | **是** |
 | ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS；post-fix E2E 在 capability preflight 前置条件失败，业务 Match 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-036 | `仅参与部分工作` 的 generic noun 被 M-K 裸 `工作` regex 误认 employment_type | bounded phrase classifier；claim/evidence 两侧同一 ownership 语义；M36-1～12 与 exact replay PASS；post-fix E2E 在 capability preflight 前置条件失败，M-K runtime 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
-| ISSUE-037 | Match 合法 evidence-force/meta-evidence boundary 被误判为 Candidate assertion，且 explicit-CF narration ownership coverage 不完整 | 三轮 bounded stabilization 已集中 evidence-force semantics、weaker entailment 与 explicit-CF structured-ref/dimension review；baseline 3 deterministic 556/556 PASS | **Open / P1 / Stabilization Cycle 3 Deterministic PASS / Batch-3 E2E Pending** | **是** |
+| ISSUE-037 | Match 合法 evidence-force/meta-evidence boundary 被误判为 Candidate assertion，且 explicit-CF narration ownership coverage 不完整 | baseline 3 deterministic 556/556 PASS；batch 3 run 1/3 均接受原合法 CF-004 explicit-negative boundary。新拒绝是 frozen unknown rule 禁止的 positive CF-003 narration及 unsupported ownership upgrade，validator 正确 fail-closed | **Open / P1 / Original Behavior Fix Verified at Runtime / Final Closure Pending** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -289,3 +289,12 @@
 - Recommendation R-C 解析 `MI-xxx（描述）...为/已...状态` prefix group并逐 MI 验证，同时保持 comma-separated legacy owner 与真实歧义 fail-closed；
 - focused 8/8、Match 150/150、Recommendation 86/86、full 556/556、lint/build/diff/scope/secret PASS；implementation commit=`4c12ed6…`；模型调用/E2E 0；
 - 这是同一 broad status/lineage lexical root 的第 3/3、最后 implementation cycle。下一步固定三次 RB-05 batch 3；同根因再阻断即 STOP & ESCALATE。Phase 2.5 未授权。
+
+## 28. Autonomous RB-05 Batch 3 / Stop & Escalate（2026-08-12）
+
+- frozen runtime HEAD=`5f67101…`、product implementation=`4c12ed6…`；更正一次 local Greeting diagnostics flag 拼写前的 preflight artifact 为 modelCalls=0 / businessCalls=0，并永久保留；
+- 更正后 actual-route preflight 5/5 PASS；严格执行 exactly 3 model-backed RB-05，无代码间改动、无第 4 次；batch 1/3 complete；
+- run 2 六阶段 200、X-A～X-J PASS；run 1/3 均为 JD/Profile 200 后 Match initial+repair 502，下游调用 0、invariants not_run/passed=null；
+- 两个 repair 都在 unknown refs=[] 中重复 positive CF-003 factual narration，违反 frozen unknown-reason rule，随后被 `M-CANDIDATE-LINEAGE explicit Candidate Fact reference missing` 正确拒绝；
+- 两个 repair 也都将“协助整理需求和测试”升级为 `个人交付/个人职责` 正证并被 M-K 正确拒绝；原 ISSUE-037 合法 CF-004 explicit-negative boundary 均被接受，阻断归于 ISSUE-033 repair-generation unsupported-claim/ownership robustness；
+- broad status/lineage/semantic-ownership root 的 3/3 implementation budget 已耗尽。当前 **STOP & ESCALATE**，不再改实现、不再 model sampling、不进入 Phase 2.5。完整证据见 `PHASE-2-4-AUTONOMOUS-BATCH-3-STOP-ESCALATE.md`。

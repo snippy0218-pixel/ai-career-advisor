@@ -30,8 +30,8 @@
 ## Current status
 
 - Q-A backlog disposition：PASS / needs final ledger closure。
-- Q-B blocker closure：FAIL，ISSUE-028～037 尚未全部关闭。
-- Q-C full-chain robustness：FAIL，batch 2 为 1/3 complete；batch 3 pending。
+- Q-B blocker closure：FAIL，ISSUE-028～037 尚未全部关闭；ISSUE-033 repair-robustness stabilization budget exhausted。
+- Q-C full-chain robustness：FAIL，batch 3 为 1/3 complete。
 - Q-D safe failure：PASS on recorded paths。
 - Q-E metrics：PASS / OBS-006 remains observation pending full chain。
 - Q-F evidence auditability：PASS on latest replacement artifact。
@@ -39,3 +39,5 @@
 - Q-H automated regression：baseline 3 has 556/556、lint、production build PASS。
 - Q-I input/error handling：PASS。
 - Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。
+
+Current disposition: **STOP & ESCALATE**. No further implementation baseline or model-backed run is authorized pending Product Owner / QA review.
