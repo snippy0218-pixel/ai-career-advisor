@@ -109,10 +109,12 @@ describe("POST /api/strength-gap/analyze", () => {
       rawText: "rejected raw output",
       rejectedItems: [{ statement: "rejected statement" }],
     };
+    const normalizedRepairOutput = { strengths: [], gaps: [] };
     analyzeStrengthGapWithDeepSeek.mockImplementation(
       async (_request, options) => {
         options.onDiagnostics({
           strengthGapRepairAttempted: true,
+          normalizedRepairOutput,
           outputEvidence: [evidence],
         });
         return data;
@@ -139,11 +141,13 @@ describe("POST /api/strength-gap/analyze", () => {
       error: null,
       acceptanceDiagnostics: {
         strengthGapRepairAttempted: true,
+        normalizedRepairOutput,
         outputEvidence: [evidence],
       },
     });
     expect(header).toEqual({ strengthGapRepairAttempted: true });
     expect(header).not.toHaveProperty("outputEvidence");
+    expect(header).not.toHaveProperty("normalizedRepairOutput");
     expect(analyzeStrengthGapWithDeepSeek).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({ captureRejectedEvidence: true }),

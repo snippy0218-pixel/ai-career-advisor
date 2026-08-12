@@ -20,7 +20,12 @@ import {
   type StrengthGapCoreRequest,
   type StrengthGapValidationIssue,
   type StrengthType,
+  type RawStrengthGap,
 } from "./strength-gap-schema";
+import {
+  normalizeRejectedTransferableStrengths,
+  type StrengthGapNormalizationAction,
+} from "./strength-gap-normalization";
 import {
   buildStrengthGapMessages,
   buildStrengthGapRepairMessages,
@@ -32,6 +37,7 @@ const TOTAL_TIMEOUT_MS = 90_000;
 const MAX_ATTEMPTS = 2;
 const RETRY_DELAY_MS = 500;
 const MAX_OUTPUT_TOKENS = 8192;
+const STRENGTH_GAP_TEMPERATURE = 0.1;
 
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
@@ -43,6 +49,11 @@ export interface StrengthGapDiagnostics {
   strengthGapRepairSucceeded: boolean;
   initialValidationIssues: StrengthGapValidationIssue[];
   repairValidationIssues: StrengthGapValidationIssue[];
+  strengthGapNormalizationAttempted: boolean;
+  strengthGapNormalizationSucceeded: boolean;
+  normalizationActions: StrengthGapNormalizationAction[];
+  normalizationValidationIssues: StrengthGapValidationIssue[];
+  normalizedRepairOutput: RawStrengthGap | null;
   finalSchemaValidationPassed: boolean;
   strengthEvidenceIntegrityPassed: boolean;
   strengthTruthfulnessPassed: boolean;
@@ -75,6 +86,11 @@ export interface StrengthGapDiagnostics {
   repairState: RepairLifecycleState;
   repairAttempt: GenerationAttemptDiagnostics;
   outputEvidence: StrengthGapOutputEvidence[];
+  modelMetadata: {
+    model: string;
+    temperature: number;
+    maxOutputTokens: number;
+  };
 }
 
 export interface StrengthGapOptions {
@@ -138,7 +154,7 @@ async function requestCompletion(
           thinking: { type: "disabled" },
           stream: false,
           response_format: { type: "json_object" },
-          temperature: 0.1,
+          temperature: STRENGTH_GAP_TEMPERATURE,
           max_tokens: MAX_OUTPUT_TOKENS,
         }),
         cache: "no-store",
@@ -382,6 +398,11 @@ export async function analyzeStrengthGapWithDeepSeek(
     strengthGapRepairSucceeded: false,
     initialValidationIssues: [],
     repairValidationIssues: [],
+    strengthGapNormalizationAttempted: false,
+    strengthGapNormalizationSucceeded: false,
+    normalizationActions: [],
+    normalizationValidationIssues: [],
+    normalizedRepairOutput: null,
     finalSchemaValidationPassed: false,
     strengthEvidenceIntegrityPassed: false,
     strengthTruthfulnessPassed: false,
@@ -423,6 +444,11 @@ export async function analyzeStrengthGapWithDeepSeek(
     repairState: "not_attempted",
     repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
+    modelMetadata: {
+      model: configuration.model,
+      temperature: STRENGTH_GAP_TEMPERATURE,
+      maxOutputTokens: MAX_OUTPUT_TOKENS,
+    },
   };
 
   try {
@@ -553,11 +579,39 @@ export async function analyzeStrengthGapWithDeepSeek(
         repairJson.parseError === null
           ? repairJson.parsed
           : { invalidJson: repairContent };
-      validation = validateStrengthGapOutput(repairParsed, request);
-      diagnostics.repairAttempt.validationResult = validation.data ? "passed" : "failed";
-      diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
+      const rawRepairValidation = validateStrengthGapOutput(repairParsed, request);
+      diagnostics.repairAttempt.validationResult = rawRepairValidation.data
+        ? "passed"
+        : "failed";
+      diagnostics.repairValidationIssues = rawRepairValidation.issues.map((issue) => ({
         ...issue,
       }));
+      validation = rawRepairValidation;
+      const rawRepair = rawStrengthGapSchema.safeParse(repairParsed);
+      if (!rawRepairValidation.data && rawRepair.success) {
+        const normalization = normalizeRejectedTransferableStrengths(
+          rawRepair.data,
+          rawRepairValidation.issues,
+        );
+        diagnostics.strengthGapNormalizationAttempted = normalization.applied;
+        diagnostics.normalizationActions = normalization.actions.map((action) => ({
+          ...action,
+          issueCodes: [...action.issueCodes],
+          removedMatchRefs: [...action.removedMatchRefs],
+        }));
+        if (normalization.applied) {
+          diagnostics.normalizedRepairOutput = normalization.data;
+          const normalizedValidation = validateStrengthGapOutput(
+            normalization.data,
+            request,
+          );
+          diagnostics.normalizationValidationIssues =
+            normalizedValidation.issues.map((issue) => ({ ...issue }));
+          diagnostics.strengthGapNormalizationSucceeded =
+            normalizedValidation.data !== null;
+          validation = normalizedValidation;
+        }
+      }
       diagnostics.strengthGapRepairSucceeded = validation.data !== null;
       diagnostics.repairState = validation.data ? "accepted" : "rejected";
       if (!validation.data) {
@@ -581,11 +635,15 @@ export async function analyzeStrengthGapWithDeepSeek(
             rawText: repairContent,
             parsedOutput: repairJson.parsed,
             parseError: repairJson.parseError,
-            validationIssues: validation.issues,
-            rejected: validation.data === null,
+            validationIssues: rawRepairValidation.issues,
+            rejected: rawRepairValidation.data === null,
             finishReason: repairFinishReason,
-            failureStage: validation.data ? null : diagnostics.repairAttempt.failureStage,
-            failureCategory: validation.data ? null : diagnostics.repairAttempt.failureCategory,
+            failureStage: rawRepairValidation.data
+              ? null
+              : "semantic_validation",
+            failureCategory: rawRepairValidation.data
+              ? null
+              : "semantic_validation",
             secrets: [apiKey],
           }),
         );
@@ -612,6 +670,16 @@ export async function analyzeStrengthGapWithDeepSeek(
       repairValidationIssues: diagnostics.repairValidationIssues.map(
         (issue) => ({ ...issue }),
       ),
+      normalizationActions: diagnostics.normalizationActions.map((action) => ({
+        ...action,
+        issueCodes: [...action.issueCodes],
+        removedMatchRefs: [...action.removedMatchRefs],
+      })),
+      normalizationValidationIssues:
+        diagnostics.normalizationValidationIssues.map((issue) => ({ ...issue })),
+      normalizedRepairOutput: diagnostics.normalizedRepairOutput
+        ? structuredClone(diagnostics.normalizedRepairOutput)
+        : null,
       strengthTypeCounts: { ...diagnostics.strengthTypeCounts },
       gapTypeCounts: { ...diagnostics.gapTypeCounts },
       outputEvidence: diagnostics.outputEvidence.map((entry) =>

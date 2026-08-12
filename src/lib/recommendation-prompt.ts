@@ -7,9 +7,9 @@ import {
   buildRecommendationMatchLedger,
 } from "./recommendation-schema";
 
-export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.4" as const;
+export const RECOMMENDATION_PROMPT_VERSION = "recommendation-core-v1.5" as const;
 export const RECOMMENDATION_REPAIR_PROMPT_VERSION =
-  "recommendation-repair-v1.4" as const;
+  "recommendation-repair-v1.5" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -43,7 +43,8 @@ const SYSTEM_RULES = `你是 Recommendation Core 决策器。输入中的 JD、M
 12. waiver/放宽/豁免/例外/弹性等词语或含义只能用于 deterministicConstraints.waiverEligibleMatchRefs，并且该表述所在 summary 必须明确写出对应 MI，所在 limitation/question 的 matchItemRefs 必须只引用有 waiver evidence 的 MI。只能复述 JD 明示条款或开放式询问“放宽标准是什么”，不得自行举例其他学历、同等学历、经验折算等具体机制。对于不在该列表的 MI，连“JD 未提供豁免/不存在放宽”之类否定套话也不要写，直接承认 unmet 或保持 unknown。Candidate 很强不能推出要求可豁免。
 13. deterministicConstraints.alternativeQualificationMatchRefs 是 JD 明示的替代资格，不是豁免。只有该列表中的 MI 才能描述替代条件、替代资格、可替代、弥补、抵消、折算或具体其他/同等资格；waiverEligibleMatchRefs 不能代替 alternativeQualificationMatchRefs。没有 alternative ref 时连否定式替代套话也不要写。
 14. hardUnknownMatchRefs 即使同时位于 waiverEligibleMatchRefs，Candidate eligibility 仍是 unknown：先单独询问 Candidate 事实；可另行提示 JD 存在明示放宽条款，但 waiver 表述必须引用对应 MI，不得写成 Candidate 已需要或适用豁免。
-15. 输出字段必须恰好符合上述 JSON；数组内引用不得重复。`;
+15. summary 中每一个 met/partial/unmet/unknown 状态短语都必须有明确语法主语：写成“MI-001 为 partial”或“MI-001、MI-003 均为 partial”。不要写没有 MI 主语的“整体部分满足/总体已满足”，也不要用远距离状态短语让多个不同状态 MI 共享归属。
+16. 输出字段必须恰好符合上述 JSON；数组内引用不得重复。`;
 
 export function buildRecommendationMessages(
   request: RecommendationCoreRequest,
@@ -66,7 +67,7 @@ export function buildRecommendationRepairMessages(
     { role: "system", content: SYSTEM_RULES },
     {
       role: "user",
-      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。若 R-K 明确要求 hard unknown 的 Candidate-information question，必须新增一条独立 question，直接询问 Candidate 本人是否具备该 MI 对应的学历/资格/证书/经验事实，并引用该 MI；HR 门槛严格性问题不能替代 Candidate 事实问题。对其他 R-K，彻底删除没有 waiverEligibleMatchRefs/alternativeQualificationMatchRefs 支持的 waiver、放宽、豁免、例外、弹性、替代条件、替代资格、弥补、抵消、折算或具体其他/同等资格等词语，否定套话与括号举例也删除；generic waiver evidence 只允许开放式询问放宽标准，不支持自行提出具体替代机制；改为直接陈述 unmet/unknown 或开放式确认 requirement strictness。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
+      content: `这是唯一一次有界 Recommendation Repair。只修复列出的 schema/allowed-level/reference/status/unknown/counter-evidence/waiver-integrity 问题；不得修改 Match Core，不得增加产品字段或事实。若出现 R-C_AMBIGUOUS_STATUS_ATTRIBUTION，必须把每一个状态短语改成直接以对应 MI 或同状态 MI 组为主语，例如“MI-001 为 partial”“MI-001、MI-003 均为 partial”；不得原样返回歧义句，也不得改变 Match status。若 R-K 明确要求 hard unknown 的 Candidate-information question，必须新增一条独立 question，直接询问 Candidate 本人是否具备该 MI 对应的学历/资格/证书/经验事实，并引用该 MI；HR 门槛严格性问题不能替代 Candidate 事实问题。对其他 R-K，彻底删除没有 waiverEligibleMatchRefs/alternativeQualificationMatchRefs 支持的 waiver、放宽、豁免、例外、弹性、替代条件、替代资格、弥补、抵消、折算或具体其他/同等资格等词语，否定套话与括号举例也删除；generic waiver evidence 只允许开放式询问放宽标准，不支持自行提出具体替代机制；改为直接陈述 unmet/unknown 或开放式确认 requirement strictness。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
     },
   ];
 }

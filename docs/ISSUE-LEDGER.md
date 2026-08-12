@@ -7,14 +7,14 @@
 | ISSUE-028 Rejected-output evidence preservation | P1 | OPEN / batch-3 Match + zero-call preflight preservation PASS | Recommendation failure-path runtime still pending |
 | ISSUE-029 Cross-CF Candidate scope contamination | P1 | OPEN / Match runtime fix verified; preservation PASS | final closure audit |
 | ISSUE-030 SG-E valid evidence-boundary false positive | P1 | OPEN / batch-3 run-2 initial runtime PASS | stable multi-run closure evidence |
-| ISSUE-031 Recommendation status attribution | P1 | OPEN / final batch-1 exposed two legal subject-predicate grammar false positives | deterministic restabilization + new fixed batch |
+| ISSUE-031 Recommendation status attribution | P1 | OPEN / final batch-1 exact grammar replays + contradiction controls deterministic PASS | new fixed 3-run batch + final closure audit |
 | ISSUE-032 runner artifact-state semantics | P1 | OPEN / business-failure runtime + precheck local/runtime preservation PASS | final closure audit |
 | ISSUE-033 Match generation-contract / repair unsupported Candidate claim stability | P1 | OPEN / structural path accepted at Match runtime 3/3 in final batch-1 | final closure audit on completed chains |
 | ISSUE-034 dimension-local relational conclusion | P1 | OPEN / fix verified at relation runtime; preservation PASS | final closure audit |
 | ISSUE-035 Match same-domain evidence polarity | P1 | OPEN / latest runtime verdict FIX VERIFIED | final closure audit |
 | ISSUE-036 Match experience-type lexical precision | P1 | OPEN / local fix verified; latest runtime inconclusive | accepted Match runtime |
 | ISSUE-037 Match lineage semantic classification | P1 | OPEN / original behavior FIX VERIFIED at batch-3 runtime | final closure audit after Match stability |
-| ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | OPEN / SG-B and SG-M correctly rejected leadership upgrade; repair repeated it | prompt/normalization stabilization + new fixed batch |
+| ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | OPEN / prompt + deletion-only terminal normalization deterministic PASS | new fixed 3-run batch + final closure audit |
 
 ## ISSUE-037 root cause record
 

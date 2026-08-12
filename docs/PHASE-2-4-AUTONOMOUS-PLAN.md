@@ -26,6 +26,8 @@ Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS
 
 Final acceptance batch 1 已在 `ca9c65d…` 上固定执行 exactly 3 runs，0/3 complete；Match 结构性路径 3/3 HTTP 200。run 1/3 是 ISSUE-031 对合法 `MI-001 仅为部分满足` / described multi-MI `但均为部分满足` 的 R-C false positive；run 2 是 Strength/Gap 把“协助整理需求和测试”升级为部分支持“主导跨团队项目”，SG-B/SG-M 正确拒绝，repair 原样重复。三份 artifact 已保全且没有第 4 次。完整裁决见 `PHASE-2-4-FINAL-ACCEPTANCE-BATCH-1.md`。
 
+ISSUE-031/038 deterministic restabilization 已完成：R-C 补齐 `仅为` 与 `，但均为` 显式语法主语并逐 MI 验证；Strength/Gap 将 transferable strength 明确为可选且 dimension-local，一次 repair 后只允许删除 SG-B/SG-M 已拒绝的可选 relation，再重跑完整 SG-A～SG-N。exact focused 136/136、full 584/584、lint/build PASS，模型调用 0。详见 `PHASE-2-4-ISSUE-031-038-STABILIZATION.md`。
+
 ## Execution sequence
 
 1. 建立 ISSUE-037 exact artifact replay 与正/反例 matrix。（完成）
@@ -51,5 +53,5 @@ Final acceptance batch 1 已在 `ca9c65d…` 上固定执行 exactly 3 runs，0/
 
 ## Remaining work
 
-- Restabilize ISSUE-031 explicit status ownership grammar and ISSUE-038 Strength/Gap optional-transferable generation contract, then run the complete deterministic Gate。
-- Commit a new baseline and execute one new fixed exactly-three RB-05 batch with no inter-run code changes；only a 3/3 clean batch may proceed to full closure audit and `PHASE-2-4-FINAL-ACCEPTANCE.md`。
+- Commit the verified ISSUE-031/038 deterministic baseline and execute one new fixed exactly-three RB-05 batch with no inter-run code changes。
+- Only a 3/3 clean batch may proceed to full closure audit and `PHASE-2-4-FINAL-ACCEPTANCE.md`；otherwise preserve the whole batch and continue autonomous in-Contract stabilization。

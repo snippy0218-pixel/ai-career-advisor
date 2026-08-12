@@ -1,0 +1,69 @@
+import { describe, expect, it } from "vitest";
+
+import { normalizeRejectedTransferableStrengths } from "./strength-gap-normalization";
+import type { RawStrengthGap } from "./strength-gap-schema";
+
+const raw: RawStrengthGap = {
+  strengths: [
+    {
+      type: "direct_match",
+      statement: "本科学历满足要求。",
+      matchRefs: ["MI-004"],
+    },
+    {
+      type: "transferable_strength",
+      statement:
+        "在团队作业中协助整理需求和测试，可迁移至跨团队项目协作，部分支持主导跨团队项目的要求。",
+      matchRefs: ["MI-003"],
+    },
+  ],
+  gaps: [
+    {
+      type: "information",
+      statement: "资料缺少是否主导跨团队项目的信息。",
+      matchRefs: ["MI-003"],
+      suggestedAction: "请补充真实职责。",
+      actionType: "confirm",
+    },
+  ],
+};
+
+describe("normalizeRejectedTransferableStrengths", () => {
+  it("removes only an optional transferable strength rejected by SG-B/SG-M", () => {
+    const result = normalizeRejectedTransferableStrengths(raw, [
+      { path: "strengths.1", message: "SG-M transferable relation boundary integrity failed" },
+      {
+        path: "strengths.1.statement",
+        message: "SG-B Candidate scope/modifier from Match evidence must be preserved",
+      },
+    ]);
+
+    expect(result.applied).toBe(true);
+    expect(result.data.strengths).toEqual([raw.strengths[0]]);
+    expect(result.data.gaps).toEqual(raw.gaps);
+    expect(result.actions).toEqual([
+      expect.objectContaining({
+        strengthIndex: 1,
+        issueCodes: ["SG-B", "SG-M"],
+        removedMatchRefs: ["MI-003"],
+      }),
+    ]);
+    expect(raw.strengths).toHaveLength(2);
+  });
+
+  it("does not remove mandatory direct or supporting strengths", () => {
+    const result = normalizeRejectedTransferableStrengths(raw, [
+      { path: "strengths.0.statement", message: "SG-B Candidate claim upgrade" },
+    ]);
+    expect(result).toMatchObject({ applied: false, actions: [] });
+    expect(result.data).toEqual(raw);
+  });
+
+  it("does not normalize schema, reference, gap, or unrelated semantic failures", () => {
+    const result = normalizeRejectedTransferableStrengths(raw, [
+      { path: "strengths.1.matchRefs", message: "SG-I unknown Match reference" },
+      { path: "gaps.0.statement", message: "SG-B Candidate claim upgrade" },
+    ]);
+    expect(result.applied).toBe(false);
+  });
+});

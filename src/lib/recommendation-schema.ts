@@ -431,7 +431,7 @@ function prefixGroupTargetRefs(
   const last = before.at(-1);
   if (!last) return [];
   if (
-    !/^\s*(?:(?:的\s*)?(?:信息|状态|资格|要求|证据|情况)\s*)?(?:当前\s*)?(?:(?:的|均|均为|均是|都|皆)\s*)?$/.test(
+    !/^\s*(?:(?:的\s*)?(?:信息|状态|资格|要求|证据|情况)\s*)?(?:当前\s*)?(?:(?:的|仅为|均|均为|均是|都|皆)\s*)?$/.test(
       text.slice(last.end, claimStart),
     )
   ) {
@@ -456,7 +456,7 @@ function describedPrefixGroupTargetRefs(
 ) {
   const prefix = text.slice(0, claimStart);
   const groupMatch = prefix.match(
-    /((?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*)(?:(?:、|和|与|及|以及)\s*(?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*))*)(?:(?:均|都)(?:为)?|为)?\s*$/,
+    /((?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*)(?:(?:、|和|与|及|以及)\s*(?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*))*)\s*(?:[，,]\s*(?:但|且|而)\s*)?(?:(?:均|都)(?:为)?|为)?\s*$/,
   );
   if (!groupMatch || groupMatch.index === undefined) return [];
   const groupStart = groupMatch.index;

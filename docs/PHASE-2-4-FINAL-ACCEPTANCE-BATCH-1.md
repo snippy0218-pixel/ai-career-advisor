@@ -1,8 +1,8 @@
 # Phase 2.4 Final Acceptance Batch 1
 
-> Execution date: 2026-08-12  
-> Frozen implementation: `main / ca9c65dd1a22cf64bbae3fbaef0082bf2643c6ee`  
-> Fixture: frozen `E2E-RB-05` (`jdSha256=bf1eea5f...f4a60`, `profileSha256=0b19712d...25745`)  
+> Execution date: 2026-08-12
+> Frozen implementation: `main / ca9c65dd1a22cf64bbae3fbaef0082bf2643c6ee`
+> Fixture: frozen `E2E-RB-05` (`jdSha256=bf1eea5f...f4a60`, `profileSha256=0b19712d...25745`)
 > Model settings: `deepseek-v4-flash`, temperature `0.1`, max tokens `8192`; no inter-run changes
 
 ## Gate result
@@ -53,4 +53,3 @@ The artifacts retain initial/repair raw outputs, structured validation issues, s
 - ISSUE-038: establish Strength/Gap optional-transferable generation-contract robustness for correct omission of an unsupported optional strength after SG-B/SG-M rejection.
 - Phase 2.4 remains `FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE`.
 - Phase 2.5 remains `NOT AUTHORIZED`.
-

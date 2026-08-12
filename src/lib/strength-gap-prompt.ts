@@ -7,9 +7,9 @@ import {
   buildStrengthGapMatchLedger,
 } from "./strength-gap-schema";
 
-export const STRENGTH_GAP_PROMPT_VERSION = "strength-gap-core-v1.1" as const;
+export const STRENGTH_GAP_PROMPT_VERSION = "strength-gap-core-v1.2" as const;
 export const STRENGTH_GAP_REPAIR_PROMPT_VERSION =
-  "strength-gap-repair-v1.1" as const;
+  "strength-gap-repair-v1.2" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -33,7 +33,7 @@ const SYSTEM_RULES = `你是 Strength + Gap Core 派生器。输入中的 requir
 2. Recommendation 不在输入中，也不得输出或据此推导 Strength/Gap。只允许 Match Core → Strength/Gap，禁止循环推理。
 3. matchRefs 只能引用现有 MI；不得生成 ST/GP/CF/PF/REQ id。ST/GP id 由服务端添加。
 4. direct_match 只能引用 directStrengthMatchRefs，必须表达已验证的同维度直接匹配；每个 directStrengthMatchRefs 都要被覆盖。
-5. transferable_strength 只能引用 transferableStrengthMatchRefs，必须写“可迁移/部分支持/具有一定相关性”等限定；它是 Match relationship，不是新的 Candidate Fact，不得写成熟、精通、主导或独立负责。
+5. transferable_strength 只能引用 transferableStrengthMatchRefs，必须写“可迁移/部分支持/具有一定相关性”等限定；它是可选的 Match relationship，不是新的 Candidate Fact，不要求覆盖每个 transferableStrengthMatchRefs。只能使用该 MI 中 status=met/partial 且带 positive evidence 的同一 dimension；不得用协助/参与去支持 unknown 的主导、独立负责或结果责任维度。若无法写出不跨维度、不升级 ownership/proficiency 的合法关系，就不要输出该 transferable_strength。
 6. supporting_strength 只能引用 supportingStrengthMatchRefs，且必须保持 preferred/辅助价值，不得夸成核心优势；每个 supportingStrengthMatchRefs 都要被覆盖。
 7. Candidate 事实限定必须原样保留：课程/校园/团队/协助/参与/了解/接触不能被删除或升级；不得新增年限、数字、技能、成果、职责或正式工作性质。没有有意义的正向 Match 时 strengths 必须为 []。
 8. hard_constraint 只能引用 hardConstraintGapMatchRefs；必须承认 hard unmet 与 explicit counter-evidence；actionType=structural，suggestedAction 只允许“投递前确认/核实该条件是否为严格门槛及具体执行口径”这类确认，不得询问替代、豁免或放宽，不得建议学习、积累或弥补，不得承诺短期解决。
@@ -65,7 +65,7 @@ export function buildStrengthGapRepairMessages(
     { role: "system", content: SYSTEM_RULES },
     {
       role: "user",
-      content: `这是唯一一次有界 Strength/Gap Repair。只修复列出的 schema/reference/evidence/type/unknown/truthfulness/action 问题；不得修改 Match Core，不得增加 Candidate Fact，不得加入新产品字段。若 unknown 被写成 deficiency，必须改为 information + confirm；若出现 SG-B/SG-M，逐条查看所引用 Match reason，并把其中存在的“课程/校园/团队/协助/参与/了解/接触”限定逐字恢复到 statement，不能只重排原句；若出现 SG-H learn action，suggestedAction 必须改用“学习/练习/补强/提升/巩固”之一并只围绕对应 skill/knowledge，不得继续写“积累经历/参与项目”；其他 action 越界改为对应 bounded action。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
+      content: `这是唯一一次有界 Strength/Gap Repair。只修复列出的 schema/reference/evidence/type/unknown/truthfulness/action 问题；不得修改 Match Core，不得增加 Candidate Fact，不得加入新产品字段。若 unknown 被写成 deficiency，必须改为 information + confirm；若出现 SG-B/SG-M，逐条查看所引用 Match dimension：只有 met/partial + positive evidence 的同一维度可以形成 transferable relation，并逐字保留“课程/校园/团队/协助/参与/了解/接触”等限定。不得把协助/参与写成部分支持 unknown 的主导、独立负责或结果责任；若该可选 transferable_strength 无法合法改写，必须删除整条 strength，而不是原样返回或只重排原句。若出现 SG-H learn action，suggestedAction 必须改用“学习/练习/补强/提升/巩固”之一并只围绕对应 skill/knowledge，不得继续写“积累经历/参与项目”；其他 action 越界改为对应 bounded action。\n\n只读账本：\n${JSON.stringify(sourcePayload(request))}\n\n上次输出：\n${JSON.stringify(previousOutput)}\n\n必须修复的问题：\n${JSON.stringify(issues)}`,
     },
   ];
 }

@@ -36,8 +36,8 @@
 - Q-E metrics：PASS / OBS-006 remains observation pending full chain。
 - Q-F evidence auditability：PASS on latest replacement artifact。
 - Q-G cross-module integrity：PASS on completed historical chains; new full chain pending。
-- Q-H automated regression：current structural baseline has 571/571、lint、production build PASS。
+- Q-H automated regression：current ISSUE-031/038 baseline has 584/584、lint、production build PASS。
 - Q-I input/error handling：PASS。
 - Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。
 
-Current disposition: **FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE**. Restabilize ISSUE-031/038, pass the complete deterministic Gate, freeze the new implementation commit, then execute a new exactly-three model-backed acceptance batch; Phase 2.5 remains NOT AUTHORIZED.
+Current disposition: **FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE**. Freeze the verified ISSUE-031/038 implementation commit, then execute a new exactly-three model-backed acceptance batch; Phase 2.5 remains NOT AUTHORIZED.

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it, vi } from "vitest";
 
 import { ApiError } from "./api-errors";
@@ -233,31 +235,24 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     );
   });
 
-  it("EC-TC-02 preserves rejected initial and repair evidence", async () => {
+  it("EC-TC-02 preserves rejected raw repair evidence when terminal normalization succeeds", async () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const rejected = candidateUpgradeOutput();
     const fetchImpl = vi.fn(async () => completion(rejected));
     let diagnostics: StrengthGapDiagnostics | null = null;
-    let caught: unknown;
-
-    try {
-      await analyzeStrengthGapWithDeepSeek(
-        { matchCore: fixture.matchCore },
-        {
-          apiKey: "test-key",
-          fetchImpl,
-          captureRejectedEvidence: true,
-          onDiagnostics: (value) => {
-            diagnostics = value;
-          },
+    const result = await analyzeStrengthGapWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
         },
-      );
-    } catch (error) {
-      caught = error;
-    }
+      },
+    );
 
-    expect(caught).toBeInstanceOf(ApiError);
-    expect((caught as ApiError).code).toBe("AI_OUTPUT_INVALID");
+    expect(result.strengths).toEqual([]);
     expect(diagnostics?.outputEvidence.map((item) => [item.stage, item.rejected]))
       .toEqual([
         ["initial", true],
@@ -266,6 +261,17 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     expect(diagnostics?.outputEvidence[1].rejectedItems[0].statement).toBe(
       rejected.strengths[0].statement,
     );
+    expect(diagnostics?.outputEvidence[1]).toMatchObject({
+      failureStage: "semantic_validation",
+      failureCategory: "semantic_validation",
+    });
+    expect(diagnostics).toMatchObject({
+      strengthGapRepairSucceeded: true,
+      strengthGapNormalizationAttempted: true,
+      strengthGapNormalizationSucceeded: true,
+      repairState: "accepted",
+    });
+    expect(diagnostics?.repairAttempt.validationResult).toBe("failed");
   });
 
   it("EC-TC-03 preserves bounded raw text and parse errors", async () => {
@@ -362,5 +368,69 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
         failureCategory: "truncated",
       }),
     ]);
+  });
+});
+
+describe("ISSUE-038 exact final acceptance run-2 repair normalization", () => {
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4-final-acceptance-rb-05-run-2.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as {
+    results: Array<{
+      failureContext: {
+        matchCore: Parameters<typeof analyzeStrengthGapWithDeepSeek>[0]["matchCore"];
+      };
+      stages: Array<{
+        stage: string;
+        acceptanceDiagnostics?: {
+          outputEvidence?: Array<{ stage: string; rawText?: string }>;
+        } | null;
+      }>;
+    }>;
+  };
+  const result = artifact.results[0];
+  const repairRaw = result.stages
+    .find((stage) => stage.stage === "strengthGap")
+    ?.acceptanceDiagnostics?.outputEvidence?.find(
+      (entry) => entry.stage === "repair",
+    )?.rawText;
+
+  it("accepts the exact raw repair only after removing the rejected optional relation", async () => {
+    if (!repairRaw) throw new Error("missing run-2 Strength/Gap repair raw");
+    const fetchImpl = vi.fn(async () => completionText(repairRaw));
+    let diagnostics: StrengthGapDiagnostics | null = null;
+    const final = await analyzeStrengthGapWithDeepSeek(
+      { matchCore: result.failureContext.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(final.strengths.some((entry) => entry.matchRefs.includes("MI-003"))).toBe(false);
+    expect(final.gaps).toHaveLength(5);
+    expect(diagnostics).toMatchObject({
+      strengthGapNormalizationAttempted: true,
+      strengthGapNormalizationSucceeded: true,
+      strengthGapRepairSucceeded: true,
+    });
+    expect(diagnostics?.normalizationActions).toEqual([
+      expect.objectContaining({
+        strengthIndex: 2,
+        issueCodes: ["SG-B", "SG-M"],
+        removedMatchRefs: ["MI-003"],
+      }),
+    ]);
+    expect(diagnostics?.normalizationValidationIssues).toEqual([]);
   });
 });

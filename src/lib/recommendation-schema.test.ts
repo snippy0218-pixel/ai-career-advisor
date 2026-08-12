@@ -989,3 +989,73 @@ describe("ISSUE-031 autonomous batch-2 described-prefix attribution", () => {
     ]);
   });
 });
+
+describe("ISSUE-031 final acceptance batch-1 exact attribution replay", () => {
+  const load = (run: 1 | 3) => {
+    const artifact = JSON.parse(
+      readFileSync(
+        new URL(
+          `../../docs/acceptance-artifacts/phase-2-4-final-acceptance-rb-05-run-${run}.json`,
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    ) as {
+      results: Array<{
+        failureContext: { matchCore: Parameters<typeof finalizeRawRecommendation>[1] };
+        stages: Array<{
+          stage: string;
+          acceptanceDiagnostics?: {
+            outputEvidence?: Array<{ stage: string; rawText?: string }>;
+          } | null;
+        }>;
+      }>;
+    };
+    return artifact.results[0];
+  };
+
+  it.each([
+    [1, "initial"],
+    [1, "repair"],
+    [3, "initial"],
+    [3, "repair"],
+  ] as const)("R31-22 accepts run %i %s legal explicit status ownership", (run, stage) => {
+    const result = load(run);
+    const rawText = result.stages
+      .find((entry) => entry.stage === "recommendation")
+      ?.acceptanceDiagnostics?.outputEvidence?.find(
+        (entry) => entry.stage === stage,
+      )?.rawText;
+    if (!rawText) throw new Error(`missing run ${run} ${stage} raw evidence`);
+    const finalized = finalizeRawRecommendation(
+      rawRecommendationSchema.parse(JSON.parse(rawText)),
+      result.failureContext.matchCore,
+    );
+    expect(finalized.issues).toEqual([]);
+    expect(finalized.data?.recommendationLevel).toBe("cautious");
+  });
+
+  it("R31-23 still rejects a described mixed-status group", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "A", requirementType: "core_requirement", status: "partial" },
+      { requirement: "B", requirementType: "core_requirement", status: "met" },
+    ]);
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      {
+        recommendationLevel: "try",
+        summary: "MI-001（能力 A）与 MI-002（能力 B），但均为部分满足。",
+        supportingMatchRefs: [],
+        counterMatchRefs: [],
+        limitations: [],
+        questionsToConfirm: [],
+      },
+      matchCore,
+    );
+    expect(issues).toEqual([
+      expect.objectContaining({
+        validationCode: "R-C_STATUS_CONTRADICTION",
+        matchItemRefs: ["MI-002"],
+      }),
+    ]);
+  });
+});

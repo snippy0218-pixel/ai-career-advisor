@@ -33,7 +33,8 @@ export async function POST(request: Request) {
     ) {
       const headerDiagnostics = Object.fromEntries(
         Object.entries(diagnosticsForAcceptance).filter(
-          ([key]) => key !== "outputEvidence",
+          ([key]) =>
+            key !== "outputEvidence" && key !== "normalizedRepairOutput",
         ),
       );
       headers["X-Strength-Gap-Acceptance-Diagnostics"] = Buffer.from(
