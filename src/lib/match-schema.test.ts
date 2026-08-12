@@ -2055,6 +2055,146 @@ describe("ISSUE-037 exact replacement RB-05 Match artifact replay", () => {
   });
 });
 
+describe("ISSUE-037 conservative Candidate participation entailment", () => {
+  function participationResult(
+    fact: Parameters<typeof buildMatchFixture>[1][number],
+    reason = "候选人参与团队项目，但现有资料未表明其主导项目。",
+  ) {
+    const requirement = "具有团队项目经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [fact],
+    );
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "partial",
+            dimensions: [
+              dimension({
+                dimensionType: "skill",
+                requirementFragment: "团队项目经验",
+                status: "partial",
+                reason,
+                jdEvidence: [requirement],
+                candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+                missingInformation: "候选人的项目主导范围未明确",
+                verificationQuestion: "请说明您在团队项目中的角色。",
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  it("E37-10 accepts a weaker participation claim entailed by team completion", () => {
+    const result = participationResult({
+      statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+      semanticTags: ["experience"],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E37-11 rejects participation when the fact has no team context", () => {
+    const result = participationResult({
+      statement: "独立完成数据展示作业",
+      semanticTags: ["project_experience"],
+    });
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("M-CANDIDATE-LINEAGE"))).toBe(
+      true,
+    );
+  });
+
+  it("E37-12 rejects participation when the fact has no project involvement", () => {
+    const result = participationResult({
+      statement: "与四人团队沟通课程安排",
+      semanticTags: ["experience"],
+    });
+    expect(result.data).toBeNull();
+  });
+
+  it("E37-13 does not use weaker participation entailment for an ownership upgrade", () => {
+    const result = participationResult(
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      "候选人主导团队项目并独立负责交付。",
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.map((issue) => issue.message).join(" ")).toMatch(/M-CANDIDATE-LINEAGE|M-K/);
+  });
+});
+
+describe("ISSUE-037 autonomous batch Match replay", () => {
+  interface ArtifactStage {
+    stage: string;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: string; rawText?: string }>;
+    } | null;
+  }
+
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-autonomous-issue-037-rb-05-batch-run-2.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { results: Array<{ stages: ArtifactStage[] }> };
+  const matchEvidence = artifact.results[0].stages.find((stage) => stage.stage === "match")
+    ?.acceptanceDiagnostics?.outputEvidence;
+  const request = buildMatchFixture(
+    [
+      { content: "熟练掌握 Python", requirementType: "core_requirement" },
+      {
+        content: "具有独立负责数据产品的正式工作经验",
+        requirementType: "core_requirement",
+      },
+      {
+        content: "能主导跨团队项目并对个人交付结果负责",
+        requirementType: "core_requirement",
+      },
+      { content: "本科及以上学历", requirementType: "hard_requirement" },
+    ],
+    [
+      { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      { statement: "没有正式数据产品工作经历", semanticTags: ["experience"] },
+    ],
+  );
+
+  it("E37-14 removes only the false participation issue from exact run-2 repair", () => {
+    const rawText = matchEvidence?.find((entry) => entry.stage === "repair")?.rawText;
+    if (!rawText) throw new Error("missing repair Match raw evidence");
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(JSON.parse(rawText)),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues.map((issue) => issue.message).join(" ")).not.toContain(
+      "候选人参与团队项目",
+    );
+    expect(result.issues.map((issue) => issue.message).join(" ")).toContain(
+      "candidate factual assertion requires Candidate Fact lineage",
+    );
+  });
+});
+
 describe("post-035/036 exact Match artifact replay", () => {
   interface ArtifactStage {
     stage: string;

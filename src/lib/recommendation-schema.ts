@@ -417,7 +417,7 @@ function parentheticalTargetRefs(
       (occurrence) => occurrence.start > openIndex && occurrence.end <= closeIndex,
     ),
   );
-  return suffixRefs.length === 1 ? suffixRefs : [];
+  return suffixRefs;
 }
 
 function prefixGroupTargetRefs(

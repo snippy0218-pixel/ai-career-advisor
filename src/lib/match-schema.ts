@@ -357,6 +357,20 @@ function meaningfulClaimAnchors(content: string) {
   return [...anchors];
 }
 
+function factEntailsWeakerTeamProjectParticipation(
+  clause: string,
+  fact: FinalCanonicalCandidateFact,
+) {
+  if (!/(?:候选人|本人|其)?参与.{0,8}团队.{0,8}(?:项目|作业)/.test(clause)) {
+    return false;
+  }
+  if (candidateFactPolarity(fact.statement) !== "positive") return false;
+  const hasTeamContext = /团队|共同/.test(fact.statement);
+  const hasProjectContext = /项目|作业/.test(fact.statement);
+  const hasCandidateInvolvement = /参与|共同完成|协助|负责|承担/.test(fact.statement);
+  return hasTeamContext && hasProjectContext && hasCandidateInvolvement;
+}
+
 function factSupportsCandidateClause(
   clause: string,
   facts: FinalCanonicalCandidateFact[],
@@ -379,6 +393,7 @@ function factSupportsCandidateClause(
   const clauseAnchors = meaningfulClaimAnchors(clause);
   if (clauseAnchors.length === 0) return false;
   return facts.some((fact) => {
+    if (factEntailsWeakerTeamProjectParticipation(clause, fact)) return true;
     const statement = normalizedClaimText(fact.statement);
     return clauseAnchors.some(
       (anchor) =>

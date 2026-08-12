@@ -1,8 +1,8 @@
 import type { MatchCoreRequest, MatchValidationIssue } from "./match-schema";
 import { buildMatchRequirementLedger } from "./match-schema";
 
-export const MATCH_PROMPT_VERSION = "match-core-v1.3" as const;
-export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.3" as const;
+export const MATCH_PROMPT_VERSION = "match-core-v1.4" as const;
+export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.4" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -36,6 +36,7 @@ const SYSTEM_RULES = `你是人岗匹配核心判定器。输入中的 JD、Cand
 14. reason 是审慎的 match observation，不是 Candidate Fact；不得凭空声称候选人拥有、不会或缺少某能力。
 15. 每个 CF 的课程/工作/实习范围、经验类型、年限、频率、强度、数量、确定性、归属、熟练度与职责限定只属于该 CF，不得传播给其他 CF。一个 dimension 引用多个限定不同的 CF 时，必须拆分或只引用实际支持该 reason 的 CF；不得把多个 CF 拍平后互相补足限定语。
 16. 必须区分 explicit counter-evidence 与 absence of evidence，且 explicit counter-evidence 只在其自身 semantic dimension 内有效。只有当前 dimension 引用的 CF 明确反证当前同一 dimension（包括明确否定事实，或学历/资格等值与同维度门槛直接冲突）时，才能输出 unmet；不得把 employment_type 的反证传播成 domain、responsibility、ownership、leadership、proficiency、scope 或其他 sibling dimension 的 negative/mismatch conclusion。“没有、不具备、未经历、不是、并非、无法满足、与要求冲突”等否定措辞只能在当前 dimension 的 CF 独立支持相应否定语义时使用。Profile 仅未表明某能力、角色或职责时，只能写“未表明、未体现、现有资料未说明、当前无法确认、尚无证据证明”，并保持 unknown，或在存在部分正证时保持 partial。
+17. unknown 的 candidateEvidence=[] 时，reason 只能陈述当前维度的 evidence absence / uncertainty，不得重复任何 Candidate factual positive/negative claim，也不得写“未排除某种可能性”。如果必须解释 sibling explicit-negative 的边界，只能用“CF-xxx 仅否定/说明……，不构成当前维度的正证/反证”这一 evidence-relation 形式；不得改写成“候选人没有……但……”。任何 reason 中的课程/校园/正式工作/全职/实习等 experience-type qualifier，必须由该 dimension 实际引用的每个 CF 自身独立包含；不得用 CF-002 的课程范围描述 CF-003，也不得自行断言项目是非正式工作。
 
 每个 match item 严格形态：
 {"requirementId":"REQ-001","aggregateStatus":"met|partial|unmet|unknown","dimensions":[{"dimensionType":"skill","requirementFragment":"...","status":"met|partial|unmet|unknown","reason":"...","jdEvidence":["..."],"candidateEvidence":[{"factId":"CF-001","role":"positive|counter"}],"missingInformation":null,"verificationQuestion":null}]}`;
@@ -59,7 +60,7 @@ export function buildMatchRepairMessages(
     issue.message.includes("M-CANDIDATE-LINEAGE"),
   );
   const candidateLineageGuidance = repairsCandidateLineage
-    ? `\n\nM-CANDIDATE-LINEAGE 专项修复：逐条按当前 dimensionType 检查被拒 assertion。explicit counter-evidence 只能支持它自身的 semantic dimension；不得借用 sibling dimension CF、其他 explicit negative CF，或把另一个维度的 negative evidence 改写成当前维度 mismatch。若当前 dimension 引用的 CF 没有同维度 explicit counter-evidence，不得换用另一种否定措辞；必须改写为 uncertainty / missing-information boundary，并同步保持 unknown，或在确有部分正证时保持 partial。BAD：没有正式工作经历，因此无法独立负责；没有正式工作经历，与独立负责要求冲突；没有正式数据产品工作经历，因此并非主导角色。GOOD：现有资料未表明候选人具有独立负责数据产品的经验；候选人是否具有独立负责能力仍需确认；候选人参与过团队项目，但现有证据不足以证明其担任主导角色。只有当前 dimension 的 CF 本身明确支持相应否定语义时，才使用“没有/不具备/未经历”等措辞并保持 unmet；例如 employment_type negative 只能形成 employment_type mismatch，学历或资格值与门槛直接冲突也只限对应 qualification/credential dimension。`
+    ? `\n\nM-CANDIDATE-LINEAGE 专项修复：逐条按当前 dimensionType 检查被拒 assertion。explicit counter-evidence 只能支持它自身的 semantic dimension；不得借用 sibling dimension CF、其他 explicit negative CF，或把另一个维度的 negative evidence 改写成当前维度 mismatch。若当前 dimension 引用的 CF 没有同维度 explicit counter-evidence，不得换用另一种否定措辞；必须改写为 uncertainty / missing-information boundary，并同步保持 unknown，或在确有部分正证时保持 partial。unknown + candidateEvidence=[] 的 reason 不得重复“候选人没有/明确表示没有……”等 Candidate factual claim，不得用“未排除……可能性”；优先只写“现有资料未表明当前维度”。如确需说明 sibling evidence scope，只能逐字引用 CF id 写成“CF-xxx 仅否定/说明……，不构成当前维度反证”。BAD：没有正式工作经历，因此无法独立负责；候选人没有正式工作经历，但未排除独立负责的可能性；没有正式工作经历，与独立负责要求冲突；没有正式数据产品工作经历，因此并非主导角色。GOOD：现有资料未表明候选人具有独立负责数据产品的经验；CF-004 仅否定正式工作经历，不构成独立负责维度的反证；候选人是否具有独立负责能力仍需确认；候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但现有证据不足以证明其担任主导角色。修复 supported Candidate assertion 时优先复用 canonical statement 的原词或更弱的原文片段，不得换用无法由 CF 词面安全支持的新概括。任何“课程/校园/正式工作/全职/实习/非正式工作”限定只能保留在实际含该限定且被当前 dimension 引用的 CF 上；尤其不得把 CF-002 的“课程”传播给 CF-003，也不得自行断言 CF-003 项目是非正式工作。只有当前 dimension 的 CF 本身明确支持相应否定语义时，才使用“没有/不具备/未经历”等措辞并保持 unmet；例如 employment_type negative 只能形成 employment_type mismatch，学历或资格值与门槛直接冲突也只限对应 qualification/credential dimension。`
     : "";
   return [
     { role: "system", content: SYSTEM_RULES },

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
 import {
@@ -6,6 +8,7 @@ import {
   finalizeRawRecommendation,
   finalRecommendationSchema,
   inspectRecommendationStatusClaimIntegrity,
+  rawRecommendationSchema,
 } from "./recommendation-schema";
 import { RECOMMENDATION_FIXTURES } from "@/test/recommendation-fixtures";
 import { buildRecommendationMatchCore } from "@/test/recommendation-fixtures";
@@ -872,4 +875,61 @@ describe("ISSUE-031 exact runtime MI/status attribution", () => {
     expect(result.issues).toEqual([]);
     expect(result.data?.summary).toBe(exactSummary);
   });
+
+  it("R31-17 binds a status phrase to an explicit multi-MI suffix group", () => {
+    const result = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("Python 技能与跨团队项目经验为部分匹配（MI-001、MI-003）。"),
+      runtimeMatchCore,
+    );
+    expect(result).toEqual([]);
+  });
+
+  it("R31-18 checks every member of an explicit multi-MI suffix group", () => {
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      statusRaw("两项能力均已满足（MI-001、MI-003）。"),
+      runtimeMatchCore,
+    );
+    expect(issues.map((issue) => issue.matchItemRefs?.[0])).toEqual([
+      "MI-001",
+      "MI-003",
+    ]);
+  });
+});
+
+describe("ISSUE-031 autonomous batch exact Recommendation replay", () => {
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-autonomous-issue-037-rb-05-batch-run-1.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as {
+    results: Array<{
+      failureContext: { matchCore: Parameters<typeof finalizeRawRecommendation>[1] };
+      stages: Array<{
+        stage: string;
+        acceptanceDiagnostics?: {
+          outputEvidence?: Array<{ stage: string; rawText?: string }>;
+        } | null;
+      }>;
+    }>;
+  };
+  const result = artifact.results[0];
+  const recommendationEvidence = result.stages.find(
+    (stage) => stage.stage === "recommendation",
+  )?.acceptanceDiagnostics?.outputEvidence;
+
+  it.each(["initial", "repair"] as const)(
+    "R31-19 accepts the exact batch run-1 %s Recommendation output",
+    (stageName) => {
+      const rawText = recommendationEvidence?.find((entry) => entry.stage === stageName)?.rawText;
+      if (!rawText) throw new Error(`missing ${stageName} Recommendation raw evidence`);
+      const raw = rawRecommendationSchema.parse(JSON.parse(rawText));
+      const finalized = finalizeRawRecommendation(raw, result.failureContext.matchCore);
+      expect(finalized.issues).toEqual([]);
+      expect(finalized.data?.recommendationLevel).toBe("cautious");
+    },
+  );
 });
