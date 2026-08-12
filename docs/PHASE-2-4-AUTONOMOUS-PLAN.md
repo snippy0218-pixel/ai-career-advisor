@@ -24,6 +24,8 @@ Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS
 
 最新 Product Owner / QA Gate 已明确废弃 3-cycle stop condition，并要求将 ISSUE-033 作为完整 Match generation-contract robustness problem治理。结构性修复已完成：raw/repair v1.5 共享 status-language matrix；一次被拒 repair 后仅对 lineage/M-K reason 进行 bounded conservative normalization，之后重跑全部 validator；raw/repair/normalized/model metadata 分层保全。deterministic 571/571、lint/build PASS，模型调用 0。
 
+Final acceptance batch 1 已在 `ca9c65d…` 上固定执行 exactly 3 runs，0/3 complete；Match 结构性路径 3/3 HTTP 200。run 1/3 是 ISSUE-031 对合法 `MI-001 仅为部分满足` / described multi-MI `但均为部分满足` 的 R-C false positive；run 2 是 Strength/Gap 把“协助整理需求和测试”升级为部分支持“主导跨团队项目”，SG-B/SG-M 正确拒绝，repair 原样重复。三份 artifact 已保全且没有第 4 次。完整裁决见 `PHASE-2-4-FINAL-ACCEPTANCE-BATCH-1.md`。
+
 ## Execution sequence
 
 1. 建立 ISSUE-037 exact artifact replay 与正/反例 matrix。（完成）
@@ -43,10 +45,11 @@ Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS
 - Batch 2: exactly 3 runs / 1 completed chain; all artifacts preserved in `PHASE-2-4-AUTONOMOUS-BATCH-2.md`。
 - Baseline 3: focused 8/8、Match targeted 150/150、Recommendation targeted 86/86、full 23 files / 556 tests、lint、production build、diff/scope/secret checks PASS。
 - Batch 3: exactly 3 model-backed runs / 1 completed chain；另有一份 zero-call local preflight failure artifact，四份均 immutable preserved。完整裁决见 `PHASE-2-4-AUTONOMOUS-BATCH-3-STOP-ESCALATE.md`。
+- Final acceptance batch 1: exactly 3 model-backed runs / 0 completed chains；Match 3/3 accepted，Recommendation R-C residual 2 次、Strength/Gap generation-contract failure 1 次，三份 artifact immutable preserved。
 - Git worktree before plan creation: clean。
 - Latest artifact SHA-256: `5febd1400a781771d5f5cccb5414e2ef3ac40bfbc9ed9843f970f00afcb8fb82`。
 
 ## Remaining work
 
-- Commit the deterministic implementation and durable records, then run one new fixed exactly-three RB-05 final acceptance batch with no inter-run code changes。
-- If 3/3 clean, execute full Phase 2.4 closure audit and create `PHASE-2-4-FINAL-ACCEPTANCE.md`; otherwise preserve evidence and continue autonomous implementation-level stabilization。
+- Restabilize ISSUE-031 explicit status ownership grammar and ISSUE-038 Strength/Gap optional-transferable generation contract, then run the complete deterministic Gate。
+- Commit a new baseline and execute one new fixed exactly-three RB-05 batch with no inter-run code changes；only a 3/3 clean batch may proceed to full closure audit and `PHASE-2-4-FINAL-ACCEPTANCE.md`。

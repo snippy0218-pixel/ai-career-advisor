@@ -30,8 +30,8 @@
 ## Current status
 
 - Q-A backlog disposition：PASS / needs final ledger closure。
-- Q-B blocker closure：FAIL，ISSUE-028～037 尚未全部关闭；ISSUE-033 structural fix deterministic PASS / E2E pending。
-- Q-C full-chain robustness：FAIL，batch 3 为 1/3 complete。
+- Q-B blocker closure：FAIL，ISSUE-028～038 尚未全部关闭；ISSUE-033 Match runtime path 3/3 accepted，ISSUE-031/038 active stabilization。
+- Q-C full-chain robustness：FAIL，final acceptance batch 1 为 0/3 complete。
 - Q-D safe failure：PASS on recorded paths。
 - Q-E metrics：PASS / OBS-006 remains observation pending full chain。
 - Q-F evidence auditability：PASS on latest replacement artifact。
@@ -40,4 +40,4 @@
 - Q-I input/error handling：PASS。
 - Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。
 
-Current disposition: **FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE**. Freeze the new implementation commit, then execute a new exactly-three model-backed acceptance batch; Phase 2.5 remains NOT AUTHORIZED.
+Current disposition: **FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE**. Restabilize ISSUE-031/038, pass the complete deterministic Gate, freeze the new implementation commit, then execute a new exactly-three model-backed acceptance batch; Phase 2.5 remains NOT AUTHORIZED.
