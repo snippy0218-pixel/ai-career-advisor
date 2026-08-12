@@ -1,7 +1,7 @@
 # Phase 2.4 ISSUE-037 Match Meta-evidence Boundary Stabilization
 
-> Date: 2026-08-12  
-> Starting baseline: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`  
+> Date: 2026-08-12
+> Starting baseline: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`
 > Scope: internal Match deterministic validation and exact regression only
 
 ## Root cause

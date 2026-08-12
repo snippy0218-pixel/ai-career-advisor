@@ -250,3 +250,11 @@
 - repair terminal 原因是分号后的 meta-evidence clause“CF-004 仅否定正式工作经历，不构成……明确反证”被 M-CANDIDATE-LINEAGE 当作无 refs Candidate assertion；合法 dimension-local boundary 被 false-positive 拒绝；
 - 工程建议 ISSUE-035 `FIX VERIFIED`、ISSUE-036 `VERIFICATION INCONCLUSIVE`；ISSUE-029/032/033/034 preservation PASS；Recommendation/SG 未调用，ISSUE-028/030/031 inconclusive；
 - artifact `phase-2-4-post-035-036-replacement-rb-05.json`，SHA-256 `5febd1400a781771d5f5cccb5414e2ef3ac40bfbc9ed9843f970f00afcb8fb82`；历史 artifacts 未覆盖。Phase 2.4 remains BLOCKED；完整 evidence 见 `PHASE-2-4-POST-035-036-REPLACEMENT-RB-05.md`。
+
+## 23. ISSUE-037 Deterministic Stabilization（2026-08-12）
+
+- 最新高自治授权允许对可复现、不重复且 Contract 内行为明确的新 blocker 编号并自主闭环；建立 ISSUE-037 Match meta-evidence boundary false positive；
+- root cause：`candidateAssertionClauses` 将完整 unknown boundary 拆散后，把 `CF-004 仅否定正式工作经历` 与 `不构成……反证` 当作无 refs Candidate assertion；
+- bounded fix 分类 CF scope explanation 与 evidence-force boundary；前者必须满足 CF 存在、negative polarity 一致、normalized explained scope 由该 CF 支持；fabricated interpretation、missing CF、direct negative 与 cross-dimension negative 继续拒绝；
+- exact replacement artifact initial 继续失败，corrected repair PASS，unknown refs 保持空；E37-1～9、Match targeted 140/140、full 539/539、lint/build/diff/scope/secret PASS；模型调用/E2E 0；
+- implementation commit=`5dd7d06…`；ISSUE-037 建议 `LOCAL FIX VERIFIED / E2E PENDING`。Phase 2.4 仍 BLOCKED，下一步执行同一 frozen deterministic baseline 的固定三次 RB-05 evaluation batch；Phase 2.5 未授权。
