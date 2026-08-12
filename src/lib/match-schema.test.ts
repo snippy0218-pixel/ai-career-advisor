@@ -1836,6 +1836,225 @@ describe("ISSUE-035 evidence polarity in same-domain positive checks", () => {
   });
 });
 
+describe("ISSUE-037 Match meta-evidence boundary classification", () => {
+  type FixtureFacts = Parameters<typeof buildMatchFixture>[1];
+
+  const employmentNegative = {
+    statement: "没有正式数据产品工作经历",
+    semanticTags: ["experience"],
+  } satisfies FixtureFacts[number];
+
+  function unknownResult({
+    reason,
+    facts = [employmentNegative],
+    dimensionType = "domain",
+    requirementFragment = "数据产品",
+  }: {
+    reason: string;
+    facts?: FixtureFacts;
+    dimensionType?: RawMatchCore["matchItems"][number]["dimensions"][number]["dimensionType"];
+    requirementFragment?: string;
+  }) {
+    const requirement = requirementFragment;
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      facts,
+    );
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unknown",
+            dimensions: [
+              dimension({
+                dimensionType,
+                requirementFragment,
+                status: "unknown",
+                reason,
+                jdEvidence: [requirement],
+                candidateEvidence: [],
+                missingInformation: `${requirementFragment}相关证据未明确`,
+                verificationQuestion: `请补充${requirementFragment}相关证据。`,
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  function expectLineageFailure(result: ReturnType<typeof unknownResult>) {
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("M-CANDIDATE-LINEAGE") }),
+      ]),
+    );
+  }
+
+  it("E37-1 accepts a supported CF scope explanation inside an unknown boundary", () => {
+    const result = unknownResult({
+      reason:
+        "现有资料未表明候选人具有数据产品领域的经验；CF-001 仅否定正式工作经历，不构成对数据产品领域经验的明确反证。",
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E37-2 accepts an equivalent evidence-force explanation", () => {
+    const result = unknownResult({
+      reason:
+        "现有资料未表明候选人具有独立负责经验；CF-001 只说明没有正式工作经历，不能作为独立负责能力的反证。",
+      dimensionType: "responsibility",
+      requirementFragment: "独立负责",
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E37-3 rejects an unsupported Candidate negative after a valid boundary", () => {
+    expectLineageFailure(
+      unknownResult({
+        reason: "现有资料未表明候选人具有数据产品经验；候选人没有数据产品经验。",
+      }),
+    );
+  });
+
+  it("E37-4 rejects a fabricated fact interpretation disguised as meta-evidence", () => {
+    expectLineageFailure(
+      unknownResult({
+        reason: "现有资料未表明候选人精通 Python；CF-001 仅证明候选人精通 Python。",
+        dimensionType: "skill",
+        requirementFragment: "精通 Python",
+      }),
+    );
+  });
+
+  it("E37-5 rejects a meta-evidence statement that names a missing CF", () => {
+    expectLineageFailure(
+      unknownResult({
+        reason:
+          "现有资料未表明候选人具有数据产品经验；CF-999 仅否定正式工作经历。",
+      }),
+    );
+  });
+
+  it("E37-6 still rejects a direct cross-dimension inability conclusion", () => {
+    expectLineageFailure(
+      unknownResult({
+        reason:
+          "现有资料未表明候选人具有独立负责经验；CF-001 仅否定正式工作经历，候选人不能独立负责数据产品。",
+        dimensionType: "responsibility",
+        requirementFragment: "独立负责",
+      }),
+    );
+  });
+
+  it("E37-7 does not treat an unbounded evidence verb as a safe explanation", () => {
+    expectLineageFailure(
+      unknownResult({
+        reason: "现有资料未表明候选人具有数据产品经验；CF-001 证明候选人具有数据产品经验。",
+      }),
+    );
+  });
+});
+
+describe("ISSUE-037 exact replacement RB-05 Match artifact replay", () => {
+  interface ArtifactStage {
+    stage: string;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: string; rawText?: string }>;
+    } | null;
+  }
+
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-post-035-036-replacement-rb-05.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { results: Array<{ stages: ArtifactStage[] }> };
+  const matchEvidence = artifact.results[0].stages.find((stage) => stage.stage === "match")
+    ?.acceptanceDiagnostics?.outputEvidence;
+  const request = buildMatchFixture(
+    [
+      { content: "熟练掌握 Python", requirementType: "core_requirement" },
+      {
+        content: "具有独立负责数据产品的正式工作经验",
+        requirementType: "core_requirement",
+      },
+      {
+        content: "能主导跨团队项目并对个人交付结果负责",
+        requirementType: "core_requirement",
+      },
+      { content: "本科及以上学历", requirementType: "hard_requirement" },
+    ],
+    [
+      { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      {
+        statement: "没有正式数据产品工作经历",
+        semanticTags: ["experience"],
+      },
+    ],
+  );
+
+  function replay(stageName: "initial" | "repair") {
+    const rawText = matchEvidence?.find((entry) => entry.stage === stageName)?.rawText;
+    if (!rawText) throw new Error(`missing ${stageName} raw Match evidence`);
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(JSON.parse(rawText)),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  it("E37-8 keeps the exact initial unsupported cross-dimension claims rejected", () => {
+    const result = replay("initial");
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ path: "matchItems.1.dimensions.1.reason" }),
+        expect.objectContaining({ path: "matchItems.1.dimensions.2.reason" }),
+      ]),
+    );
+  });
+
+  it("E37-9 accepts the exact corrected repair without changing its empty unknown refs", () => {
+    const result = replay("repair");
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[1].requirementDimensions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          dimensionType: "employment_type",
+          status: "unmet",
+          candidateFactRefs: ["CF-004"],
+        }),
+        expect.objectContaining({
+          dimensionType: "domain",
+          status: "unknown",
+          candidateFactRefs: [],
+        }),
+        expect.objectContaining({
+          dimensionType: "responsibility",
+          status: "unknown",
+          candidateFactRefs: [],
+        }),
+      ]),
+    );
+  });
+});
+
 describe("post-035/036 exact Match artifact replay", () => {
   interface ArtifactStage {
     stage: string;

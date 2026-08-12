@@ -247,6 +247,11 @@ const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
   /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|不符合).{0,24}(?:要求|条件|门槛|标准)|(?:要求|条件|门槛|标准).{0,12}(?:未满足|不满足|不符|不符合|不一致|冲突)/;
 const CLAIM_CLAUSE_SEPARATOR = /[，。；;！？!?]|(?:\s|^)(?:但|且|并且|同时)(?:\s|$)/;
 const JD_ONLY_CLAIM_PATTERN = /(?:JD|岗位|职位|任职).{0,10}(?:要求|需要|门槛|标准)/i;
+const EVIDENCE_SCOPE_EXPLANATION_PATTERN =
+  /(?:仅|只)(?:能|可)?(?:表明|说明|证明|否定|支持|反映)/;
+const EVIDENCE_FORCE_BOUNDARY_PATTERN =
+  /(?:不构成|不能作为|无法作为|不足以作为).{0,36}(?:正证|反证|证据|支持)/;
+const CANDIDATE_FACT_REFERENCE_PATTERN = /CF-\d{3,}/g;
 const NON_DISTINCTIVE_CLAIM_ANCHORS = new Set([
   "候选",
   "选人",
@@ -277,7 +282,39 @@ const DISTINCTIVE_SHORT_CLAIM_ANCHORS = new Set([
   "课程",
 ]);
 
-function candidateAssertionClauses(content: string) {
+function isSupportedEvidenceRelationExplanation(
+  clause: string,
+  factById: Map<string, FinalCanonicalCandidateFact>,
+) {
+  if (EVIDENCE_FORCE_BOUNDARY_PATTERN.test(clause)) return true;
+  if (!EVIDENCE_SCOPE_EXPLANATION_PATTERN.test(clause)) return false;
+
+  const factIds = [...new Set(clause.match(CANDIDATE_FACT_REFERENCE_PATTERN) ?? [])];
+  if (factIds.length === 0) return false;
+  const referencedFacts = factIds.map((factId) => factById.get(factId));
+  if (referencedFacts.some((fact) => !fact)) return false;
+  if (
+    clause.includes("否定") &&
+    referencedFacts.some((fact) => fact && candidateFactPolarity(fact.statement) !== "counter")
+  ) {
+    return false;
+  }
+
+  const explainedScope = normalizedClaimText(
+    clause
+      .replace(CANDIDATE_FACT_REFERENCE_PATTERN, "")
+      .replace(EVIDENCE_SCOPE_EXPLANATION_PATTERN, ""),
+  );
+  if (explainedScope.length < 2) return false;
+  return referencedFacts.every(
+    (fact) => fact && normalizedClaimText(fact.statement).includes(explainedScope),
+  );
+}
+
+function candidateAssertionClauses(
+  content: string,
+  factById: Map<string, FinalCanonicalCandidateFact>,
+) {
   return content
     .split(CLAIM_CLAUSE_SEPARATOR)
     .map((clause) => clause.trim())
@@ -287,7 +324,8 @@ function candidateAssertionClauses(content: string) {
         (CANDIDATE_ASSERTION_PATTERN.test(clause) ||
           REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)) &&
         !JD_ONLY_CLAIM_PATTERN.test(clause) &&
-        !EVIDENCE_BOUNDARY_PATTERN.test(clause),
+        !EVIDENCE_BOUNDARY_PATTERN.test(clause) &&
+        !isSupportedEvidenceRelationExplanation(clause, factById),
     );
 }
 
@@ -668,7 +706,7 @@ export function finalizeRawMatchCore(
         const fact = factById.get(factId);
         return fact ? [{ factId, statement: fact.statement }] : [];
       });
-      const factualClauses = candidateAssertionClauses(dimension.reason);
+      const factualClauses = candidateAssertionClauses(dimension.reason, factById);
       for (const clause of factualClauses) {
         if (referencedFacts.length === 0) {
           addIssue(
