@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it, vi } from "vitest";
 
 import { ApiError } from "./api-errors";
@@ -170,15 +172,15 @@ describe("analyzeMatchWithDeepSeek", () => {
       matchItems: [
         {
           requirementId: "REQ-001",
-          aggregateStatus: "unknown",
+          aggregateStatus: "unmet",
           dimensions: [
             {
               ...validRaw.matchItems[0].dimensions[0],
-              status: "unknown",
-              reason: "候选人明确具备本科学历。",
-              candidateEvidence: [],
-              missingInformation: "尚未提供更多学历证明。",
-              verificationQuestion: "请确认学历信息？",
+              status: "unmet",
+              reason: "候选人没有本科学历。",
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
             },
           ],
         },
@@ -516,14 +518,19 @@ describe("analyzeMatchWithDeepSeek", () => {
     const repairBody = JSON.parse(
       String((fetchImpl.mock.calls[1][1] as RequestInit).body),
     ) as { messages: Array<{ content: string }> };
-    expect(repairBody.messages[1].content).toContain("M-CANDIDATE-LINEAGE 专项修复");
+    expect(repairBody.messages[1].content).toContain(
+      "M-CANDIDATE-LINEAGE / M-K 专项修复",
+    );
     expect(repairBody.messages[1].content).toContain("不得换用另一种否定措辞");
     expect(repairBody.messages[1].content).toContain(
-      "现有资料未表明候选人具有独立负责数据产品的经验",
+      "positive CF 不得使用此例外",
+    );
+    expect(repairBody.messages[1].content).not.toContain(
+      "候选人与四人团队共同完成数据展示作业并协助整理需求和测试，但现有证据不足以证明其担任主导角色",
     );
   });
 
-  it("G33-10 remains fail-closed when repair keeps the unsupported negative", async () => {
+  it("G33-10 normalizes a repeated unsupported partial claim to unknown and revalidates", async () => {
     const requirement = "主导跨团队项目并对个人交付结果负责";
     const request = buildMatchFixture(
       [{ content: requirement, requirementType: "core_requirement" }],
@@ -558,26 +565,150 @@ describe("analyzeMatchWithDeepSeek", () => {
     const fetchImpl = vi.fn(async () => completion(invalid));
     let diagnostics: MatchDiagnostics | null = null;
 
-    await expect(
-      analyzeMatchWithDeepSeek(request, {
-        apiKey: "test-key",
-        fetchImpl,
-        captureRejectedEvidence: true,
-        onDiagnostics: (value) => {
-          diagnostics = value;
-        },
-      }),
-    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" });
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
 
     expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.matchItems[0].requirementDimensions[0]).toMatchObject({
+      status: "unknown",
+      candidateFactRefs: [],
+      reason: "现有资料无法确认该维度是否满足。",
+    });
     expect(diagnostics).toMatchObject({
       matchRepairAttempted: true,
-      matchRepairSucceeded: false,
-      repairState: "rejected",
+      matchRepairSucceeded: true,
+      repairState: "accepted",
+      repairAttempt: { validationResult: "failed" },
+      matchNormalizationAttempted: true,
+      matchNormalizationSucceeded: true,
+      normalizationActions: [
+        expect.objectContaining({
+          previousStatus: "partial",
+          normalizedStatus: "unknown",
+          removedCandidateFactRefs: ["CF-001"],
+        }),
+      ],
+      normalizedRepairOutput: expect.any(Object),
       outputEvidence: [
         expect.objectContaining({ stage: "initial", rejected: true }),
         expect.objectContaining({ stage: "repair", rejected: true }),
       ],
+    });
+  });
+
+  it("G33-10B removes positive CF narration from an unknown repair without adding refs", async () => {
+    const requirement = "主导跨团队项目";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unknown",
+          dimensions: [
+            {
+              dimensionType: "responsibility",
+              requirementFragment: requirement,
+              status: "unknown",
+              reason:
+                "现有资料未表明候选人主导过跨团队项目。CF-001 仅表明参与团队作业并协助测试，未体现主导。",
+              jdEvidence: [requirement],
+              candidateEvidence: [],
+              missingInformation: "是否有主导经历仍需确认",
+              verificationQuestion: "请说明是否有主导经历？",
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(result.matchItems[0].requirementDimensions[0]).toMatchObject({
+      status: "unknown",
+      candidateFactRefs: [],
+      reason: "现有资料无法确认该维度是否满足。",
+    });
+    expect(diagnostics).toMatchObject({
+      matchNormalizationSucceeded: true,
+      normalizedRepairOutput: expect.any(Object),
+      modelMetadata: {
+        model: "deepseek-v4-flash",
+        temperature: 0.1,
+        maxOutputTokens: 8192,
+      },
+    });
+  });
+
+  it("G33-10C preserves legitimate ownership wording backed by the canonical fact", async () => {
+    const requirement = "对个人交付结果负责";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "我独立负责个人交付结果并承担最终责任",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const valid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "met",
+          dimensions: [
+            {
+              dimensionType: "responsibility",
+              requirementFragment: requirement,
+              status: "met",
+              reason: "CF-001 表明我独立负责个人交付结果并承担最终责任。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(valid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(result.matchItems[0].status).toBe("met");
+    expect(diagnostics).toMatchObject({
+      matchRepairAttempted: false,
+      matchNormalizationAttempted: false,
+      matchNormalizationSucceeded: false,
     });
   });
 
@@ -682,7 +813,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       "explicit counter-evidence 只能支持它自身的 semantic dimension",
     );
     expect(repairBody.messages[1].content).toContain(
-      "没有正式工作经历，与独立负责要求冲突",
+      "没有正式工作经历，因此无法独立负责",
     );
   });
 
@@ -713,4 +844,117 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     });
   });
+});
+
+describe("Phase 2.4 batch-3 Match generation-contract recovery", () => {
+  interface ArtifactStage {
+    stage: string;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: "initial" | "repair"; rawText?: string }>;
+    } | null;
+  }
+
+  function savedOutputs(run: 1 | 3) {
+    const artifact = JSON.parse(
+      readFileSync(
+        new URL(
+          `../../docs/acceptance-artifacts/phase-2-4-autonomous-baseline-3-rb-05-batch-model-run-${run}.json`,
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    ) as { results: Array<{ stages: ArtifactStage[] }> };
+    const evidence = artifact.results[0].stages.find(
+      (stage) => stage.stage === "match",
+    )?.acceptanceDiagnostics?.outputEvidence;
+    const initial = evidence?.find((entry) => entry.stage === "initial")?.rawText;
+    const repair = evidence?.find((entry) => entry.stage === "repair")?.rawText;
+    if (!initial || !repair) throw new Error(`missing batch-3 run-${run} Match raw`);
+    return { initial: JSON.parse(initial), repair: JSON.parse(repair) };
+  }
+
+  function request() {
+    return buildMatchFixture(
+      [
+        { content: "熟练掌握 Python", requirementType: "core_requirement" },
+        {
+          content: "具有独立负责数据产品的正式工作经验",
+          requirementType: "core_requirement",
+        },
+        {
+          content: "能主导跨团队项目并对个人交付结果负责",
+          requirementType: "core_requirement",
+        },
+        { content: "本科及以上学历", requirementType: "hard_requirement" },
+      ],
+      [
+        { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+        {
+          statement: "课程项目：在课程中了解 Python 基础语法",
+          semanticTags: ["project_experience", "skill_usage"],
+        },
+        {
+          statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+          semanticTags: ["experience"],
+        },
+        { statement: "没有正式数据产品工作经历", semanticTags: ["experience"] },
+      ],
+    );
+  }
+
+  it.each([1, 3] as const)(
+    "B3-%s preserves raw/repair rejection and accepts only the revalidated normalized Match",
+    async (run) => {
+      const outputs = savedOutputs(run);
+      const fetchImpl = vi
+        .fn()
+        .mockResolvedValueOnce(completion(outputs.initial))
+        .mockResolvedValueOnce(completion(outputs.repair));
+      let diagnostics: MatchDiagnostics | null = null;
+
+      const result = await analyzeMatchWithDeepSeek(request(), {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      });
+
+      expect(fetchImpl).toHaveBeenCalledTimes(2);
+      expect(result.matchItems).toHaveLength(4);
+      expect(result.matchItems[1].requirementDimensions).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            dimensionType: "employment_type",
+            status: "unmet",
+            candidateFactRefs: ["CF-004"],
+          }),
+        ]),
+      );
+      expect(
+        result.matchItems.flatMap((item) => item.requirementDimensions),
+      ).not.toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            reason: expect.stringMatching(/个人交付的正证|体现了一定的个人职责/),
+          }),
+        ]),
+      );
+      expect(diagnostics).toMatchObject({
+        matchRepairAttempted: true,
+        matchRepairSucceeded: true,
+        repairAttempt: { validationResult: "failed" },
+        matchNormalizationAttempted: true,
+        matchNormalizationSucceeded: true,
+        normalizationValidationIssues: [],
+        normalizedRepairOutput: expect.any(Object),
+        outputEvidence: [
+          expect.objectContaining({ stage: "initial", rejected: true }),
+          expect.objectContaining({ stage: "repair", rejected: true }),
+        ],
+      });
+      expect(diagnostics?.repairValidationIssues).not.toEqual([]);
+    },
+  );
 });

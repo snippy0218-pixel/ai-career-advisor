@@ -9,7 +9,7 @@
 - 详细执行状态：`PHASE-2-4-AUTONOMOUS-PLAN.md`。
 - Issue 状态：`ISSUE-LEDGER.md`。
 - Gate 定义与当前证据：`QA-GATES.md`。
-- 当前冻结 deterministic implementation：`4c12ed6…`；batch 3 固定三次为 1/3 complete，同一 broad status/lineage/semantic-ownership root 的 3/3 stabilization budget 已耗尽。当前 **STOP & ESCALATE**，等待 Product Owner / QA disposition；不得继续实现、抽样或进入 Phase 2.5。
+- Product Owner / QA 已废弃 per-cycle stopping model并恢复 Phase 2.4 持续自治。ISSUE-033 generation-contract structural stabilization 已完成 deterministic Gate（571/571）；下一步冻结 implementation commit 后执行新的 exactly-3 final acceptance batch。Phase 2.5 仍未授权。
 
 ## Execution discipline
 

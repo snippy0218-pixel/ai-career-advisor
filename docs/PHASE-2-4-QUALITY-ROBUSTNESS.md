@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～ISSUE-037
+> 状态：FAIL / BLOCKED ON ISSUE-028～ISSUE-037 / AUTONOMOUS STABILIZATION ACTIVE
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -30,7 +30,7 @@
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
 | ISSUE-032 | runner 将 missing diagnostics 聚合为 0、未运行 invariants 判 pass、未调用 stage 省略；post-035/036 又暴露 preflight-failed artifact `results=[]`、六阶段 absent | business-failure path 已 E2E verified；precheck path 现复用同一 stage/invariant model，P32-1～12 与 historical reconstruction PASS | **Open / P1 / E2E Verified on Business-failure Path / Precheck-path Locally Restabilized / QA Review Pending** | **是** |
-| ISSUE-033 | Match repair 将 unsupported Candidate claim 改写为合法 uncertainty/evidence boundary 的稳定性；原始证据为 unsupported negative | batch 3 run 1/3 repairs 均保留 positive CF narration in unknown refs=[]，并生成 unsupported `个人交付/个人职责` ownership synthesis；lineage/M-K 正确 fail-closed | **Open / P1 / Repair Robustness Not Verified / 3-Cycle Budget Exhausted / Stop & Escalate** | **是** |
+| ISSUE-033 | Match generation/repair 将 unsupported Candidate claim 改写为合法 uncertainty/evidence boundary 的稳定性 | root 为 system/repair example 冲突 + ownership failure 无字段 transition；v1.5 统一状态语言并增加 terminal conservative normalization + full revalidation，571/571 PASS | **Open / P1 / Structural Fix Deterministic PASS / Final 3-Run Pending** | **是** |
 | ISSUE-034 | supported formal-work relation false positive 与 sibling relation leakage | runtime 合法 employment relation 未拒绝，非法 domain/responsibility relation 未进入 repaired path | **Open / P1 / Fix Verified at Relation Runtime / Closure Pending** | **是** |
 | ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS；post-fix E2E 在 capability preflight 前置条件失败，业务 Match 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-036 | `仅参与部分工作` 的 generic noun 被 M-K 裸 `工作` regex 误认 employment_type | bounded phrase classifier；claim/evidence 两侧同一 ownership 语义；M36-1～12 与 exact replay PASS；post-fix E2E 在 capability preflight 前置条件失败，M-K runtime 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
@@ -130,7 +130,7 @@
 | Q-I | PASS | no silent truncation；limits/error mapping 通过 |
 | Q-J | **FAIL** | release-blocking P1 ISSUE-028～034 仍 OPEN；Phase 2.5 未授权 |
 
-当前 Gate：**FAIL / STOP & ESCALATE / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**。ISSUE-033/034 bounded stabilization 已取得 local deterministic evidence，但没有 runtime/E2E closure evidence；不得自行运行 RB-05、关闭 Issue、授权 Phase 2.5 或降低 Gate。下一步仅能等待 Product Owner / QA Review 与新的明确 E2E 授权。
+该历史 Gate 后续已被 §29 的 Product Owner / QA 持续自治 decision supersede。当前仍为 **FAIL / PHASE 2.4 BLOCKED / NOT READY FOR PHASE 2.5**，但不再等待逐轮授权；按最新 Gate 冻结 structural implementation 后执行 exactly-three final acceptance batch，且不得降低任何真实性/evidence Gate。
 
 ## 9. ISSUE-029 Bounded Stabilization Result（2026-08-11）
 
@@ -298,3 +298,12 @@
 - 两个 repair 都在 unknown refs=[] 中重复 positive CF-003 factual narration，违反 frozen unknown-reason rule，随后被 `M-CANDIDATE-LINEAGE explicit Candidate Fact reference missing` 正确拒绝；
 - 两个 repair 也都将“协助整理需求和测试”升级为 `个人交付/个人职责` 正证并被 M-K 正确拒绝；原 ISSUE-037 合法 CF-004 explicit-negative boundary 均被接受，阻断归于 ISSUE-033 repair-generation unsupported-claim/ownership robustness；
 - broad status/lineage/semantic-ownership root 的 3/3 implementation budget 已耗尽。当前 **STOP & ESCALATE**，不再改实现、不再 model sampling、不进入 Phase 2.5。完整证据见 `PHASE-2-4-AUTONOMOUS-BATCH-3-STOP-ESCALATE.md`。
+
+## 29. Match Generation-Contract Structural Stabilization（2026-08-12）
+
+- Product Owner / QA 正式废弃 3-cycle stopping condition，要求继续 Phase 2.4 autonomy；
+- root audit：system rule 17 禁止 unknown positive narration，但 repair “GOOD” example 反向鼓励该输出；M-K ownership failure 缺少强制 status/ref transition，模型在自然化改写时制造 `个人职责/个人交付正证`；
+- Match core/repair v1.5 共用 status-language matrix；M-K-only 亦触发字段级 repair；无 canonical ownership qualifier 时 met/partial 必须改 unknown/refs=[]；
+- terminal normalization 只处理 repair 已被 lineage/M-K 拒绝的 reason：unknown 重建无 Candidate claim reason，met/partial 保守降 unknown，unmet/引用/schema/非 reason 错误不处理；之后完整重跑全部 Match validator；
+- acceptance diagnostics 保存 raw initial、raw repair、normalized repair、actions、post-normalization issues 与 model metadata；normalized full body 不进入 header；
+- targeted 191/191、full 571/571、lint 0 warning、production build、diff/secret PASS；exact batch-3 run 1/3 replay 均经 raw/repair rejection 后 normalized full validation PASS；model calls 0。详见 `PHASE-2-4-MATCH-GENERATION-CONTRACT-STABILIZATION.md`。

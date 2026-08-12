@@ -3,7 +3,7 @@
 > Updated: 2026-08-12
 > Branch / starting HEAD: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`
 > Deterministic implementation commit: `4c12ed6…`
-> Formal phase state: `FAIL / STOP & ESCALATE / BLOCKED`; Phase 2.5 `NOT AUTHORIZED`
+> Formal phase state: `FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE`; Phase 2.5 `NOT AUTHORIZED`
 
 ## Objective
 
@@ -21,6 +21,8 @@ Batch 2 在第二 deterministic baseline 上固定执行 3 次，1/3 complete。
 第三 deterministic baseline 完成 bounded architecture review：Match 与 M-K 共用 evidence-force 语义；显式 `CF-xxx 表明/涉及/...` factual narration 强制进入 structured-ref ownership 与 dimension-local review；Recommendation R-C 解析带描述括号的 prefix MI group 并逐项校验。这是同一 broad status/lineage lexical root 的第 3/3、最后 implementation cycle。
 
 Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS；run 1/3 均在 Match repair 后 502。两次 repair 都在 unknown refs=[] 中重复 positive CF-003 factual narration，违反 frozen unknown-reason rule，并都包含 CF-003 无法支持的 `个人交付/个人职责` ownership upgrade；lineage/M-K 均正确 fail-closed。原 ISSUE-037 合法 CF-004 explicit-negative meta boundary 在两次 repair 均被接受。该 broad root 的 3-cycle budget 已耗尽，正式 STOP & ESCALATE。
+
+最新 Product Owner / QA Gate 已明确废弃 3-cycle stop condition，并要求将 ISSUE-033 作为完整 Match generation-contract robustness problem治理。结构性修复已完成：raw/repair v1.5 共享 status-language matrix；一次被拒 repair 后仅对 lineage/M-K reason 进行 bounded conservative normalization，之后重跑全部 validator；raw/repair/normalized/model metadata 分层保全。deterministic 571/571、lint/build PASS，模型调用 0。
 
 ## Execution sequence
 
@@ -46,5 +48,5 @@ Batch 3 固定执行 3 次，1/3 complete。run 2 完成全链且 X-A～X-J PASS
 
 ## Remaining work
 
-- Product Owner / QA adjudication of the exhausted broad lineage/semantic-ownership root and the required next authority boundary。
-- Do not modify implementation, run another model sample, create another baseline, close Phase 2.4, or enter Phase 2.5 without a new Gate decision。
+- Commit the deterministic implementation and durable records, then run one new fixed exactly-three RB-05 final acceptance batch with no inter-run code changes。
+- If 3/3 clean, execute full Phase 2.4 closure audit and create `PHASE-2-4-FINAL-ACCEPTANCE.md`; otherwise preserve evidence and continue autonomous implementation-level stabilization。

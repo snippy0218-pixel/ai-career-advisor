@@ -17,7 +17,12 @@ import {
   type FinalMatchCore,
   type MatchCoreRequest,
   type MatchValidationIssue,
+  type RawMatchCore,
 } from "./match-schema";
+import {
+  normalizeRejectedMatchReasons,
+  type MatchNormalizationAction,
+} from "./match-normalization";
 import { buildMatchMessages, buildMatchRepairMessages } from "./match-prompt";
 
 const DEFAULT_BASE_URL = "https://api.deepseek.com";
@@ -26,6 +31,7 @@ const TOTAL_TIMEOUT_MS = 90_000;
 const MAX_ATTEMPTS = 2;
 const RETRY_DELAY_MS = 500;
 const MAX_OUTPUT_TOKENS = 8192;
+const MATCH_TEMPERATURE = 0.1;
 
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
@@ -37,6 +43,11 @@ export interface MatchDiagnostics {
   matchRepairSucceeded: boolean;
   initialValidationIssues: MatchValidationIssue[];
   repairValidationIssues: MatchValidationIssue[];
+  matchNormalizationAttempted: boolean;
+  matchNormalizationSucceeded: boolean;
+  normalizationActions: MatchNormalizationAction[];
+  normalizationValidationIssues: MatchValidationIssue[];
+  normalizedRepairOutput: RawMatchCore | null;
   finalSchemaValidationPassed: boolean;
   jdEvidenceValidationPassed: boolean;
   candidateEvidenceValidationPassed: boolean;
@@ -54,6 +65,11 @@ export interface MatchDiagnostics {
   repairState: RepairLifecycleState;
   repairAttempt: GenerationAttemptDiagnostics;
   outputEvidence: MatchOutputEvidence[];
+  modelMetadata: {
+    model: string;
+    temperature: number;
+    maxOutputTokens: number;
+  };
 }
 
 export interface MatchOptions {
@@ -117,7 +133,7 @@ async function requestCompletion(
           thinking: { type: "disabled" },
           stream: false,
           response_format: { type: "json_object" },
-          temperature: 0.1,
+          temperature: MATCH_TEMPERATURE,
           max_tokens: MAX_OUTPUT_TOKENS,
         }),
         cache: "no-store",
@@ -301,17 +317,27 @@ function schemaIssues(error: { issues: Array<{ path: PropertyKey[]; message: str
 function validateOutput(
   parsed: unknown,
   request: MatchCoreRequest,
-): { data: FinalMatchCore | null; issues: MatchValidationIssue[]; rawValid: boolean } {
+): {
+  data: FinalMatchCore | null;
+  issues: MatchValidationIssue[];
+  rawValid: boolean;
+  raw: RawMatchCore | null;
+} {
   const rawResult = rawMatchCoreSchema.safeParse(parsed);
   if (!rawResult.success) {
-    return { data: null, issues: schemaIssues(rawResult.error), rawValid: false };
+    return {
+      data: null,
+      issues: schemaIssues(rawResult.error),
+      rawValid: false,
+      raw: null,
+    };
   }
   const finalized = finalizeRawMatchCore(
     rawResult.data,
     request.jobAnalysis,
     request.candidateProfile,
   );
-  return { ...finalized, rawValid: true };
+  return { ...finalized, rawValid: true, raw: rawResult.data };
 }
 
 function fillSuccessDiagnostics(
@@ -354,6 +380,11 @@ export async function analyzeMatchWithDeepSeek(
     matchRepairSucceeded: false,
     initialValidationIssues: [],
     repairValidationIssues: [],
+    matchNormalizationAttempted: false,
+    matchNormalizationSucceeded: false,
+    normalizationActions: [],
+    normalizationValidationIssues: [],
+    normalizedRepairOutput: null,
     finalSchemaValidationPassed: false,
     jdEvidenceValidationPassed: false,
     candidateEvidenceValidationPassed: false,
@@ -371,6 +402,11 @@ export async function analyzeMatchWithDeepSeek(
     repairState: "not_attempted",
     repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
+    modelMetadata: {
+      model: configuration.model,
+      temperature: MATCH_TEMPERATURE,
+      maxOutputTokens: MAX_OUTPUT_TOKENS,
+    },
   };
 
   try {
@@ -520,13 +556,35 @@ export async function analyzeMatchWithDeepSeek(
         diagnostics.repairAttempt.failureCategory = "parse";
         diagnostics.repairAttempt.rejectionReason = "JSON_PARSE_ERROR";
       }
-      validation = validateOutput(repairParsed, request);
-      diagnostics.repairAttempt.validationResult = validation.data
+      const rawRepairValidation = validateOutput(repairParsed, request);
+      diagnostics.repairAttempt.validationResult = rawRepairValidation.data
         ? "passed"
         : "failed";
-      diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
+      diagnostics.repairValidationIssues = rawRepairValidation.issues.map((issue) => ({
         ...issue,
       }));
+      validation = rawRepairValidation;
+      if (!rawRepairValidation.data && rawRepairValidation.raw) {
+        const normalization = normalizeRejectedMatchReasons(
+          rawRepairValidation.raw,
+          rawRepairValidation.issues,
+        );
+        diagnostics.matchNormalizationAttempted = normalization.applied;
+        diagnostics.normalizationActions = normalization.actions.map((action) => ({
+          ...action,
+          issueCodes: [...action.issueCodes],
+          removedCandidateFactRefs: [...action.removedCandidateFactRefs],
+        }));
+        if (normalization.applied) {
+          diagnostics.normalizedRepairOutput = normalization.data;
+          const normalizedValidation = validateOutput(normalization.data, request);
+          diagnostics.normalizationValidationIssues =
+            normalizedValidation.issues.map((issue) => ({ ...issue }));
+          diagnostics.matchNormalizationSucceeded =
+            normalizedValidation.data !== null;
+          validation = normalizedValidation;
+        }
+      }
       diagnostics.matchRepairSucceeded = validation.data !== null;
       diagnostics.repairState = validation.data ? "accepted" : "rejected";
       if (!validation.data && diagnostics.repairAttempt.failureStage !== "parse") {
@@ -543,7 +601,7 @@ export async function analyzeMatchWithDeepSeek(
         diagnostics.outputEvidence.push(
           captureMatchOutputEvidence({
             stage: "repair",
-            rejected: validation.data === null,
+            rejected: rawRepairValidation.data === null,
             rawText: repairContent,
             parsedOutput: repairParsed,
             parseError:
@@ -552,15 +610,15 @@ export async function analyzeMatchWithDeepSeek(
               "invalidJson" in repairParsed
                 ? "JSON_PARSE_ERROR"
                 : null,
-            validationIssues: validation.issues,
-            rawSchemaValid: validation.rawValid,
+            validationIssues: rawRepairValidation.issues,
+            rawSchemaValid: rawRepairValidation.rawValid,
             finishReason: repairFinishReason,
-            failureStage: validation.data
+            failureStage: rawRepairValidation.data
               ? null
-              : diagnostics.repairAttempt.failureStage,
-            failureCategory: validation.data
+              : "semantic_validation",
+            failureCategory: rawRepairValidation.data
               ? null
-              : diagnostics.repairAttempt.failureCategory,
+              : "semantic_validation",
             secrets: [apiKey],
           }),
         );
@@ -591,6 +649,17 @@ export async function analyzeMatchWithDeepSeek(
       outputEvidence: diagnostics.outputEvidence.map((evidence) => ({
         ...evidence,
       })),
+      normalizationActions: diagnostics.normalizationActions.map((action) => ({
+        ...action,
+        issueCodes: [...action.issueCodes],
+        removedCandidateFactRefs: [...action.removedCandidateFactRefs],
+      })),
+      normalizationValidationIssues:
+        diagnostics.normalizationValidationIssues.map((issue) => ({ ...issue })),
+      normalizedRepairOutput: diagnostics.normalizedRepairOutput
+        ? structuredClone(diagnostics.normalizedRepairOutput)
+        : null,
+      modelMetadata: { ...diagnostics.modelMetadata },
       initialAttempt: { ...diagnostics.initialAttempt },
       repairAttempt: { ...diagnostics.repairAttempt },
     });

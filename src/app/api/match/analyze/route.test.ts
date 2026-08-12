@@ -121,11 +121,13 @@ describe("POST /api/match/analyze", () => {
       { stage: "initial", rejected: true, rawText: "rejected output" },
       { stage: "repair", rejected: false, rawText: "accepted repair" },
     ];
+    const normalizedRepairOutput = { matchItems: [] };
     analyzeMatchWithDeepSeek.mockImplementation(
       async (_request, options) => {
         options.onDiagnostics({
           upstreamAttempts: 2,
           outputEvidence,
+          normalizedRepairOutput,
         });
         return data;
       },
@@ -141,6 +143,9 @@ describe("POST /api/match/analyze", () => {
     const body = await response.json();
     expect(response.status).toBe(200);
     expect(body.acceptanceDiagnostics.outputEvidence).toEqual(outputEvidence);
+    expect(body.acceptanceDiagnostics.normalizedRepairOutput).toEqual(
+      normalizedRepairOutput,
+    );
     const header = JSON.parse(
       Buffer.from(
         String(response.headers.get("X-Match-Acceptance-Diagnostics")),
@@ -148,6 +153,7 @@ describe("POST /api/match/analyze", () => {
       ).toString("utf8"),
     );
     expect(header.outputEvidence).toBeUndefined();
+    expect(header.normalizedRepairOutput).toBeUndefined();
     expect(analyzeMatchWithDeepSeek).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({ captureRejectedEvidence: true }),

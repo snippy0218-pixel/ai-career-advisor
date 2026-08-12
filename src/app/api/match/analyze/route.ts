@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       const headerDiagnostics = {
         ...diagnosticsForAcceptance,
         outputEvidence: undefined,
+        normalizedRepairOutput: undefined,
       };
       headers["X-Match-Acceptance-Diagnostics"] = Buffer.from(
         JSON.stringify(headerDiagnostics),
