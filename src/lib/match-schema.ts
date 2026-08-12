@@ -14,6 +14,7 @@ import {
   findCrossFactModifierContamination,
   findUnsupportedModifiers,
 } from "./modifier-integrity";
+import { isEvidenceForceBoundaryClause } from "./candidate-claim-semantics";
 
 export const MATCH_SCHEMA_VERSION = "match-core-v1" as const;
 
@@ -249,9 +250,9 @@ const CLAIM_CLAUSE_SEPARATOR = /[，。；;！？!?]|(?:\s|^)(?:但|且|并且|�
 const JD_ONLY_CLAIM_PATTERN = /(?:JD|岗位|职位|任职).{0,10}(?:要求|需要|门槛|标准)/i;
 const EVIDENCE_SCOPE_EXPLANATION_PATTERN =
   /(?:仅|只)(?:能|可)?(?:表明|说明|证明|否定|支持|反映)/;
-const EVIDENCE_FORCE_BOUNDARY_PATTERN =
-  /(?:不构成|不能作为|无法作为|不足以作为).{0,36}(?:正证|反证|证据|支持)/;
 const CANDIDATE_FACT_REFERENCE_PATTERN = /CF-\d{3,}/g;
+const EXPLICIT_CF_FACT_ASSERTION_PATTERN =
+  /CF-\d{3,}.{0,36}(?:表明|说明|显示|涉及|参与|协助|完成|负责|拥有|具备|掌握|熟悉|学历|经历|经验|项目|作业|正式工作|课程|团队)/;
 const NON_DISTINCTIVE_CLAIM_ANCHORS = new Set([
   "候选",
   "选人",
@@ -286,7 +287,7 @@ function isSupportedEvidenceRelationExplanation(
   clause: string,
   factById: Map<string, FinalCanonicalCandidateFact>,
 ) {
-  if (EVIDENCE_FORCE_BOUNDARY_PATTERN.test(clause)) return true;
+  if (isEvidenceForceBoundaryClause(clause)) return true;
   if (!EVIDENCE_SCOPE_EXPLANATION_PATTERN.test(clause)) return false;
 
   const factIds = [...new Set(clause.match(CANDIDATE_FACT_REFERENCE_PATTERN) ?? [])];
@@ -322,7 +323,8 @@ function candidateAssertionClauses(
       (clause) =>
         clause.length > 0 &&
         (CANDIDATE_ASSERTION_PATTERN.test(clause) ||
-          REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)) &&
+          REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause) ||
+          EXPLICIT_CF_FACT_ASSERTION_PATTERN.test(clause)) &&
         !JD_ONLY_CLAIM_PATTERN.test(clause) &&
         !EVIDENCE_BOUNDARY_PATTERN.test(clause) &&
         !isSupportedEvidenceRelationExplanation(clause, factById),
@@ -723,6 +725,20 @@ export function finalizeRawMatchCore(
       });
       const factualClauses = candidateAssertionClauses(dimension.reason, factById);
       for (const clause of factualClauses) {
+        const explicitFactIds = [
+          ...new Set(clause.match(CANDIDATE_FACT_REFERENCE_PATTERN) ?? []),
+        ];
+        const unreferencedFactIds = explicitFactIds.filter(
+          (factId) => !factRefs.includes(factId),
+        );
+        if (unreferencedFactIds.length > 0) {
+          addIssue(
+            issues,
+            `${dimensionPath}.reason`,
+            `M-CANDIDATE-LINEAGE explicit Candidate Fact reference missing from candidateEvidence: ${unreferencedFactIds.join(", ")}`,
+          );
+          continue;
+        }
         if (referencedFacts.length === 0) {
           addIssue(
             issues,

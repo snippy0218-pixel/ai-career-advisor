@@ -273,4 +273,37 @@ describe("Modifier Inference Contract", () => {
       ]),
     );
   });
+
+  it("M37-1 ignores a requirement qualifier inside an evidence-force boundary", () => {
+    expect(
+      findCrossFactModifierContamination(
+        "CF-002 表明在课程中了解 Python 基础语法，不足以构成熟练掌握的正证。",
+        [
+          {
+            factId: "CF-002",
+            statement: "课程项目：在课程中了解 Python 基础语法",
+          },
+        ],
+      ),
+    ).toEqual([]);
+  });
+
+  it("M37-2 still rejects an asserted proficiency upgrade", () => {
+    expect(
+      findCrossFactModifierContamination("CF-002 表明候选人熟练掌握 Python。", [
+        {
+          factId: "CF-002",
+          statement: "课程项目：在课程中了解 Python 基础语法",
+        },
+      ]),
+    ).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          category: "proficiency",
+          value: "熟练掌握",
+          unsupportedFactIds: ["CF-002"],
+        }),
+      ]),
+    );
+  });
 });

@@ -449,6 +449,24 @@ function prefixGroupTargetRefs(
   return uniqueRefs(group);
 }
 
+function describedPrefixGroupTargetRefs(
+  text: string,
+  claimStart: number,
+  occurrences: Array<{ ref: string; start: number; end: number }>,
+) {
+  const prefix = text.slice(0, claimStart);
+  const groupMatch = prefix.match(
+    /((?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*)(?:(?:、|和|与|及|以及)\s*(?:MI-\d{3,}\s*(?:（[^（）]*）|\([^()]*\))?\s*))*)(?:(?:均|都)(?:为)?|为)?\s*$/,
+  );
+  if (!groupMatch || groupMatch.index === undefined) return [];
+  const groupStart = groupMatch.index;
+  return uniqueRefs(
+    occurrences.filter(
+      (occurrence) => occurrence.start >= groupStart && occurrence.end <= claimStart,
+    ),
+  );
+}
+
 function addStatusIssue(
   issues: RecommendationValidationIssue[],
   path: string,
@@ -510,6 +528,11 @@ export function inspectRecommendationStatusClaimIntegrity(
             start,
             refOccurrences,
           );
+          const describedPrefixRefs = describedPrefixGroupTargetRefs(
+            fragment,
+            start,
+            refOccurrences,
+          );
           const requirementRefs = prefixGroupTargetRefs(
             fragment,
             start,
@@ -518,6 +541,8 @@ export function inspectRecommendationStatusClaimIntegrity(
           const targetRefs =
             parentheticalRefs.length > 0
               ? parentheticalRefs
+              : describedPrefixRefs.length > 0
+                ? describedPrefixRefs
               : prefixRefs.length > 0
                 ? prefixRefs
                 : requirementRefs.length === 1

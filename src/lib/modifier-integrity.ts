@@ -1,3 +1,5 @@
+import { isQualifierInsideEvidenceForceBoundary } from "./candidate-claim-semantics";
+
 export interface UnsupportedModifier {
   category:
     | "frequency"
@@ -105,6 +107,7 @@ function isNegatedOrRequirementQualifier(
   index: number,
   value: string,
 ) {
+  if (isQualifierInsideEvidenceForceBoundary(content, index, value)) return true;
   const clauseStart = Math.max(
     content.lastIndexOf("，", index - 1),
     content.lastIndexOf("。", index - 1),

@@ -2195,6 +2195,117 @@ describe("ISSUE-037 autonomous batch Match replay", () => {
   });
 });
 
+describe("ISSUE-037 autonomous batch-2 explicit-CF and evidence-force replay", () => {
+  interface ArtifactStage {
+    stage: string;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: string; rawText?: string }>;
+    } | null;
+  }
+
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-autonomous-baseline-2-rb-05-batch-run-3.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { results: Array<{ stages: ArtifactStage[] }> };
+  const rawText = artifact.results[0].stages
+    .find((stage) => stage.stage === "match")
+    ?.acceptanceDiagnostics?.outputEvidence?.find((entry) => entry.stage === "repair")?.rawText;
+  if (!rawText) throw new Error("missing batch-2 run-3 Match repair evidence");
+  const request = buildMatchFixture(
+    [
+      { content: "熟练掌握 Python", requirementType: "core_requirement" },
+      {
+        content: "具有独立负责数据产品的正式工作经验",
+        requirementType: "core_requirement",
+      },
+      {
+        content: "能主导跨团队项目并对个人交付结果负责",
+        requirementType: "core_requirement",
+      },
+      { content: "本科及以上学历", requirementType: "hard_requirement" },
+    ],
+    [
+      { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      { statement: "没有正式数据产品工作经历", semanticTags: ["experience"] },
+    ],
+  );
+
+  it("E37-15 accepts an evidence-force boundary containing a requirement qualifier", () => {
+    const raw = rawMatchCoreSchema.parse(JSON.parse(rawText));
+    raw.matchItems = [raw.matchItems[0]];
+    raw.matchItems[0].requirementId = "REQ-001";
+    raw.matchItems[0].dimensions[0].reason = raw.matchItems[0].dimensions[0].reason.replaceAll(
+      "CF-002",
+      "CF-001",
+    );
+    raw.matchItems[0].dimensions[0].candidateEvidence = [
+      { factId: "CF-001", role: "positive" },
+    ];
+    const singleRequest = buildMatchFixture(
+      [{ content: "熟练掌握 Python", requirementType: "core_requirement" }],
+      [
+        {
+          statement: "课程项目：在课程中了解 Python 基础语法",
+          semanticTags: ["project_experience", "skill_usage"],
+        },
+      ],
+    );
+    const result = finalizeRawMatchCore(
+      raw,
+      singleRequest.jobAnalysis,
+      singleRequest.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E37-16 rejects deeper cross-dimension explicit-CF claims after boundary removal", () => {
+    const raw = rawMatchCoreSchema.parse(JSON.parse(rawText));
+    raw.matchItems[0].dimensions[0].reason =
+      "CF-002 表明在课程中了解 Python 基础语法，但未表明熟练程度。";
+    const result = finalizeRawMatchCore(
+      raw,
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ path: "matchItems.1.dimensions.1.reason" }),
+        expect.objectContaining({ path: "matchItems.1.dimensions.2.reason" }),
+      ]),
+    );
+  });
+
+  it("E37-17 accepts an explicit referenced CF factual clause in its own dimension", () => {
+    const raw = rawMatchCoreSchema.parse(JSON.parse(rawText));
+    raw.matchItems = [raw.matchItems[3]];
+    const singleRequest = buildMatchFixture(
+      [{ content: "本科及以上学历", requirementType: "hard_requirement" }],
+      [{ statement: "教育背景：信息管理本科", semanticTags: ["education"] }],
+    );
+    raw.matchItems[0].requirementId = "REQ-001";
+    const result = finalizeRawMatchCore(
+      raw,
+      singleRequest.jobAnalysis,
+      singleRequest.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+  });
+});
+
 describe("post-035/036 exact Match artifact replay", () => {
   interface ArtifactStage {
     stage: string;

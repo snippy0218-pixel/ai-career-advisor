@@ -933,3 +933,59 @@ describe("ISSUE-031 autonomous batch exact Recommendation replay", () => {
     },
   );
 });
+
+describe("ISSUE-031 autonomous batch-2 described-prefix attribution", () => {
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-autonomous-baseline-2-rb-05-batch-run-2.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as {
+    results: Array<{
+      failureContext: { matchCore: Parameters<typeof finalizeRawRecommendation>[1] };
+      stages: Array<{
+        stage: string;
+        acceptanceDiagnostics?: {
+          outputEvidence?: Array<{ stage: string; rawText?: string }>;
+        } | null;
+      }>;
+    }>;
+  };
+  const result = artifact.results[0];
+  const evidence = result.stages.find((stage) => stage.stage === "recommendation")
+    ?.acceptanceDiagnostics?.outputEvidence;
+
+  it.each(["initial", "repair"] as const)(
+    "R31-20 accepts the exact batch-2 %s described-prefix status ownership",
+    (stageName) => {
+      const rawText = evidence?.find((entry) => entry.stage === stageName)?.rawText;
+      if (!rawText) throw new Error(`missing ${stageName} Recommendation raw evidence`);
+      const finalized = finalizeRawRecommendation(
+        rawRecommendationSchema.parse(JSON.parse(rawText)),
+        result.failureContext.matchCore,
+      );
+      expect(finalized.issues).toEqual([]);
+    },
+  );
+
+  it("R31-21 checks all described-prefix group members for contradiction", () => {
+    const rawText = evidence?.find((entry) => entry.stage === "initial")?.rawText;
+    if (!rawText) throw new Error("missing initial Recommendation raw evidence");
+    const raw = rawRecommendationSchema.parse(JSON.parse(rawText));
+    const contradictory = {
+      ...raw,
+      summary: "MI-001（Python 基础）与 MI-003（跨团队项目参与）均已满足。",
+    };
+    const issues = inspectRecommendationStatusClaimIntegrity(
+      contradictory,
+      result.failureContext.matchCore,
+    );
+    expect(issues.map((issue) => issue.matchItemRefs?.[0])).toEqual([
+      "MI-001",
+      "MI-003",
+    ]);
+  });
+});
