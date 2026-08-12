@@ -194,6 +194,19 @@ function sameStringSet(left: string[], right: string[]) {
   return left.every((item) => rightSet.has(item));
 }
 
+const EVIDENCE_BOUNDARY_PATTERN =
+  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
+const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
+  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
+
+type CandidateFactPolarity = "positive" | "counter" | "boundary";
+
+function candidateFactPolarity(statement: string): CandidateFactPolarity {
+  if (EVIDENCE_BOUNDARY_PATTERN.test(statement)) return "boundary";
+  if (EXPLICIT_NEGATIVE_CANDIDATE_PATTERN.test(statement)) return "counter";
+  return "positive";
+}
+
 const CONSERVATIVE_DOMAIN_TERMS = [
   "产品",
   "数据分析",
@@ -216,6 +229,7 @@ function explicitSameDimensionPositiveFacts(
   if (terms.length === 0) return [];
   return facts.filter(
     (fact) =>
+      candidateFactPolarity(fact.statement) === "positive" &&
       fact.semanticTags.some((tag) =>
         ["experience", "project_experience"].includes(tag),
       ) && terms.some((term) => fact.statement.includes(term)),
@@ -227,10 +241,6 @@ const INSTRUCTION_TEXT_PATTERN =
 
 const CANDIDATE_ASSERTION_PATTERN =
   /(?:候选人|本人|其).{0,36}(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理|学历|经历|经验)|^(?:并|且|同时)?(?:参与|协助|使用|负责|完成|拥有|具备|掌握|熟悉|从事|毕业|获得|持有|承担|主导|牵头|处理)|(?:项目|作业|经历|经验|学历|技能|工作).{0,20}(?:为|是|属于|来自|涉及|使用|负责|完成|持续|包含|承担)|(?:课程|课堂|校园|实习|全职|正式工作|非正式工作|频繁|高频|经常|长期|多年|熟练|精通|独立负责|全面负责|主导|牵头|\d+\s*(?:年|个月|月|周|天))/;
-const EVIDENCE_BOUNDARY_PATTERN =
-  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
-const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
-  /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
 const NEGATIVE_CANDIDATE_CONCLUSION_PATTERN =
   /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|无法|不能|不是|并非|不属于)/;
 const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
@@ -592,7 +602,8 @@ export function finalizeRawMatchCore(
       }
 
       const pfEvidence: string[] = [];
-      for (const factId of factRefs) {
+      for (const candidateEvidence of dimension.candidateEvidence) {
+        const factId = candidateEvidence.factId;
         const fact = factById.get(factId);
         if (!fact) {
           addIssue(
@@ -601,6 +612,16 @@ export function finalizeRawMatchCore(
             `unknown candidate fact reference ${factId}`,
           );
           continue;
+        }
+        if (
+          candidateEvidence.role === "positive" &&
+          candidateFactPolarity(fact.statement) !== "positive"
+        ) {
+          addIssue(
+            issues,
+            `${dimensionPath}.candidateEvidence`,
+            `${factId} counter or evidence-boundary fact cannot be positive candidate evidence`,
+          );
         }
         if (INSTRUCTION_TEXT_PATTERN.test(fact.statement)) {
           addIssue(

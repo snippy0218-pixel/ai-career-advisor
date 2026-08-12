@@ -1604,6 +1604,336 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
   });
 });
 
+describe("ISSUE-035 evidence polarity in same-domain positive checks", () => {
+  type FixtureFacts = Parameters<typeof buildMatchFixture>[1];
+
+  function domainUnknownResult(facts: FixtureFacts) {
+    const requirement = "具有数据产品相关经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      facts,
+    );
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unknown",
+            dimensions: [
+              dimension({
+                dimensionType: "domain",
+                requirementFragment: "数据产品",
+                status: "unknown",
+                reason: "现有资料未表明候选人具有数据产品相关经验。",
+                jdEvidence: [requirement],
+                candidateEvidence: [],
+                missingInformation: "候选人是否具有数据产品相关经验",
+                verificationQuestion: "请描述是否具有数据产品相关经验？",
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  const counterFact = {
+    statement: "没有正式数据产品工作经历",
+    semanticTags: ["experience"],
+  } satisfies FixtureFacts[number];
+  const positiveProjectFact = {
+    statement: "有数据产品项目经验",
+    semanticTags: ["project_experience"],
+  } satisfies FixtureFacts[number];
+
+  it("E35-1 allows domain unknown when the only anchored fact is counter evidence", () => {
+    const result = domainUnknownResult([counterFact]);
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[0].status).toBe("unknown");
+  });
+
+  it("E35-2 preserves explicit counter evidence for employment_type unmet", () => {
+    const requirement = "具有正式数据产品工作经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [counterFact],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unmet",
+            dimensions: [
+              dimension({
+                dimensionType: "employment_type",
+                requirementFragment: "正式工作经验",
+                status: "unmet",
+                reason: "候选人没有正式数据产品工作经历，与正式工作经验要求不符。",
+                jdEvidence: [requirement],
+                candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+                missingInformation: null,
+                verificationQuestion: null,
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[0].status).toBe("unmet");
+  });
+
+  it("E35-3 still rejects unknown that omits a positive domain fact", () => {
+    const result = domainUnknownResult([positiveProjectFact]);
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: "unknown omitted explicit same-domain positive evidence: CF-001",
+        }),
+      ]),
+    );
+  });
+
+  it("E35-4 counts only the positive fact when positive and counter facts coexist", () => {
+    const result = domainUnknownResult([positiveProjectFact, counterFact]);
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: "unknown omitted explicit same-domain positive evidence: CF-001",
+        }),
+      ]),
+    );
+    expect(result.issues.map((issue) => issue.message).join(" ")).not.toContain(
+      "positive evidence: CF-001, CF-002",
+    );
+  });
+
+  it("E35-5 does not confuse opposite polarities with identical semantic tags", () => {
+    const result = domainUnknownResult([
+      { statement: "有数据产品工作经验", semanticTags: ["experience"] },
+      { statement: "没有正式数据产品工作经历", semanticTags: ["experience"] },
+    ]);
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: "unknown omitted explicit same-domain positive evidence: CF-001",
+        }),
+      ]),
+    );
+  });
+
+  it("E35-5b rejects an explicit counter fact mislabeled as positive evidence", () => {
+    const requirement = "具有数据产品相关经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [counterFact],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "met",
+            dimensions: [
+              dimension({
+                dimensionType: "domain",
+                requirementFragment: "数据产品",
+                status: "met",
+                reason: "候选人具有数据产品相关经验。",
+                jdEvidence: [requirement],
+                candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+                missingInformation: null,
+                verificationQuestion: null,
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: "CF-001 counter or evidence-boundary fact cannot be positive candidate evidence",
+        }),
+      ]),
+    );
+  });
+
+  it("E35-6 excludes 不具备 explicit-negative facts from the positive set", () => {
+    const result = domainUnknownResult([
+      {
+        statement: "不具备正式数据产品工作经验",
+        semanticTags: ["experience"],
+      },
+    ]);
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E35-7 keeps evidence-boundary facts neutral", () => {
+    const result = domainUnknownResult([
+      {
+        statement: "未表明有正式数据产品工作经验",
+        semanticTags: ["experience"],
+      },
+    ]);
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E35-8 preserves the ISSUE-034 employment relation", () => {
+    const requirement = "具有正式数据产品工作经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [counterFact],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unmet",
+            dimensions: [
+              dimension({
+                dimensionType: "employment_type",
+                requirementFragment: "正式工作经验",
+                status: "unmet",
+                reason: "候选人没有正式数据产品工作经历，与正式工作经验要求直接冲突。",
+                jdEvidence: [requirement],
+                candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+                missingInformation: null,
+                verificationQuestion: null,
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("E35-10 preserves the original positive-domain omission guard", () => {
+    const result = domainUnknownResult([
+      {
+        statement: "参与过校园数据产品项目并负责需求调研",
+        semanticTags: ["project_experience"],
+      },
+    ]);
+    expect(result.data).toBeNull();
+    expect(result.issues.some((issue) => issue.message.includes("same-domain positive"))).toBe(
+      true,
+    );
+  });
+});
+
+describe("post-035/036 exact Match artifact replay", () => {
+  interface ArtifactStage {
+    stage: string;
+    acceptanceDiagnostics?: {
+      outputEvidence?: Array<{ stage: string; rawText?: string }>;
+    } | null;
+  }
+
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-4/phase-2-4-post-033-034-restabilization-rb-05.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { results: Array<{ stages: ArtifactStage[] }> };
+  const matchEvidence = artifact.results[0].stages.find((stage) => stage.stage === "match")
+    ?.acceptanceDiagnostics?.outputEvidence;
+  const request = buildMatchFixture(
+    [
+      { content: "熟练掌握 Python", requirementType: "core_requirement" },
+      {
+        content: "具有独立负责数据产品的正式工作经验",
+        requirementType: "core_requirement",
+      },
+      {
+        content: "能主导跨团队项目并对个人交付结果负责",
+        requirementType: "core_requirement",
+      },
+      { content: "本科及以上学历", requirementType: "hard_requirement" },
+    ],
+    [
+      { statement: "教育背景：信息管理本科", semanticTags: ["education"] },
+      {
+        statement: "课程项目：在课程中了解 Python 基础语法",
+        semanticTags: ["project_experience", "skill_usage"],
+      },
+      {
+        statement: "与四人团队共同完成数据展示作业，我协助整理需求和测试",
+        semanticTags: ["experience"],
+      },
+      {
+        statement: "没有正式数据产品工作经历",
+        semanticTags: ["experience"],
+      },
+    ],
+  );
+
+  function replay(stageName: "initial" | "repair") {
+    const rawText = matchEvidence?.find((entry) => entry.stage === stageName)?.rawText;
+    if (!rawText) throw new Error(`missing ${stageName} raw Match evidence`);
+    return finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(JSON.parse(rawText)),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+  }
+
+  it("keeps the exact initial unsupported domain and responsibility negatives rejected", () => {
+    const result = replay("initial");
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ path: "matchItems.1.dimensions.1.reason" }),
+        expect.objectContaining({ path: "matchItems.1.dimensions.2.reason" }),
+      ]),
+    );
+    expect(result.issues.map((issue) => issue.message).join(" ")).not.toContain(
+      "experience_type:工作->CF-003",
+    );
+  });
+
+  it("E35-9 and M36-8 accept the exact corrected repair raw", () => {
+    const result = replay("repair");
+    expect(result.issues).toEqual([]);
+    expect(result.data?.matchItems[1].requirementDimensions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          dimensionType: "employment_type",
+          status: "unmet",
+          candidateFactRefs: ["CF-004"],
+        }),
+        expect.objectContaining({
+          dimensionType: "domain",
+          status: "unknown",
+          candidateFactRefs: [],
+        }),
+        expect.objectContaining({
+          dimensionType: "responsibility",
+          status: "unknown",
+          candidateFactRefs: [],
+        }),
+      ]),
+    );
+  });
+});
+
 describe("post-033/034 exact Match artifact replay", () => {
   interface ArtifactStage {
     stage: string;

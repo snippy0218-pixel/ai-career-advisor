@@ -154,6 +154,15 @@ function isAssertedQualifier(content: string, index: number) {
   return /(?:为|是|属于|来自|由候选人)$/.test(before);
 }
 
+function isEmploymentTypeWorkQualifier(content: string, index: number) {
+  const before = content.slice(Math.max(0, index - 4), index);
+  const after = content.slice(index + "工作".length, index + "工作".length + 4);
+  return (
+    /(?:在|于|实际|正式|全职|实习)$/.test(before) ||
+    /^(?:中|期间|经历|经验|岗位|项目)/.test(after)
+  );
+}
+
 function candidateQualifierOccurrences(
   content: string,
   options: { assertedOnly?: boolean } = {},
@@ -167,6 +176,9 @@ function candidateQualifierOccurrences(
       if (
         index === undefined ||
         isNegatedOrRequirementQualifier(content, index, value) ||
+        (category === "experience_type" &&
+          value === "工作" &&
+          !isEmploymentTypeWorkQualifier(content, index)) ||
         (options.assertedOnly === true && !isAssertedQualifier(content, index))
       ) {
         continue;
@@ -175,6 +187,20 @@ function candidateQualifierOccurrences(
     }
   }
   return occurrences;
+}
+
+function candidateFactSupportsQualifier(
+  statement: string,
+  occurrence: UnsupportedModifier & { index: number },
+) {
+  if (occurrence.category !== "experience_type" || occurrence.value !== "工作") {
+    return statement.includes(occurrence.value);
+  }
+  return candidateQualifierOccurrences(statement).some(
+    (candidateOccurrence) =>
+      candidateOccurrence.category === "experience_type" &&
+      candidateOccurrence.value === "工作",
+  );
 }
 
 /**
@@ -192,10 +218,10 @@ export function findCrossFactModifierContamination(
   const contaminations = new Map<string, CrossFactModifierContamination>();
   for (const occurrence of candidateQualifierOccurrences(content, options)) {
     const supportedFactIds = candidateFacts
-      .filter((fact) => fact.statement.includes(occurrence.value))
+      .filter((fact) => candidateFactSupportsQualifier(fact.statement, occurrence))
       .map((fact) => fact.factId);
     const unsupportedFactIds = candidateFacts
-      .filter((fact) => !fact.statement.includes(occurrence.value))
+      .filter((fact) => !candidateFactSupportsQualifier(fact.statement, occurrence))
       .map((fact) => fact.factId);
     if (unsupportedFactIds.length === 0) continue;
     const key = `${occurrence.category}:${occurrence.value}`;

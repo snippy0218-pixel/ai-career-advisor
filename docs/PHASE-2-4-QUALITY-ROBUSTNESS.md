@@ -1,6 +1,6 @@
 # Phase 2.4 Quality & Robustness
 
-> 状态：FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～ISSUE-034
+> 状态：FAIL / STOP & ESCALATE / BLOCKED ON ISSUE-028～ISSUE-036
 > Starting baseline：`fbca3a468dd064e05b461964fd25266ea4975faa`  
 > Phase 2.5：NOT AUTHORIZED  
 > 定位：已完成 Phase 2 核心功能的质量与鲁棒性治理；不是 Feature Development。
@@ -30,8 +30,10 @@
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
 | ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant state 与 acceptance capability 已在 post-028/032 E2E 验证；等待完整链 closure | **Open / P1 / E2E Verified / Closure Pending Full-chain** | **是** |
-| ISSUE-033 | Match repair 将 absence of evidence 持续改写为 `无法满足独立负责`、`并非主导角色` 等 unsupported negative claim | Match prompt/repair v1.2 明确 counter-evidence 与 evidence absence；lineage repair 使用 uncertainty boundary；非法 repair 继续 fail-closed | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
-| ISSUE-034 | `与正式工作经验要求不符` 有 CF-004 explicit negative + JD formal-work requirement 支持，但 M-CANDIDATE-LINEAGE 错误拒绝 | 修改前 lineage adjudication=`FALSE POSITIVE CONFIRMED`；新增 employment_type 同维度 narrow relational mismatch recognition，跨 CF/property/维度继续拒绝 | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-033 | Match repair 将 absence of evidence 持续改写为 unsupported negative claim | post-restabilization runtime initial 被拒绝、repair 改为 domain/responsibility unknown、cross-dimension reuse=0，employment unmet 保留 | **Open / P1 / Fix Verified at Repair Runtime / Closure Pending** | **是** |
+| ISSUE-034 | supported formal-work relation false positive 与 sibling relation leakage | runtime 合法 employment relation 未拒绝，非法 domain/responsibility relation 未进入 repaired path | **Open / P1 / Fix Verified at Relation Runtime / Closure Pending** | **是** |
+| ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
+| ISSUE-036 | `仅参与部分工作` 的 generic noun 被 M-K 裸 `工作` regex 误认 employment_type | bounded phrase classifier；claim/evidence 两侧同一 ownership 语义；M36-1～12 与 exact replay PASS | **Open / P1 / Local Fix Verified / E2E Pending / Release Gate Blocker** | **是** |
 | OBS-006 | final full-chain 中 Personalized Greeting repair + safe fallback 4/6（Phase 1 fallback 0/6） | 均安全，无 Candidate hallucination released；显著高于 Phase 2.3 isolated baseline 0/36 | Observe；ISSUE-029 review 后复评 | 当前非独立 blocker |
 
 ## 2. Robustness 与 Safe Failure Plan
@@ -213,3 +215,11 @@
 - 静态证据确认前者把 CF-004 employment negative 错认成 domain positive，是 deterministic validator false positive；无 Final Match；
 - 工程建议 ISSUE-033 `FIX NOT VERIFIED`、ISSUE-034 `VERIFICATION INCONCLUSIVE`；ISSUE-029/032 preservation PASS，ISSUE-028/030/031 inconclusive；Phase 2.4 仍 BLOCKED；
 - artifact：`phase-2-4-post-033-034-restabilization-rb-05.json`；strictly one model-backed execution，additional reruns=0。完整证据见 `PHASE-2-4-POST-033-034-RESTABILIZATION-RB-05.md`。
+
+## 19. ISSUE-035 / ISSUE-036 Deterministic Stabilization（2026-08-12）
+
+- Product Owner / QA 裁决 ISSUE-033=`FIX VERIFIED AT REPAIR RUNTIME`、ISSUE-034=`FIX VERIFIED AT RELATION RUNTIME`，并新建 P1 release blockers ISSUE-035/036；starting HEAD=`2cff5da…`；
+- ISSUE-035 root cause：unknown positive-existence helper 只看 experience tag + domain anchor，未看 polarity；现复用 explicit-negative/boundary taxonomy，只让 positive fact 进入集合，并拒绝 counter/boundary CF 被标 positive；
+- ISSUE-036 root cause：experience_type regex 含裸 `工作`，support 又用 substring；现以 bounded `在/正式/全职/实习工作`、`工作中/期间/经历/经验/岗位/项目` 识别，generic task noun 不触发，工作项目按 frozen Case B 保持 fail-closed；
+- E35-1～10、M36-1～12、exact saved initial/repair replay PASS；focused 110/110、targeted 327/327、full 517/517、lint/build/diff/scope/secret PASS；model calls=0、RB-05=0；
+- 工程建议 ISSUE-035/036 `LOCAL FIX VERIFIED`；Phase 2.4 仍 BLOCKED，等待 Product Owner / QA Gate Review。完整证据见 `PHASE-2-4-ISSUE-035-036-STABILIZATION.md`。
