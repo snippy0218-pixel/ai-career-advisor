@@ -4,17 +4,17 @@
 
 | Issue | Severity | Current engineering disposition | Remaining closure evidence |
 | --- | --- | --- | --- |
-| ISSUE-028 Rejected-output evidence preservation | P1 | OPEN / batch-3 Match + zero-call preflight preservation PASS | Recommendation failure-path runtime still pending |
-| ISSUE-029 Cross-CF Candidate scope contamination | P1 | OPEN / Match runtime fix verified; preservation PASS | final closure audit |
-| ISSUE-030 SG-E valid evidence-boundary false positive | P1 | OPEN / batch-3 run-2 initial runtime PASS | stable multi-run closure evidence |
-| ISSUE-031 Recommendation status attribution | P1 | OPEN / final batch-1 exact grammar replays + contradiction controls deterministic PASS | new fixed 3-run batch + final closure audit |
-| ISSUE-032 runner artifact-state semantics | P1 | OPEN / business-failure runtime + precheck local/runtime preservation PASS | final closure audit |
-| ISSUE-033 Match generation-contract / repair unsupported Candidate claim stability | P1 | OPEN / structural path accepted at Match runtime 3/3 in final batch-1 | final closure audit on completed chains |
-| ISSUE-034 dimension-local relational conclusion | P1 | OPEN / fix verified at relation runtime; preservation PASS | final closure audit |
-| ISSUE-035 Match same-domain evidence polarity | P1 | OPEN / latest runtime verdict FIX VERIFIED | final closure audit |
-| ISSUE-036 Match experience-type lexical precision | P1 | OPEN / local fix verified; latest runtime inconclusive | accepted Match runtime |
-| ISSUE-037 Match lineage semantic classification | P1 | OPEN / original behavior FIX VERIFIED at batch-3 runtime | final closure audit after Match stability |
-| ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | OPEN / prompt + deletion-only terminal normalization deterministic PASS | new fixed 3-run batch + final closure audit |
+| ISSUE-028 Rejected-output evidence preservation | P1 | CLOSED / final batch preserves rejected raw + structured issues + normalization/lifecycle | regression only |
+| ISSUE-029 Cross-CF Candidate scope contamination | P1 | CLOSED / final accepted Match 3/3 contamination 0 | regression only |
+| ISSUE-030 SG-E valid evidence-boundary false positive | P1 | CLOSED / final Strength-Gap initial 3/3 PASS | regression only |
+| ISSUE-031 Recommendation status attribution | P1 | CLOSED / exact grammar replay + final initial 3/3 PASS | regression only |
+| ISSUE-032 runner artifact-state semantics | P1 | CLOSED / infrastructure and complete-chain lifecycle artifacts PASS | regression only |
+| ISSUE-033 Match generation-contract / repair unsupported Candidate claim stability | P1 | CLOSED / final Match repair+normalization path 3/3 PASS | regression only |
+| ISSUE-034 dimension-local relational conclusion | P1 | CLOSED / final accepted Match preserves dimension-local relation guards | regression only |
+| ISSUE-035 Match same-domain evidence polarity | P1 | CLOSED / explicit negative remains counter-only in final Match | regression only |
+| ISSUE-036 Match experience-type lexical precision | P1 | CLOSED / final accepted Match has no generic-work qualifier ownership | regression only |
+| ISSUE-037 Match lineage semantic classification | P1 | CLOSED / legal boundary accepted, illegal narration not released | regression only |
+| ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | CLOSED / final Strength-Gap initial 3/3 PASS, upgrade 0 | regression only |
 
 ## ISSUE-037 root cause record
 

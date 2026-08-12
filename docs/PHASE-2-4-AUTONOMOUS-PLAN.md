@@ -3,7 +3,7 @@
 > Updated: 2026-08-12
 > Branch / starting HEAD: `main / 9ac1537778e346c4616df92b988ac5bd2efd928a`
 > Deterministic implementation commit: `4c12ed6…`
-> Formal phase state: `FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE`; Phase 2.5 `NOT AUTHORIZED`
+> Formal engineering recommendation: `PASS / CLOSE PHASE 2.4`; Phase 2.5 `NOT AUTHORIZED`
 
 ## Objective
 
@@ -53,5 +53,5 @@ ISSUE-031/038 deterministic restabilization 已完成：R-C 补齐 `仅为` 与 
 
 ## Remaining work
 
-- Commit the verified ISSUE-031/038 deterministic baseline and execute one new fixed exactly-three RB-05 batch with no inter-run code changes。
-- Only a 3/3 clean batch may proceed to full closure audit and `PHASE-2-4-FINAL-ACCEPTANCE.md`；otherwise preserve the whole batch and continue autonomous in-Contract stabilization。
+- Final acceptance batch 2 已 3/3 complete，closure audit 与 `PHASE-2-4-FINAL-ACCEPTANCE.md` 已完成。
+- 提交 acceptance evidence package 后停止；等待 Product Owner / QA review。不得自行进入 Phase 2.5。

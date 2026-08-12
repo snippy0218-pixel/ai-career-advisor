@@ -29,15 +29,15 @@
 
 ## Current status
 
-- Q-A backlog disposition：PASS / needs final ledger closure。
-- Q-B blocker closure：FAIL，ISSUE-028～038 尚未全部关闭；ISSUE-033 Match runtime path 3/3 accepted，ISSUE-031/038 active stabilization。
-- Q-C full-chain robustness：FAIL，final acceptance batch 1 为 0/3 complete。
+- Q-A backlog disposition：PASS / final ledger closed。
+- Q-B blocker closure：PASS，ISSUE-028～038 closed on deterministic + final runtime evidence。
+- Q-C full-chain robustness：PASS，final acceptance batch 2 为 3/3 complete / X-A～X-J PASS。
 - Q-D safe failure：PASS on recorded paths。
-- Q-E metrics：PASS / OBS-006 remains observation pending full chain。
-- Q-F evidence auditability：PASS on latest replacement artifact。
-- Q-G cross-module integrity：PASS on completed historical chains; new full chain pending。
+- Q-E metrics：PASS / OBS-006 retained non-blocking（personalized safe fallback 3/3，safety guards PASS）。
+- Q-F evidence auditability：PASS on infrastructure + final 3-run artifacts。
+- Q-G cross-module integrity：PASS on final 3/3 complete chains。
 - Q-H automated regression：current ISSUE-031/038 baseline has 584/584、lint、production build PASS。
 - Q-I input/error handling：PASS。
-- Q-J release blockers：FAIL；Phase 2.5 NOT AUTHORIZED。
+- Q-J release blockers：PASS；no open Phase 2.4 P0/P1。Phase 2.5 still NOT AUTHORIZED。
 
-Current disposition: **FAIL / BLOCKED / AUTONOMOUS STABILIZATION ACTIVE**. Freeze the verified ISSUE-031/038 implementation commit, then execute a new exactly-three model-backed acceptance batch; Phase 2.5 remains NOT AUTHORIZED.
+Current disposition: **PASS / CLOSE PHASE 2.4**. Final evidence: `PHASE-2-4-FINAL-ACCEPTANCE.md`. Phase 2.5 remains NOT AUTHORIZED pending separate Product Owner / QA authorization.

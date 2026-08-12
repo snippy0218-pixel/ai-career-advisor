@@ -4,12 +4,12 @@
 
 ## Current plan
 
-- Phase：2.4 Quality & Robustness；Phase 2.5 未授权。
-- 目标：关闭或正式处置全部 P1 release blockers，使 Q-A～Q-J 与完整 deterministic / E2E Gate 达到 Final Acceptance Ready。
+- Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 未授权。
+- 目标：已完成；等待 Product Owner / QA review 或单独的 Phase 2.5 authorization。
 - 详细执行状态：`PHASE-2-4-AUTONOMOUS-PLAN.md`。
 - Issue 状态：`ISSUE-LEDGER.md`。
 - Gate 定义与当前证据：`QA-GATES.md`。
-- Product Owner / QA 已废弃 per-cycle stopping model并恢复 Phase 2.4 持续自治。final acceptance batch 1 的 Match 3/3 accepted；ISSUE-031/038 restabilization 已完成 deterministic Gate（584/584），下一步冻结新 baseline 后执行新的 exactly-3 batch。Phase 2.5 仍未授权。
+- final acceptance batch 2 在 `803289b…` 上完成 3/3 complete chains，X-A～X-J 全绿；ISSUE-028～038 closed，Q-A～Q-J PASS。最终证据见 `PHASE-2-4-FINAL-ACCEPTANCE.md`。Phase 2.5 仍未授权。
 
 ## Execution discipline
 

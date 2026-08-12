@@ -1,0 +1,388 @@
+{
+  "phase": "2.4",
+  "suite": "Phase 2 End-to-End Robustness Suite",
+  "implementationCommit": "803289bdd8c63ba36e9f7d31e67c255141b801a4",
+  "generatedAt": "2026-08-12T09:31:11.749Z",
+  "runPolicy": "E2E-RB-05 x 1 targeted",
+  "baseUrl": "http://127.0.0.1:3000",
+  "executionState": "completed",
+  "preflight": {
+    "status": "passed",
+    "available": true,
+    "error": null,
+    "modelCalls": 0,
+    "capabilities": [
+      {
+        "module": "profile",
+        "path": "/api/profile/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "match",
+        "path": "/api/match/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "recommendation",
+        "path": "/api/recommendation/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "strengthGap",
+        "path": "/api/strength-gap/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "greeting",
+        "path": "/api/greeting/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      }
+    ]
+  },
+  "summary": {
+    "requestCount": 1,
+    "stageCalls": 1,
+    "passed": 0,
+    "completedChains": 0,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "profileRepairRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "matchRepairRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "recommendationRepairRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "strengthGapRepairRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "personalizedGreetingRepairRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "personalizedGreetingSafeFallbackRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "phase1GreetingFallbackRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    },
+    "requestFallbackRequests": {
+      "knownCount": 0,
+      "unknownCount": 0,
+      "notRunCount": 1,
+      "complete": true
+    }
+  },
+  "latency": {
+    "jd": {
+      "samples": 1,
+      "min": 45,
+      "average": 45,
+      "median": 45,
+      "p95": null,
+      "max": 45
+    },
+    "profile": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "match": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "recommendation": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "strengthGap": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "greeting": {
+      "samples": 0,
+      "min": null,
+      "average": null,
+      "median": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "results": [
+    {
+      "id": "E2E-RB-05",
+      "name": "course team limited proficiency",
+      "input": {
+        "jdCharacters": 138,
+        "profileCharacters": 80,
+        "jdSha256": "bf1eea5f393bb5a9ce7dd5de9ab76a0dc95f90bb4742b656e2916281584f4a60",
+        "profileSha256": "0b19712da6ae0a07c4543fe8d3427a1650c4e711b7c1ed4d33a38e14e2925745"
+      },
+      "expected": "success",
+      "completed": false,
+      "stoppedAt": "jd",
+      "downstreamCallsAfterFailure": 0,
+      "failureContext": {
+        "candidateProfile": null,
+        "matchCore": null,
+        "recommendation": null
+      },
+      "safeFailure": false,
+      "expectationPassed": false,
+      "invariantAudit": {
+        "status": "not_run",
+        "values": null,
+        "passed": null
+      },
+      "invariants": null,
+      "invariantsPassed": null,
+      "stages": [
+        {
+          "stage": "jd",
+          "callState": "called",
+          "resultState": "failed",
+          "status": 503,
+          "latencyMs": 45,
+          "requestId": "5dedfab7-4f52-47ad-b00f-25109645feac",
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": {
+            "code": "AI_SERVICE_UNAVAILABLE",
+            "message": "分析服务暂时不可用，请稍后重试。",
+            "request_id": "5dedfab7-4f52-47ad-b00f-25109645feac",
+            "retryable": true
+          },
+          "attempts": {
+            "state": "unknown",
+            "count": null
+          },
+          "repair": {
+            "state": "unknown",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "unknown",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_used",
+            "attempts": 0
+          },
+          "phase1Fallback": {
+            "state": "not_used",
+            "attempts": 0
+          }
+        },
+        {
+          "stage": "profile",
+          "callState": "not_called",
+          "resultState": "not_run",
+          "status": null,
+          "latencyMs": null,
+          "requestId": null,
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null,
+          "attempts": {
+            "state": "not_run",
+            "count": null
+          },
+          "repair": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "phase1Fallback": {
+            "state": "not_run",
+            "attempts": null
+          }
+        },
+        {
+          "stage": "match",
+          "callState": "not_called",
+          "resultState": "not_run",
+          "status": null,
+          "latencyMs": null,
+          "requestId": null,
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null,
+          "attempts": {
+            "state": "not_run",
+            "count": null
+          },
+          "repair": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "phase1Fallback": {
+            "state": "not_run",
+            "attempts": null
+          }
+        },
+        {
+          "stage": "recommendation",
+          "callState": "not_called",
+          "resultState": "not_run",
+          "status": null,
+          "latencyMs": null,
+          "requestId": null,
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null,
+          "attempts": {
+            "state": "not_run",
+            "count": null
+          },
+          "repair": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "phase1Fallback": {
+            "state": "not_run",
+            "attempts": null
+          }
+        },
+        {
+          "stage": "strengthGap",
+          "callState": "not_called",
+          "resultState": "not_run",
+          "status": null,
+          "latencyMs": null,
+          "requestId": null,
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null,
+          "attempts": {
+            "state": "not_run",
+            "count": null
+          },
+          "repair": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "phase1Fallback": {
+            "state": "not_run",
+            "attempts": null
+          }
+        },
+        {
+          "stage": "greeting",
+          "callState": "not_called",
+          "resultState": "not_run",
+          "status": null,
+          "latencyMs": null,
+          "requestId": null,
+          "diagnostics": null,
+          "acceptanceDiagnostics": null,
+          "error": null,
+          "attempts": {
+            "state": "not_run",
+            "count": null
+          },
+          "repair": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "fallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "personalizedFallback": {
+            "state": "not_run",
+            "attempts": null
+          },
+          "phase1Fallback": {
+            "state": "not_run",
+            "attempts": null
+          }
+        }
+      ]
+    }
+  ]
+}
