@@ -23,13 +23,13 @@
 | ISSUE-025 | Candidate Profile fact completeness / silent omission | Canonical CF/PF ledger、24-run matrix 与 downstream evidence 已关闭该问题 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-026 | unsupported hard waiver | Recommendation R-K 与 downstream waiver guard 已关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
 | ISSUE-027 | transferable Strength validator / Candidate claim upgrade stability | SG-M、post-fix 51 requests repair 0，已正式关闭 | Closed / regression only；无新证据不 reopen | 回归则阻塞 |
-| ISSUE-028 | rejected AI output evidence preservation gap | Match/route/runner E2E 已部分验证；本轮补齐 Recommendation 专用 evidence serializer，R-C layer/code/rule/MI refs 可直接进入 acceptance diagnostics，歧义不伪造 ref，production response 不泄漏 | **Open / P1 / E2E Partially Verified / Local Completion Verified / New Full-chain E2E Pending** | **是** |
+| ISSUE-028 | rejected AI output evidence preservation gap | Match/route/runner E2E 已部分验证；Recommendation structured evidence 本地完成；post-035/036 五路 capability preflight 已在业务/model 前真实 fail-fast | **Open / P1 / Local Completion Verified / Acceptance Preflight Runtime Verified / Recommendation Runtime Pending** | **是** |
 | OBS-002 | Semantic Tag projection correction：11 corrections / 7 of 24 requests，PF-I 100% | correction 不改 canonical statement；需检查 downstream Match、repair、latency | Observe | 否，除非影响 truth/status |
 | OBS-005 | Phase 2.3 long-tail latency：average≈3,656 ms、max 37,268 ms | 尚无阶段级归因 | Observe / measure first | 单一 upstream outlier 不阻塞 |
 | ISSUE-029 | E2E-RB-05：Match reason 把 CF-002 的“课程”作用域传播到独立 CF-003“团队数据展示作业” | post-028/032 runtime Match 已验证原 contamination 与等价 paraphrase 为 0；仍等待完整链 closure evidence | **Open / P1 / Fix Verified at Match Runtime / Closure Pending Full-chain** | **是** |
 | ISSUE-030 | SG-E fixed `{0,20}` window 错误拒绝包含完整合法 Candidate positive clause 的 evidence boundary | bounded structure fix 本地 Gate 通过；post-028/032 未到达可裁决 SG-E 情形 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
 | ISSUE-031 | Recommendation 把 `MI-004（已满足）` 的 status 错归给后置 partial MI，并漏建模 `部分匹配` | 改为 parenthetical owner、显式 MI group、exact requirement、single structured ref；真实歧义 fail-closed；R31-1～R31-16、full 451/451 PASS | **Open / P1 / Local Fix Verified / New Full-chain E2E Pending / Release Gate Blocker** | **是** |
-| ISSUE-032 | runner 将 missing diagnostics 聚合为 repair/fallback 0、未运行 invariants 判为 pass、未调用 stage 省略且 safeFailure 口径不一致 | 显式 stage ledger、known/unknown/not_run、invariant state 与 acceptance capability 已在 post-028/032 E2E 验证；等待完整链 closure | **Open / P1 / E2E Verified / Closure Pending Full-chain** | **是** |
+| ISSUE-032 | runner 将 missing diagnostics 聚合为 0、未运行 invariants 判 pass、未调用 stage 省略；post-035/036 又暴露 preflight-failed artifact `results=[]`、六阶段 absent | business-failure path 已 E2E verified；precheck path 现复用同一 stage/invariant model，P32-1～12 与 historical reconstruction PASS | **Open / P1 / E2E Verified on Business-failure Path / Precheck-path Locally Restabilized / QA Review Pending** | **是** |
 | ISSUE-033 | Match repair 将 absence of evidence 持续改写为 unsupported negative claim | post-restabilization runtime initial 被拒绝、repair 改为 domain/responsibility unknown、cross-dimension reuse=0，employment unmet 保留 | **Open / P1 / Fix Verified at Repair Runtime / Closure Pending** | **是** |
 | ISSUE-034 | supported formal-work relation false positive 与 sibling relation leakage | runtime 合法 employment relation 未拒绝，非法 domain/responsibility relation 未进入 repaired path | **Open / P1 / Fix Verified at Relation Runtime / Closure Pending** | **是** |
 | ISSUE-035 | explicit-negative CF-004 因 experience tag + 产品 anchor 被 `explicitSameDimensionPositiveFacts` 误认 domain positive | internal polarity classifier + positive-role guard；E35-1～10 与 exact repair replay PASS；post-fix E2E 在 capability preflight 前置条件失败，业务 Match 未执行 | **Open / P1 / Local Fix Verified / E2E Inconclusive / Release Gate Blocker** | **是** |
@@ -232,3 +232,12 @@
 - ISSUE-035/036、ISSUE-028/030/031 runtime verdict 均 INCONCLUSIVE；ISSUE-033/034/029 无新 runtime evidence；Greeting/OBS-006 无新 sample；
 - artifact 正确保存 preflight failure 与 known zero，但没有物化六条 `not_called/not_run` stage ledger 或 probe request IDs/latency；ISSUE-032 preservation 不能建议 PASS，等待 QA 裁决；
 - artifact `phase-2-4-post-035-036-rb-05.json`，SHA-256 `a84f4a1ee4731481b587a7ae207cd2de3f0635badbf5ef80e8064399253db509`；历史 artifact 未覆盖。完整审计见 `PHASE-2-4-POST-035-036-RB-05.md`。
+
+## 21. ISSUE-032 Precheck-path Restabilization（2026-08-12）
+
+- Product Owner / QA 确认 preflight fail-fast 本身正确，并将 `results=[]` 作为唯一 stage representation 裁决为 ISSUE-032 precheck-path regression；不创建 ISSUE-037；
+- root cause 是 preflight-failure branch 手写 artifact，绕过已冻结 `buildExplicitStageLedger` 与 `buildInvariantAudit`；
+- 新 builder 保留 `results=[]` 的零 business-case 事实，同时顶层物化六阶段 not_called/not_run、lifecycle not_run、invariant not_run/passed=null、safeFailure=false 与 business/model/downstream known zero；
+- capability probe ledger 仅显式保存已有 `rejectedOutputCapture` boolean；production defaults、acceptance flag policy 与 raw boundary 不变；
+- P32-1～12 和 historical artifact reconstruction PASS；focused 26/26、targeted 340/340、full 530/530、lint/build/diff/scope/secret PASS；model calls/RB-05=0；
+- implementation commit=`f66858987f89b3c209eda511e51709c1b7ad9f11`；工程建议 ISSUE-032 `LOCAL RESTABILIZATION VERIFIED`，Phase 2.4 ready to request one replacement full-chain E2E。正式 Phase 2.4 仍 BLOCKED。完整证据见 `PHASE-2-4-ISSUE-032-PRECHECK-RESTABILIZATION.md`。
