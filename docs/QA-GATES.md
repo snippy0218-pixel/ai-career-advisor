@@ -54,7 +54,7 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **BASELINE-18 REPLACEMENT 39/42 RETAINED / TWO DETERMINISTIC FALSE-POSITIVE BOUNDARIES CORRECTED**.
+Current Phase 2.5 disposition: **BASELINE-19 40/42 RETAINED / STRENGTH-GAP SYNONYM BOUNDARIES CORRECTED**.
 
 Current evidence: baseline-2 Phase 1 `30/30` accepted. Phase 2 baseline-4 is a valid, complete, non-passing `21/42` batch with `26` complete chains and downstream-after-failure `0`; baseline-3 is zero-call preflight evidence. Updated stabilization focused suites `312/312` plus integration/boundary `40/40`; full automated suite `33 files / 618 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 
@@ -81,6 +81,8 @@ Latest regression disposition: `phase-2-5-baseline-16-0598947` completed at `33/
 Latest disposition: `phase-2-5-baseline-17-4f042e1` completed at `32/42`, downstream-after-failure `0`; all ten failures are the same missing partial uncertainty fields after otherwise correct terminal recovery. Focused `148/148`, full `645/645`, lint/build PASS; complete replacement required.
 
 Latest disposition: baseline-18's zero-content sandbox-network attempt is retained separately. `phase-2-5-baseline-18-replacement-a16c088` completed all 42 at `39/42`, with `40` complete chains and downstream-after-failure `0`. R-C negation and X-F uncertainty false positives have bounded regressions; focused `106/106`, full `646/646`, lint/build PASS. A new committed complete matrix remains mandatory.
+
+Latest disposition: `phase-2-5-baseline-19-aea8eb7` completed all 42 at `40/42`, with `40` complete chains and downstream-after-failure `0`; prior targets passed 3/3. SG-H `提供` and SG-E `但尚不足以` false positives have focused `57/57`, full `648/648`, lint/build PASS. A new committed complete matrix remains mandatory.
 
 Content baseline disposition: baseline-2 Phase 1 is accepted at 30/30. `phase-2-5-baseline-4-f7838a1` is a complete, non-passing Phase 2 stabilization baseline at 21/42 with 26 complete chains and downstream-after-failure 0; baseline-3/4 artifacts and rejected raw are retained. ISSUE-040～047 have deterministic fixes with full 618/618, lint/build PASS. A new committed full Phase 2 14×3 matrix is required; no earlier success may be cherry-picked into the final matrix. See `PHASE-2-5-BASELINE-4-STABILIZATION.md`.
 

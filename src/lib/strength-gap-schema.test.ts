@@ -544,6 +544,49 @@ describe("finalizeRawStrengthGap", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("accepts an explicit request to provide missing information", () => {
+    const fixture = STRENGTH_GAP_FIXTURES[11];
+    const informationGap = fixture.validRaw.gaps.find(
+      (gap) => gap.type === "information",
+    )!;
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...informationGap,
+            suggestedAction: "请提供主导跨团队项目的具体案例。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("accepts a partial evidence boundary introduced by 但尚不足以", () => {
+    const fixture = STRENGTH_GAP_FIXTURES.find((item) =>
+      item.validRaw.gaps.some((gap) => gap.type === "evidence_expression"),
+    )!;
+    const evidenceGap = fixture.validRaw.gaps.find(
+      (gap) => gap.type === "evidence_expression",
+    )!;
+    const result = finalizeRawStrengthGap(
+      {
+        ...fixture.validRaw,
+        gaps: [
+          {
+            ...evidenceGap,
+            statement:
+              "现有证据只能表明候选人协助登记企业到访信息，但尚不足以证明完整满足客户沟通能力的要求。",
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("rejects structural actions that propose manufacturing a short-term fix", () => {
     const fixture = STRENGTH_GAP_FIXTURES[7];
     const result = finalizeRawStrengthGap(

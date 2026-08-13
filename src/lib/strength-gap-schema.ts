@@ -225,7 +225,7 @@ const EVIDENCE_ANCHOR_PATTERN =
 const POSITIVE_EVIDENCE_CLAUSE_PATTERN =
   /^(?:(?:只能|仅能|仅|部分)(?:部分)?)?(?:表明|证明|说明|显示|反映|支持|来自).+/;
 const EVIDENCE_LIMITATION_CLAUSE_PATTERN =
-  /^(?:(?:尚不足以|不足以)(?:完整|充分)?|未能(?:完整|充分)?)(?:证明|确认|判断|说明|表明).+/;
+  /^(?:但)?(?:(?:尚不足以|不足以)(?:完整|充分)?|未能(?:完整|充分)?)(?:证明|确认|判断|说明|表明).+/;
 const UNKNOWN_DEFICIENCY_PATTERN =
   /(?:(?:你|候选人).{0,16}(?:缺少|不会|不具备|未掌握|能力不足|经验不足)|(?:需要|应当|应该).{0,8}(?:学习|补强|提升|掌握))/;
 const FORBIDDEN_ADVICE_PATTERN =
@@ -591,7 +591,7 @@ export function finalizeRawStrengthGap(
     }
     if (
       entry.actionType === "confirm" &&
-      !/(?:补充|确认|核实|说明)/.test(entry.suggestedAction)
+      !/(?:补充|提供|确认|核实|说明)/.test(entry.suggestedAction)
     ) {
       addIssue(issues, `${path}.suggestedAction`, "SG-H confirm action must request missing information");
     }

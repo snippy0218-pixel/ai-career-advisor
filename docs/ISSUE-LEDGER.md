@@ -143,6 +143,12 @@
 - TC-P2-04 R2/R3 reproduce one R-C negation-boundary false positive; TC-P2-02 R2 reproduces one X-F uncertainty-boundary false positive after an otherwise valid completed chain. Both are bounded deterministic defects, not new Contract ambiguity or truth failure.
 - Content summary SHA-256 `09085fa322cec24646d802957a2928b9cd147afd7d757dd77f93c682de3f854b`; focused `106/106`, full `646/646`, lint/build PASS. See `PHASE-2-5-BASELINE-18-STABILIZATION.md`.
 
+## Baseline 19 additional evidence
+
+- `phase-2-5-baseline-19-aea8eb7` completed all `42/42` at `40/42`, with `40` complete chains and downstream-after-failure `0`; all baseline-18 targets passed 3/3.
+- TC-P2-05 R1 and TC-P2-14 R1 are bounded Strength/Gap synonym-boundary false positives (`提供`, `但尚不足以`), with both initial and repair raw outputs preserved and no downstream execution.
+- Summary SHA-256 `c9e2bd741eeb554ccb7a90752152f4fe8f29b26f44e8a0cd3359af524fd5a1ff`; focused `57/57`, full `648/648`, lint/build PASS. See `PHASE-2-5-BASELINE-19-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

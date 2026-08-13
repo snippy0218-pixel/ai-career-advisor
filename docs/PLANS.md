@@ -30,6 +30,7 @@
 - baseline-16（`0598947…`）完整执行 Phase 2 14×3，为 33/42 PASS、33 complete chains、失败后下游调用 0。TC-P2-10 3/3 PASS，但全局 same-skill omission 扩展与既有 terminal downgrade 冲突，导致 TC-P2-01/06/07 各 3/3 deterministic regression；已撤回全局扩展并收敛到 terminal-only partial，focused `148/148`、full `645/645`、lint/build PASS。下一步提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-17（`4f042e1…`）完整执行为 32/42 PASS、downstream-after-failure 0；TC-P2-10 3/3 PASS。10 条 terminal `met -> partial` 已选对 exact CF，但漏同步 partial 必需的 missing/question 字段；窄字段修复 focused `148/148`、full `645/645`、lint/build PASS。下一步提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-18 implementation `a16c088…` 的首个 attempt 因 sandbox 网络在内容样本前 fail-fast 并独立保留；同 commit 的 authorized-network replacement 完整执行为 39/42 PASS、40 complete chains、downstream-after-failure 0。失败收敛为 Recommendation 对 `未完全满足` 的 negation 漏判（2 条）与 runner X-F 对 `熟练程度…未明确` 的 uncertainty 漏判（1 条）；窄修复 focused `106/106`、full `646/646`、lint/build PASS。下一步提交 immutable baseline 并完整 replacement。
+- baseline-19（`aea8eb7…`）完整执行为 40/42 PASS、40 complete chains、downstream-after-failure 0；baseline-18 三项目标均 3/3 PASS。TC-P2-05 R1 与 TC-P2-14 R1 均被 Strength/Gap 同义边界假拒绝：SG-H 漏 `提供`，SG-E 漏 `但尚不足以`。窄修复 focused `57/57`、full `648/648`、lint/build PASS；下一步提交 immutable baseline 并完整 replacement。
 
 ## Execution discipline
 
