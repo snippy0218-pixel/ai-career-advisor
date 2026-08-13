@@ -98,6 +98,13 @@
 - TC-P2-10 R2 completed and failed only X-F on whitespace-equivalent `3 年` versus raw `3年`. TC-P2-11 R2 was correctly rejected for an unsupported substitution example appended to an otherwise valid strictness question.
 - Bounded recovery normalizes whitespace only for literal source comparison and replaces only the rejected single-ref substitution question with the canonical strictness question before full validation. Focused `108/108`, full `637/637`, lint/build PASS. Summary SHA-256: `517d5082dc6310b5aa24d98c85ea5e150474788fddc9665f0b190a18343f6b1d`.
 
+## Baseline 12 additional evidence
+
+- `phase-2-5-baseline-12-da1877f` is a valid complete content batch: `40/42` PASS, `41` complete chains, downstream-after-failure `0`; both Baseline-11 failures passed 3/3.
+- ISSUE-041 adjacent evidence is an exact same-dimension employment counter followed by a rejected qualifier-free generic relation. Recovery preserves the explicit counter and exact CF text only; cross-dimension or unsupported relations remain fail-closed.
+- ISSUE-042 adjacent evidence is an aggregate-unmet MI included in both supporting and counter refs because one sibling dimension was positive. Supporting eligibility now follows X-C aggregate status; terminal recovery removes only the rejected supporting ref and reruns R-A～R-L.
+- Summary SHA-256 is `e0cdb9b6f4056edce14bfc914fd56054626a6f4d5887dbadbe85cb81cbe9f760`. Focused `135/135`, full `640/640`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-12-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

@@ -98,4 +98,20 @@ describe("Recommendation rejected-summary normalization", () => {
     ]);
     expect(finalizeRawRecommendation(result.data, fixture.matchCore).issues).toEqual([]);
   });
+
+  it("removes only an aggregate-unmet ref rejected from supportingMatchRefs", () => {
+    const raw = structuredClone(RECOMMENDATION_FIXTURES[0].validRaw);
+    raw.supportingMatchRefs = ["MI-001", "MI-003"];
+    const result = normalizeRejectedRecommendationSummary(raw, [
+      {
+        path: "supportingMatchRefs",
+        message: "MI-001 has no positive Match Core evidence",
+      },
+    ]);
+
+    expect(result.applied).toBe(true);
+    expect(result.data.supportingMatchRefs).toEqual(["MI-003"]);
+    expect(result.data.counterMatchRefs).toEqual(raw.counterMatchRefs);
+    expect(result.data.summary).toBe(raw.summary);
+  });
 });

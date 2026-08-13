@@ -47,6 +47,28 @@ function verificationQuestion(fragment: string) {
   return `请补充可验证的“${safeFragment(fragment)}”相关事实或经历。`;
 }
 
+function canPreserveExplicitEmploymentCounter(
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  fact: FinalCanonicalCandidateFact | undefined,
+) {
+  if (
+    dimension.dimensionType !== "employment_type" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length !== 1 ||
+    dimension.candidateEvidence[0].role !== "counter" ||
+    !fact ||
+    !/(?:没有|尚无|不具备|未曾|从未|未从事)/.test(fact.statement) ||
+    !/(?:工作|经历|经验)/.test(fact.statement)
+  ) {
+    return false;
+  }
+  const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(" ")}`;
+  return ["正式", "全职", "实习"].some(
+    (qualifier) =>
+      requirementContext.includes(qualifier) && fact.statement.includes(qualifier),
+  );
+}
+
 function factCanPreservePositiveDimension(
   dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
   fact: FinalCanonicalCandidateFact,
@@ -158,6 +180,27 @@ export function normalizeRejectedMatchReasons(
       (entry) => entry.factId,
     );
     if (dimension.status === "unmet") {
+      const exactCounterFact =
+        dimension.candidateEvidence.length === 1
+          ? factById.get(dimension.candidateEvidence[0].factId)
+          : undefined;
+      if (
+        codes.size === 1 &&
+        codes.has("M-CANDIDATE-LINEAGE") &&
+        canPreserveExplicitEmploymentCounter(dimension, exactCounterFact)
+      ) {
+        dimension.reason = `${dimension.candidateEvidence[0].factId} 原文：“${exactCounterFact!.statement}”。`;
+        actions.push({
+          itemIndex,
+          dimensionIndex,
+          issueCodes: [...codes],
+          previousStatus,
+          normalizedStatus: "unmet",
+          removedCandidateFactRefs: [],
+          reasonRebuilt: true,
+        });
+        continue;
+      }
       if (
         canonicalFacts.length === 0 ||
         !codes.has("M-CANDIDATE-LINEAGE") ||

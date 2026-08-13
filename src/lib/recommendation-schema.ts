@@ -135,6 +135,10 @@ function hasPositiveEvidence(item: RecommendationMatchLedgerItem) {
   );
 }
 
+function isEligibleSupportingEvidence(item: RecommendationMatchLedgerItem) {
+  return (item.status === "met" || item.status === "partial") && hasPositiveEvidence(item);
+}
+
 function hasCareerDirectionConflict(item: RecommendationMatchLedgerItem) {
   return item.dimensions.some(
     (dimension) =>
@@ -237,7 +241,7 @@ export function buildRecommendationDeterministicConstraints(
   return {
     allowedRecommendationLevels: computeAllowedRecommendationLevels(matchCore),
     eligibleSupportingMatchRefs: ledger
-      .filter(hasPositiveEvidence)
+      .filter(isEligibleSupportingEvidence)
       .map((item) => item.matchItemRef),
     eligibleCounterMatchRefs: ledger
       .filter((item) => !isPreferred(item) && hasExplicitCounterEvidence(item))
@@ -836,7 +840,7 @@ export function finalizeRawRecommendation(
 
   for (const ref of raw.supportingMatchRefs) {
     const item = byRef.get(ref);
-    if (item && !hasPositiveEvidence(item)) {
+    if (item && !isEligibleSupportingEvidence(item)) {
       addIssue(issues, "supportingMatchRefs", `${ref} has no positive Match Core evidence`);
     }
   }

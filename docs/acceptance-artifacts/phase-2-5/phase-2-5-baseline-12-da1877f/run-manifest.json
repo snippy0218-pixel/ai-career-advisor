@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "phase-2-5-run-manifest-v1",
+  "phase": "2.5",
+  "runId": "phase-2-5-baseline-12-da1877f",
+  "implementationCommit": "da1877f6ea9b669b29763457567f4c82c0a53373",
+  "suite": "phase2",
+  "repetitions": 3,
+  "dryRun": false,
+  "baseUrl": "http://127.0.0.1:3000",
+  "fixtureSchemaVersion": "phase-2-5-fixtures-v1",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "modelConfiguration": {
+    "provider": "DeepSeek",
+    "model": "deepseek-v4-flash",
+    "temperature": {
+      "jd": 0.2,
+      "profile": 0.2,
+      "match": 0.1,
+      "recommendation": 0.1,
+      "strengthGap": 0.1,
+      "greeting": 0.1
+    },
+    "maxOutputTokens": {
+      "jd": 4096,
+      "profile": 4096,
+      "match": 8192,
+      "recommendation": 4096,
+      "strengthGap": 8192,
+      "greeting": 4096
+    },
+    "totalTimeoutMs": {
+      "jd": 60000,
+      "profile": 60000,
+      "match": 90000,
+      "recommendation": 90000,
+      "strengthGap": 90000,
+      "greeting": 90000
+    },
+    "repairPolicy": "released single targeted repair path; no top-level replacement sample"
+  },
+  "policy": {
+    "phase1": "TC-01..10 x 3 complete matrix",
+    "phase2": "TC-P2-01..14 x 3 complete full-chain matrix",
+    "cherryPick": false,
+    "fourthRun": false,
+    "partialRerunComposition": false,
+    "incrementalEvidenceWrite": true
+  }
+}

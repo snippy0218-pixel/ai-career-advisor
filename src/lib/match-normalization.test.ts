@@ -140,7 +140,7 @@ describe("Match rejected-reason normalization", () => {
     });
   });
 
-  it("N4 never normalizes unmet counter-evidence", () => {
+  it("N4 does not normalize an unsupported responsibility counter", () => {
     const input = raw({
       status: "unmet",
       reason: "CF-001 表明未负责交付结果。",
@@ -153,6 +153,51 @@ describe("Match rejected-reason normalization", () => {
       reasonIssue("M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion"),
     ]);
     expect(result).toEqual({ data: input, applied: false, actions: [] });
+  });
+
+  it("N4b preserves an exact same-dimension employment counter without the rejected generic relation", () => {
+    const input = raw({
+      dimensionType: "employment_type",
+      requirementFragment: "正式全职数据分析经验",
+      status: "unmet",
+      reason: "CF-002 明确表明目前没有正式全职数据分析经验，与要求直接冲突。",
+      jdEvidence: ["必须具有3年以上正式全职数据分析经验"],
+      candidateEvidence: [{ factId: "CF-002", role: "counter" }],
+      missingInformation: null,
+      verificationQuestion: null,
+    });
+    input.matchItems[0].aggregateStatus = "unmet";
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [
+        reasonIssue(
+          "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+        ),
+      ],
+      [
+        {
+          factId: "CF-002",
+          statement: "目前没有正式全职数据分析经验",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-002"],
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0]).toMatchObject({ aggregateStatus: "unmet" });
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "unmet",
+      reason: "CF-002 原文：“目前没有正式全职数据分析经验”。",
+      candidateEvidence: [{ factId: "CF-002", role: "counter" }],
+    });
+    expect(result.actions).toEqual([
+      expect.objectContaining({
+        previousStatus: "unmet",
+        normalizedStatus: "unmet",
+        removedCandidateFactRefs: [],
+      }),
+    ]);
   });
 
   it("N4a conservatively downgrades a rejected unsupported unmet relation", () => {

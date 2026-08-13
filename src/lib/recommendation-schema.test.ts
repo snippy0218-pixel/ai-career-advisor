@@ -75,6 +75,44 @@ describe("Recommendation Core deterministic contract", () => {
     expect(result.issues.some((issue) => issue.message.includes("counter evidence"))).toBe(true);
   });
 
+  it("X-C excludes an aggregate unmet item from supporting refs even when a sibling dimension is positive", () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "具有3年以上前端开发经验",
+        requirementType: "hard_requirement",
+        status: "unmet",
+        dimensionType: "duration",
+      },
+    ]);
+    matchCore.matchItems[0].requirementDimensions.push({
+      ...matchCore.matchItems[0].requirementDimensions[0],
+      dimensionId: "DIM-002",
+      dimensionType: "role",
+      requirementFragment: "前端开发经验",
+      status: "met",
+      reason: "CF-001 表明具有前端开发经验。",
+      candidateEvidenceRole: "positive",
+    });
+    const raw = {
+      recommendationLevel: "not_recommended" as const,
+      summary: "MI-001 为 unmet，硬性年限要求未满足。",
+      supportingMatchRefs: ["MI-001"],
+      counterMatchRefs: ["MI-001"],
+      limitations: [{ content: "MI-001 硬性年限要求未满足。", matchItemRefs: ["MI-001"] }],
+      questionsToConfirm: [],
+    };
+
+    expect(buildRecommendationDeterministicConstraints(matchCore).eligibleSupportingMatchRefs).toEqual([]);
+    expect(finalizeRawRecommendation(raw, matchCore).issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "supportingMatchRefs",
+          message: "MI-001 has no positive Match Core evidence",
+        }),
+      ]),
+    );
+  });
+
   it("R-C rejects a text claim that overrides an unknown Match status", () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const result = finalizeRawRecommendation(
