@@ -126,12 +126,14 @@ function isNegatedOrRequirementQualifier(
     Math.max(clauseStart + 1, index - 12),
     index,
   );
+  const clauseBefore = content.slice(clauseStart + 1, index);
   const after = content.slice(
     index + value.length,
     Math.min(clauseEnd, index + value.length + 10),
   );
   if (
-    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|是否|未表明|未体现|未达到|不足以确认|不足以证明|尚无证据证明|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
+    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|不满足|是否|未表明|未体现|未达到|不足以确认|不足以证明|尚无证据证明|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
+    /未明确达到.{0,20}$/.test(clauseBefore) ||
     /^(?:并)?(?:不能|无法|不得|并非|不是)/.test(after) ||
     (/(?:与|和|同)$/.test(before) && /^.{0,20}(?:要求|门槛|标准)/.test(after)) ||
     /(?:与|和|同)[“"']?(?:要求|门槛|标准)(?:的)?$/.test(before) ||

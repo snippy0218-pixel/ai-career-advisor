@@ -249,4 +249,48 @@ describe("Match rejected-reason normalization", () => {
     expect(result.data.matchItems[0].aggregateStatus).toBe("partial");
     expect(result.data.matchItems[0].dimensions[1]).toEqual(input.matchItems[0].dimensions[1]);
   });
+
+  it("N7 converts an explicit numeric duration shortfall from partial to unmet", () => {
+    const input = raw({
+      dimensionType: "duration",
+      requirementFragment: "具有3年以上前端开发经验",
+      reason: "候选人明确有1年前端开发工作经验，未达到3年要求。",
+      jdEvidence: ["具有3年以上前端开发经验"],
+    });
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [
+        {
+          path: "matchItems.0.dimensions.0.status",
+          message: "M-DURATION explicit numeric shortfall must be unmet",
+        },
+      ],
+      [
+        {
+          factId: "CF-001",
+          statement: "有1年前端开发工作经验",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0].aggregateStatus).toBe("unmet");
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "unmet",
+      candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+      missingInformation: null,
+      verificationQuestion: null,
+    });
+    expect(result.actions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          issueCodes: ["M-DURATION"],
+          previousStatus: "partial",
+          normalizedStatus: "unmet",
+        }),
+      ]),
+    );
+  });
 });

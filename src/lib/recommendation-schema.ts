@@ -486,6 +486,10 @@ function addStatusIssue(
   });
 }
 
+function isHypotheticalStatusClaim(text: string, start: number) {
+  return /(?:是否|确认是否)$/.test(text.slice(Math.max(0, start - 16), start));
+}
+
 export function inspectRecommendationStatusClaimIntegrity(
   raw: RawRecommendation,
   matchCore: FinalMatchCore,
@@ -516,6 +520,7 @@ export function inspectRecommendationStatusClaimIntegrity(
         for (const match of fragment.matchAll(pattern)) {
           const start = match.index;
           if (start === undefined) continue;
+          if (isHypotheticalStatusClaim(fragment, start)) continue;
           const end = start + match[0].length;
           const parentheticalRefs = parentheticalTargetRefs(
             fragment,

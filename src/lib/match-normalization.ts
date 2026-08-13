@@ -23,6 +23,7 @@ export interface MatchNormalizationResult {
 }
 
 const REASON_PATH = /^matchItems\.(\d+)\.dimensions\.(\d+)\.reason$/;
+const STATUS_PATH = /^matchItems\.(\d+)\.dimensions\.(\d+)\.status$/;
 const AGGREGATE_PATH = /^matchItems\.(\d+)\.aggregateStatus$/;
 const NORMALIZABLE_REASON_RULE = /\b(?:M-CANDIDATE-LINEAGE|M-K)\b/;
 
@@ -106,6 +107,47 @@ export function normalizeRejectedMatchReasons(
   const data = structuredClone(raw);
   const actions: MatchNormalizationAction[] = [];
   const factById = new Map(canonicalFacts.map((fact) => [fact.factId, fact]));
+  for (const issue of issues) {
+    const match = issue.path.match(STATUS_PATH);
+    if (
+      !match ||
+      !issue.message.includes("M-DURATION explicit numeric shortfall must be unmet")
+    ) {
+      continue;
+    }
+    const itemIndex = Number(match[1]);
+    const dimensionIndex = Number(match[2]);
+    const dimension = data.matchItems[itemIndex]?.dimensions[dimensionIndex];
+    if (!dimension || dimension.dimensionType !== "duration" || dimension.status !== "partial") {
+      continue;
+    }
+    const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(" ")}`;
+    const requiredYears = Number(requirementContext.match(/(\d+)\s*年/)?.[1]);
+    const shortfall = dimension.candidateEvidence
+      .map((entry) => ({ entry, fact: factById.get(entry.factId) }))
+      .find(({ fact }) => {
+        const candidateYears = Number(fact?.statement.match(/(\d+)\s*年/)?.[1]);
+        return Number.isFinite(candidateYears) && candidateYears < requiredYears;
+      });
+    if (!shortfall?.fact || !Number.isFinite(requiredYears)) continue;
+    const candidateYears = Number(shortfall.fact.statement.match(/(\d+)\s*年/)?.[1]);
+    dimension.status = "unmet";
+    dimension.reason = `${shortfall.entry.factId} 原文：“${shortfall.fact.statement}”，${candidateYears}年低于${requiredYears}年要求。`;
+    dimension.candidateEvidence = [
+      { factId: shortfall.entry.factId, role: "counter" },
+    ];
+    dimension.missingInformation = null;
+    dimension.verificationQuestion = null;
+    actions.push({
+      itemIndex,
+      dimensionIndex,
+      issueCodes: ["M-DURATION"],
+      previousStatus: "partial",
+      normalizedStatus: "unmet",
+      removedCandidateFactRefs: [],
+      reasonRebuilt: true,
+    });
+  }
   for (const { itemIndex, dimensionIndex, codes } of grouped.values()) {
     const item = data.matchItems[itemIndex];
     const dimension = item?.dimensions[dimensionIndex];

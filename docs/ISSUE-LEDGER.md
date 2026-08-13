@@ -79,6 +79,13 @@
 - This is an ISSUE-039 regression, not a new semantic issue. The runner catch path emitted category `infrastructure_transport_failure`, while fail-fast recognized code `RUNNER_TRANSPORT_FAILURE`; the mismatch is reproduced and corrected in the central predicate.
 - Summary SHA-256 is `57cae988a8ab9f991ce1e729df41a99709d71f3b3a2237544220d4919b975580`. Exact regression `8/8`, full `631/631`, lint and build PASS. All artifacts remain immutable and neither successful sample may be cherry-picked. See `PHASE-2-5-BASELINE-8-INFRASTRUCTURE-ADJUDICATION.md`.
 
+## Baseline 9 additional evidence
+
+- `phase-2-5-baseline-9-2b8bc40` is a complete valid Phase 2 content batch: `39/42` PASS, `40` complete chains, downstream-after-failure `0`; the server remained live and there was no run 4 or partial composition.
+- ISSUE-041/044 adjacent evidence: TC-P2-02 R2 exposed local threshold/proficiency boundary wording, while TC-P2-10 R1 exposed explicit numeric duration shortfall emitted as `partial`. The bounded correction preserves positive-claim and cross-dimension protections and converts only an exact referenced numeric shortfall to dimension-local `unmet`.
+- ISSUE-042 adjacent evidence: TC-P2-04 R1 preserved `partial` but R-C treated `确认是否已满足` as a factual status claim. Hypothetical status grammar is excluded; direct contradiction controls remain.
+- Summary SHA-256 is `8535d68c30a852e65ecec6d1207690515a3859597f04b41328618fe178e7e0f9`. Focused `272/272`, full `634/634`, lint and build PASS; scope/secret/process audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-9-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

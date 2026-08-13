@@ -103,6 +103,31 @@ describe("Modifier Inference Contract", () => {
     ).toEqual([]);
   });
 
+  it("keeps explicit threshold and proficiency shortfalls outside Candidate modifier assertions", () => {
+    expect(
+      findCrossFactModifierContamination(
+        "候选人明确没有正式全职数据分析经验，不满足3年以上经验要求。",
+        [
+          {
+            factId: "CF-002",
+            statement: "目前没有正式全职数据分析经验",
+          },
+        ],
+      ),
+    ).toEqual([]);
+    expect(
+      findCrossFactModifierContamination(
+        "候选人在课程中接触过 SQL，但未明确达到数据分析场景下的熟练程度。",
+        [
+          {
+            factId: "CF-003",
+            statement: "在课程中接触过 SQL",
+          },
+        ],
+      ),
+    ).toEqual([]);
+  });
+
   const unsupportedWorkFact = [
     {
       factId: "CF-003",

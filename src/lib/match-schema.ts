@@ -196,7 +196,7 @@ function sameStringSet(left: string[], right: string[]) {
 }
 
 const EVIDENCE_BOUNDARY_PATTERN =
-  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不足以确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
+  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不足以确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未明确达到|未达到)/;
 const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
   /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
 
@@ -730,6 +730,25 @@ export function finalizeRawMatchCore(
           `${dimensionPath}.candidateEvidence`,
           "candidate fact references must be unique",
         );
+      }
+      if (dimension.dimensionType === "duration" && dimension.status === "partial") {
+        const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(" ")}`;
+        const requiredYears = Number(requirementContext.match(/(\d+)\s*年/)?.[1]);
+        const hasExplicitShortfall =
+          Number.isFinite(requiredYears) &&
+          factRefs.some((factId) => {
+            const candidateYears = Number(
+              factById.get(factId)?.statement.match(/(\d+)\s*年/)?.[1],
+            );
+            return Number.isFinite(candidateYears) && candidateYears < requiredYears;
+          });
+        if (hasExplicitShortfall) {
+          addIssue(
+            issues,
+            `${dimensionPath}.status`,
+            "M-DURATION explicit numeric shortfall must be unmet",
+          );
+        }
       }
       const roles = new Set(dimension.candidateEvidence.map((entry) => entry.role));
       const requiredRole =
