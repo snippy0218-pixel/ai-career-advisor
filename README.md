@@ -1,6 +1,6 @@
 # AI 求职顾问
 
-面向应届毕业生和 0–1 年工作经验求职者的招聘 JD 解读 Demo。用户粘贴招聘 JD 后，服务端调用 DeepSeek API，返回经过结构和证据校验的岗位分析，并在网页中展示。
+面向应届毕业生和 0–1 年工作经验求职者的 AI 求职顾问。用户可以只解读招聘 JD，也可以同时提供 JD 与自己的真实资料，获得经过结构、事实和证据校验的个性化匹配结果。
 
 ## 当前状态
 
@@ -17,6 +17,17 @@ Phase 1 MVP 已完成，支持：
 - 桌面和移动端响应式布局。
 
 Phase 1 不包含登录、数据库、文件上传、OCR、历史记录、会员、权限或投递管理。
+
+Phase 2 Personalized Match 核心能力已完成，Phase 2.5 正在执行最终 Release Gate。统一用户流位于 `/personalized-match`，支持：
+
+- 原始 JD + 原始候选人资料一次提交，无需构造内部 JSON；
+- Candidate Fact → Profile Evidence → Raw Profile 与 JD Evidence → Raw JD 的完整可追溯链；
+- 逐项区分已匹配、部分匹配、明确不满足和待确认；
+- 投递建议、可验证优势、差距与行动、待确认问题；
+- 基于安全候选人事实的 HR 开场白，无相关事实时回落通用版本；
+- 六阶段 loading、明确错误、保留输入重试；任何阶段失败后停止下游且不展示未完整验证结果。
+
+Phase 2.5 不增加登录、存储、简历改写、文件解析、面试、投递管理、匹配分数或 confidence。
 
 ## 技术栈
 
@@ -64,7 +75,7 @@ Phase 1 不包含登录、数据库、文件上传、OCR、历史记录、会员
    npm run dev
    ```
 
-5. 浏览器打开 [http://localhost:3000](http://localhost:3000)。
+5. 浏览器打开 [http://localhost:3000](http://localhost:3000)；个性化匹配页为 [http://localhost:3000/personalized-match](http://localhost:3000/personalized-match)。
 
 ## 工程检查
 
@@ -92,18 +103,26 @@ AI Career Advisor/
 ├── src/
 │   ├── app/
 │   │   ├── api/analyze/route.ts
+│   │   ├── api/profile/analyze/route.ts
+│   │   ├── api/match/analyze/route.ts
+│   │   ├── api/recommendation/analyze/route.ts
+│   │   ├── api/strength-gap/analyze/route.ts
+│   │   ├── api/greeting/analyze/route.ts
+│   │   ├── personalized-match/page.tsx
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components/
 │   │   ├── analysis-result.tsx
 │   │   ├── jd-input-form.tsx
-│   │   └── job-analyzer.tsx
+│   │   ├── job-analyzer.tsx
+│   │   └── personalized-match-advisor.tsx
 │   ├── lib/
 │   │   ├── analysis-schema.ts
 │   │   ├── api-errors.ts
 │   │   ├── deepseek.ts
-│   │   └── prompt.ts
+│   │   ├── prompt.ts
+│   │   └── personalized-match-flow.ts
 │   └── test/fixtures.ts
 └── docs/
     ├── PRD.md
@@ -119,12 +138,13 @@ AI Career Advisor/
 
 ## 数据和安全说明
 
-- 浏览器只调用本项目的 `/api/analyze`；
+- 浏览器只调用本项目的六个本地 `/api/**/analyze` route；
 - DeepSeek API Key 只在 Next.js 服务端读取；
 - Phase 1 不保存 JD 或分析历史；
 - 服务端不把完整 JD 写入日志；
 - 模型原始响应只有通过 JSON、Zod 和证据校验后才返回页面；
 - `candidateAdvantages` 在 Phase 1 固定为 `null`，避免编造用户优势。
+- Phase 2 Candidate claim 只能来自 Canonical Candidate Fact，并可继续追溯到原始候选人资料；缺少证据保持 unknown，不按 unmet 处理。
 
 ## 项目文档
 

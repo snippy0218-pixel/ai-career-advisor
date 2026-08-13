@@ -4,13 +4,15 @@
 
 ## Current plan
 
-- Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 未授权。
-- 目标：已完成；等待 Product Owner / QA review 或单独的 Phase 2.5 authorization。
-- 详细执行状态：`PHASE-2-4-AUTONOMOUS-PLAN.md`。
+- Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = AUTHORIZED / IN PROGRESS。
+- 目标：交付统一 `JD + Candidate Profile -> Personalized Match Result` 用户流，冻结并执行 Phase 1 10×3 与 Phase 2 14×3 最终矩阵，完成 Release Gate。
+- 详细执行状态：`PHASE-2-5-AUTONOMOUS-PLAN.md`。
 - Issue 状态：`ISSUE-LEDGER.md`。
 - Gate 定义与当前证据：`QA-GATES.md`。
-- final acceptance batch 2 在 `803289b…` 上完成 3/3 complete chains，X-A～X-J 全绿；ISSUE-028～038 closed，Q-A～Q-J PASS。最终证据见 `PHASE-2-4-FINAL-ACCEPTANCE.md`。Phase 2.5 仍未授权。
-- Phase 2.5 Pre-Authorization Audit 已完成，见 `PHASE-2-5-PRE-AUTHORIZATION-AUDIT.md`。当前 recommendation：`NOT READY — PO DECISION REQUIRED`；仅等待 release surface、冻结 acceptance material/model authorization、final fallback-rate rule 三项 PO 决策，不得提前实施 Phase 2.5。
+- Phase 2.4 final acceptance batch 2 在 `803289b…` 上完成 3/3 complete chains，X-A～X-J 全绿；ISSUE-028～038 closed，Q-A～Q-J PASS。最终证据见 `PHASE-2-4-FINAL-ACCEPTANCE.md`。
+- Product Owner / QA 已于 2026-08-13 关闭 Pre-Authorization Audit §K 三项决策并授权 Phase 2.5；release surface、fixture/model budget、fallback rule 已冻结在 `PHASE-2-5-AUTONOMOUS-PLAN.md`。
+- Stage 1 已逐字恢复 Phase 1 TC-01～10（全部历史字符数与 SHA-256 匹配），并建立 TC-P2-01～14 raw JD/Profile 覆盖集；当前模型调用 0。
+- 统一 `/personalized-match` 用户流、六 API fail-closed 编排、完整结果展示及 Phase 2.5 runner 已实现；focused 19/19、full 598/598、lint 零 warning、production build、页面/API/capability smoke PASS。下一步冻结 committed acceptance baseline 后执行正式矩阵。
 
 ## Execution discipline
 

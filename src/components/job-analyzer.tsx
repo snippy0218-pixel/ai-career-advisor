@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { AnalysisResult } from "./analysis-result";
@@ -142,6 +143,12 @@ export function JobAnalyzer() {
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
             粘贴招聘 JD，AI 会梳理真实职责、任职要求、风险信号和沟通重点。结论附带原文依据，不替你编造经历。
           </p>
+          <Link
+            href="/personalized-match"
+            className="mt-5 inline-flex items-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            加上我的资料，查看个性化匹配
+          </Link>
         </header>
 
         <JdInputForm

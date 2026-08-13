@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint .",
     "qa:phase2.4": "node scripts/run-phase-2-4-e2e-robustness.mjs",
+    "qa:phase2.5": "node scripts/run-phase-2-5-acceptance.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

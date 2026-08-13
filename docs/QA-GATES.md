@@ -41,3 +41,19 @@
 - Q-J release blockers：PASS；no open Phase 2.4 P0/P1。Phase 2.5 still NOT AUTHORIZED。
 
 Current disposition: **PASS / CLOSE PHASE 2.4**. Final evidence: `PHASE-2-4-FINAL-ACCEPTANCE.md`. Phase 2.5 remains NOT AUTHORIZED pending separate Product Owner / QA authorization.
+
+## Phase 2.5 Release Gate
+
+Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addendum and run policy are `PHASE-2-5-AUTONOMOUS-PLAN.md`.
+
+- Product surface Gate: ordinary user can submit raw JD + raw Candidate Profile and receive one validated Personalized Match Result without producing internal JSON.
+- Fixture Gate: exact Phase 1 TC-01～10 hashes plus frozen TC-P2-01～14 JD/Profile hashes and coverage manifest.
+- Deterministic Gate: focused/targeted/full/lint/build/production smoke/diff/scope/secret/history audit all PASS on a committed clean baseline.
+- Model Gate: Phase 1 10×3 and Phase 2 14×3, complete immutable matrices, all artifacts retained, no cherry-pick or fourth run.
+- Hard Contract Gate: Candidate/JD lineage, status, dimension locality, modifier/ownership/waiver integrity, schema, fail-closed, downstream-stop, and Phase 1 compatibility all PASS.
+- Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
+- `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
+
+Current Phase 2.5 disposition: **DETERMINISTIC GATE PASS / CANDIDATE BASELINE COMMIT PENDING — model calls 0**.
+
+Current evidence: fixture/runner/UI focused `19/19`; full automated suite `32 files / 598 tests`; lint zero warnings; production build and TypeScript PASS; `/`, `/personalized-match`, invalid-input API, and five acceptance capability probes PASS; server stopped after smoke; diff/whitespace/scope/secret/history audits PASS. Only the committed-clean-baseline audit remains before formal model execution.
