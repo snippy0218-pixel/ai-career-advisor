@@ -73,12 +73,19 @@
 - ISSUE-050 runtime verification PASS: failed Recommendation artifacts preserve completed JD/Profile/Match structured outputs.
 - Complete adjudication: `PHASE-2-5-BASELINE-7-STABILIZATION.md`. Focused `103/103`, full `631/631`, lint, production build, diff/scope/secret/process PASS; immutable commit and a complete replacement matrix remain.
 
+## Baseline 8 infrastructure evidence
+
+- `phase-2-5-baseline-8-6f0eab7` retained all 42 scheduled records, but is excluded from final content acceptance: only `TC-P2-01-R1/R2` completed; the server exited during R3 Match and the remaining 39 executions were local transport failures with no additional content sample.
+- This is an ISSUE-039 regression, not a new semantic issue. The runner catch path emitted category `infrastructure_transport_failure`, while fail-fast recognized code `RUNNER_TRANSPORT_FAILURE`; the mismatch is reproduced and corrected in the central predicate.
+- Summary SHA-256 is `57cae988a8ab9f991ce1e729df41a99709d71f3b3a2237544220d4919b975580`. Exact regression `8/8`, full `631/631`, lint and build PASS. All artifacts remain immutable and neither successful sample may be cherry-picked. See `PHASE-2-5-BASELINE-8-INFRASTRUCTURE-ADJUDICATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
 - Adjudication: the production server ran inside the restricted network sandbox. Provider completions and content samples were 0; the immutable 72 request artifacts remain preserved and are excluded from both formal matrices by `infrastructure-adjudication.json`.
 - Fix: central infrastructure classification now includes transport, auth, balance, rate, availability, and timeout failures. The runner writes a separate infrastructure failure artifact and throws before scheduling another top-level request.
 - Verification: focused fixture/runner `8/8`, full `599/599`, lint zero warnings, production build/TypeScript PASS, diff check PASS.
+- Baseline-8 regression evidence: local transport used a category string not present in the code-oriented predicate, so the server-process loss was not fail-fast. The bounded compatibility correction recognizes both representations; final closure requires deterministic verification and a new complete replacement matrix on a persistent server process.
 
 ## ISSUE-037 root cause record
 

@@ -187,6 +187,7 @@ describe("Phase 2.5 runner utilities", () => {
   it("separates provider and transport infrastructure failures from content samples", () => {
     for (const code of [
       "RUNNER_TRANSPORT_FAILURE",
+      "infrastructure_transport_failure",
       "AI_AUTH_FAILED",
       "AI_BALANCE_INSUFFICIENT",
       "AI_RATE_LIMITED",

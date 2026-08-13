@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "phase-2-5-infrastructure-adjudication-v1",
+  "runId": "phase-2-5-baseline-8-6f0eab7",
+  "implementationCommit": "6f0eab7aeb43496317ee9fa3fe4899f333c9c1f0",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "summarySha256": "57cae988a8ab9f991ce1e729df41a99709d71f3b3a2237544220d4919b975580",
+  "scheduledExecutions": 42,
+  "completedContentSamples": 2,
+  "firstInfrastructureFailureExecutionId": "TC-P2-01-R3",
+  "firstInfrastructureFailureStage": "match",
+  "firstInfrastructureFailureCode": "RUNNER_TRANSPORT_FAILURE",
+  "additionalExecutionsScheduledAfterInfrastructureFailure": 39,
+  "additionalContentSamplesAfterInfrastructureFailure": 0,
+  "downstreamCallsAfterFailure": 0,
+  "contentMatrixDisposition": "excluded_infrastructure_interrupted_batch",
+  "evidenceDisposition": "retained_not_cherry_picked",
+  "replacementRequirement": "new committed runner baseline and complete Phase 2 14x3 matrix"
+}

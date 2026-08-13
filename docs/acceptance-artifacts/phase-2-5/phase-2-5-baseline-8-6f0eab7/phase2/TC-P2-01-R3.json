@@ -1,0 +1,682 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-8-6f0eab7",
+  "executionId": "TC-P2-01-R3",
+  "fixtureId": "TC-P2-01",
+  "fixtureName": "direct evidence and high relevance",
+  "repetition": 3,
+  "implementationCommit": "6f0eab7aeb43496317ee9fa3fe4899f333c9c1f0",
+  "input": {
+    "jdCharacters": 133,
+    "profileCharacters": 102,
+    "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+    "profileSha256": "e08b6f0f1afca4976c472441b82188ce79bb90bc3c6818a9a1cd6908bd42de7a"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met"
+    ]
+  },
+  "coverage": [
+    "direct-match",
+    "CF-PF-lineage",
+    "JD-evidence",
+    "course-context"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "infrastructure_transport_failure",
+    "infrastructure": false,
+    "httpStatus": null,
+    "error": {
+      "code": "RUNNER_TRANSPORT_FAILURE",
+      "message": "fetch failed"
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7117,
+      "requestId": "3c36fcef-a0ef-4b9a-9630-95c84d946dc5",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "数据分析岗位",
+          "companyName": null,
+          "location": "上海",
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": null,
+          "educationRequirement": "本科及以上学历",
+          "summary": "从JD信息看，可能属于数据分析类岗位，涉及使用SQL进行业务数据分析，并与产品和运营团队协作。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "使用SQL完成业务数据分析",
+            "description": "利用SQL技能对业务数据进行分析，并输出可追溯的分析结论。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "使用 SQL 完成业务数据分析，输出可追溯的分析结论"
+            ]
+          },
+          {
+            "title": "与产品和运营团队协作",
+            "description": "与产品和运营团队合作，拜访客户并整理真实业务需求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "与产品和运营团队协作，拜访客户并整理真实业务需求"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "本科及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "本科及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            },
+            {
+              "content": "能使用 SQL 进行数据分析",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "有数据项目经验者优先",
+              "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "有数据项目经验者优先"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "preferred_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及较多SQL取数与报表输出工作",
+              "explanation": "职责中明确提到使用SQL完成数据分析，可能日常以SQL取数为主。",
+              "sourceType": "inference",
+              "evidence": [
+                "使用 SQL 完成业务数据分析"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能需要与产品和运营团队沟通协作",
+              "explanation": "职责中明确提到与产品和运营团队协作，可能沟通占比较高。",
+              "sourceType": "inference",
+              "evidence": [
+                "与产品和运营团队协作"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能涉及客户拜访和需求整理",
+              "explanation": "职责中明确提到拜访客户并整理需求，可能有一定对外沟通工作。",
+              "sourceType": "inference",
+              "evidence": [
+                "拜访客户并整理真实业务需求"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "公司名称未说明",
+            "薪资范围未说明",
+            "雇佣类型未说明",
+            "具体团队规模未说明",
+            "实际参与数据分析的深度未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "该岗位的团队结构是怎样的？数据分析团队有多少人？",
+              "reason": "JD未说明团队结构，需要确认实际协作模式。"
+            },
+            {
+              "question": "该岗位是否会独立负责数据分析项目，还是主要支持其他团队？",
+              "reason": "JD未明确实际参与深度，需要确认工作重心。"
+            },
+            {
+              "question": "该岗位是否有明确的培养机制或晋升路径？",
+              "reason": "JD未提及培养安排，需要确认成长空间。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触SQL数据分析相关工作",
+              "sourceType": "inference",
+              "evidence": [
+                "使用 SQL 完成业务数据分析"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能涉及与产品和运营团队的协作",
+              "sourceType": "inference",
+              "evidence": [
+                "与产品和运营团队协作"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对数据分析岗位很感兴趣，想进一步了解岗位职责和团队情况，期待与您沟通。",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2968,
+      "requestId": "026ed6cc-ddef-418a-b4b7-804553532b19",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 5,
+        "pfTotal": 5,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2964,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 510,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 5,
+        "pfTotal": 5,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2964,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 510,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "求职方向：数据分析",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "career_target"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "教育背景：统计学本科",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理",
+              "sourceType": "normalized_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "project_experience",
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "日常使用 SQL",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-005",
+              "statement": "了解 Python",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-006",
+              "statement": "与三人课程团队共同完成项目报告",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-005"
+              ],
+              "semanticTags": [
+                "project_experience"
+              ]
+            }
+          ],
+          "careerTarget": "CF-001",
+          "education": [
+            "CF-002"
+          ],
+          "experiences": [],
+          "projects": [
+            "CF-003",
+            "CF-006"
+          ],
+          "skills": [
+            "CF-003",
+            "CF-004",
+            "CF-005"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "求职方向：数据分析"
+            },
+            {
+              "id": "PF-002",
+              "text": "教育背景：统计学本科"
+            },
+            {
+              "id": "PF-003",
+              "text": "项目经历：在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理"
+            },
+            {
+              "id": "PF-004",
+              "text": "技能：日常使用 SQL，了解 Python"
+            },
+            {
+              "id": "PF-005",
+              "text": "协作经历：与三人课程团队共同完成项目报告"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": null,
+      "latencyMs": 2874,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": {
+        "code": "RUNNER_TRANSPORT_FAILURE",
+        "message": "fetch failed"
+      },
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": null,
+      "output": null,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "infrastructure_transport_failure"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

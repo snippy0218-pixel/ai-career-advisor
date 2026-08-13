@@ -19,6 +19,7 @@
 - baseline-5（`83a1810…`）完整执行同一冻结 Phase 2 14×3，结果为 30/42 PASS、31 条 complete chain、失败后下游调用 0；全部 artifacts 已永久保留且未 cherry-pick。ISSUE-041/044 相邻扩展及 ISSUE-048/049 已完成 focused `161/161`、相关 targeted `228/228`、full `625/625`、lint/build、diff/scope/secret；下一步提交新的 immutable baseline，再运行完整 Phase 2 14×3 replacement matrix。
 - baseline-6（`8b8cae6…`）完整执行 Phase 2 14×3：35/42 PASS、39 条 complete chain、失败后下游调用 0，未追加 run 4。ISSUE-042/044/048 相邻 stabilization 与新 ISSUE-050 artifact completeness 当前 focused `139/139`、full `630/630`、lint/build/diff/scope/secret/process PASS；下一步提交 baseline-6 artifacts 与新 immutable implementation，再运行完整 replacement matrix。
 - baseline-7（`13900bf…`）完整执行 Phase 2 14×3：39/42 PASS、40 条 complete chain、失败后下游调用 0，未追加 run 4。仅剩 mixed-status Recommendation 粒度与 X-F 缺失年限证据措辞两个根因；focused `103/103`、full `631/631`、lint/build/diff/scope/secret/process PASS。下一步提交 immutable baseline，再运行完整 replacement matrix。
+- baseline-8（`6f0eab7…`）因本地生产 server 进程在 TC-P2-01 R3 Match 期间退出而被裁定为 infrastructure-interrupted batch：2 个完整 content samples 后为 1 个 Match transport failure + 39 个 JD transport failures；全部 42 records 保留，禁止复用其中 2 个成功样本。ISSUE-039 fail-fast 的 category/code mismatch 已修复，exact `8/8`、full `631/631`、lint/build PASS；新 immutable commit 与持久 server 后运行完整 replacement matrix。
 
 ## Execution discipline
 

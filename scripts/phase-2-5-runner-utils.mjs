@@ -20,6 +20,7 @@ const MODIFIER_PATTERNS = [
 ];
 const INFRASTRUCTURE_FAILURE_CODES = new Set([
   "RUNNER_TRANSPORT_FAILURE",
+  "infrastructure_transport_failure",
   "AI_AUTH_FAILED",
   "AI_BALANCE_INSUFFICIENT",
   "AI_RATE_LIMITED",
