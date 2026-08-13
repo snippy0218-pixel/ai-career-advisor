@@ -593,6 +593,13 @@ describe("analyzeMatchWithDeepSeek", () => {
           normalizedStatus: "unknown",
           removedCandidateFactRefs: ["CF-001"],
         }),
+        expect.objectContaining({
+          dimensionIndex: null,
+          issueCodes: ["M-AGGREGATE"],
+          previousStatus: "partial",
+          normalizedStatus: "unknown",
+          reasonRebuilt: false,
+        }),
       ],
       normalizedRepairOutput: expect.any(Object),
       outputEvidence: [

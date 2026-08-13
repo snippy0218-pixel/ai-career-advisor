@@ -1,0 +1,1739 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-5-83a1810",
+  "executionId": "TC-P2-10-R2",
+  "fixtureId": "TC-P2-10",
+  "fixtureName": "explicit duration shortfall",
+  "repetition": 2,
+  "implementationCommit": "83a18108282d97f3871027350d4239660528284c",
+  "input": {
+    "jdCharacters": 104,
+    "profileCharacters": 84,
+    "jdSha256": "beb6eb5a5c6dc623e755f1b1fa1ab1b3788d6f4ca65d4194159183110572d684",
+    "profileSha256": "34f48f0b0b92be240fb9cf311708757f34ea70de5411b0f9986e306282c446d6"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unmet",
+      "partial"
+    ]
+  },
+  "coverage": [
+    "duration",
+    "proficiency",
+    "ownership",
+    "team-delivery"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "b4b2a6c1-7575-4d49-a313-452a8c72c6df",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 6669,
+      "requestId": "9d1b73d2-332e-40c2-a2d2-17d5329a8023",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2595,
+      "requestId": "5026b7cd-5771-4fcf-acfb-0cf17a86310c",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2592,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 452,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 2592,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 452,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 8482,
+      "requestId": "b4b2a6c1-7575-4d49-a313-452a8c72c6df",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.1.dimensionType",
+            "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\""
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006"
+          }
+        ],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 8478,
+        "outputCompletionTokens": 714,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+          "finishReason": "stop",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.1.dimensionType",
+            "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\""
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006"
+          }
+        ],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 8478,
+        "outputCompletionTokens": 714,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+          "finishReason": "stop",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"partial\",\"reason\":\"CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）\",\"verificationQuestion\":\"请描述 Vue3 的使用场景、项目规模及熟练程度？\"},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）\",\"verificationQuestion\":\"请描述 TypeScript 的使用场景及熟练程度？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-006\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"project_experience\",\"requirementFragment\":\"有项目经验\",\"status\":\"met\",\"reason\":\"CF-005 表明参与团队项目页面开发，具有项目经验。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 2304,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "3年以上前端开发经验",
+                      "status": "unmet",
+                      "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "role",
+                      "requirementFragment": "前端开发经验",
+                      "status": "met",
+                      "reason": "CF-002 明确为前端开发工作经验，与前端开发角色相符。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "partial",
+                      "reason": "CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）",
+                      "verificationQuestion": "请描述 Vue3 的使用场景、项目规模及熟练程度？"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）",
+                      "verificationQuestion": "请描述 TypeScript 的使用场景及熟练程度？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-006",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "project_experience",
+                      "requirementFragment": "有项目经验",
+                      "status": "met",
+                      "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "raw_schema",
+            "failureStage": "raw_schema",
+            "failureCategory": "schema",
+            "validationIssues": [
+              {
+                "validationLayer": "raw_schema",
+                "validationCode": "RAW_SCHEMA_INVALID",
+                "rule": null,
+                "path": "matchItems.2.dimensions.1.dimensionType",
+                "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 2,
+                  "dimensionIndex": 1,
+                  "item": {
+                    "requirementId": "REQ-003",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "responsibility",
+                        "requirementFragment": "独立上线项目经验",
+                        "status": "unmet",
+                        "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                        "jdEvidence": [
+                          "有独立上线项目经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-006",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "project_experience",
+                        "requirementFragment": "有项目经验",
+                        "status": "met",
+                        "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                        "jdEvidence": [
+                          "有独立上线项目经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-005",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "project_experience",
+                    "requirementFragment": "有项目经验",
+                    "status": "met",
+                    "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 2,
+              "dimensionIndex": 1,
+              "item": {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-006",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "project_experience",
+                    "requirementFragment": "有项目经验",
+                    "status": "met",
+                    "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "project_experience",
+                "requirementFragment": "有项目经验",
+                "status": "met",
+                "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                "jdEvidence": [
+                  "有独立上线项目经验"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-005",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"partial\",\"reason\":\"CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）\",\"verificationQuestion\":\"请描述 Vue3 的使用场景、项目规模及熟练程度？\"},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）\",\"verificationQuestion\":\"请描述 TypeScript 的使用场景及熟练程度？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-006\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"domain\",\"requirementFragment\":\"有项目经验\",\"status\":\"met\",\"reason\":\"CF-005 表明参与团队项目页面开发，具有项目经验。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 2292,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "3年以上前端开发经验",
+                      "status": "unmet",
+                      "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "role",
+                      "requirementFragment": "前端开发经验",
+                      "status": "met",
+                      "reason": "CF-002 明确为前端开发工作经验，与前端开发角色相符。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "partial",
+                      "reason": "CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）",
+                      "verificationQuestion": "请描述 Vue3 的使用场景、项目规模及熟练程度？"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）",
+                      "verificationQuestion": "请描述 TypeScript 的使用场景及熟练程度？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-006",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "有项目经验",
+                      "status": "met",
+                      "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.2.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 2,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-003",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "responsibility",
+                        "requirementFragment": "独立上线项目经验",
+                        "status": "unmet",
+                        "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                        "jdEvidence": [
+                          "有独立上线项目经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-006",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "有项目经验",
+                        "status": "met",
+                        "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                        "jdEvidence": [
+                          "有独立上线项目经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-005",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-006",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 2,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-006",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "有项目经验",
+                    "status": "met",
+                    "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "responsibility",
+                "requirementFragment": "独立上线项目经验",
+                "status": "unmet",
+                "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                "jdEvidence": [
+                  "有独立上线项目经验"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-006",
+                    "role": "counter"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "b4b2a6c1-7575-4d49-a313-452a8c72c6df",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"partial\",\"reason\":\"CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）\",\"verificationQuestion\":\"请描述 Vue3 的使用场景、项目规模及熟练程度？\"},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）\",\"verificationQuestion\":\"请描述 TypeScript 的使用场景及熟练程度？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-006\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"project_experience\",\"requirementFragment\":\"有项目经验\",\"status\":\"met\",\"reason\":\"CF-005 表明参与团队项目页面开发，具有项目经验。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 2304,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "3年以上前端开发经验",
+                    "status": "unmet",
+                    "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "role",
+                    "requirementFragment": "前端开发经验",
+                    "status": "met",
+                    "reason": "CF-002 明确为前端开发工作经验，与前端开发角色相符。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "partial",
+                    "reason": "CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）",
+                    "verificationQuestion": "请描述 Vue3 的使用场景、项目规模及熟练程度？"
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 TypeScript",
+                    "status": "partial",
+                    "reason": "CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）",
+                    "verificationQuestion": "请描述 TypeScript 的使用场景及熟练程度？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-006",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "project_experience",
+                    "requirementFragment": "有项目经验",
+                    "status": "met",
+                    "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "raw_schema",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema",
+          "validationIssues": [
+            {
+              "validationLayer": "raw_schema",
+              "validationCode": "RAW_SCHEMA_INVALID",
+              "rule": null,
+              "path": "matchItems.2.dimensions.1.dimensionType",
+              "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 2,
+                "dimensionIndex": 1,
+                "item": {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-006",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "project_experience",
+                      "requirementFragment": "有项目经验",
+                      "status": "met",
+                      "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "project_experience",
+                  "requirementFragment": "有项目经验",
+                  "status": "met",
+                  "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-005",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 2,
+            "dimensionIndex": 1,
+            "item": {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "独立上线项目经验",
+                  "status": "unmet",
+                  "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-006",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                },
+                {
+                  "dimensionType": "project_experience",
+                  "requirementFragment": "有项目经验",
+                  "status": "met",
+                  "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-005",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "project_experience",
+              "requirementFragment": "有项目经验",
+              "status": "met",
+              "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+              "jdEvidence": [
+                "有独立上线项目经验"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-005",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"partial\",\"reason\":\"CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）\",\"verificationQuestion\":\"请描述 Vue3 的使用场景、项目规模及熟练程度？\"},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）\",\"verificationQuestion\":\"请描述 TypeScript 的使用场景及熟练程度？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-006\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"domain\",\"requirementFragment\":\"有项目经验\",\"status\":\"met\",\"reason\":\"CF-005 表明参与团队项目页面开发，具有项目经验。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 2292,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "3年以上前端开发经验",
+                    "status": "unmet",
+                    "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "role",
+                    "requirementFragment": "前端开发经验",
+                    "status": "met",
+                    "reason": "CF-002 明确为前端开发工作经验，与前端开发角色相符。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "partial",
+                    "reason": "CF-003 表明日常使用 Vue3，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 Vue3 的熟练程度（如项目复杂度、使用年限、深度）",
+                    "verificationQuestion": "请描述 Vue3 的使用场景、项目规模及熟练程度？"
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 TypeScript",
+                    "status": "partial",
+                    "reason": "CF-004 表明接触过 TypeScript，但未表明熟练程度，无法确认达到'熟练掌握'水平。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 TypeScript 的熟练程度（如使用频率、项目应用、深度）",
+                    "verificationQuestion": "请描述 TypeScript 的使用场景及熟练程度？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-006",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "有项目经验",
+                    "status": "met",
+                    "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.2.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: ownership:独立->CF-006",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 2,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-006",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "有项目经验",
+                      "status": "met",
+                      "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "独立上线项目经验",
+                  "status": "unmet",
+                  "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-006",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 2,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "独立上线项目经验",
+                  "status": "unmet",
+                  "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-006",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                },
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "有项目经验",
+                  "status": "met",
+                  "reason": "CF-005 表明参与团队项目页面开发，具有项目经验。",
+                  "jdEvidence": [
+                    "有独立上线项目经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-005",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "responsibility",
+              "requirementFragment": "独立上线项目经验",
+              "status": "unmet",
+              "reason": "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+              "jdEvidence": [
+                "有独立上线项目经验"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-006",
+                  "role": "counter"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

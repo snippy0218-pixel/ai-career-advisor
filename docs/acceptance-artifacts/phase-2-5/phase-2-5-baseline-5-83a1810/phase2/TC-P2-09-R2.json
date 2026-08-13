@@ -1,0 +1,2894 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-5-83a1810",
+  "executionId": "TC-P2-09-R2",
+  "fixtureId": "TC-P2-09",
+  "fixtureName": "internship is not formal employment",
+  "repetition": 2,
+  "implementationCommit": "83a18108282d97f3871027350d4239660528284c",
+  "input": {
+    "jdCharacters": 112,
+    "profileCharacters": 71,
+    "jdSha256": "9f0e2aadd76c6ea37bdb48bfd5403f6390383a4fa0c0183d94e614cd7e908da7",
+    "profileSha256": "91b35a1da14953fb15fac6d1b2ce01d1a5d47f068898cf2d4544fda6d576efbb"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unmet"
+    ]
+  },
+  "coverage": [
+    "internship",
+    "formal-employment",
+    "duration",
+    "proficiency"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "53ff1e66-3787-4e87-9ec8-35aff1be73c9",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7096,
+      "requestId": "45a359a0-6970-44fc-b6d6-438ec9390f38",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 1866,
+      "requestId": "c31c7da3-4f1f-4a8b-8528-2882467b9949",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 1863,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 366,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 1863,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 366,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 6878,
+      "requestId": "53ff1e66-3787-4e87-9ec8-35aff1be73c9",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 2,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE",
+              "M-K"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "partial",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "partial",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 6874,
+        "outputCompletionTokens": 722,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年"
+          },
+          {
+            "path": "matchItems.0.dimensions.2.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 2,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE",
+              "M-K"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "partial",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "partial",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004"
+          }
+        ],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "duration",
+                  "requirementFragment": "2年以上",
+                  "status": "unmet",
+                  "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                },
+                {
+                  "dimensionType": "employment_type",
+                  "requirementFragment": "正式全职",
+                  "status": "unmet",
+                  "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                },
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 原文：“有6个月商业分析实习，协助整理周报”。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "partial",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练使用 SQL",
+                  "status": "partial",
+                  "reason": "CF-003 原文：“在实习中使用过 SQL 查询基础数据”。",
+                  "jdEvidence": [
+                    "熟练使用 SQL"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                  "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "CF-001 表明具有经济学本科学历，满足本科及以上学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-001",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 6874,
+        "outputCompletionTokens": 722,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"2年以上\",\"status\":\"unmet\",\"reason\":\"CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"employment_type\",\"requirementFragment\":\"正式全职\",\"status\":\"unmet\",\"reason\":\"CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"domain\",\"requirementFragment\":\"商业分析经验\",\"status\":\"partial\",\"reason\":\"CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。\",\"verificationQuestion\":\"请提供正式全职商业分析工作的具体时长和职责证明。\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练使用 SQL\",\"status\":\"partial\",\"reason\":\"CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。\",\"jdEvidence\":[\"熟练使用 SQL\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"SQL 使用的熟练程度和复杂度。\",\"verificationQuestion\":\"请描述 SQL 使用的具体场景、复杂度及熟练程度。\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 表明具有经济学本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1691,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练使用 SQL",
+                      "status": "partial",
+                      "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                      "jdEvidence": [
+                        "熟练使用 SQL"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                      "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 表明具有经济学本科学历，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "duration",
+                    "requirementFragment": "2年以上",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练使用 SQL",
+                        "status": "partial",
+                        "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                        "jdEvidence": [
+                          "熟练使用 SQL"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                        "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练使用 SQL",
+                    "status": "partial",
+                    "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                    "jdEvidence": [
+                      "熟练使用 SQL"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                    "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"duration\",\n          \"requirementFragment\": \"2年以上\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-004\", \"role\": \"counter\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"employment_type\",\n          \"requirementFragment\": \"正式全职\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-004\", \"role\": \"counter\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"商业分析经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-002\", \"role\": \"positive\"}],\n          \"missingInformation\": \"实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。\",\n          \"verificationQuestion\": \"请提供正式全职商业分析工作的具体时长和职责证明。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练使用 SQL\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。\",\n          \"jdEvidence\": [\"熟练使用 SQL\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-003\", \"role\": \"positive\"}],\n          \"missingInformation\": \"SQL 使用的熟练程度和复杂度。\",\n          \"verificationQuestion\": \"请描述 SQL 使用的具体场景、复杂度及熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 表明具有经济学本科学历，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-001\", \"role\": \"positive\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2407,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练使用 SQL",
+                      "status": "partial",
+                      "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                      "jdEvidence": [
+                        "熟练使用 SQL"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                      "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 表明具有经济学本科学历，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "duration",
+                    "requirementFragment": "2年以上",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.2.reason",
+                "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 2,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "duration",
+                        "requirementFragment": "2年以上",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "employment_type",
+                        "requirementFragment": "正式全职",
+                        "status": "unmet",
+                        "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "商业分析经验",
+                        "status": "partial",
+                        "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                        "jdEvidence": [
+                          "必须具有2年以上正式全职商业分析经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                        "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练使用 SQL",
+                        "status": "partial",
+                        "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                        "jdEvidence": [
+                          "熟练使用 SQL"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                        "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练使用 SQL",
+                    "status": "partial",
+                    "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                    "jdEvidence": [
+                      "熟练使用 SQL"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                    "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "53ff1e66-3787-4e87-9ec8-35aff1be73c9",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"2年以上\",\"status\":\"unmet\",\"reason\":\"CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"employment_type\",\"requirementFragment\":\"正式全职\",\"status\":\"unmet\",\"reason\":\"CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"domain\",\"requirementFragment\":\"商业分析经验\",\"status\":\"partial\",\"reason\":\"CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。\",\"jdEvidence\":[\"必须具有2年以上正式全职商业分析经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。\",\"verificationQuestion\":\"请提供正式全职商业分析工作的具体时长和职责证明。\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练使用 SQL\",\"status\":\"partial\",\"reason\":\"CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。\",\"jdEvidence\":[\"熟练使用 SQL\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":\"SQL 使用的熟练程度和复杂度。\",\"verificationQuestion\":\"请描述 SQL 使用的具体场景、复杂度及熟练程度。\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 表明具有经济学本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1691,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "2年以上",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "employment_type",
+                    "requirementFragment": "正式全职",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练使用 SQL",
+                    "status": "partial",
+                    "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                    "jdEvidence": [
+                      "熟练使用 SQL"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                    "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 表明具有经济学本科学历，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "duration",
+                  "requirementFragment": "2年以上",
+                  "status": "unmet",
+                  "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练使用 SQL",
+                      "status": "partial",
+                      "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                      "jdEvidence": [
+                        "熟练使用 SQL"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                      "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练使用 SQL",
+                  "status": "partial",
+                  "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                  "jdEvidence": [
+                    "熟练使用 SQL"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                  "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"duration\",\n          \"requirementFragment\": \"2年以上\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-004\", \"role\": \"counter\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"employment_type\",\n          \"requirementFragment\": \"正式全职\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-004\", \"role\": \"counter\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"商业分析经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。\",\n          \"jdEvidence\": [\"必须具有2年以上正式全职商业分析经验\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-002\", \"role\": \"positive\"}],\n          \"missingInformation\": \"实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。\",\n          \"verificationQuestion\": \"请提供正式全职商业分析工作的具体时长和职责证明。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练使用 SQL\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。\",\n          \"jdEvidence\": [\"熟练使用 SQL\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-003\", \"role\": \"positive\"}],\n          \"missingInformation\": \"SQL 使用的熟练程度和复杂度。\",\n          \"verificationQuestion\": \"请描述 SQL 使用的具体场景、复杂度及熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 表明具有经济学本科学历，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [{\"factId\": \"CF-001\", \"role\": \"positive\"}],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2407,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "2年以上",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "employment_type",
+                    "requirementFragment": "正式全职",
+                    "status": "unmet",
+                    "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "商业分析经验",
+                    "status": "partial",
+                    "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                    "jdEvidence": [
+                      "必须具有2年以上正式全职商业分析经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                    "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练使用 SQL",
+                    "status": "partial",
+                    "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                    "jdEvidence": [
+                      "熟练使用 SQL"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                    "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 表明具有经济学本科学历，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-004",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "duration",
+                  "requirementFragment": "2年以上",
+                  "status": "unmet",
+                  "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但实习经验与正式工作经验在性质上不同",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且时长不足2年",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.2.reason",
+              "message": "M-K cross-CF modifier isolation failed: duration:2年->CF-002, experience_type:正式工作->CF-002",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 2,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "2年以上",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "employment_type",
+                      "requirementFragment": "正式全职",
+                      "status": "unmet",
+                      "reason": "CF-004 明确表示尚无正式全职工作经历，与要求的正式全职经验直接冲突。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "商业分析经验",
+                      "status": "partial",
+                      "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                      "jdEvidence": [
+                        "必须具有2年以上正式全职商业分析经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                      "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "商业分析经验",
+                  "status": "partial",
+                  "reason": "CF-002 表明有6个月商业分析实习，但实习经验与正式工作经验在性质上不同，且时长不足2年。",
+                  "jdEvidence": [
+                    "必须具有2年以上正式全职商业分析经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "实习经验是否可视为正式全职商业分析经验，以及是否满足2年时长要求。",
+                  "verificationQuestion": "请提供正式全职商业分析工作的具体时长和职责证明。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且使用场景有限",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练使用 SQL",
+                      "status": "partial",
+                      "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                      "jdEvidence": [
+                        "熟练使用 SQL"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                      "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练使用 SQL",
+                  "status": "partial",
+                  "reason": "CF-003 表明在实习中使用过 SQL 查询基础数据，但未表明熟练程度，且使用场景有限。",
+                  "jdEvidence": [
+                    "熟练使用 SQL"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "SQL 使用的熟练程度和复杂度。",
+                  "verificationQuestion": "请描述 SQL 使用的具体场景、复杂度及熟练程度。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 0,
+          "dimensionIndex": 2,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE",
+            "M-K"
+          ],
+          "previousStatus": "partial",
+          "normalizedStatus": "partial",
+          "removedCandidateFactRefs": [],
+          "reasonRebuilt": true
+        },
+        {
+          "itemIndex": 1,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE"
+          ],
+          "previousStatus": "partial",
+          "normalizedStatus": "partial",
+          "removedCandidateFactRefs": [],
+          "reasonRebuilt": true
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

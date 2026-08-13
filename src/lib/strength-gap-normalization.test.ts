@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { normalizeRejectedTransferableStrengths } from "./strength-gap-normalization";
-import type { RawStrengthGap } from "./strength-gap-schema";
+import { finalizeRawStrengthGap, type RawStrengthGap } from "./strength-gap-schema";
 import type { FinalMatchCore } from "./match-schema";
 
 const raw: RawStrengthGap = {
@@ -28,6 +28,45 @@ const raw: RawStrengthGap = {
     },
   ],
 };
+
+function singleItemMatchCore(
+  status: "met" | "partial" | "unknown",
+): FinalMatchCore {
+  const positive = status !== "unknown";
+  return {
+    schemaVersion: "match-core-v1",
+    jdSchemaVersion: "analysis-v1",
+    candidateProfileSchemaVersion: "candidate-profile-v2",
+    matchItems: [
+      {
+        requirementId: "REQ-001",
+        requirement: "具有企业服务产品运营经验",
+        requirementType: "core_requirement",
+        jdEvidence: ["具有企业服务产品运营经验"],
+        status,
+        requirementDimensions: [
+          {
+            dimensionId: "DIM-001",
+            dimensionType: "domain",
+            requirementFragment: "企业服务产品运营经验",
+            status,
+            reason: positive
+              ? "CF-001 原文：“参与团队产品运营项目”。"
+              : "现有资料无法确认该维度是否满足。",
+            jdEvidence: ["具有企业服务产品运营经验"],
+            candidateFactRefs: positive ? ["CF-001"] : [],
+            candidateEvidenceRole: positive ? "positive" : null,
+            pfEvidence: positive ? ["PF-001"] : [],
+            missingInformation: positive ? null : "企业服务产品运营经验",
+            verificationQuestion: positive
+              ? null
+              : "请补充企业服务产品运营经验。",
+          },
+        ],
+      },
+    ],
+  };
+}
 
 describe("normalizeRejectedTransferableStrengths", () => {
   it("removes only an optional transferable strength rejected by SG-B/SG-M", () => {
@@ -146,5 +185,111 @@ describe("normalizeRejectedTransferableStrengths", () => {
       rewrittenType: "direct_match",
       removedMatchRefs: ["MI-001"],
     });
+  });
+
+  it("rewrites an SG-F Candidate-deficiency phrase to a generic unknown boundary", () => {
+    const matchCore = singleItemMatchCore("unknown");
+    const input: RawStrengthGap = {
+      strengths: [],
+      gaps: [
+        {
+          type: "information",
+          statement: "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+          matchRefs: ["MI-001"],
+          suggestedAction: "请补充相关资料。",
+          actionType: "confirm",
+        },
+      ],
+    };
+    const result = normalizeRejectedTransferableStrengths(
+      input,
+      [
+        {
+          path: "gaps.0",
+          message:
+            "SG-F information gap must preserve unknown and cannot assert Candidate deficiency",
+        },
+      ],
+      matchCore,
+    );
+
+    expect(result.data.gaps[0]).toMatchObject({
+      type: "information",
+      statement: "该 Match 项仍为 unknown；现有资料不足以确认是否满足要求。",
+      actionType: "confirm",
+    });
+    expect(finalizeRawStrengthGap(result.data, matchCore).issues).toEqual([]);
+  });
+
+  it("rewrites a malformed SG-E gap to a validator-safe partial evidence boundary", () => {
+    const matchCore = singleItemMatchCore("partial");
+    const input: RawStrengthGap = {
+      strengths: [],
+      gaps: [
+        {
+          type: "evidence_expression",
+          statement: "候选人部分满足该项要求。",
+          matchRefs: ["MI-001"],
+          suggestedAction: "请补充相关经历。",
+          actionType: "evidence",
+        },
+      ],
+    };
+    const result = normalizeRejectedTransferableStrengths(
+      input,
+      [
+        {
+          path: "gaps.0",
+          message:
+            "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+        },
+      ],
+      matchCore,
+    );
+
+    expect(result.data.gaps[0]).toMatchObject({
+      type: "evidence_expression",
+      statement:
+        "现有正向 Match 证据仅能表明部分支持，尚不足以证明完整满足该项要求。",
+      actionType: "evidence",
+    });
+    expect(finalizeRawStrengthGap(result.data, matchCore).issues).toEqual([]);
+  });
+
+  it("removes an inapplicable optional SG-E gap and preserves mandatory direct coverage", () => {
+    const matchCore = singleItemMatchCore("met");
+    const input: RawStrengthGap = {
+      strengths: [
+        {
+          type: "direct_match",
+          statement: "参与团队产品运营项目，支持该项要求。",
+          matchRefs: ["MI-001"],
+        },
+      ],
+      gaps: [
+        {
+          type: "evidence_expression",
+          statement: "现有证据尚不足以证明完整满足。",
+          matchRefs: ["MI-001"],
+          suggestedAction: "如果确有更多事实，请补充可验证证据。",
+          actionType: "evidence",
+        },
+      ],
+    };
+    const result = normalizeRejectedTransferableStrengths(
+      input,
+      [
+        {
+          path: "gaps.0",
+          message:
+            "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+        },
+      ],
+      matchCore,
+    );
+
+    expect(result.data.gaps).toEqual([]);
+    expect(result.data.strengths).toEqual(input.strengths);
+    expect(finalizeRawStrengthGap(result.data, matchCore).issues).toEqual([]);
   });
 });

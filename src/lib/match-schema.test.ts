@@ -1764,6 +1764,48 @@ describe("ISSUE-035 evidence polarity in same-domain positive checks", () => {
     );
   });
 
+  it("E35-3b does not treat one generic domain token as the full compound domain", () => {
+    const requirement = "具有企业服务产品运营经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "协助运营同学整理用户反馈",
+          semanticTags: ["project_experience"],
+        },
+      ],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unknown",
+            dimensions: [
+              dimension({
+                dimensionType: "domain",
+                requirementFragment: "企业服务产品运营经验",
+                status: "unknown",
+                reason: "现有资料不足以确认企业服务产品运营经验。",
+                jdEvidence: [requirement],
+                candidateEvidence: [],
+                missingInformation: "企业服务产品运营经验",
+                verificationQuestion: "请补充企业服务产品运营经验。",
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+
+    expect(result.issues.map((issue) => issue.message).join(" ")).not.toContain(
+      "unknown omitted explicit same-domain positive evidence",
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("E35-4 counts only the positive fact when positive and counter facts coexist", () => {
     const result = domainUnknownResult([positiveProjectFact, counterFact]);
     expect(result.data).toBeNull();

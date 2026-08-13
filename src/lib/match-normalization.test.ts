@@ -155,13 +155,33 @@ describe("Match rejected-reason normalization", () => {
     expect(result).toEqual({ data: input, applied: false, actions: [] });
   });
 
-  it("N5 does not hide reference, status, aggregate, schema, or non-reason failures", () => {
+  it("N5 does not hide reference, status, schema, or non-reason failures", () => {
     const input = raw();
     const result = normalizeRejectedMatchReasons(input, [
       { path: "matchItems.0.dimensions.0.candidateEvidence", message: "unknown candidate fact" },
-      { path: "matchItems.0.aggregateStatus", message: "aggregateStatus must be unknown" },
     ]);
     expect(result).toEqual({ data: input, applied: false, actions: [] });
+  });
+
+  it("N5a recalculates an aggregate-only terminal validation failure", () => {
+    const input = raw({ status: "unknown", candidateEvidence: [] });
+    input.matchItems[0].aggregateStatus = "partial";
+    const result = normalizeRejectedMatchReasons(input, [
+      { path: "matchItems.0.aggregateStatus", message: "aggregateStatus must be unknown" },
+    ]);
+
+    expect(result.data.matchItems[0].aggregateStatus).toBe("unknown");
+    expect(result.data.matchItems[0].dimensions).toEqual(input.matchItems[0].dimensions);
+    expect(result.actions).toEqual([
+      expect.objectContaining({
+        itemIndex: 0,
+        dimensionIndex: null,
+        issueCodes: ["M-AGGREGATE"],
+        previousStatus: "partial",
+        normalizedStatus: "unknown",
+        reasonRebuilt: false,
+      }),
+    ]);
   });
 
   it("N6 recalculates aggregate while preserving a valid sibling dimension", () => {

@@ -320,4 +320,22 @@ describe("Modifier Inference Contract", () => {
       ),
     ).toEqual([]);
   });
+
+  it("M37-4 ignores a duration target after the explicit requirement owner", () => {
+    expect(
+      findCrossFactModifierContamination(
+        "CF-004 明确表示尚无正式全职工作经历，与要求的2年以上正式全职经验直接冲突。",
+        [{ factId: "CF-004", statement: "尚无正式全职工作经历" }],
+      ),
+    ).toEqual([]);
+  });
+
+  it("M37-5 ignores a quoted ownership target in a relational conflict", () => {
+    expect(
+      findCrossFactModifierContamination(
+        "CF-006 明确项目由团队负责人统一上线，与'独立上线'直接冲突。",
+        [{ factId: "CF-006", statement: "项目由团队负责人统一上线" }],
+      ),
+    ).toEqual([]);
+  });
 });

@@ -115,6 +115,14 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(true);
+
+    result.strengthGap.gaps.at(-1).statement =
+      "候选人参与项目复盘，需提升项目复盘的独立性和熟练程度。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
   });
 
   it("fails expected status and fallback mismatches", () => {

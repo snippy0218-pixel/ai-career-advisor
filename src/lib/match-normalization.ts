@@ -8,12 +8,12 @@ import type { FinalCanonicalCandidateFact } from "./profile-schema";
 
 export interface MatchNormalizationAction {
   itemIndex: number;
-  dimensionIndex: number;
+  dimensionIndex: number | null;
   issueCodes: string[];
   previousStatus: MatchStatus;
   normalizedStatus: MatchStatus;
   removedCandidateFactRefs: string[];
-  reasonRebuilt: true;
+  reasonRebuilt: boolean;
 }
 
 export interface MatchNormalizationResult {
@@ -23,6 +23,7 @@ export interface MatchNormalizationResult {
 }
 
 const REASON_PATH = /^matchItems\.(\d+)\.dimensions\.(\d+)\.reason$/;
+const AGGREGATE_PATH = /^matchItems\.(\d+)\.aggregateStatus$/;
 const NORMALIZABLE_REASON_RULE = /\b(?:M-CANDIDATE-LINEAGE|M-K)\b/;
 
 function issueCode(message: string) {
@@ -158,10 +159,35 @@ export function normalizeRejectedMatchReasons(
     });
   }
 
-  for (const item of data.matchItems) {
-    item.aggregateStatus = aggregateDimensionStatuses(
+  const aggregateIssueItems = new Set(
+    issues.flatMap((issue) => {
+      const match = issue.path.match(AGGREGATE_PATH);
+      return match && /aggregateStatus must be/.test(issue.message)
+        ? [Number(match[1])]
+        : [];
+    }),
+  );
+  for (const [itemIndex, item] of data.matchItems.entries()) {
+    const computed = aggregateDimensionStatuses(
       item.dimensions.map((dimension) => dimension.status),
     );
+    if (
+      item.aggregateStatus !== computed &&
+      (aggregateIssueItems.has(itemIndex) ||
+        actions.some((action) => action.itemIndex === itemIndex))
+    ) {
+      const previousStatus = item.aggregateStatus;
+      item.aggregateStatus = computed;
+      actions.push({
+        itemIndex,
+        dimensionIndex: null,
+        issueCodes: ["M-AGGREGATE"],
+        previousStatus,
+        normalizedStatus: computed,
+        removedCandidateFactRefs: [],
+        reasonRebuilt: false,
+      });
+    }
   }
   return { data, applied: actions.length > 0, actions };
 }

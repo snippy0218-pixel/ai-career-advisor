@@ -1,0 +1,1314 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-5-83a1810",
+  "executionId": "TC-P2-12-R2",
+  "fixtureId": "TC-P2-12",
+  "fixtureName": "team achievement attribution",
+  "repetition": 2,
+  "implementationCommit": "83a18108282d97f3871027350d4239660528284c",
+  "input": {
+    "jdCharacters": 102,
+    "profileCharacters": 82,
+    "jdSha256": "ea0692c6f47f76cdd5b13e311e14a98efc346614499b74620df8fb80414b2e32",
+    "profileSha256": "48d76f331981516889995130d670301acdef31ffcc6f8308ec9f9c104bb1a49a"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met",
+      "unmet"
+    ]
+  },
+  "coverage": [
+    "team-achievement",
+    "individual-attribution",
+    "ownership",
+    "explicit-counter"
+  ],
+  "completed": false,
+  "stoppedAt": "strengthGap",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "strengthGap",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "c8fcbe8d-43d3-4427-8501-0d706fd0c14e",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7526,
+      "requestId": "1bedd908-f8f5-48cd-acdb-7520fdfad243",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2488,
+      "requestId": "5ca6549f-7b1c-492a-b81f-b2f69f818680",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2484,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 377,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2484,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 377,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3800,
+      "requestId": "4e39f3a9-436d-46b0-99e2-9d9214578fcf",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 2,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 3798,
+        "outputCompletionTokens": 589,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 2,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 3798,
+        "outputCompletionTokens": 589,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 1383,
+      "requestId": "d9a98791-026e-4505-a9c0-b6e4190f1ef8",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 1379,
+        "outputCompletionTokens": 171,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 1379,
+        "outputCompletionTokens": 171,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 3875,
+      "requestId": "c8fcbe8d-43d3-4427-8501-0d706fd0c14e",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          },
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          },
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "strengthGapNormalizationAttempted": true,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "strengthIndex": 0,
+            "issueCodes": [
+              "SG-B"
+            ],
+            "removedType": "direct_match",
+            "removedStatement": "候选人具有团队项目协作经验，与要求直接匹配。",
+            "removedMatchRefs": [
+              "MI-001"
+            ],
+            "rewrittenType": "direct_match",
+            "replacementStatement": "正向 Match 证据保留“校园、团队、协助、参与”原始范围，并支持该项要求。"
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 3872,
+        "outputCompletionTokens": 179,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-B Candidate scope/modifier from Match evidence must be preserved",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          },
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "strengths.0.statement",
+            "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+          },
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "strengthGapNormalizationAttempted": true,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "strengthIndex": 0,
+            "issueCodes": [
+              "SG-B"
+            ],
+            "removedType": "direct_match",
+            "removedStatement": "候选人具有团队项目协作经验，与要求直接匹配。",
+            "removedMatchRefs": [
+              "MI-001"
+            ],
+            "rewrittenType": "direct_match",
+            "replacementStatement": "正向 Match 证据保留“校园、团队、协助、参与”原始范围，并支持该项要求。"
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+          }
+        ],
+        "normalizedRepairOutput": {
+          "strengths": [
+            {
+              "type": "direct_match",
+              "statement": "正向 Match 证据保留“校园、团队、协助、参与”原始范围，并支持该项要求。",
+              "matchRefs": [
+                "MI-001"
+              ]
+            },
+            {
+              "type": "direct_match",
+              "statement": "候选人具备本科及以上学历，满足硬性学历要求。",
+              "matchRefs": [
+                "MI-004"
+              ]
+            }
+          ],
+          "gaps": [
+            {
+              "type": "information",
+              "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+              "matchRefs": [
+                "MI-003"
+              ],
+              "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+              "actionType": "confirm"
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 3872,
+        "outputCompletionTokens": 179,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-B Candidate scope/modifier from Match evidence must be preserved",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有团队项目协作经验，与要求直接匹配。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具备本科及以上学历，满足硬性学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"候选人书面沟通能力的资料缺少，无法判断是否满足要求。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。\",\n      \"actionType\": \"confirm\"\n    }\n  ]\n}",
+            "rawTextLength": 488,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                  "matchRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具备本科及以上学历，满足硬性学历要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "information",
+                  "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                  "matchRefs": [
+                    "MI-003"
+                  ],
+                  "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                  "actionType": "confirm"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "strengths.0.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              },
+              {
+                "path": "gaps.0",
+                "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "strengths",
+                "index": 0,
+                "type": "direct_match",
+                "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": null,
+                "validatorRules": [
+                  "SG-B"
+                ],
+                "rejectionCodes": [
+                  "SG-B_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                ]
+              },
+              {
+                "collection": "gaps",
+                "index": 0,
+                "type": "information",
+                "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                "matchRefs": [
+                  "MI-003"
+                ],
+                "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                "validatorRules": [
+                  "SG-F"
+                ],
+                "rejectionCodes": [
+                  "SG-F_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有团队项目协作经验，与要求直接匹配。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具备本科及以上学历，满足硬性学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"候选人书面沟通能力的资料缺少，无法判断是否满足要求。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。\",\n      \"actionType\": \"confirm\"\n    }\n  ]\n}",
+            "rawTextLength": 488,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                  "matchRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具备本科及以上学历，满足硬性学历要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "information",
+                  "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                  "matchRefs": [
+                    "MI-003"
+                  ],
+                  "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                  "actionType": "confirm"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "strengths.0.statement",
+                "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              },
+              {
+                "path": "gaps.0",
+                "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "strengths",
+                "index": 0,
+                "type": "direct_match",
+                "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": null,
+                "validatorRules": [
+                  "SG-B"
+                ],
+                "rejectionCodes": [
+                  "SG-B_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-B Candidate scope/modifier from Match evidence must be preserved"
+                ]
+              },
+              {
+                "collection": "gaps",
+                "index": 0,
+                "type": "information",
+                "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                "matchRefs": [
+                  "MI-003"
+                ],
+                "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                "validatorRules": [
+                  "SG-F"
+                ],
+                "rejectionCodes": [
+                  "SG-F_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+                ]
+              }
+            ]
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "c8fcbe8d-43d3-4427-8501-0d706fd0c14e",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有团队项目协作经验，与要求直接匹配。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具备本科及以上学历，满足硬性学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"候选人书面沟通能力的资料缺少，无法判断是否满足要求。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。\",\n      \"actionType\": \"confirm\"\n    }\n  ]\n}",
+          "rawTextLength": 488,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                "matchRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "候选人具备本科及以上学历，满足硬性学历要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "information",
+                "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                "matchRefs": [
+                  "MI-003"
+                ],
+                "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                "actionType": "confirm"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "strengths.0.statement",
+              "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+            },
+            {
+              "path": "gaps.0",
+              "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "strengths",
+              "index": 0,
+              "type": "direct_match",
+              "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": null,
+              "validatorRules": [
+                "SG-B"
+              ],
+              "rejectionCodes": [
+                "SG-B_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              ]
+            },
+            {
+              "collection": "gaps",
+              "index": 0,
+              "type": "information",
+              "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+              "matchRefs": [
+                "MI-003"
+              ],
+              "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+              "validatorRules": [
+                "SG-F"
+              ],
+              "rejectionCodes": [
+                "SG-F_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有团队项目协作经验，与要求直接匹配。\",\n      \"matchRefs\": [\"MI-001\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具备本科及以上学历，满足硬性学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"候选人书面沟通能力的资料缺少，无法判断是否满足要求。\",\n      \"matchRefs\": [\"MI-003\"],\n      \"suggestedAction\": \"请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。\",\n      \"actionType\": \"confirm\"\n    }\n  ]\n}",
+          "rawTextLength": 488,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+                "matchRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "候选人具备本科及以上学历，满足硬性学历要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "information",
+                "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+                "matchRefs": [
+                  "MI-003"
+                ],
+                "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+                "actionType": "confirm"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "strengths.0.statement",
+              "message": "SG-B Candidate scope/modifier from Match evidence must be preserved"
+            },
+            {
+              "path": "gaps.0",
+              "message": "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "strengths",
+              "index": 0,
+              "type": "direct_match",
+              "statement": "候选人具有团队项目协作经验，与要求直接匹配。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": null,
+              "validatorRules": [
+                "SG-B"
+              ],
+              "rejectionCodes": [
+                "SG-B_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-B Candidate scope/modifier from Match evidence must be preserved"
+              ]
+            },
+            {
+              "collection": "gaps",
+              "index": 0,
+              "type": "information",
+              "statement": "候选人书面沟通能力的资料缺少，无法判断是否满足要求。",
+              "matchRefs": [
+                "MI-003"
+              ],
+              "suggestedAction": "请补充能证明书面沟通能力的材料或经历，如写作样本、报告、邮件等。",
+              "validatorRules": [
+                "SG-F"
+              ],
+              "rejectionCodes": [
+                "SG-F_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-F information gap must preserve unknown and cannot assert Candidate deficiency"
+              ]
+            }
+          ]
+        }
+      ],
+      "normalization": [
+        {
+          "strengthIndex": 0,
+          "issueCodes": [
+            "SG-B"
+          ],
+          "removedType": "direct_match",
+          "removedStatement": "候选人具有团队项目协作经验，与要求直接匹配。",
+          "removedMatchRefs": [
+            "MI-001"
+          ],
+          "rewrittenType": "direct_match",
+          "replacementStatement": "正向 Match 证据保留“校园、团队、协助、参与”原始范围，并支持该项要求。"
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_strengthGap",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

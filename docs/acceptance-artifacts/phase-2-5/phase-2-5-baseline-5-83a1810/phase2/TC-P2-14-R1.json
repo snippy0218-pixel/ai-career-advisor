@@ -1,0 +1,1269 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-5-83a1810",
+  "executionId": "TC-P2-14-R1",
+  "fixtureId": "TC-P2-14",
+  "fixtureName": "noisy but recoverable profile",
+  "repetition": 1,
+  "implementationCommit": "83a18108282d97f3871027350d4239660528284c",
+  "input": {
+    "jdCharacters": 111,
+    "profileCharacters": 154,
+    "jdSha256": "4c2c6b6226019180f05ea79f0f6fc241f19b47ca15d5f4977eb08d94e54a538f",
+    "profileSha256": "a0b314d0686454836b44c8a88d149bf2a2467c2b6b9dced6fd870af237b6fbcf"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met"
+    ]
+  },
+  "coverage": [
+    "noisy-input",
+    "preferred-requirement",
+    "explicit-boundary",
+    "normalization"
+  ],
+  "completed": false,
+  "stoppedAt": "strengthGap",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "strengthGap",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "ddd0e615-ab5f-4c83-8a48-7b1183d8b95d",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 10323,
+      "requestId": "05ec76b0-e557-4dc8-a88a-34d1237f51c8",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3713,
+      "requestId": "efc802f9-0517-4296-aa54-8e2b891a7829",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3709,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 654,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3709,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 654,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 5967,
+      "requestId": "d4c04474-b692-4597-bee4-693f9acde84a",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 2,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 5963,
+        "outputCompletionTokens": 801,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 2,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 5963,
+        "outputCompletionTokens": 801,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2456,
+      "requestId": "a3a26ce3-56bd-406d-b9c3-15921daf759f",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 4,
+        "counterRefCount": 0,
+        "latencyMs": 2452,
+        "outputCompletionTokens": 294,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 4,
+        "counterRefCount": 0,
+        "latencyMs": 2452,
+        "outputCompletionTokens": 294,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 5302,
+      "requestId": "ddd0e615-ab5f-4c83-8a48-7b1183d8b95d",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          },
+          {
+            "path": "gaps.1",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          },
+          {
+            "path": "gaps.1",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          }
+        ],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 5299,
+        "outputCompletionTokens": 317,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          },
+          {
+            "path": "gaps.1",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "gaps.0",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          },
+          {
+            "path": "gaps.1",
+            "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+          }
+        ],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 5299,
+        "outputCompletionTokens": 317,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-E evidence_expression requires partial positive evidence and an evidence boundary",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人明确表示可接受阶段性出差，满足该核心要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有大专学历，满足该硬性要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 819,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "候选人明确表示可接受阶段性出差，满足该核心要求。",
+                  "matchRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具有大专学历，满足该硬性要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                  "actionType": "evidence"
+                },
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "gaps.0",
+                "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              },
+              {
+                "path": "gaps.1",
+                "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "gaps",
+                "index": 0,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                "validatorRules": [
+                  "SG-E"
+                ],
+                "rejectionCodes": [
+                  "SG-E_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+                ]
+              },
+              {
+                "collection": "gaps",
+                "index": 1,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                "validatorRules": [
+                  "SG-E"
+                ],
+                "rejectionCodes": [
+                  "SG-E_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人明确表示可接受阶段性出差，满足该核心要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有大专学历，满足该硬性要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 819,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "候选人明确表示可接受阶段性出差，满足该核心要求。",
+                  "matchRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "候选人具有大专学历，满足该硬性要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                  "actionType": "evidence"
+                },
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "gaps.0",
+                "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              },
+              {
+                "path": "gaps.1",
+                "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "gaps",
+                "index": 0,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                "validatorRules": [
+                  "SG-E"
+                ],
+                "rejectionCodes": [
+                  "SG-E_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+                ]
+              },
+              {
+                "collection": "gaps",
+                "index": 1,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                "validatorRules": [
+                  "SG-E"
+                ],
+                "rejectionCodes": [
+                  "SG-E_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+                ]
+              }
+            ]
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "ddd0e615-ab5f-4c83-8a48-7b1183d8b95d",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人明确表示可接受阶段性出差，满足该核心要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有大专学历，满足该硬性要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 819,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "候选人明确表示可接受阶段性出差，满足该核心要求。",
+                "matchRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "候选人具有大专学历，满足该硬性要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                "actionType": "evidence"
+              },
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "gaps.0",
+              "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+            },
+            {
+              "path": "gaps.1",
+              "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "gaps",
+              "index": 0,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+              "validatorRules": [
+                "SG-E"
+              ],
+              "rejectionCodes": [
+                "SG-E_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              ]
+            },
+            {
+              "collection": "gaps",
+              "index": 1,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+              "matchRefs": [
+                "MI-002"
+              ],
+              "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+              "validatorRules": [
+                "SG-E"
+              ],
+              "rejectionCodes": [
+                "SG-E_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人明确表示可接受阶段性出差，满足该核心要求。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"候选人具有大专学历，满足该硬性要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。\",\n      \"actionType\": \"evidence\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 819,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "候选人明确表示可接受阶段性出差，满足该核心要求。",
+                "matchRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "候选人具有大专学历，满足该硬性要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+                "actionType": "evidence"
+              },
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "gaps.0",
+              "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+            },
+            {
+              "path": "gaps.1",
+              "message": "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "gaps",
+              "index": 0,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明候选人有园区活动志愿者经历，涉及协助登记企业到访信息，但尚不足以证明其具备正式园区运营或企业服务经验。",
+              "matchRefs": [
+                "MI-001"
+              ],
+              "suggestedAction": "如果确实有更深入的园区运营或企业服务相关经历，请补充具体时长、职责范围及是否涉及企业服务工作的说明。",
+              "validatorRules": [
+                "SG-E"
+              ],
+              "rejectionCodes": [
+                "SG-E_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              ]
+            },
+            {
+              "collection": "gaps",
+              "index": 1,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明候选人有协助登记企业到访信息和整理活动物料的经历，但尚不足以证明其具备完整的客户沟通和文档整理能力。",
+              "matchRefs": [
+                "MI-002"
+              ],
+              "suggestedAction": "如果确实有更具体的客户沟通和文档整理经历，请补充沟通场景、频率、效果以及文档类型、工具和复杂度等信息。",
+              "validatorRules": [
+                "SG-E"
+              ],
+              "rejectionCodes": [
+                "SG-E_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-E evidence_expression requires partial positive evidence and an evidence boundary"
+              ]
+            }
+          ]
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_strengthGap",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

@@ -24,6 +24,8 @@
 | ISSUE-045 Phase 2.5 lifecycle metric aggregation | P1 | DETERMINISTIC CLOSED / summary reads normalized stage repair/fallback lifecycle | replacement Phase 2 matrix |
 | ISSUE-046 Phase 2.5 mixed-polarity Candidate atomic claim | P1 | DETERMINISTIC CLOSED / positive activity and explicit negative responsibility are split with unchanged PF lineage | replacement Phase 2 matrix |
 | ISSUE-047 Phase 2.5 direct Strength Match-scope preservation | P1 | DETERMINISTIC CLOSED / SG-B-only direct strength rewrite preserves referenced Match scope and reruns SG-A～SG-N | replacement Phase 2 matrix |
+| ISSUE-048 Phase 2.5 Match terminal aggregate and compound-domain projection | P1 | DETERMINISTIC CLOSED / aggregate-only repair is recalculated from dimension truth; compound-domain omission requires all conservative domain terms | replacement Phase 2 matrix |
+| ISSUE-049 Phase 2.5 Strength/Gap terminal type recovery | P1 | DETERMINISTIC CLOSED / invalid SG-E/SG-F repair gaps are conservatively rewritten, converted, or removed, then SG-A～SG-N reruns | replacement Phase 2 matrix |
 
 ## ISSUE-040～045 baseline evidence
 
@@ -44,6 +46,14 @@
 - ISSUE-046 reproduction is TC-P2-14 R1/R2: one CF combined `协助登记/整理` with `没有负责招商或项目落地`, causing valid positive activity to inherit counter polarity.
 - ISSUE-047 reproduction is TC-P2-12 R2/R3: direct Strength text omitted `参与/协助/团队` scope retained by its referenced Match evidence and was correctly rejected by SG-B after both model attempts.
 - Complete adjudication: `PHASE-2-5-BASELINE-4-STABILIZATION.md`. Updated deterministic closure: focused affected suites `312/312` plus integration/boundary `40/40`; full `33 files / 618 tests`; lint and production build PASS. Runtime closure remains a new committed full Phase 2 `14×3` matrix.
+
+## Baseline 5 additional evidence
+
+- `phase-2-5-baseline-5-83a1810` is a complete fixed Phase 2 batch: `30/42` PASS, `31` complete chains, downstream-after-failure `0`, with all rejected initial/repair raw retained. There was no run 4 or partial rerun composition.
+- ISSUE-041 and ISSUE-044 received adjacent exact runtime evidence for requirement-target ownership and desired-state modifier scope; their deterministic boundaries were extended without weakening Candidate/JD truth rules.
+- ISSUE-048 is distinct terminal Match behavior: one repair left only a stale aggregate, while a separate conservative compound-domain omission guard treated one generic token as the whole compound domain.
+- ISSUE-049 covers Strength/Gap repair outputs whose type or expression remained incompatible with the referenced final Match status. Recovery is limited to fact-free unknown/evidence boundaries or removal of an optional inapplicable gap, followed by the unchanged full validator.
+- Complete adjudication: `PHASE-2-5-BASELINE-5-STABILIZATION.md`. Focused `161/161`, relevant targeted `228/228`, full `625/625`, lint and production build PASS; diff/scope/secret, immutable commit, and the new Phase 2 `14×3` matrix remain.
 
 ## ISSUE-039 closure evidence
 

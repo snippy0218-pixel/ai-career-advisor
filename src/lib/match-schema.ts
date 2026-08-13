@@ -233,7 +233,7 @@ function explicitSameDimensionPositiveFacts(
       candidateFactPolarity(fact.statement) === "positive" &&
       fact.semanticTags.some((tag) =>
         ["experience", "project_experience"].includes(tag),
-      ) && terms.some((term) => fact.statement.includes(term)),
+      ) && terms.every((term) => fact.statement.includes(term)),
   );
 }
 

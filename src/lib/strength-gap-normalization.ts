@@ -11,8 +11,12 @@ export interface StrengthGapNormalizationAction {
     | RawStrengthGap["gaps"][number]["type"];
   removedStatement: string;
   removedMatchRefs: string[];
-  rewrittenType?: "direct_match";
+  rewrittenType?:
+    | RawStrengthGap["strengths"][number]["type"]
+    | RawStrengthGap["gaps"][number]["type"];
   replacementStatement?: string;
+  replacementSuggestedAction?: string;
+  replacementActionType?: RawStrengthGap["gaps"][number]["actionType"];
 }
 
 export interface StrengthGapNormalizationResult {
@@ -91,6 +95,88 @@ export function normalizeRejectedTransferableStrengths(
       });
     });
   }
+  const invalidGapRemovalActions: StrengthGapNormalizationAction[] = [];
+  const gapRewriteActions: StrengthGapNormalizationAction[] = [];
+  if (matchCore) {
+    for (const issue of issues) {
+      const path = issue.path.match(/^gaps\.(\d+)$/);
+      if (!path) continue;
+      const gapIndex = Number(path[1]);
+      const entry = raw.gaps[gapIndex];
+      if (!entry) continue;
+      const items = entry.matchRefs
+        .map((ref) => matchCore.matchItems[Number(ref.slice(3)) - 1])
+        .filter(Boolean);
+      if (
+        /SG-F information gap must preserve unknown/.test(issue.message) &&
+        entry.type === "information"
+      ) {
+        gapRewriteActions.push({
+          gapIndex,
+          issueCodes: ["SG-F"],
+          removedType: entry.type,
+          removedStatement: entry.statement,
+          removedMatchRefs: [...entry.matchRefs],
+          rewrittenType: "information",
+          replacementStatement:
+            "该 Match 项仍为 unknown；现有资料不足以确认是否满足要求。",
+          replacementSuggestedAction:
+            "请补充或确认与该 Match 项直接相关的可验证信息。",
+          replacementActionType: "confirm",
+        });
+        continue;
+      }
+      if (
+        !/SG-E evidence_expression requires partial positive evidence/.test(
+          issue.message,
+        ) ||
+        entry.type !== "evidence_expression"
+      ) {
+        continue;
+      }
+      const allUnknown =
+        items.length > 0 &&
+        items.every((item) =>
+          item.requirementDimensions.some(
+            (dimension) => dimension.status === "unknown",
+          ),
+        );
+      const allPartialPositive =
+        items.length > 0 &&
+        items.every(
+          (item) =>
+            item.status === "partial" &&
+            item.requirementDimensions.some(
+              (dimension) => dimension.candidateEvidenceRole === "positive",
+            ),
+        );
+      if (allUnknown || allPartialPositive) {
+        gapRewriteActions.push({
+          gapIndex,
+          issueCodes: ["SG-E"],
+          removedType: entry.type,
+          removedStatement: entry.statement,
+          removedMatchRefs: [...entry.matchRefs],
+          rewrittenType: allUnknown ? "information" : "evidence_expression",
+          replacementStatement: allUnknown
+            ? "该 Match 项仍为 unknown；现有资料不足以确认是否满足要求。"
+            : "现有正向 Match 证据仅能表明部分支持，尚不足以证明完整满足该项要求。",
+          replacementSuggestedAction: allUnknown
+            ? "请补充或确认与该 Match 项直接相关的可验证信息。"
+            : "如果确有更完整的相关事实，请补充可验证证据。",
+          replacementActionType: allUnknown ? "confirm" : "evidence",
+        });
+      } else {
+        invalidGapRemovalActions.push({
+          gapIndex,
+          issueCodes: ["SG-E"],
+          removedType: entry.type,
+          removedStatement: entry.statement,
+          removedMatchRefs: [...entry.matchRefs],
+        });
+      }
+    }
+  }
   const directActions: StrengthGapNormalizationAction[] = [];
   if (matchCore) {
     for (const issue of issues) {
@@ -134,16 +220,29 @@ export function normalizeRejectedTransferableStrengths(
       });
     }
   }
-  const actions = [...strengthActions, ...gapActions, ...directActions];
+  const actions = [
+    ...strengthActions,
+    ...gapActions,
+    ...invalidGapRemovalActions,
+    ...gapRewriteActions,
+    ...directActions,
+  ];
   const removedStrengths = new Set(
     strengthActions.map((action) => action.strengthIndex),
   );
-  const removedGaps = new Set(gapActions.map((action) => action.gapIndex));
-  const data = structuredClone(raw);
-  data.strengths = data.strengths.filter(
-    (_entry, index) => !removedStrengths.has(index),
+  const removedGaps = new Set(
+    [...gapActions, ...invalidGapRemovalActions].map((action) => action.gapIndex),
   );
-  data.gaps = data.gaps.filter((_entry, index) => !removedGaps.has(index));
+  const data = structuredClone(raw);
+  for (const action of gapRewriteActions) {
+    if (action.gapIndex === undefined) continue;
+    const entry = data.gaps[action.gapIndex];
+    if (!entry || !action.rewrittenType || !action.replacementStatement) continue;
+    entry.type = action.rewrittenType as RawStrengthGap["gaps"][number]["type"];
+    entry.statement = action.replacementStatement;
+    entry.suggestedAction = action.replacementSuggestedAction ?? entry.suggestedAction;
+    entry.actionType = action.replacementActionType ?? entry.actionType;
+  }
   for (const action of directActions) {
     if (
       action.strengthIndex !== undefined &&
@@ -152,5 +251,9 @@ export function normalizeRejectedTransferableStrengths(
       data.strengths[action.strengthIndex].statement = action.replacementStatement;
     }
   }
+  data.strengths = data.strengths.filter(
+    (_entry, index) => !removedStrengths.has(index),
+  );
+  data.gaps = data.gaps.filter((_entry, index) => !removedGaps.has(index));
   return { data, applied: actions.length > 0, actions };
 }

@@ -96,7 +96,7 @@ function outputModifiersAreSourced(outputText, sourceText) {
           outputText.lastIndexOf("\"", index - 1),
         );
         const beforeClause = outputText.slice(clauseStart + 1, index);
-        return !/(?:未|不|无|没有|尚未|无法|不能|不足以|待确认|是否|需.{0,4}确认)/.test(
+        return !/(?:未|不|无|没有|尚未|无法|不能|不足以|待确认|是否|需.{0,4}(?:确认|提升)|需要.{0,4}提升)/.test(
           beforeClause,
         );
       })
