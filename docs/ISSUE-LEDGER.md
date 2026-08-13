@@ -118,6 +118,12 @@
 - ISSUE-041 adjacent evidence is the same explicit numeric shortfall after repair already set it to `unmet`, but its reason assigned the JD threshold to the CF. Terminal recovery reuses the existing numeric M-DURATION rule, exact CF text, same refs/status, and complete validator.
 - Summary SHA-256 is `b8edd8cd50141cc1c0e3c413cba7c04e19d654ea187099803a0eb6262d194d08`. Focused `146/146`, full `643/643`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-14-STABILIZATION.md`.
 
+## Baseline 15 additional evidence
+
+- `phase-2-5-baseline-15-75be908` is a valid complete content batch: `41/42` PASS, all `42` complete chains, downstream-after-failure `0`.
+- ISSUE-041/048 adjacent evidence is a fully valid chain where repair over-corrected explicit skill usage beneath a proficiency threshold to unknown. The same-domain omission Gate now recognizes exact ASCII skill tokens; recovery restores only `partial`, exact CF/ref, and retains proficiency uncertainty.
+- Summary SHA-256 is `e74aef6ce847563e4b6b68907ec04a2e17a159b996d8e1d8c4c349521ffb2678`. Focused `148/148`, full `645/645`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-15-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

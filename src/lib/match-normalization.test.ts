@@ -414,4 +414,48 @@ describe("Match rejected-reason normalization", () => {
       removedCandidateFactRefs: [],
     });
   });
+
+  it("N10 restores partial from an explicit same-skill fact without upgrading proficiency", () => {
+    const input = raw({
+      dimensionType: "skill",
+      requirementFragment: "熟练掌握 Vue3",
+      status: "unknown",
+      reason: "现有资料不足以确认熟练掌握 Vue3。",
+      jdEvidence: ["熟练掌握 Vue3 和 TypeScript"],
+      candidateEvidence: [],
+      missingInformation: "未表明 Vue3 的熟练程度",
+      verificationQuestion: "Vue3 的使用频率和熟练程度如何？",
+    });
+    input.matchItems[0].aggregateStatus = "partial";
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [
+        {
+          path: "matchItems.0.dimensions.0.status",
+          message: "unknown omitted explicit same-domain positive evidence: CF-001",
+        },
+        {
+          path: "matchItems.0.aggregateStatus",
+          message: "aggregateStatus must be unknown",
+        },
+      ],
+      [
+        {
+          factId: "CF-001",
+          statement: "日常使用 Vue3",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["skill_usage"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0].aggregateStatus).toBe("partial");
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "partial",
+      reason: "CF-001 原文：“日常使用 Vue3”。",
+      candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+      missingInformation: "未表明 Vue3 的熟练程度",
+    });
+  });
 });

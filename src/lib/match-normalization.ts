@@ -201,6 +201,43 @@ export function normalizeRejectedMatchReasons(
   for (const issue of issues) {
     const match = issue.path.match(STATUS_PATH);
     if (
+      match &&
+      issue.message.includes("unknown omitted explicit same-domain positive evidence")
+    ) {
+      const itemIndex = Number(match[1]);
+      const dimensionIndex = Number(match[2]);
+      const dimension = data.matchItems[itemIndex]?.dimensions[dimensionIndex];
+      const factIds = issue.message.match(/CF-\d{3,}/g) ?? [];
+      const positiveFact = factIds
+        .map((factId) => factById.get(factId))
+        .find(
+          (fact): fact is FinalCanonicalCandidateFact =>
+            Boolean(
+              fact &&
+                dimension &&
+                dimension.status === "unknown" &&
+                factCanPreservePositiveDimension(dimension, fact),
+            ),
+        );
+      if (dimension && positiveFact) {
+        dimension.status = "partial";
+        dimension.reason = `${positiveFact.factId} 原文：“${positiveFact.statement}”。`;
+        dimension.candidateEvidence = [
+          { factId: positiveFact.factId, role: "positive" },
+        ];
+        actions.push({
+          itemIndex,
+          dimensionIndex,
+          issueCodes: ["MATCH_VALIDATION_REJECTED"],
+          previousStatus: "unknown",
+          normalizedStatus: "partial",
+          removedCandidateFactRefs: [],
+          reasonRebuilt: true,
+        });
+      }
+      continue;
+    }
+    if (
       !match ||
       !issue.message.includes("M-DURATION explicit numeric shortfall must be unmet")
     ) {

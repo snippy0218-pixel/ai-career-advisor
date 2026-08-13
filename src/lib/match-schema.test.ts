@@ -401,6 +401,44 @@ describe("match-core schema and status contract", () => {
     );
   });
 
+  it("rejects unknown that omits explicit same-skill usage beneath a proficiency threshold", () => {
+    const request = buildMatchFixture(
+      [{ content: "熟练掌握 Vue3", requirementType: "core_requirement" }],
+      [{ statement: "日常使用 Vue3", semanticTags: ["skill_usage"] }],
+    );
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse({
+        matchItems: [
+          {
+            requirementId: "REQ-001",
+            aggregateStatus: "unknown",
+            dimensions: [
+              dimension({
+                dimensionType: "skill",
+                requirementFragment: "熟练掌握 Vue3",
+                jdEvidence: ["熟练掌握 Vue3"],
+                missingInformation: "Vue3 熟练程度",
+                verificationQuestion: "请补充 Vue3 的使用频率和熟练程度。",
+              }),
+            ],
+          },
+        ],
+      }),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "matchItems.0.dimensions.0.status",
+          message: "unknown omitted explicit same-domain positive evidence: CF-001",
+        }),
+      ]),
+    );
+  });
+
   it("rejects unmet without counter-evidence and unknown with contradiction", () => {
     const unmet = finalize(1, {
       matchItems: [

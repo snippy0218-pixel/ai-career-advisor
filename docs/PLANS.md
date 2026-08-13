@@ -26,6 +26,7 @@
 - baseline-12（`da1877f…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、41 complete chains、失败后下游调用 0，baseline-11 两项失败均 3/3 PASS。剩余为同维度 employment counter 的泛化关系短语与 aggregate-unmet MI 被同时列入 supporting/counter；窄恢复 focused `135/135`、full `640/640`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-13（`55cc2de…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、41 complete chains、失败后下游调用 0；baseline-12 X-C case 3/3 PASS。剩余为 X-F 对协调待确认短语的词距误判与 Match repair 漏拆 fact-free unknown employment dimension；窄恢复 focused `152/152`、full `641/641`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-14（`a5ff6eb…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、40 complete chains、失败后下游调用 0；baseline-13 两项失败均 3/3 PASS。TC-P2-10 R1/R3 同属 already-unmet numeric shortfall reason 把 JD 门槛归给 CF；M-DURATION 相邻恢复 focused `146/146`、full `643/643`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
+- baseline-15（`75be908…`）是有效完整 Phase 2 14×3 content batch：41/42 PASS、42 complete chains、失败后下游调用 0。唯一 TC-P2-10 R3 六阶段/X-A～X-J 全绿，但 repair 把明确 skill usage 过度降为 unknown，违反 frozen partial expectation；窄恢复 focused `148/148`、full `645/645`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 
 ## Execution discipline
 

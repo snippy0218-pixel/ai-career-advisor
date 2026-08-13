@@ -1,0 +1,2936 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-15-75be908",
+  "executionId": "TC-P2-08-R1",
+  "fixtureId": "TC-P2-08",
+  "fixtureName": "bounded transferable experience",
+  "repetition": 1,
+  "implementationCommit": "75be90826be9cd390f4e60bb6d76942185c665e5",
+  "input": {
+    "jdCharacters": 108,
+    "profileCharacters": 98,
+    "jdSha256": "5af37f1914fcba1e2b4394514e1a66aa93530ef8a13bc4f90cf05731ae4e5bde",
+    "profileSha256": "c4fc2fcbd10157f3438d484e619d1efd08cb01046810928f18bf8ffe6e21b6b8"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "partial"
+    ]
+  },
+  "coverage": [
+    "transferable-strength",
+    "partial",
+    "responsibility",
+    "domain-boundary"
+  ],
+  "completed": true,
+  "stoppedAt": null,
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": null,
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7505,
+      "requestId": "ba563f50-e7ad-4496-91bb-a8ef0c4a0eb6",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "B2B 产品运营岗位",
+          "companyName": null,
+          "location": null,
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": null,
+          "educationRequirement": "本科及以上学历",
+          "summary": "从JD信息看，可能属于B2B产品运营岗位，涉及客户需求整理、协同产品团队推进方案落地及项目数据复盘。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "整理客户需求",
+            "description": "负责收集和整理客户需求，为产品团队提供输入。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "整理客户需求"
+            ]
+          },
+          {
+            "title": "协同产品团队推进方案落地",
+            "description": "与产品团队协作，推动解决方案的实施和落地。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "协同产品团队推进方案落地"
+            ]
+          },
+          {
+            "title": "复盘项目数据",
+            "description": "对项目数据进行回顾和分析，总结经验教训。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "复盘项目数据"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "具有企业服务产品运营经验",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具有企业服务产品运营经验"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "能独立负责客户需求分析",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能独立负责客户需求分析"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "熟悉项目数据复盘",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "熟悉项目数据复盘"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "本科及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "本科及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及与产品团队的紧密协作，需要较强的沟通协调能力。",
+              "explanation": "职责中明确提到协同产品团队，推断工作特点。",
+              "sourceType": "inference",
+              "evidence": [
+                "协同产品团队推进方案落地"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能涉及数据分析和复盘，需要具备一定的数据分析能力。",
+              "explanation": "职责中明确提到复盘项目数据，推断工作特点。",
+              "sourceType": "inference",
+              "evidence": [
+                "复盘项目数据"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "公司名称未说明",
+            "工作地点未说明",
+            "薪资范围未说明",
+            "具体产品领域未说明",
+            "团队规模未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "公司名称和主营业务是什么？",
+              "reason": "JD中未提供公司信息，需要确认以了解背景。"
+            },
+            {
+              "question": "工作地点在哪里？",
+              "reason": "JD中未说明工作地点，需要确认。"
+            },
+            {
+              "question": "薪资范围是多少？",
+              "reason": "JD中未提供薪资信息，需要确认。"
+            },
+            {
+              "question": "具体负责哪类企业服务产品？",
+              "reason": "JD中未明确产品领域，需要确认以了解工作内容。"
+            },
+            {
+              "question": "团队规模和协作方式如何？",
+              "reason": "JD中未说明团队情况，需要确认。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触客户需求整理、产品方案落地和数据复盘等工作。",
+              "sourceType": "inference",
+              "evidence": [
+                "整理客户需求",
+                "协同产品团队推进方案落地",
+                "复盘项目数据"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对贵公司的B2B产品运营岗位很感兴趣，想进一步了解岗位职责和团队情况，期待与您沟通。",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2443,
+      "requestId": "1593c578-6cb5-4cbb-a33d-3247a1ce25b6",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 5,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 5,
+        "profileFactRecall": null,
+        "latencyMs": 2440,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 427,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 5,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 5,
+        "profileFactRecall": null,
+        "latencyMs": 2440,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 427,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "教育背景：市场营销本科",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "project_experience"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "协助运营同学整理用户反馈",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "没有独立负责客户项目",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "experience",
+                "project_experience"
+              ]
+            },
+            {
+              "factId": "CF-005",
+              "statement": "使用过 Excel 进行基础数据整理",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            }
+          ],
+          "careerTarget": null,
+          "education": [
+            "CF-001"
+          ],
+          "experiences": [
+            "CF-003",
+            "CF-004"
+          ],
+          "projects": [
+            "CF-002",
+            "CF-004"
+          ],
+          "skills": [
+            "CF-005"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "教育背景：市场营销本科"
+            },
+            {
+              "id": "PF-002",
+              "text": "校园项目：参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+            },
+            {
+              "id": "PF-003",
+              "text": "实习经历：协助运营同学整理用户反馈，没有独立负责客户项目"
+            },
+            {
+              "id": "PF-004",
+              "text": "技能：使用过 Excel 进行基础数据整理"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7468,
+      "requestId": "009fec4f-01db-4b7b-b9be-189ef777fe2c",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002"
+          }
+        ],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 7465,
+        "outputCompletionTokens": 631,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002"
+          }
+        ],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 7465,
+        "outputCompletionTokens": 631,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"企业服务产品运营经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有企业服务产品运营经验。\",\"jdEvidence\":[\"具有企业服务产品运营经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有企业服务产品运营经验\",\"verificationQuestion\":\"请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立负责客户需求分析\",\"status\":\"unmet\",\"reason\":\"CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。\",\"jdEvidence\":[\"能独立负责客户需求分析\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟悉项目数据复盘\",\"status\":\"partial\",\"reason\":\"CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。\",\"jdEvidence\":[\"熟悉项目数据复盘\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"候选人进行项目数据复盘的熟悉程度及是否独立完成\",\"verificationQuestion\":\"请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1445,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "企业服务产品运营经验",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有企业服务产品运营经验。",
+                      "jdEvidence": [
+                        "具有企业服务产品运营经验"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有企业服务产品运营经验",
+                      "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立负责客户需求分析",
+                      "status": "unmet",
+                      "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立负责客户需求分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟悉项目数据复盘",
+                      "status": "partial",
+                      "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                      "jdEvidence": [
+                        "熟悉项目数据复盘"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                      "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.2.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 2,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-003",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟悉项目数据复盘",
+                        "status": "partial",
+                        "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                        "jdEvidence": [
+                          "熟悉项目数据复盘"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                        "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟悉项目数据复盘",
+                    "status": "partial",
+                    "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                    "jdEvidence": [
+                      "熟悉项目数据复盘"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                    "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 2,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟悉项目数据复盘",
+                    "status": "partial",
+                    "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                    "jdEvidence": [
+                      "熟悉项目数据复盘"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                    "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "熟悉项目数据复盘",
+                "status": "partial",
+                "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                "jdEvidence": [
+                  "熟悉项目数据复盘"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-002",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"企业服务产品运营经验\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人是否具有企业服务产品运营经验。\",\n          \"jdEvidence\": [\"具有企业服务产品运营经验\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有企业服务产品运营经验\",\n          \"verificationQuestion\": \"请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"独立负责客户需求分析\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。\",\n          \"jdEvidence\": [\"能独立负责客户需求分析\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟悉项目数据复盘\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。\",\n          \"jdEvidence\": [\"熟悉项目数据复盘\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"候选人进行项目数据复盘的熟悉程度\",\n          \"verificationQuestion\": \"请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2262,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "企业服务产品运营经验",
+                      "status": "unknown",
+                      "reason": "现有资料不足以确认候选人是否具有企业服务产品运营经验。",
+                      "jdEvidence": [
+                        "具有企业服务产品运营经验"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有企业服务产品运营经验",
+                      "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立负责客户需求分析",
+                      "status": "unmet",
+                      "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立负责客户需求分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟悉项目数据复盘",
+                      "status": "partial",
+                      "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。",
+                      "jdEvidence": [
+                        "熟悉项目数据复盘"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "候选人进行项目数据复盘的熟悉程度",
+                      "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": null,
+            "failureStage": null,
+            "failureCategory": null,
+            "validationIssues": [],
+            "rejectedItem": null
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "具有企业服务产品运营经验",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "具有企业服务产品运营经验"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "domain",
+                "requirementFragment": "企业服务产品运营经验",
+                "status": "unknown",
+                "reason": "现有资料不足以确认候选人是否具有企业服务产品运营经验。",
+                "jdEvidence": [
+                  "具有企业服务产品运营经验"
+                ],
+                "missingInformation": "候选人是否具有企业服务产品运营经验",
+                "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-002",
+            "requirement": "能独立负责客户需求分析",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "能独立负责客户需求分析"
+            ],
+            "status": "unmet",
+            "requirementDimensions": [
+              {
+                "dimensionType": "responsibility",
+                "requirementFragment": "独立负责客户需求分析",
+                "status": "unmet",
+                "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+                "jdEvidence": [
+                  "能独立负责客户需求分析"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-004"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-003"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-003",
+            "requirement": "熟悉项目数据复盘",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "熟悉项目数据复盘"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "熟悉项目数据复盘",
+                "status": "partial",
+                "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。",
+                "jdEvidence": [
+                  "熟悉项目数据复盘"
+                ],
+                "missingInformation": "候选人进行项目数据复盘的熟悉程度",
+                "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-002"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-002"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-004",
+            "requirement": "本科及以上学历",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "本科及以上学历"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "credential",
+                "requirementFragment": "本科及以上学历",
+                "status": "met",
+                "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"企业服务产品运营经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有企业服务产品运营经验。\",\"jdEvidence\":[\"具有企业服务产品运营经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有企业服务产品运营经验\",\"verificationQuestion\":\"请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立负责客户需求分析\",\"status\":\"unmet\",\"reason\":\"CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。\",\"jdEvidence\":[\"能独立负责客户需求分析\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟悉项目数据复盘\",\"status\":\"partial\",\"reason\":\"CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。\",\"jdEvidence\":[\"熟悉项目数据复盘\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":\"候选人进行项目数据复盘的熟悉程度及是否独立完成\",\"verificationQuestion\":\"请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1445,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "企业服务产品运营经验",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有企业服务产品运营经验。",
+                    "jdEvidence": [
+                      "具有企业服务产品运营经验"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有企业服务产品运营经验",
+                    "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立负责客户需求分析",
+                    "status": "unmet",
+                    "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立负责客户需求分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟悉项目数据复盘",
+                    "status": "partial",
+                    "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                    "jdEvidence": [
+                      "熟悉项目数据复盘"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                    "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.2.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: experience_type:校园->CF-002",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 2,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟悉项目数据复盘",
+                      "status": "partial",
+                      "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                      "jdEvidence": [
+                        "熟悉项目数据复盘"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                      "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟悉项目数据复盘",
+                  "status": "partial",
+                  "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                  "jdEvidence": [
+                    "熟悉项目数据复盘"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                  "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 2,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "partial",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟悉项目数据复盘",
+                  "status": "partial",
+                  "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+                  "jdEvidence": [
+                    "熟悉项目数据复盘"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+                  "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "熟悉项目数据复盘",
+              "status": "partial",
+              "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但该经验为校园项目且为共同完成，未表明熟悉程度。",
+              "jdEvidence": [
+                "熟悉项目数据复盘"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-002",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": "候选人进行项目数据复盘的熟悉程度及是否独立完成",
+              "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"企业服务产品运营经验\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人是否具有企业服务产品运营经验。\",\n          \"jdEvidence\": [\"具有企业服务产品运营经验\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有企业服务产品运营经验\",\n          \"verificationQuestion\": \"请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"独立负责客户需求分析\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。\",\n          \"jdEvidence\": [\"能独立负责客户需求分析\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟悉项目数据复盘\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。\",\n          \"jdEvidence\": [\"熟悉项目数据复盘\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"候选人进行项目数据复盘的熟悉程度\",\n          \"verificationQuestion\": \"请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2262,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "企业服务产品运营经验",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认候选人是否具有企业服务产品运营经验。",
+                    "jdEvidence": [
+                      "具有企业服务产品运营经验"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有企业服务产品运营经验",
+                    "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立负责客户需求分析",
+                    "status": "unmet",
+                    "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立负责客户需求分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟悉项目数据复盘",
+                    "status": "partial",
+                    "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。",
+                    "jdEvidence": [
+                      "熟悉项目数据复盘"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "候选人进行项目数据复盘的熟悉程度",
+                    "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": null,
+          "failureStage": null,
+          "failureCategory": null,
+          "validationIssues": [],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2114,
+      "requestId": "eeba719c-b678-425e-99ad-bb3723c70bd8",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 2111,
+        "outputCompletionTokens": 244,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 2111,
+        "outputCompletionTokens": 244,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "recommendationLevel": "cautious",
+        "summary": "Match Core 正向证据：MI-004 为 met，MI-003 为 partial；反证：MI-002 为 unmet；待确认项：MI-001 为 unknown。",
+        "supportingMatchRefs": [
+          "MI-003",
+          "MI-004"
+        ],
+        "counterMatchRefs": [
+          "MI-002"
+        ],
+        "limitations": [
+          {
+            "content": "MI-002 为 unmet，硬性要求未满足。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "content": "MI-001 为 unknown，需确认候选人是否具有企业服务产品运营经验。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "question": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          },
+          {
+            "question": "请确认独立负责客户需求分析是否为严格筛选门槛，具体口径是什么？",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2924,
+      "requestId": "f7896ee4-5735-4df0-bba2-61eeaa72dbba",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 2,
+        "gapCount": 3,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 1
+        },
+        "latencyMs": 2922,
+        "outputCompletionTokens": 365,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 2,
+        "gapCount": 3,
+        "strengthTypeCounts": {
+          "direct_match": 1,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 1
+        },
+        "latencyMs": 2922,
+        "outputCompletionTokens": 365,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "direct_match",
+            "statement": "候选人具有市场营销本科学历，满足本科及以上学历要求。",
+            "matchRefs": [
+              "MI-004"
+            ],
+            "strengthId": "ST-001"
+          },
+          {
+            "type": "transferable_strength",
+            "statement": "候选人参与过消费者调研项目并共同完成复盘报告，可迁移至项目数据复盘场景，部分支持该要求。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "strengthId": "ST-002"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "information",
+            "statement": "资料缺少候选人是否具有企业服务产品运营经验的信息，无法判断。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "请补充候选人关于企业服务产品运营经验的具体事实（如行业、产品、年限）。",
+            "actionType": "confirm",
+            "gapId": "GP-001"
+          },
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能表明候选人参与过消费者调研项目并共同完成复盘报告，尚不足以证明其熟悉项目数据复盘。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "suggestedAction": "如果候选人确实有更深入的项目数据复盘经历，请补充相关事实。",
+            "actionType": "evidence",
+            "gapId": "GP-002"
+          },
+          {
+            "type": "learnable_skill",
+            "statement": "候选人参与过项目复盘但熟悉程度不足，需要提升项目数据复盘技能。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "suggestedAction": "学习并练习项目数据复盘的方法和工具，以提升熟悉程度。",
+            "actionType": "learn",
+            "gapId": "GP-003"
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "greeting",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 4126,
+      "requestId": "9926345c-dca0-4c6a-b4ba-f9b4ffd7e3f0",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 4122,
+        "outputCompletionTokens": 250,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 2,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001",
+          "ST-002"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 4122,
+        "outputCompletionTokens": 250,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"教育背景：市场营销本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟悉项目数据复盘\"]\n    },\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 645,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "教育背景：市场营销本科"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-003",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "熟悉项目数据复盘"
+                  ]
+                },
+                {
+                  "matchRef": "MI-004",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "教育背景：市场营销本科",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"教育背景：市场营销本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟悉项目数据复盘\"]\n    },\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 645,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-001",
+                  "statement": "教育背景：市场营销本科"
+                },
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-003",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "熟悉项目数据复盘"
+                  ]
+                },
+                {
+                  "matchRef": "MI-004",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "教育背景：市场营销本科",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "used",
+        "attempts": 1
+      },
+      "personalizedFallback": {
+        "state": "used",
+        "attempts": 1
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。教育背景：市场营销本科；参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-001",
+          "CF-002"
+        ],
+        "matchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "jdEvidence": [
+          "本科及以上学历",
+          "熟悉项目数据复盘"
+        ],
+        "strengthRefs": [
+          "ST-001",
+          "ST-002"
+        ]
+      },
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"教育背景：市场营销本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟悉项目数据复盘\"]\n    },\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 645,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "教育背景：市场营销本科"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-003",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "熟悉项目数据复盘"
+                ]
+              },
+              {
+                "matchRef": "MI-004",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "教育背景：市场营销本科",
+              "validatorRules": [],
+              "rejectionReasons": []
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+              "validatorRules": [],
+              "rejectionReasons": []
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-001\",\n      \"statement\": \"教育背景：市场营销本科\"\n    },\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"熟悉项目数据复盘\"]\n    },\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"本科及以上学历\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 645,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-001",
+                "statement": "教育背景：市场营销本科"
+              },
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-003",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "熟悉项目数据复盘"
+                ]
+              },
+              {
+                "matchRef": "MI-004",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想简单介绍一下自己。我的教育背景是市场营销本科，参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位中熟悉项目数据复盘的部分职责存在一定相关性。希望有机会进一步沟通，了解实际要求和招聘口径。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-001",
+              "statement": "教育背景：市场营销本科",
+              "validatorRules": [],
+              "rejectionReasons": []
+            },
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+              "validatorRules": [],
+              "rejectionReasons": []
+            }
+          ]
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    }
+  ],
+  "downstreamState": "complete",
+  "finalOutput": {
+    "jobAnalysis": {
+      "schemaVersion": "analysis-v1",
+      "candidateProfileProvided": false,
+      "basicInfo": {
+        "jobTitle": "B2B 产品运营岗位",
+        "companyName": null,
+        "location": null,
+        "employmentType": null,
+        "salaryRange": null,
+        "experienceRequirement": null,
+        "educationRequirement": "本科及以上学历",
+        "summary": "从JD信息看，可能属于B2B产品运营岗位，涉及客户需求整理、协同产品团队推进方案落地及项目数据复盘。",
+        "summarySourceType": "inference"
+      },
+      "coreResponsibilities": [
+        {
+          "title": "整理客户需求",
+          "description": "负责收集和整理客户需求，为产品团队提供输入。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "整理客户需求"
+          ]
+        },
+        {
+          "title": "协同产品团队推进方案落地",
+          "description": "与产品团队协作，推动解决方案的实施和落地。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "协同产品团队推进方案落地"
+          ]
+        },
+        {
+          "title": "复盘项目数据",
+          "description": "对项目数据进行回顾和分析，总结经验教训。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "复盘项目数据"
+          ]
+        }
+      ],
+      "roleProfile": {
+        "requirements": [
+          {
+            "content": "具有企业服务产品运营经验",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "具有企业服务产品运营经验"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "能独立负责客户需求分析",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "能独立负责客户需求分析"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "熟悉项目数据复盘",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "熟悉项目数据复盘"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "本科及以上学历",
+            "explanation": "JD包含明确限制条件，归为硬性要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "本科及以上学历"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "hard_requirement"
+          }
+        ],
+        "workCharacteristics": [
+          {
+            "content": "从职责看，可能涉及与产品团队的紧密协作，需要较强的沟通协调能力。",
+            "explanation": "职责中明确提到协同产品团队，推断工作特点。",
+            "sourceType": "inference",
+            "evidence": [
+              "协同产品团队推进方案落地"
+            ],
+            "verificationQuestion": null
+          },
+          {
+            "content": "从职责看，可能涉及数据分析和复盘，需要具备一定的数据分析能力。",
+            "explanation": "职责中明确提到复盘项目数据，推断工作特点。",
+            "sourceType": "inference",
+            "evidence": [
+              "复盘项目数据"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "riskSignals": [],
+        "unknowns": [
+          "公司名称未说明",
+          "工作地点未说明",
+          "薪资范围未说明",
+          "具体产品领域未说明",
+          "团队规模未说明"
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "公司名称和主营业务是什么？",
+            "reason": "JD中未提供公司信息，需要确认以了解背景。"
+          },
+          {
+            "question": "工作地点在哪里？",
+            "reason": "JD中未说明工作地点，需要确认。"
+          },
+          {
+            "question": "薪资范围是多少？",
+            "reason": "JD中未提供薪资信息，需要确认。"
+          },
+          {
+            "question": "具体负责哪类企业服务产品？",
+            "reason": "JD中未明确产品领域，需要确认以了解工作内容。"
+          },
+          {
+            "question": "团队规模和协作方式如何？",
+            "reason": "JD中未说明团队情况，需要确认。"
+          }
+        ]
+      },
+      "applicationAdvice": {
+        "level": "worth_exploring",
+        "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+        "sourceType": "inference",
+        "verificationQuestion": null,
+        "reasons": [
+          {
+            "content": "从职责看，可能接触客户需求整理、产品方案落地和数据复盘等工作。",
+            "sourceType": "inference",
+            "evidence": [
+              "整理客户需求",
+              "协同产品团队推进方案落地",
+              "复盘项目数据"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+      },
+      "candidateAdvantages": null,
+      "hrGreeting": {
+        "personalizationStatus": "not_personalized",
+        "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+        "safeGreeting": "您好，我对贵公司的B2B产品运营岗位很感兴趣，想进一步了解岗位职责和团队情况，期待与您沟通。",
+        "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+      }
+    },
+    "candidateProfile": {
+      "schemaVersion": "candidate-profile-v2",
+      "profileProvided": true,
+      "candidateProfile": {
+        "canonicalFacts": [
+          {
+            "factId": "CF-001",
+            "statement": "教育背景：市场营销本科",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-001"
+            ],
+            "semanticTags": [
+              "education"
+            ]
+          },
+          {
+            "factId": "CF-002",
+            "statement": "参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-002"
+            ],
+            "semanticTags": [
+              "project_experience"
+            ]
+          },
+          {
+            "factId": "CF-003",
+            "statement": "协助运营同学整理用户反馈",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "experience"
+            ]
+          },
+          {
+            "factId": "CF-004",
+            "statement": "没有独立负责客户项目",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "experience",
+              "project_experience"
+            ]
+          },
+          {
+            "factId": "CF-005",
+            "statement": "使用过 Excel 进行基础数据整理",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-004"
+            ],
+            "semanticTags": [
+              "skill_usage"
+            ]
+          }
+        ],
+        "careerTarget": null,
+        "education": [
+          "CF-001"
+        ],
+        "experiences": [
+          "CF-003",
+          "CF-004"
+        ],
+        "projects": [
+          "CF-002",
+          "CF-004"
+        ],
+        "skills": [
+          "CF-005"
+        ],
+        "certificates": [],
+        "portfolio": [],
+        "preferences": [],
+        "derivedObservations": [],
+        "unknowns": [],
+        "questionsToConfirm": [],
+        "evidence": [
+          {
+            "id": "PF-001",
+            "text": "教育背景：市场营销本科"
+          },
+          {
+            "id": "PF-002",
+            "text": "校园项目：参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告"
+          },
+          {
+            "id": "PF-003",
+            "text": "实习经历：协助运营同学整理用户反馈，没有独立负责客户项目"
+          },
+          {
+            "id": "PF-004",
+            "text": "技能：使用过 Excel 进行基础数据整理"
+          }
+        ]
+      }
+    },
+    "matchCore": {
+      "schemaVersion": "match-core-v1",
+      "jdSchemaVersion": "analysis-v1",
+      "candidateProfileSchemaVersion": "candidate-profile-v2",
+      "matchItems": [
+        {
+          "requirementId": "REQ-001",
+          "requirement": "具有企业服务产品运营经验",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "具有企业服务产品运营经验"
+          ],
+          "status": "unknown",
+          "requirementDimensions": [
+            {
+              "dimensionType": "domain",
+              "requirementFragment": "企业服务产品运营经验",
+              "status": "unknown",
+              "reason": "现有资料不足以确认候选人是否具有企业服务产品运营经验。",
+              "jdEvidence": [
+                "具有企业服务产品运营经验"
+              ],
+              "missingInformation": "候选人是否具有企业服务产品运营经验",
+              "verificationQuestion": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [],
+              "candidateEvidenceRole": null,
+              "pfEvidence": []
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-002",
+          "requirement": "能独立负责客户需求分析",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "能独立负责客户需求分析"
+          ],
+          "status": "unmet",
+          "requirementDimensions": [
+            {
+              "dimensionType": "responsibility",
+              "requirementFragment": "独立负责客户需求分析",
+              "status": "unmet",
+              "reason": "CF-004 明确说明候选人没有独立负责客户项目，与独立负责客户需求分析的要求直接冲突。",
+              "jdEvidence": [
+                "能独立负责客户需求分析"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-004"
+              ],
+              "candidateEvidenceRole": "counter",
+              "pfEvidence": [
+                "PF-003"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-003",
+          "requirement": "熟悉项目数据复盘",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "熟悉项目数据复盘"
+          ],
+          "status": "partial",
+          "requirementDimensions": [
+            {
+              "dimensionType": "skill",
+              "requirementFragment": "熟悉项目数据复盘",
+              "status": "partial",
+              "reason": "CF-002 表明候选人参与过消费者调研项目并共同完成复盘报告，但未表明熟悉程度。",
+              "jdEvidence": [
+                "熟悉项目数据复盘"
+              ],
+              "missingInformation": "候选人进行项目数据复盘的熟悉程度",
+              "verificationQuestion": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-002"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-002"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-004",
+          "requirement": "本科及以上学历",
+          "requirementType": "hard_requirement",
+          "jdEvidence": [
+            "本科及以上学历"
+          ],
+          "status": "met",
+          "requirementDimensions": [
+            {
+              "dimensionType": "credential",
+              "requirementFragment": "本科及以上学历",
+              "status": "met",
+              "reason": "CF-001 表明候选人具有市场营销本科学历，满足本科及以上学历要求。",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-001"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-001"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "recommendation": {
+      "recommendationLevel": "cautious",
+      "summary": "Match Core 正向证据：MI-004 为 met，MI-003 为 partial；反证：MI-002 为 unmet；待确认项：MI-001 为 unknown。",
+      "supportingMatchRefs": [
+        "MI-003",
+        "MI-004"
+      ],
+      "counterMatchRefs": [
+        "MI-002"
+      ],
+      "limitations": [
+        {
+          "content": "MI-002 为 unmet，硬性要求未满足。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        },
+        {
+          "content": "MI-001 为 unknown，需确认候选人是否具有企业服务产品运营经验。",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        }
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请说明您在企业服务产品运营方面的具体经验（如行业、产品、年限）？",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "question": "请说明您在项目数据复盘中的具体职责、使用的方法及熟练程度？",
+          "matchItemRefs": [
+            "MI-003"
+          ]
+        },
+        {
+          "question": "请确认独立负责客户需求分析是否为严格筛选门槛，具体口径是什么？",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        }
+      ],
+      "schemaVersion": "recommendation-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "allowedRecommendationLevels": [
+        "cautious",
+        "not_recommended"
+      ]
+    },
+    "strengthGap": {
+      "schemaVersion": "strength-gap-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "strengths": [
+        {
+          "type": "direct_match",
+          "statement": "候选人具有市场营销本科学历，满足本科及以上学历要求。",
+          "matchRefs": [
+            "MI-004"
+          ],
+          "strengthId": "ST-001"
+        },
+        {
+          "type": "transferable_strength",
+          "statement": "候选人参与过消费者调研项目并共同完成复盘报告，可迁移至项目数据复盘场景，部分支持该要求。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "strengthId": "ST-002"
+        }
+      ],
+      "gaps": [
+        {
+          "type": "information",
+          "statement": "资料缺少候选人是否具有企业服务产品运营经验的信息，无法判断。",
+          "matchRefs": [
+            "MI-001"
+          ],
+          "suggestedAction": "请补充候选人关于企业服务产品运营经验的具体事实（如行业、产品、年限）。",
+          "actionType": "confirm",
+          "gapId": "GP-001"
+        },
+        {
+          "type": "evidence_expression",
+          "statement": "现有证据只能表明候选人参与过消费者调研项目并共同完成复盘报告，尚不足以证明其熟悉项目数据复盘。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "suggestedAction": "如果候选人确实有更深入的项目数据复盘经历，请补充相关事实。",
+          "actionType": "evidence",
+          "gapId": "GP-002"
+        },
+        {
+          "type": "learnable_skill",
+          "statement": "候选人参与过项目复盘但熟悉程度不足，需要提升项目数据复盘技能。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "suggestedAction": "学习并练习项目数据复盘的方法和工具，以提升熟悉程度。",
+          "actionType": "learn",
+          "gapId": "GP-003"
+        }
+      ]
+    },
+    "greeting": {
+      "schemaVersion": "personalized-greeting-v1",
+      "personalizationStatus": "personalized",
+      "greeting": "您好，我看到贵司正在招聘相关岗位。教育背景：市场营销本科；参与消费者调研项目，负责整理问卷数据并与团队共同完成复盘报告。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+      "candidateFactRefs": [
+        "CF-001",
+        "CF-002"
+      ],
+      "matchRefs": [
+        "MI-004",
+        "MI-003"
+      ],
+      "jdEvidence": [
+        "本科及以上学历",
+        "熟悉项目数据复盘"
+      ],
+      "strengthRefs": [
+        "ST-001",
+        "ST-002"
+      ]
+    }
+  },
+  "invariantAudit": {
+    "status": "pass",
+    "values": {
+      "X-A_candidate_truth": true,
+      "X-B_jd_truth": true,
+      "X-C_status_stability": true,
+      "X-D_unknown_stability": true,
+      "X-E_negative_evidence_stability": true,
+      "X-F_modifier_integrity": true,
+      "X-G_waiver_integrity": true,
+      "X-H_candidate_semantic_preservation": true,
+      "X-I_reference_continuity": true,
+      "X-J_no_circular_truth": true
+    },
+    "passed": true
+  },
+  "expectation": {
+    "passed": true,
+    "checks": {
+      "outcome": true,
+      "requiredMatchStatuses": true,
+      "greetingPersonalizationStatus": true
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": true
+}
