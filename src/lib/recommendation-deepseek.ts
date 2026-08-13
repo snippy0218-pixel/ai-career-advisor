@@ -15,6 +15,7 @@ import {
   finalizeRawRecommendation,
   rawRecommendationSchema,
   type FinalRecommendation,
+  type RawRecommendation,
   type RecommendationCoreRequest,
   type RecommendationValidationIssue,
 } from "./recommendation-schema";
@@ -22,6 +23,7 @@ import {
   buildRecommendationMessages,
   buildRecommendationRepairMessages,
 } from "./recommendation-prompt";
+import { normalizeRejectedRecommendationSummary } from "./recommendation-normalization";
 
 const DEFAULT_BASE_URL = "https://api.deepseek.com";
 const DEFAULT_MODEL = "deepseek-v4-flash";
@@ -64,6 +66,11 @@ export interface RecommendationDiagnostics {
   repairState: RepairLifecycleState;
   repairAttempt: GenerationAttemptDiagnostics;
   outputEvidence: RecommendationOutputEvidence[];
+  recommendationNormalizationAttempted: boolean;
+  recommendationNormalizationSucceeded: boolean;
+  normalizationIssues: string[];
+  normalizationValidationIssues: RecommendationValidationIssue[];
+  normalizedRepairOutput: RawRecommendation | null;
 }
 
 export interface RecommendationOptions {
@@ -391,6 +398,11 @@ export async function analyzeRecommendationWithDeepSeek(
     repairState: "not_attempted",
     repairAttempt: initialAttemptDiagnostics(),
     outputEvidence: [],
+    recommendationNormalizationAttempted: false,
+    recommendationNormalizationSucceeded: false,
+    normalizationIssues: [],
+    normalizationValidationIssues: [],
+    normalizedRepairOutput: null,
   };
 
   try {
@@ -530,11 +542,29 @@ export async function analyzeRecommendationWithDeepSeek(
         diagnostics.repairAttempt.failureCategory = "parse";
         diagnostics.repairAttempt.rejectionReason = "JSON_PARSE_ERROR";
       }
-      validation = validateRecommendationOutput(repairParsed, request);
-      diagnostics.repairAttempt.validationResult = validation.data ? "passed" : "failed";
-      diagnostics.repairValidationIssues = validation.issues.map((issue) => ({
+      const rawRepairValidation = validateRecommendationOutput(repairParsed, request);
+      diagnostics.repairAttempt.validationResult = rawRepairValidation.data ? "passed" : "failed";
+      diagnostics.repairValidationIssues = rawRepairValidation.issues.map((issue) => ({
         ...issue,
       }));
+      validation = rawRepairValidation;
+      const rawRepair = rawRecommendationSchema.safeParse(repairParsed);
+      if (!validation.data && rawRepair.success) {
+        const normalization = normalizeRejectedRecommendationSummary(
+          rawRepair.data,
+          validation.issues,
+        );
+        diagnostics.recommendationNormalizationAttempted = normalization.applied;
+        diagnostics.normalizationIssues = [...normalization.issues];
+        if (normalization.applied) {
+          diagnostics.normalizedRepairOutput = normalization.data;
+          validation = validateRecommendationOutput(normalization.data, request);
+          diagnostics.normalizationValidationIssues = validation.issues.map(
+            (issue) => ({ ...issue }),
+          );
+          diagnostics.recommendationNormalizationSucceeded = validation.data !== null;
+        }
+      }
       diagnostics.recommendationRepairSucceeded = validation.data !== null;
       diagnostics.repairState = validation.data ? "accepted" : "rejected";
       if (!validation.data && diagnostics.repairAttempt.failureStage !== "parse") {
@@ -604,6 +634,13 @@ export async function analyzeRecommendationWithDeepSeek(
       outputEvidence: diagnostics.outputEvidence.map((entry) =>
         structuredClone(entry),
       ),
+      normalizationIssues: [...diagnostics.normalizationIssues],
+      normalizationValidationIssues: diagnostics.normalizationValidationIssues.map(
+        (issue) => ({ ...issue }),
+      ),
+      normalizedRepairOutput: diagnostics.normalizedRepairOutput
+        ? structuredClone(diagnostics.normalizedRepairOutput)
+        : null,
     });
   }
 }

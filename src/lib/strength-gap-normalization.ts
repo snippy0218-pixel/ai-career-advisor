@@ -1,15 +1,18 @@
-import type {
-  RawStrengthGap,
-  StrengthGapValidationIssue,
-} from "./strength-gap-schema";
+import type { RawStrengthGap, StrengthGapValidationIssue } from "./strength-gap-schema";
+import type { FinalMatchCore } from "./match-schema";
 
 export interface StrengthGapNormalizationAction {
   strengthIndex?: number;
   gapIndex?: number;
   issueCodes: string[];
-  removedType: "transferable_strength" | RawStrengthGap["gaps"][number]["type"];
+  removedType:
+    | "transferable_strength"
+    | "direct_match"
+    | RawStrengthGap["gaps"][number]["type"];
   removedStatement: string;
   removedMatchRefs: string[];
+  rewrittenType?: "direct_match";
+  replacementStatement?: string;
 }
 
 export interface StrengthGapNormalizationResult {
@@ -38,6 +41,7 @@ function issueCodes(message: string) {
 export function normalizeRejectedTransferableStrengths(
   raw: RawStrengthGap,
   issues: StrengthGapValidationIssue[],
+  matchCore?: FinalMatchCore,
 ): StrengthGapNormalizationResult {
   const targeted = new Map<number, Set<string>>();
   for (const issue of issues) {
@@ -87,7 +91,50 @@ export function normalizeRejectedTransferableStrengths(
       });
     });
   }
-  const actions = [...strengthActions, ...gapActions];
+  const directActions: StrengthGapNormalizationAction[] = [];
+  if (matchCore) {
+    for (const issue of issues) {
+      const path = issue.path.match(/^strengths\.(\d+)\.statement$/);
+      if (!path || !/SG-B Candidate scope\/modifier/.test(issue.message)) {
+        continue;
+      }
+      const strengthIndex = Number(path[1]);
+      const entry = raw.strengths[strengthIndex];
+      if (!entry || entry.type !== "direct_match") continue;
+      const source = entry.matchRefs
+        .map((ref) => matchCore.matchItems[Number(ref.slice(3)) - 1])
+        .filter(Boolean)
+        .flatMap((item) =>
+          item.requirementDimensions
+            .filter((dimension) => dimension.candidateEvidenceRole === "positive")
+            .map((dimension) => dimension.reason),
+        )
+        .join(" ");
+      const preservedScopes = [
+        "课程",
+        "校园",
+        "团队",
+        "协助",
+        "参与",
+        "了解",
+        "接触",
+      ].filter((scope) => source.includes(scope));
+      if (preservedScopes.length === 0) continue;
+      const replacementStatement = `正向 Match 证据保留“${preservedScopes.join(
+        "、",
+      )}”原始范围，并支持该项要求。`;
+      directActions.push({
+        strengthIndex,
+        issueCodes: ["SG-B"],
+        removedType: "direct_match",
+        removedStatement: entry.statement,
+        removedMatchRefs: [...entry.matchRefs],
+        rewrittenType: "direct_match",
+        replacementStatement,
+      });
+    }
+  }
+  const actions = [...strengthActions, ...gapActions, ...directActions];
   const removedStrengths = new Set(
     strengthActions.map((action) => action.strengthIndex),
   );
@@ -97,5 +144,13 @@ export function normalizeRejectedTransferableStrengths(
     (_entry, index) => !removedStrengths.has(index),
   );
   data.gaps = data.gaps.filter((_entry, index) => !removedGaps.has(index));
+  for (const action of directActions) {
+    if (
+      action.strengthIndex !== undefined &&
+      action.replacementStatement !== undefined
+    ) {
+      data.strengths[action.strengthIndex].statement = action.replacementStatement;
+    }
+  }
   return { data, applied: actions.length > 0, actions };
 }

@@ -245,7 +245,7 @@ const CANDIDATE_ASSERTION_PATTERN =
 const NEGATIVE_CANDIDATE_CONCLUSION_PATTERN =
   /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|无法|不能|不是|并非|不属于)/;
 const REQUIREMENT_RELATIONAL_MISMATCH_PATTERN =
-  /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|不符合).{0,24}(?:要求|条件|门槛|标准)|(?:要求|条件|门槛|标准).{0,12}(?:未满足|不满足|不符|不符合|不一致|冲突)/;
+  /(?:与|和|同).{0,32}(?:要求|条件|门槛|标准).{0,12}(?:不符|不符合|不一致|冲突)|(?:没有满足|未满足|不满足|无法满足|不符合).{0,24}(?:要求|条件|门槛|标准)|(?:要求|条件|门槛|标准).{0,12}(?:未满足|不满足|无法满足|不符|不符合|不一致|冲突)/;
 const CLAIM_CLAUSE_SEPARATOR = /[，。；;！？!?]|(?:\s|^)(?:但|且|并且|同时)(?:\s|$)/;
 const JD_ONLY_CLAIM_PATTERN = /(?:JD|岗位|职位|任职).{0,10}(?:要求|需要|门槛|标准)/i;
 const EVIDENCE_SCOPE_EXPLANATION_PATTERN =
@@ -477,6 +477,18 @@ function explicitNegativeFactsSupportDimension(
   dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
   facts: FinalCanonicalCandidateFact[],
 ) {
+  if (dimension.dimensionType === "duration") {
+    const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(
+      " ",
+    )}`;
+    return facts.some(
+      (fact) =>
+        candidateFactPolarity(fact.statement) === "counter" &&
+        /(?:没有|尚无).{0,16}(?:经历|经验)/.test(fact.statement) &&
+        ((/正式/.test(requirementContext) && /正式/.test(fact.statement)) ||
+          (/全职/.test(requirementContext) && /全职/.test(fact.statement))),
+    );
+  }
   return facts.some((fact) =>
     explicitNegativeFactDimensions(fact.statement).has(dimension.dimensionType),
   );

@@ -17,11 +17,13 @@
 | ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | CLOSED / final Strength-Gap initial 3/3 PASS, upgrade 0 | regression only |
 | ISSUE-039 Phase 2.5 runner infrastructure fail-fast/classification | P1 | CLOSED / provider and transport failures are separated from content samples; runner persists `infrastructure-failure.json` and stops after the first infrastructure failure | regression only |
 | ISSUE-040 Phase 2.5 Profile generic-label/evidence-absence coverage | P1 | DETERMINISTIC CLOSED / generic preference, career target, Office/table, travel and missing-category boundaries have focused regression | replacement Phase 2 matrix |
-| ISSUE-041 Phase 2.5 Match threshold/relation generation stability | P1 | DETERMINISTIC CLOSED / credential, duration and responsibility relations are dimension-local; invalid sibling counter reuse remains fail-closed | replacement Phase 2 matrix |
-| ISSUE-042 Phase 2.5 Recommendation absence/question grammar | P1 | DETERMINISTIC CLOSED / evidence-absence limitations and direct Candidate education questions pass without weakening R-J/R-K | replacement Phase 2 matrix |
+| ISSUE-041 Phase 2.5 Match threshold/relation generation stability | P1 | DETERMINISTIC CLOSED / credential, same-qualified zero-duration, employment and responsibility relations are dimension-local; JD thresholds are not assigned to CFs | replacement Phase 2 matrix |
+| ISSUE-042 Phase 2.5 Recommendation absence/question/terminal-summary grammar | P1 | DETERMINISTIC CLOSED / questions are not assertions; bounded fact-free summary normalization reruns full R-A～R-L without weakening waiver/status gates | replacement Phase 2 matrix |
 | ISSUE-043 Phase 2.5 duplicate optional Gap recovery | P1 | DETERMINISTIC CLOSED / terminal normalization keeps the first duplicate key and reruns SG-A～SG-N | replacement Phase 2 matrix |
-| ISSUE-044 Phase 2.5 X-F assertion scope | P1 | DETERMINISTIC CLOSED / assertions remain audited while questions/actions are no longer treated as Candidate claims | replacement Phase 2 matrix |
+| ISSUE-044 Phase 2.5 X-F assertion scope | P1 | DETERMINISTIC CLOSED / assertions remain audited while questions/actions and locally negated qualifiers are not treated as asserted upgrades | replacement Phase 2 matrix |
 | ISSUE-045 Phase 2.5 lifecycle metric aggregation | P1 | DETERMINISTIC CLOSED / summary reads normalized stage repair/fallback lifecycle | replacement Phase 2 matrix |
+| ISSUE-046 Phase 2.5 mixed-polarity Candidate atomic claim | P1 | DETERMINISTIC CLOSED / positive activity and explicit negative responsibility are split with unchanged PF lineage | replacement Phase 2 matrix |
+| ISSUE-047 Phase 2.5 direct Strength Match-scope preservation | P1 | DETERMINISTIC CLOSED / SG-B-only direct strength rewrite preserves referenced Match scope and reruns SG-A～SG-N | replacement Phase 2 matrix |
 
 ## ISSUE-040～045 baseline evidence
 
@@ -33,6 +35,15 @@
 - ISSUE-044: eight otherwise complete results failed only because X-F included verification questions/actions in its assertion scan. X-F now scans reasons, summaries, limitation/Strength/Gap statements and Greeting claims, while still rejecting unsourced modifiers in those assertions.
 - ISSUE-045: result artifacts recorded repair/fallback attempts, but baseline summary totals were zero because aggregation bypassed normalized stage lifecycle fields.
 - Deterministic closure: focused `271/271`, full `607/607`, lint and production build PASS. Runtime closure remains the mandatory new Phase 2 14×3 matrix.
+
+## Baseline 3/4 additional evidence
+
+- `phase-2-5-baseline-3-f7838a1` is a route-flag preflight failure with `requestCount=0`, `modelCalls=0`, and `contentSamples=0`; it is retained and excluded from content acceptance.
+- `phase-2-5-baseline-4-f7838a1` is a complete fixed Phase 2 batch on `f7838a1…`: `21/42` PASS, `26` complete chains, and downstream-after-failure `0`. No code, fixture, model, or runner setting changed during its 42 samples.
+- ISSUE-041/042/044 received adjacent, non-duplicate runtime evidence: same-qualified duration-zero relation and JD-target ownership; terminal summary ambiguity; and negated qualifier assertion scope. Their bounded deterministic closures were extended without weakening the frozen gates.
+- ISSUE-046 reproduction is TC-P2-14 R1/R2: one CF combined `协助登记/整理` with `没有负责招商或项目落地`, causing valid positive activity to inherit counter polarity.
+- ISSUE-047 reproduction is TC-P2-12 R2/R3: direct Strength text omitted `参与/协助/团队` scope retained by its referenced Match evidence and was correctly rejected by SG-B after both model attempts.
+- Complete adjudication: `PHASE-2-5-BASELINE-4-STABILIZATION.md`. Updated deterministic closure: focused affected suites `312/312` plus integration/boundary `40/40`; full `33 files / 618 tests`; lint and production build PASS. Runtime closure remains a new committed full Phase 2 `14×3` matrix.
 
 ## ISSUE-039 closure evidence
 

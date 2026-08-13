@@ -43,6 +43,7 @@ const ATOMIC_CLAIM_GUIDE = [
   "8. 明确负向事实仍是 Candidate Fact，例如“没有正式工作经历”“无驾照”“未使用 SQL”“不接受异地工作”。资料未提某项信息时不得生成负向事实。",
   "9. 每条 claim 的 pfEvidence 必须包含所属 PF；sourceType 只能是 profile_stated 或 normalized_stated。",
   "10. semanticTags 只是同一 statement 的分类，不得为 tag 生成第二份 statement。",
+  "11. 同一 PF 中分号两侧若分别是正向活动与明确否定职责（例如‘协助登记；没有负责招商’），必须拆成两条 atomicClaims；不得把正向活动与反证合成一个混合极性的 Candidate Fact。",
 ].join("\n");
 
 const OUTPUT_GUIDE = [

@@ -107,6 +107,14 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(false);
+
+    result.strengthGap.gaps.at(-1).statement =
+      "现有证据尚不足以证明候选人熟练使用该工具，也未独立负责该任务。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
   });
 
   it("fails expected status and fallback mismatches", () => {

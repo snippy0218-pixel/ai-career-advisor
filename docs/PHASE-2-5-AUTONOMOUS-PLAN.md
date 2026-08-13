@@ -70,7 +70,7 @@ Each top-level case records input/fixture/implementation/run IDs; per-stage call
 | 3 | Implement Phase 2.5 runner, artifact schema, metrics, and zero-model tests | COMPLETE |
 | 4 | Complete deterministic gate and commit immutable candidate baseline | COMPLETE |
 | 5 | Execute complete Phase 1 and Phase 2 formal matrices | BASELINE-2 COMPLETE / PHASE 1 ACCEPTED / PHASE 2 REPLACEMENT REQUIRED |
-| 6 | Stabilize reproducible in-scope defects on new baselines when necessary | ISSUE-040～045 DETERMINISTIC PASS / COMMIT IN PROGRESS |
+| 6 | Stabilize reproducible in-scope defects on new baselines when necessary | BASELINE-4 ADJUDICATED / ISSUE-040～047 DETERMINISTIC PASS / COMMIT IN PROGRESS |
 | 7 | Product acceptance, evidence/Git/secret audit, docs reconciliation, final disposition | PENDING |
 
 ## 6. Stop & Escalate

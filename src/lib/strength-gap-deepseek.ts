@@ -592,6 +592,7 @@ export async function analyzeStrengthGapWithDeepSeek(
         const normalization = normalizeRejectedTransferableStrengths(
           rawRepair.data,
           rawRepairValidation.issues,
+          request.matchCore,
         );
         diagnostics.strengthGapNormalizationAttempted = normalization.applied;
         diagnostics.normalizationActions = normalization.actions.map((action) => ({

@@ -86,6 +86,60 @@ describe("Match rejected-reason normalization", () => {
     expect(result).toEqual({ data: input, applied: false, actions: [] });
   });
 
+  it("N3a rebuilds a single positive partial reason from exact CF text", () => {
+    const input = raw({
+      dimensionType: "skill",
+      requirementFragment: "熟悉项目数据复盘",
+      reason: "候选人在校园项目中参与复盘。",
+    });
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [reasonIssue("M-K cross-CF modifier isolation failed: experience_type:校园->CF-001")],
+      [
+        {
+          factId: "CF-001",
+          statement: "参与消费者调研项目，整理问卷数据并与团队共同完成复盘报告",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["project_experience"],
+        },
+      ],
+    );
+    expect(result.data.matchItems[0]).toMatchObject({ aggregateStatus: "partial" });
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "partial",
+      reason: "CF-001 原文：“参与消费者调研项目，整理问卷数据并与团队共同完成复盘报告”。",
+      candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+    });
+    expect(result.actions[0].removedCandidateFactRefs).toEqual([]);
+  });
+
+  it("N3b does not preserve a cross-domain partial from one generic bigram", () => {
+    const input = raw({
+      dimensionType: "domain",
+      requirementFragment: "产品运营经验",
+      reason: "候选人参与产品设计。",
+    });
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [reasonIssue("M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion")],
+      [
+        {
+          factId: "CF-001",
+          statement: "参与校园产品设计项目",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["project_experience"],
+        },
+      ],
+    );
+    expect(result.data.matchItems[0]).toMatchObject({ aggregateStatus: "unknown" });
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "unknown",
+      candidateEvidence: [],
+    });
+  });
+
   it("N4 never normalizes unmet counter-evidence", () => {
     const input = raw({
       status: "unmet",

@@ -568,6 +568,7 @@ export async function analyzeMatchWithDeepSeek(
         const normalization = normalizeRejectedMatchReasons(
           rawRepairValidation.raw,
           rawRepairValidation.issues,
+          request.candidateProfile.candidateProfile.canonicalFacts,
         );
         diagnostics.matchNormalizationAttempted = normalization.applied;
         diagnostics.normalizationActions = normalization.actions.map((action) => ({

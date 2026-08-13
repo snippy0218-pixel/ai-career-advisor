@@ -1450,6 +1450,55 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
     expect(result.issues).toEqual([]);
   });
 
+  it("L34-11 accepts zero same-type tenure against an explicit duration threshold", () => {
+    const requirement = "必须具有3年以上正式全职数据分析经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "hard_requirement" }],
+      [
+        {
+          statement: "目前没有正式全职数据分析经验",
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+    const raw: RawMatchCore = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unmet",
+          dimensions: [
+            dimension({
+              dimensionType: "duration",
+              requirementFragment: "3年以上",
+              status: "unmet",
+              reason: "目前没有正式全职数据分析经验，无法满足3年以上经验要求。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+            dimension({
+              dimensionType: "employment_type",
+              requirementFragment: "正式全职数据分析经验",
+              status: "unmet",
+              reason: "目前没有正式全职数据分析经验，与正式全职经验要求直接冲突。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            }),
+          ],
+        },
+      ],
+    };
+    const result = finalizeRawMatchCore(
+      rawMatchCoreSchema.parse(raw),
+      request.jobAnalysis,
+      request.candidateProfile,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("L34-10 keeps the original ISSUE-029 course contamination rejected", () => {
     const result = relationResult({
       facts: [neutralProject, negativeFact],

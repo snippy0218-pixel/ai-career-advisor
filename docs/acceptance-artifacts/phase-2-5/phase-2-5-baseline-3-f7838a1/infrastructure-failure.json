@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "phase-2-5-infrastructure-failure-v1",
+  "runId": "phase-2-5-baseline-3-f7838a1",
+  "implementationCommit": "f7838a1ac16e00a51035d02dd454c7d9ce1a83ff",
+  "requestCount": 0,
+  "modelCalls": 0,
+  "contentSamples": 0,
+  "preflight": {
+    "status": "failed",
+    "available": false,
+    "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE",
+    "modelCalls": 0,
+    "capabilities": [
+      {
+        "module": "profile",
+        "path": "/api/profile/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "match",
+        "path": "/api/match/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "recommendation",
+        "path": "/api/recommendation/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "strengthGap",
+        "path": "/api/strength-gap/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      },
+      {
+        "module": "greeting",
+        "path": "/api/greeting/analyze",
+        "status": 503,
+        "enabled": false,
+        "rejectedOutputCapture": false,
+        "error": "ACCEPTANCE_DIAGNOSTICS_UNAVAILABLE"
+      }
+    ]
+  }
+}

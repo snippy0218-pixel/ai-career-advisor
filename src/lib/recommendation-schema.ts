@@ -603,7 +603,7 @@ const UNGROUNDED_CANDIDATE_FACT_PATTERN =
 
 function containsUngroundedCandidateFact(text: string) {
   if (!UNGROUNDED_CANDIDATE_FACT_PATTERN.test(text)) return false;
-  if (/(?:是否|请确认|无法确认|不能确认|尚未确认|待确认|未知|未提供|未表明|未显示|未说明|现有资料)/.test(text)) {
+  if (/(?:是否|请确认|请(?:提供|补充|说明|描述|列举)|无法确认|不能确认|尚未确认|待确认|未知|未提供|未表明|未显示|未说明|现有资料)/.test(text)) {
     return false;
   }
   if (/(?:匹配证据|正向证据|反证)/.test(text)) return false;

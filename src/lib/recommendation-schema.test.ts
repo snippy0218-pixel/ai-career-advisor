@@ -185,6 +185,47 @@ describe("Recommendation Core deterministic contract", () => {
     expect(result.data?.recommendationLevel).toBe("cautious");
   });
 
+  it("R-J permits a direct request for the Candidate's credential evidence", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const result = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        questionsToConfirm: [
+          {
+            question: "请提供候选人持有的行业资格证书名称及编号。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
+  it("R-J still rejects an asserted Candidate fact placed in a question field", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const result = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        questionsToConfirm: [
+          {
+            question: "候选人持有行业资格证书。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.data).toBeNull();
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: "Recommendation must reference Match Items instead of creating Candidate facts",
+        }),
+      ]),
+    );
+  });
+
   it("R-J permits an evidence-absence limitation about a Candidate credential", () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const result = finalizeRawRecommendation(

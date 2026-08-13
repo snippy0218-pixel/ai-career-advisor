@@ -1,0 +1,2097 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-4-f7838a1",
+  "executionId": "TC-P2-11-R3",
+  "fixtureId": "TC-P2-11",
+  "fixtureName": "explicit JD waiver boundary",
+  "repetition": 3,
+  "implementationCommit": "f7838a1ac16e00a51035d02dd454c7d9ce1a83ff",
+  "input": {
+    "jdCharacters": 116,
+    "profileCharacters": 96,
+    "jdSha256": "a422582477cb4db915ae916b12c65f54fd2911023799d7f62716470c66a8e522",
+    "profileSha256": "e3a13667924ccead67c206dc050f96eeaef716dd2e2641f917ded5a3da1b873c"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "partial"
+    ]
+  },
+  "coverage": [
+    "explicit-waiver",
+    "no-unsupported-waiver",
+    "course-context",
+    "uncertainty"
+  ],
+  "completed": false,
+  "stoppedAt": "recommendation",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "recommendation",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "3f1b44e2-0636-415b-bfb5-277a956ec468",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8636,
+      "requestId": "175b6b20-880b-4a62-be67-f1ff816c8ea8",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2289,
+      "requestId": "9af2f7ad-7f81-46c5-bf1c-e8f05f6baa44",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2286,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 377,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2286,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 377,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7179,
+      "requestId": "e6d819a5-3d64-4b68-a595-0523bc78cbdc",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 3,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003"
+            ],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 7175,
+        "outputCompletionTokens": 639,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 3,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003"
+            ],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "unmet",
+                  "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-001",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "partial",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "AI 项目经历",
+                  "status": "partial",
+                  "reason": "候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "项目是否达到优秀标准、是否可核验",
+                  "verificationQuestion": "请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "了解大模型产品能力边界",
+                  "status": "met",
+                  "reason": "候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。",
+                  "jdEvidence": [
+                    "了解大模型产品能力边界"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "尚缺少可验证的“能使用文档工具整理需求”同维度候选人证据。",
+                  "verificationQuestion": "请补充可验证的“能使用文档工具整理需求”相关事实或经历。"
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 7175,
+        "outputCompletionTokens": 639,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"AI 项目经历\",\n          \"status\": \"partial\",\n          \"reason\": \"候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"项目是否达到优秀标准、是否可核验\",\n          \"verificationQuestion\": \"请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，具备使用文档工具的能力。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2300,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "unmet",
+                      "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "AI 项目经历",
+                      "status": "partial",
+                      "reason": "候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "项目是否达到优秀标准、是否可核验",
+                      "verificationQuestion": "请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "了解大模型产品能力边界",
+                      "status": "met",
+                      "reason": "候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。",
+                      "jdEvidence": [
+                        "了解大模型产品能力边界"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.3.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 3,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-004",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "能使用文档工具整理需求",
+                        "status": "met",
+                        "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                        "jdEvidence": [
+                          "能使用文档工具整理需求"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 3,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "能使用文档工具整理需求",
+                "status": "met",
+                "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                "jdEvidence": [
+                  "能使用文档工具整理需求"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-003",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"AI 项目经历\",\n          \"status\": \"partial\",\n          \"reason\": \"候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"项目是否达到优秀标准、是否可核验\",\n          \"verificationQuestion\": \"请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，具备使用文档工具的能力。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2300,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "unmet",
+                      "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "AI 项目经历",
+                      "status": "partial",
+                      "reason": "候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "项目是否达到优秀标准、是否可核验",
+                      "verificationQuestion": "请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "了解大模型产品能力边界",
+                      "status": "met",
+                      "reason": "候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。",
+                      "jdEvidence": [
+                        "了解大模型产品能力边界"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.3.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 3,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-004",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "能使用文档工具整理需求",
+                        "status": "met",
+                        "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                        "jdEvidence": [
+                          "能使用文档工具整理需求"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 3,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "能使用文档工具整理需求",
+                "status": "met",
+                "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                "jdEvidence": [
+                  "能使用文档工具整理需求"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-003",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"AI 项目经历\",\n          \"status\": \"partial\",\n          \"reason\": \"候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"项目是否达到优秀标准、是否可核验\",\n          \"verificationQuestion\": \"请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，具备使用文档工具的能力。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2300,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "unmet",
+                    "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "AI 项目经历",
+                    "status": "partial",
+                    "reason": "候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "项目是否达到优秀标准、是否可核验",
+                    "verificationQuestion": "请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "了解大模型产品能力边界",
+                    "status": "met",
+                    "reason": "候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。",
+                    "jdEvidence": [
+                      "了解大模型产品能力边界"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.3.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 3,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "met",
+                  "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 3,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "met",
+                  "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用文档工具整理需求",
+              "status": "met",
+              "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+              "jdEvidence": [
+                "能使用文档工具整理需求"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-003",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"AI 项目经历\",\n          \"status\": \"partial\",\n          \"reason\": \"候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"项目是否达到优秀标准、是否可核验\",\n          \"verificationQuestion\": \"请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，具备使用文档工具的能力。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2300,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "unmet",
+                    "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "AI 项目经历",
+                    "status": "partial",
+                    "reason": "候选人参与过 AI 问答项目，但为课程团队项目，且优秀与可核验性尚未确认。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "项目是否达到优秀标准、是否可核验",
+                    "verificationQuestion": "请提供项目详情、成果及可核验的证明（如链接、报告、导师评价等）"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "了解大模型产品能力边界",
+                    "status": "met",
+                    "reason": "候选人明确了解大模型会出现错误回答，属于对大模型能力边界的了解。",
+                    "jdEvidence": [
+                      "了解大模型产品能力边界"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.3.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 具备使用文档工具的能力",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 3,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "met",
+                  "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 3,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "met",
+                  "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用文档工具整理需求",
+              "status": "met",
+              "reason": "候选人日常使用飞书文档，具备使用文档工具的能力。",
+              "jdEvidence": [
+                "能使用文档工具整理需求"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-003",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 3,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE"
+          ],
+          "previousStatus": "met",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [
+            "CF-003"
+          ],
+          "reasonRebuilt": true
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 4913,
+      "requestId": "3f1b44e2-0636-415b-bfb5-277a956ec468",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4908,
+        "outputCompletionTokens": 389,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 待确认",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4908,
+        "outputCompletionTokens": 389,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。\",\"supportingMatchRefs\":[\"MI-002\",\"MI-003\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求未满足，构成明确反证。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 partial，项目优秀性与可核验性尚未确认。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-004 为 unknown，缺少可验证的文档工具整理需求证据。\",\"matchItemRefs\":[\"MI-004\"]}],\"questionsToConfirm\":[{\"question\":\"请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。\",\"matchItemRefs\":[\"MI-004\"]},{\"question\":\"请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。\",\"matchItemRefs\":[\"MI-001\"]}]}",
+            "rawTextLength": 861,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。",
+              "supportingMatchRefs": [
+                "MI-002",
+                "MI-003"
+              ],
+              "counterMatchRefs": [
+                "MI-001"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为硬性学历要求未满足，构成明确反证。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 partial，项目优秀性与可核验性尚未确认。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-004 为 unknown，缺少可验证的文档工具整理需求证据。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                },
+                {
+                  "question": "请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 未满足",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 待确认",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 待确认",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。\",\"supportingMatchRefs\":[\"MI-002\",\"MI-003\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求未满足，构成明确反证。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 partial，项目优秀性与可核验性尚未确认。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-004 为 unknown，缺少可验证的文档工具整理需求证据。\",\"matchItemRefs\":[\"MI-004\"]}],\"questionsToConfirm\":[{\"question\":\"请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。\",\"matchItemRefs\":[\"MI-004\"]},{\"question\":\"请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。\",\"matchItemRefs\":[\"MI-001\"]}]}",
+            "rawTextLength": 861,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。",
+              "supportingMatchRefs": [
+                "MI-002",
+                "MI-003"
+              ],
+              "counterMatchRefs": [
+                "MI-001"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为硬性学历要求未满足，构成明确反证。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 partial，项目优秀性与可核验性尚未确认。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-004 为 unknown，缺少可验证的文档工具整理需求证据。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                },
+                {
+                  "question": "请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 未满足",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 待确认",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 待确认",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          }
+        ]
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "3f1b44e2-0636-415b-bfb5-277a956ec468",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。\",\"supportingMatchRefs\":[\"MI-002\",\"MI-003\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求未满足，构成明确反证。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 partial，项目优秀性与可核验性尚未确认。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-004 为 unknown，缺少可验证的文档工具整理需求证据。\",\"matchItemRefs\":[\"MI-004\"]}],\"questionsToConfirm\":[{\"question\":\"请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。\",\"matchItemRefs\":[\"MI-004\"]},{\"question\":\"请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。\",\"matchItemRefs\":[\"MI-001\"]}]}",
+          "rawTextLength": 861,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。",
+            "supportingMatchRefs": [
+              "MI-002",
+              "MI-003"
+            ],
+            "counterMatchRefs": [
+              "MI-001"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为硬性学历要求未满足，构成明确反证。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 partial，项目优秀性与可核验性尚未确认。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-004 为 unknown，缺少可验证的文档工具整理需求证据。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              },
+              {
+                "question": "请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 未满足",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 待确认",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 待确认",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。\",\"supportingMatchRefs\":[\"MI-002\",\"MI-003\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求未满足，构成明确反证。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 partial，项目优秀性与可核验性尚未确认。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-004 为 unknown，缺少可验证的文档工具整理需求证据。\",\"matchItemRefs\":[\"MI-004\"]}],\"questionsToConfirm\":[{\"question\":\"请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。\",\"matchItemRefs\":[\"MI-004\"]},{\"question\":\"请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。\",\"matchItemRefs\":[\"MI-001\"]}]}",
+          "rawTextLength": 861,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "MI-001 为 unmet（硬性学历要求未满足），MI-002 为 partial（AI 项目经历待确认优秀与可核验性），MI-003 为 met（了解大模型能力边界），MI-004 为 unknown（文档工具整理需求待确认）。Match Core 正向证据包括 MI-003 已满足及 MI-002 的部分正向证据；反证为 MI-001 硬门槛未满足；待确认项为 MI-002 的项目优秀性与可核验性、MI-004 的文档工具能力。",
+            "supportingMatchRefs": [
+              "MI-002",
+              "MI-003"
+            ],
+            "counterMatchRefs": [
+              "MI-001"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为硬性学历要求未满足，构成明确反证。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 partial，项目优秀性与可核验性尚未确认。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-004 为 unknown，缺少可验证的文档工具整理需求证据。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请提供 MI-002 对应 AI 项目的详细成果及可核验证明（如链接、报告、导师评价等），以确认其优秀程度与可核验性。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请补充可验证的“能使用文档工具整理需求”相关事实或经历，以确认 MI-004 是否满足。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              },
+              {
+                "question": "请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径如何。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 未满足",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 待确认",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 待确认",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_recommendation",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

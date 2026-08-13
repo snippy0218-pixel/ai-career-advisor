@@ -612,6 +612,40 @@ function courseToolCanonicalClaim(
   };
 }
 
+function splitMixedPolarityClaims(claims: RawAtomicClaim[]) {
+  let splitCount = 0;
+  const data = claims.flatMap((claim) => {
+    const clauses = claim.statement
+      .split(
+        /[；;]|[，,](?=(?:没有|未曾|从未|不具备|未)(?:独立)?(?:负责|主导|完成|参与|从事|取得|持有))/,
+      )
+      .map((clause) => clause.trim())
+      .filter(Boolean);
+    const negativeIndex = clauses.findIndex((clause) =>
+      /(?:没有|未曾|从未|不具备|未)(?:独立)?(?:负责|主导|完成|参与|从事|取得|持有)/.test(
+        clause,
+      ),
+    );
+    if (
+      clauses.length < 2 ||
+      negativeIndex <= 0 ||
+      !clauses
+        .slice(0, negativeIndex)
+        .some((clause) => /协助|参与|整理|登记|使用|完成|负责/.test(clause))
+    ) {
+      return [claim];
+    }
+    splitCount += clauses.length - 1;
+    return clauses.map((statement) => ({
+      ...claim,
+      statement,
+      semanticTags: [...claim.semanticTags],
+      pfEvidence: [...claim.pfEvidence],
+    }));
+  });
+  return { data, splitCount };
+}
+
 function addProblem(
   problems: Map<string, string[]>,
   pfId: string,
@@ -712,7 +746,7 @@ function validateCoverageResponse(
     const claims: ValidatedAtomicClaim[] = [];
     let claimInvalid = false;
     const scopedCourseToolClaim = courseToolCanonicalClaim(pf);
-    const rawClaims = scopedCourseToolClaim
+    const scopedRawClaims = scopedCourseToolClaim
       ? [
           ...item.atomicClaims.filter(
             (claim) =>
@@ -726,6 +760,13 @@ function validateCoverageResponse(
           scopedCourseToolClaim,
         ]
       : item.atomicClaims;
+    const mixedPolaritySplit = splitMixedPolarityClaims(scopedRawClaims);
+    const rawClaims = mixedPolaritySplit.data;
+    if (mixedPolaritySplit.splitCount > 0) {
+      diagnostics.deterministicCanonicalizationCount +=
+        mixedPolaritySplit.splitCount;
+      diagnostics.projectionRepairCount += mixedPolaritySplit.splitCount;
+    }
     if (scopedCourseToolClaim) {
       diagnostics.deterministicCanonicalizationCount += 1;
       if (

@@ -1,0 +1,971 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-4-f7838a1",
+  "executionId": "TC-P2-04-R1",
+  "fixtureId": "TC-P2-04",
+  "fixtureName": "minimal but valid profile",
+  "repetition": 1,
+  "implementationCommit": "f7838a1ac16e00a51035d02dd454c7d9ce1a83ff",
+  "input": {
+    "jdCharacters": 133,
+    "profileCharacters": 30,
+    "jdSha256": "914bd0ae0190126ba73fbb9ac11fe1fbd3eaa05ef0e2ce8a15c09d1acbc24e09",
+    "profileSha256": "1eac946b0c150a47e73cf6bfe2a1203eda9a5d0c061371117ce0e881160c787f"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unknown"
+    ]
+  },
+  "coverage": [
+    "minimal-profile",
+    "empty-projections",
+    "unknown",
+    "information-gap"
+  ],
+  "completed": false,
+  "stoppedAt": "recommendation",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "recommendation",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "dc19e8fa-c9a6-4cb9-94c4-b3d6ca19022c",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 5838,
+      "requestId": "208793d8-62e3-4901-8ea2-338883f7e697",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 1635,
+      "requestId": "c5f91448-1ecf-4104-9868-220192398fb6",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 2,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 2,
+        "atomicClaimCount": 2,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 2,
+        "profileFactRecall": null,
+        "latencyMs": 1631,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 219,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 2,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 2,
+        "atomicClaimCount": 2,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 2,
+        "profileFactRecall": null,
+        "latencyMs": 1631,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 219,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3655,
+      "requestId": "a85859f6-c61a-42e0-99a7-4a6bdbd1d726",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 3,
+        "dimensionCount": 3,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 2
+        },
+        "latencyMs": 3651,
+        "outputCompletionTokens": 495,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 3,
+        "dimensionCount": 3,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 2
+        },
+        "latencyMs": 3651,
+        "outputCompletionTokens": 495,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 4437,
+      "requestId": "dc19e8fa-c9a6-4cb9-94c4-b3d6ca19022c",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4431,
+        "outputCompletionTokens": 321,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 部分满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 部分满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4431,
+        "outputCompletionTokens": 321,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 部分满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 部分满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。\",\"supportingMatchRefs\":[\"MI-001\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供候选人参与数据项目的具体经历，包括项目描述和职责。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 780,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "try",
+              "summary": "MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。",
+              "supportingMatchRefs": [
+                "MI-001"
+              ],
+              "counterMatchRefs": [],
+              "limitations": [
+                {
+                  "content": "MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请提供候选人参与数据项目的具体经历，包括项目描述和职责。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 部分满足",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。\",\"supportingMatchRefs\":[\"MI-001\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供候选人参与数据项目的具体经历，包括项目描述和职责。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 780,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "try",
+              "summary": "MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。",
+              "supportingMatchRefs": [
+                "MI-001"
+              ],
+              "counterMatchRefs": [],
+              "limitations": [
+                {
+                  "content": "MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请提供候选人参与数据项目的具体经历，包括项目描述和职责。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 部分满足",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          }
+        ]
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "dc19e8fa-c9a6-4cb9-94c4-b3d6ca19022c",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。\",\"supportingMatchRefs\":[\"MI-001\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供候选人参与数据项目的具体经历，包括项目描述和职责。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 780,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "try",
+            "summary": "MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。",
+            "supportingMatchRefs": [
+              "MI-001"
+            ],
+            "counterMatchRefs": [],
+            "limitations": [
+              {
+                "content": "MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请提供候选人参与数据项目的具体经历，包括项目描述和职责。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 部分满足",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。\",\"supportingMatchRefs\":[\"MI-001\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供候选人参与数据项目的具体经历，包括项目描述和职责。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 780,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "try",
+            "summary": "MI-001 为 partial，MI-002 为 unknown，MI-003 为 unknown。Match Core 正向证据为 MI-001 的学历部分满足，反证为 MI-001 尚未取得本科学历，待确认项为 MI-002 的 SQL 技能和 MI-003 的数据项目经验。",
+            "supportingMatchRefs": [
+              "MI-001"
+            ],
+            "counterMatchRefs": [],
+            "limitations": [
+              {
+                "content": "MI-001 为 partial，候选人当前为本科在读，尚未取得本科学历，需确认能否在入职前取得学历证明。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，现有资料未表明候选人是否具备 SQL 技能，需确认其使用 SQL 进行数据分析的经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 unknown，现有资料未表明候选人是否有数据项目经验，需确认其相关项目经历。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请确认候选人预计毕业时间，以及是否能在入职前提供学历证明。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供候选人使用 SQL 进行数据分析的具体经验或项目案例。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请提供候选人参与数据项目的具体经历，包括项目描述和职责。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 部分满足",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_recommendation",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

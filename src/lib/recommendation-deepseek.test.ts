@@ -142,6 +142,44 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     expect(diagnostics?.repairState).toBe("rejected");
   });
 
+  it("normalizes only a terminal ambiguous repair summary and revalidates the full output", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[0];
+    const ambiguous = {
+      ...fixture.validRaw,
+      summary: "MI-001 与 MI-002 的状态综合来看，整体已满足。",
+    };
+    const fetchImpl = vi.fn(async () => completion(ambiguous));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    const result = await analyzeRecommendationWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.summary).not.toBe(ambiguous.summary);
+    expect(result.supportingMatchRefs).toEqual(ambiguous.supportingMatchRefs);
+    expect(diagnostics).toMatchObject({
+      repairAttempt: { validationResult: "failed" },
+      repairState: "accepted",
+      recommendationNormalizationAttempted: true,
+      recommendationNormalizationSucceeded: true,
+      normalizationValidationIssues: [],
+      normalizedRepairOutput: expect.any(Object),
+      outputEvidence: [
+        expect.objectContaining({ stage: "initial", rejected: true }),
+        expect.objectContaining({ stage: "repair", rejected: false }),
+      ],
+    });
+  });
+
   it("performs exactly one bounded repair for a forbidden level", async () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const invalid = {

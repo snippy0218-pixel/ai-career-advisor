@@ -306,4 +306,18 @@ describe("Modifier Inference Contract", () => {
       ]),
     );
   });
+
+  it("M37-3 does not assign a JD duration target to the Candidate Fact", () => {
+    expect(
+      findCrossFactModifierContamination(
+        "CF-004 明确表示尚无正式全职工作经历，与2年以上正式全职经验要求直接冲突。",
+        [
+          {
+            factId: "CF-004",
+            statement: "尚无正式全职工作经历",
+          },
+        ],
+      ),
+    ).toEqual([]);
+  });
 });

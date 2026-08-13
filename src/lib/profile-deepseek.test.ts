@@ -177,6 +177,32 @@ describe("coverage-driven profile structuring (Phase 2.1)", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it("splits positive assistance from a semicolon-separated responsibility counter", async () => {
+    const input =
+      "工作内容：协助登记企业到访信息、整理活动物料；没有负责招商或项目落地";
+    const fetchMock = vi.fn().mockResolvedValueOnce(
+      successfulProfileResponse({
+        coverage: [
+          candidatePf("PF-001", [
+            claim(
+              ["experiences", "projects"],
+              "协助登记企业到访信息、整理活动物料；没有负责招商或项目落地",
+              "PF-001",
+            ),
+          ]),
+        ],
+      }),
+    );
+    const { result, diagnostics } = await run(input, fetchMock);
+    expect(result.candidateProfile.canonicalFacts.map((fact) => fact.statement)).toEqual([
+      "协助登记企业到访信息、整理活动物料",
+      "没有负责招商或项目落地",
+    ]);
+    expect(diagnostics).toHaveBeenCalledWith(
+      expect.objectContaining({ deterministicCanonicalizationCount: 1 }),
+    );
+  });
+
   it("builds Final Candidate Facts only from validated atomic claims", async () => {
     const fetchMock = vi
       .fn()

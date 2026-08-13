@@ -82,8 +82,27 @@ function itemForRef(matchCore, ref) {
 
 function outputModifiersAreSourced(outputText, sourceText) {
   for (const pattern of MODIFIER_PATTERNS) {
-    const values = outputText.match(pattern) ?? [];
-    if (values.some((value) => !sourceText.includes(value))) return false;
+    pattern.lastIndex = 0;
+    const occurrences = [...outputText.matchAll(pattern)];
+    if (
+      occurrences.some((match) => {
+        const value = match[0];
+        if (sourceText.includes(value)) return false;
+        const index = match.index ?? 0;
+        const clauseStart = Math.max(
+          outputText.lastIndexOf("，", index - 1),
+          outputText.lastIndexOf("。", index - 1),
+          outputText.lastIndexOf("；", index - 1),
+          outputText.lastIndexOf("\"", index - 1),
+        );
+        const beforeClause = outputText.slice(clauseStart + 1, index);
+        return !/(?:未|不|无|没有|尚未|无法|不能|不足以|待确认|是否|需.{0,4}确认)/.test(
+          beforeClause,
+        );
+      })
+    ) {
+      return false;
+    }
   }
   return true;
 }
