@@ -10,6 +10,7 @@
 - Issue 状态：`ISSUE-LEDGER.md`。
 - Gate 定义与当前证据：`QA-GATES.md`。
 - final acceptance batch 2 在 `803289b…` 上完成 3/3 complete chains，X-A～X-J 全绿；ISSUE-028～038 closed，Q-A～Q-J PASS。最终证据见 `PHASE-2-4-FINAL-ACCEPTANCE.md`。Phase 2.5 仍未授权。
+- Phase 2.5 Pre-Authorization Audit 已完成，见 `PHASE-2-5-PRE-AUTHORIZATION-AUDIT.md`。当前 recommendation：`NOT READY — PO DECISION REQUIRED`；仅等待 release surface、冻结 acceptance material/model authorization、final fallback-rate rule 三项 PO 决策，不得提前实施 Phase 2.5。
 
 ## Execution discipline
 
