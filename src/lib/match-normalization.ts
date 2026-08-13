@@ -70,6 +70,29 @@ function canPreserveExplicitEmploymentCounter(
   );
 }
 
+function explicitDurationShortfall(
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  fact: FinalCanonicalCandidateFact | undefined,
+) {
+  if (
+    dimension.dimensionType !== "duration" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length !== 1 ||
+    dimension.candidateEvidence[0].role !== "counter" ||
+    !fact
+  ) {
+    return null;
+  }
+  const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(" ")}`;
+  const requiredYears = Number(requirementContext.match(/(\d+)\s*年/)?.[1]);
+  const candidateYears = Number(fact.statement.match(/(\d+)\s*年/)?.[1]);
+  return Number.isFinite(requiredYears) &&
+    Number.isFinite(candidateYears) &&
+    candidateYears < requiredYears
+    ? { requiredYears, candidateYears }
+    : null;
+}
+
 function factCanPreservePositiveDimension(
   dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
   fact: FinalCanonicalCandidateFact,
@@ -230,6 +253,28 @@ export function normalizeRejectedMatchReasons(
         dimension.candidateEvidence.length === 1
           ? factById.get(dimension.candidateEvidence[0].factId)
           : undefined;
+      const durationShortfall = explicitDurationShortfall(
+        dimension,
+        exactCounterFact,
+      );
+      if (
+        durationShortfall &&
+        [...codes].every((code) =>
+          ["M-CANDIDATE-LINEAGE", "M-K"].includes(code),
+        )
+      ) {
+        dimension.reason = `${dimension.candidateEvidence[0].factId} 原文：“${exactCounterFact!.statement}”，${durationShortfall.candidateYears}年低于${durationShortfall.requiredYears}年要求。`;
+        actions.push({
+          itemIndex,
+          dimensionIndex,
+          issueCodes: [...codes].sort(),
+          previousStatus,
+          normalizedStatus: "unmet",
+          removedCandidateFactRefs: [],
+          reasonRebuilt: true,
+        });
+        continue;
+      }
       if (
         codes.size === 1 &&
         codes.has("M-CANDIDATE-LINEAGE") &&

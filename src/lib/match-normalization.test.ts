@@ -371,4 +371,47 @@ describe("Match rejected-reason normalization", () => {
       candidateEvidence: [],
     });
   });
+
+  it.each([
+    ["M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 明确少于3年要求"],
+    [
+      "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 明确少于要求的3年",
+      "M-K cross-CF modifier isolation failed: duration:3年->CF-001",
+    ],
+  ])("N9 rebuilds an already-unmet numeric shortfall reason from CF and JD values", (...messages) => {
+    const input = raw({
+      dimensionType: "duration",
+      requirementFragment: "具有3年以上前端开发经验",
+      status: "unmet",
+      reason: "CF-001 明确有1年前端开发经验，明确少于3年要求。",
+      jdEvidence: ["具有3年以上前端开发经验"],
+      candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+      missingInformation: null,
+      verificationQuestion: null,
+    });
+    input.matchItems[0].aggregateStatus = "unmet";
+    const result = normalizeRejectedMatchReasons(
+      input,
+      messages.map((message) => reasonIssue(message)),
+      [
+        {
+          factId: "CF-001",
+          statement: "有1年前端开发工作经验",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["experience"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "unmet",
+      reason: "CF-001 原文：“有1年前端开发工作经验”，1年低于3年要求。",
+      candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.actions[0]).toMatchObject({
+      normalizedStatus: "unmet",
+      removedCandidateFactRefs: [],
+    });
+  });
 });

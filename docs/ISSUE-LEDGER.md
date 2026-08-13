@@ -112,6 +112,12 @@
 - ISSUE-048 adjacent evidence is a repair that corrected an invalid dimension enum but omitted mandatory `employment_type` decomposition for explicit formal-work text. Recovery adds only a fact-free unknown dimension from the same JD evidence and reruns the complete Match validator.
 - Summary SHA-256 is `37d0f99628b365eaa08ca37d72593c0ddd45cea8b87fdcb340c318c14d7451cf`. Focused `152/152`, full `641/641`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-13-STABILIZATION.md`.
 
+## Baseline 14 additional evidence
+
+- `phase-2-5-baseline-14-a5ff6eb` is a valid complete content batch: `40/42` PASS, `40` complete chains, downstream-after-failure `0`; both Baseline-13 failure cases passed 3/3.
+- ISSUE-041 adjacent evidence is the same explicit numeric shortfall after repair already set it to `unmet`, but its reason assigned the JD threshold to the CF. Terminal recovery reuses the existing numeric M-DURATION rule, exact CF text, same refs/status, and complete validator.
+- Summary SHA-256 is `b8edd8cd50141cc1c0e3c413cba7c04e19d654ea187099803a0eb6262d194d08`. Focused `146/146`, full `643/643`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-14-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
