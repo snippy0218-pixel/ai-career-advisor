@@ -70,4 +70,32 @@ describe("Recommendation rejected-summary normalization", () => {
     });
     expect(finalizeRawRecommendation(result.data, fixture.matchCore).issues).toEqual([]);
   });
+
+  it("removes an unsupported substitution example from an otherwise valid strictness question", () => {
+    const fixture = RECOMMENDATION_FIXTURES[1];
+    const raw = structuredClone(fixture.validRaw);
+    raw.questionsToConfirm = [
+      {
+        question:
+          "请确认 MI-001 的学历要求是否为严格筛选门槛，以及具体口径（如是否接受其他学历形式）。",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    const result = normalizeRejectedRecommendationSummary(raw, [
+      {
+        path: "questionsToConfirm.0.question",
+        message:
+          "R-K unsupported substitution claim has no explicit JD alternative qualification",
+      },
+    ]);
+
+    expect(result.applied).toBe(true);
+    expect(result.data.questionsToConfirm).toEqual([
+      {
+        question: "请向招聘方确认 MI-001 是否属于严格筛选门槛？",
+        matchItemRefs: ["MI-001"],
+      },
+    ]);
+    expect(finalizeRawRecommendation(result.data, fixture.matchCore).issues).toEqual([]);
+  });
 });

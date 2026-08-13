@@ -140,6 +140,17 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(true);
+
+    result.recommendation.summary =
+      "MI-001 为 unmet：候选人只有 1 年经验，但 3 年以上时长维度未满足。";
+    const spacedDurationInputs = rawInputs(result);
+    spacedDurationInputs.jdText += "\n具有3年以上相关经验";
+    spacedDurationInputs.profileText += "\n具有1年相关经验";
+    expect(
+      inspectPhase2Invariants(spacedDurationInputs, result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
   });
 
   it("preserves a completed stage output for failed-chain artifact continuity", () => {

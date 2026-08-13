@@ -88,13 +88,19 @@ function itemForRef(matchCore, ref) {
 }
 
 function outputModifiersAreSourced(outputText, sourceText) {
+  const compactSourceText = sourceText.replace(/\s+/g, "");
   for (const pattern of MODIFIER_PATTERNS) {
     pattern.lastIndex = 0;
     const occurrences = [...outputText.matchAll(pattern)];
     if (
       occurrences.some((match) => {
         const value = match[0];
-        if (sourceText.includes(value)) return false;
+        if (
+          sourceText.includes(value) ||
+          compactSourceText.includes(value.replace(/\s+/g, ""))
+        ) {
+          return false;
+        }
         const index = match.index ?? 0;
         const clauseStart = Math.max(
           outputText.lastIndexOf("，", index - 1),

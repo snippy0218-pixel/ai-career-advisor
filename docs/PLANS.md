@@ -22,6 +22,7 @@
 - baseline-8（`6f0eab7…`）因本地生产 server 进程在 TC-P2-01 R3 Match 期间退出而被裁定为 infrastructure-interrupted batch：2 个完整 content samples 后为 1 个 Match transport failure + 39 个 JD transport failures；全部 42 records 保留，禁止复用其中 2 个成功样本。ISSUE-039 fail-fast 的 category/code mismatch 已修复，exact `8/8`、full `631/631`、lint/build PASS；新 immutable commit 与持久 server 后运行完整 replacement matrix。
 - baseline-9（`2b8bc40…`）是有效完整 Phase 2 14×3 content batch：39/42 PASS、40 complete chains、失败后下游调用 0，server 全程存活且无 run 4。三项失败分别为 threshold/proficiency 否定边界、Recommendation hypothetical status、numeric duration shortfall；相邻稳定化 focused `272/272`、full `634/634`、lint/build PASS。下一步完成审计、提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-10（`28c0ccf…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、40 complete chains、失败后下游调用 0，baseline-9 三项失败均 3/3 PASS。仅 TC-P2-11 R1、TC-P2-14 R1 在 Strength/Gap 失败；窄词法边界修复 focused `90/90`、full `636/636`、lint/build PASS。下一步完成审计、提交 immutable baseline 并运行完整 replacement matrix。
+- baseline-11（`7460f02…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、41 complete chains、失败后下游调用 0，baseline-10 两项失败均 3/3 PASS。仅 X-F 空白等价比较与 Recommendation 未授权替代示例需要窄恢复；focused `108/108`、full `637/637`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 
 ## Execution discipline
 

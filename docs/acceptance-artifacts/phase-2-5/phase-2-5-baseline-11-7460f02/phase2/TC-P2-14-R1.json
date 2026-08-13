@@ -1,0 +1,2444 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-11-7460f02",
+  "executionId": "TC-P2-14-R1",
+  "fixtureId": "TC-P2-14",
+  "fixtureName": "noisy but recoverable profile",
+  "repetition": 1,
+  "implementationCommit": "7460f024f40736d8986d7c04a62c8771896bacaf",
+  "input": {
+    "jdCharacters": 111,
+    "profileCharacters": 154,
+    "jdSha256": "4c2c6b6226019180f05ea79f0f6fc241f19b47ca15d5f4977eb08d94e54a538f",
+    "profileSha256": "a0b314d0686454836b44c8a88d149bf2a2467c2b6b9dced6fd870af237b6fbcf"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met"
+    ]
+  },
+  "coverage": [
+    "noisy-input",
+    "preferred-requirement",
+    "explicit-boundary",
+    "normalization"
+  ],
+  "completed": true,
+  "stoppedAt": null,
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": null,
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7452,
+      "requestId": "fc897374-1182-4d02-b94d-047dc37f7268",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "产业园区运营岗位",
+          "companyName": null,
+          "location": null,
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": null,
+          "educationRequirement": "大专及以上学历",
+          "summary": "从JD信息看，可能属于产业园区运营类岗位，涉及企业客户关系维护、服务需求整理及项目落地协助等工作。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "维护企业客户关系",
+            "description": "负责与企业客户保持联系，维护良好的合作关系。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "维护企业客户关系"
+            ]
+          },
+          {
+            "title": "整理园区服务需求",
+            "description": "收集和整理园区内企业的服务需求，以便后续跟进。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "整理园区服务需求"
+            ]
+          },
+          {
+            "title": "协助推进项目落地",
+            "description": "协助推动园区内相关项目的实施和落地。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "协助推进项目落地"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "具有园区运营或企业服务经验者优先",
+              "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具有园区运营或企业服务经验者优先"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "preferred_requirement"
+            },
+            {
+              "content": "具备客户沟通和文档整理能力",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具备客户沟通和文档整理能力"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "能接受阶段性出差",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能接受阶段性出差"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "大专及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "大专及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及较多客户沟通和关系维护工作",
+              "explanation": "职责中明确包含维护企业客户关系，推断工作重点可能在此。",
+              "sourceType": "inference",
+              "evidence": [
+                "维护企业客户关系"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "可能需要阶段性出差，工作地点可能不固定",
+              "explanation": "任职要求中明确提到能接受阶段性出差，推断工作可能涉及外出。",
+              "sourceType": "inference",
+              "evidence": [
+                "能接受阶段性出差"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "工作地点未说明",
+            "薪资范围未说明",
+            "公司名称未说明",
+            "具体出差频率和时长未说明",
+            "项目落地的具体职责深度未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "工作地点在哪里？",
+              "reason": "JD未说明工作地点，需要确认。"
+            },
+            {
+              "question": "薪资范围是多少？",
+              "reason": "JD未提供薪资信息，需要确认。"
+            },
+            {
+              "question": "阶段性出差的频率和时长是怎样的？",
+              "reason": "JD仅提到能接受阶段性出差，但未明确具体安排。"
+            },
+            {
+              "question": "协助推进项目落地的具体职责和参与深度如何？",
+              "reason": "JD描述较为笼统，需要确认实际工作内容。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触企业客户关系维护和项目落地协助工作",
+              "sourceType": "inference",
+              "evidence": [
+                "维护企业客户关系",
+                "协助推进项目落地"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对贵公司的产业园区运营岗位很感兴趣，想进一步了解岗位的工作内容和要求，希望有机会沟通。",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3168,
+      "requestId": "282896f0-9b5f-4268-bf52-bfe9383b1bee",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3164,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 643,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3164,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 643,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "求职方向：运营（企业服务方向）",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "career_target"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "教育：大专；专业：工商管理",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "协助登记企业到访信息、整理活动物料",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-005",
+              "statement": "没有负责招商或项目落地",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "experience",
+                "project_experience"
+              ]
+            },
+            {
+              "factId": "CF-006",
+              "statement": "工具：Office（能做基础表格）",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-005"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-007",
+              "statement": "出差：可接受阶段性出差",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-006"
+              ],
+              "semanticTags": [
+                "preference"
+              ]
+            }
+          ],
+          "careerTarget": "CF-001",
+          "education": [
+            "CF-002"
+          ],
+          "experiences": [
+            "CF-003",
+            "CF-004",
+            "CF-005"
+          ],
+          "projects": [
+            "CF-005"
+          ],
+          "skills": [
+            "CF-006"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [
+            "CF-007"
+          ],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "求职方向：运营（企业服务方向）"
+            },
+            {
+              "id": "PF-002",
+              "text": "教育：大专；专业：工商管理"
+            },
+            {
+              "id": "PF-003",
+              "text": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者"
+            },
+            {
+              "id": "PF-004",
+              "text": "工作内容：协助登记企业到访信息、整理活动物料；没有负责招商或项目落地"
+            },
+            {
+              "id": "PF-005",
+              "text": "工具：Office（能做基础表格）"
+            },
+            {
+              "id": "PF-006",
+              "text": "出差：可接受阶段性出差"
+            },
+            {
+              "id": "PF-007",
+              "text": "备注：排版来自旧简历，空格、斜杠和标点可能不统一"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 4821,
+      "requestId": "7d16cd7a-911a-4085-b587-94f7886b0c1c",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 2,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 4818,
+        "outputCompletionTokens": 836,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 2,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 4818,
+        "outputCompletionTokens": 836,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "具有园区运营或企业服务经验者优先",
+            "requirementType": "preferred_requirement",
+            "jdEvidence": [
+              "具有园区运营或企业服务经验者优先"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "domain",
+                "requirementFragment": "园区运营或企业服务经验",
+                "status": "partial",
+                "reason": "候选人具有园区活动志愿者经历，涉及协助登记企业到访信息，属于园区运营或企业服务相关经验，但为在校实践且职责有限，未达到正式工作经验的程度。",
+                "jdEvidence": [
+                  "具有园区运营或企业服务经验者优先"
+                ],
+                "missingInformation": "该经验为在校实践，非正式工作，且职责为协助性质，未明确是否属于园区运营或企业服务的核心职责。",
+                "verificationQuestion": "请说明该志愿者经历的具体工作内容、时长及是否涉及园区运营或企业服务的核心职责。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-003",
+                  "CF-004"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-003",
+                  "PF-004"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-002",
+            "requirement": "具备客户沟通和文档整理能力",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "具备客户沟通和文档整理能力"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "客户沟通能力",
+                "status": "partial",
+                "reason": "候选人协助登记企业到访信息，涉及与企业人员的接触，但未明确沟通的深度和频率，且为协助性质。",
+                "jdEvidence": [
+                  "具备客户沟通和文档整理能力"
+                ],
+                "missingInformation": "未明确客户沟通的具体场景、频率和效果。",
+                "verificationQuestion": "请描述您在志愿者经历中与客户沟通的具体内容和频率。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-004"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-004"
+                ]
+              },
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "文档整理能力",
+                "status": "partial",
+                "reason": "候选人整理活动物料，但未明确涉及文档整理，且 Office 技能为基础水平。",
+                "jdEvidence": [
+                  "具备客户沟通和文档整理能力"
+                ],
+                "missingInformation": "未明确文档整理的具体内容，Office 技能为基础水平，未体现高级文档处理能力。",
+                "verificationQuestion": "请说明您整理过哪些文档，以及使用 Office 的具体功能。",
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [
+                  "CF-004",
+                  "CF-006"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-004",
+                  "PF-005"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-003",
+            "requirement": "能接受阶段性出差",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "能接受阶段性出差"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "other",
+                "requirementFragment": "接受阶段性出差",
+                "status": "met",
+                "reason": "候选人明确表示可接受阶段性出差。",
+                "jdEvidence": [
+                  "能接受阶段性出差"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-007"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-006"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-004",
+            "requirement": "大专及以上学历",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "大专及以上学历"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "credential",
+                "requirementFragment": "大专及以上学历",
+                "status": "met",
+                "reason": "候选人具有大专学历，满足要求。",
+                "jdEvidence": [
+                  "大专及以上学历"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-002"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-002"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2233,
+      "requestId": "f6280f4a-50f2-4fe3-9645-5a77e8288a1e",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 4,
+        "counterRefCount": 0,
+        "latencyMs": 2230,
+        "outputCompletionTokens": 289,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 4,
+        "counterRefCount": 0,
+        "latencyMs": 2230,
+        "outputCompletionTokens": 289,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据：MI-003 为 met，MI-004 为 met；MI-001 为 partial，MI-002 为 partial。反证：无。待确认项：MI-001、MI-002 的 partial 状态需进一步核实。",
+        "supportingMatchRefs": [
+          "MI-001",
+          "MI-002",
+          "MI-003",
+          "MI-004"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "MI-001 为 partial，候选人相关经验为在校实践且职责有限，需确认是否属于园区运营或企业服务的核心职责。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "content": "MI-002 为 partial，客户沟通和文档整理能力证据不充分，需确认具体沟通场景、频率及文档整理内容。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请说明该志愿者经历的具体工作内容、时长及是否涉及园区运营或企业服务的核心职责。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "question": "请描述您在志愿者经历中与客户沟通的具体内容和频率。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "请说明您整理过哪些文档，以及使用 Office 的具体功能。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2362,
+      "requestId": "7b378b21-97f4-440e-8c10-c51d511cd030",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 3,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 2,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 0
+        },
+        "latencyMs": 2359,
+        "outputCompletionTokens": 350,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 3,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 2,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 0
+        },
+        "latencyMs": 2359,
+        "outputCompletionTokens": 350,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "direct_match",
+            "statement": "候选人明确表示可接受阶段性出差，与核心要求直接匹配。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "strengthId": "ST-001"
+          },
+          {
+            "type": "direct_match",
+            "statement": "候选人具有大专学历，满足硬性学历要求。",
+            "matchRefs": [
+              "MI-004"
+            ],
+            "strengthId": "ST-002"
+          },
+          {
+            "type": "transferable_strength",
+            "statement": "候选人协助登记企业到访信息，涉及与企业人员的接触，可部分支持客户沟通能力要求，但为协助性质且深度有限。",
+            "matchRefs": [
+              "MI-002"
+            ],
+            "strengthId": "ST-003"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能表明候选人具有园区活动志愿者经历，涉及协助登记企业到访信息，尚不足以证明完整满足园区运营或企业服务经验的要求。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "如果确实有更深入的园区运营或企业服务经历，请补充相关事实。",
+            "actionType": "evidence",
+            "gapId": "GP-001"
+          },
+          {
+            "type": "learnable_skill",
+            "statement": "现有证据表明候选人具备基础客户沟通和文档整理能力，但尚未达到完整满足要求的程度。",
+            "matchRefs": [
+              "MI-001",
+              "MI-002"
+            ],
+            "suggestedAction": "请针对客户沟通和文档整理能力进行学习和练习，以提升相关技能。",
+            "actionType": "learn",
+            "gapId": "GP-002"
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "greeting",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3658,
+      "requestId": "62383b51-7851-4fd3-9dad-629c6ea8230b",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 4,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-002",
+          "CF-007"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-002",
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 3655,
+        "outputCompletionTokens": 230,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": true,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": true,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          },
+          {
+            "path": "greeting",
+            "message": "PG-A structured Candidate claim is missing from greeting text"
+          }
+        ],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 4,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-002",
+          "CF-007"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-002",
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 3655,
+        "outputCompletionTokens": 230,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "PG-A structured Candidate claim is missing from greeting text",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育：大专；专业：工商管理\"\n    },\n    {\n      \"candidateFactRef\": \"CF-007\",\n      \"statement\": \"出差：可接受阶段性出差\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"大专及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能接受阶段性出差\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 597,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "教育：大专；专业：工商管理"
+                },
+                {
+                  "candidateFactRef": "CF-007",
+                  "statement": "出差：可接受阶段性出差"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-004",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "大专及以上学历"
+                  ]
+                },
+                {
+                  "matchRef": "MI-003",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "能接受阶段性出差"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "教育：大专；专业：工商管理",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-007",
+                "statement": "出差：可接受阶段性出差",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育：大专；专业：工商管理\"\n    },\n    {\n      \"candidateFactRef\": \"CF-007\",\n      \"statement\": \"出差：可接受阶段性出差\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"大专及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能接受阶段性出差\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+            "rawTextLength": 597,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "greeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+              "candidateClaims": [
+                {
+                  "candidateFactRef": "CF-002",
+                  "statement": "教育：大专；专业：工商管理"
+                },
+                {
+                  "candidateFactRef": "CF-007",
+                  "statement": "出差：可接受阶段性出差"
+                }
+              ],
+              "jobRelations": [
+                {
+                  "matchRef": "MI-004",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "大专及以上学历"
+                  ]
+                },
+                {
+                  "matchRef": "MI-003",
+                  "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                  "jdEvidence": [
+                    "能接受阶段性出差"
+                  ]
+                }
+              ],
+              "strengthRefs": [
+                "ST-001",
+                "ST-002"
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              },
+              {
+                "path": "greeting",
+                "message": "PG-A structured Candidate claim is missing from greeting text"
+              }
+            ],
+            "rejectedGreeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+            "rejectedFragments": [
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "教育：大专；专业：工商管理",
+                "validatorRules": [],
+                "rejectionReasons": []
+              },
+              {
+                "candidateFactRef": "CF-007",
+                "statement": "出差：可接受阶段性出差",
+                "validatorRules": [],
+                "rejectionReasons": []
+              }
+            ]
+          }
+        ]
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "used",
+        "attempts": 1
+      },
+      "personalizedFallback": {
+        "state": "used",
+        "attempts": 1
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，我看到贵司正在招聘相关岗位。教育：大专；专业：工商管理；出差：可接受阶段性出差。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+        "candidateFactRefs": [
+          "CF-002",
+          "CF-007"
+        ],
+        "matchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "jdEvidence": [
+          "大专及以上学历",
+          "能接受阶段性出差"
+        ],
+        "strengthRefs": [
+          "ST-002",
+          "ST-001"
+        ]
+      },
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育：大专；专业：工商管理\"\n    },\n    {\n      \"candidateFactRef\": \"CF-007\",\n      \"statement\": \"出差：可接受阶段性出差\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"大专及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能接受阶段性出差\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 597,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "教育：大专；专业：工商管理"
+              },
+              {
+                "candidateFactRef": "CF-007",
+                "statement": "出差：可接受阶段性出差"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-004",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "大专及以上学历"
+                ]
+              },
+              {
+                "matchRef": "MI-003",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "能接受阶段性出差"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "教育：大专；专业：工商管理",
+              "validatorRules": [],
+              "rejectionReasons": []
+            },
+            {
+              "candidateFactRef": "CF-007",
+              "statement": "出差：可接受阶段性出差",
+              "validatorRules": [],
+              "rejectionReasons": []
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"greeting\": \"您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。\",\n  \"candidateClaims\": [\n    {\n      \"candidateFactRef\": \"CF-002\",\n      \"statement\": \"教育：大专；专业：工商管理\"\n    },\n    {\n      \"candidateFactRef\": \"CF-007\",\n      \"statement\": \"出差：可接受阶段性出差\"\n    }\n  ],\n  \"jobRelations\": [\n    {\n      \"matchRef\": \"MI-004\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"大专及以上学历\"]\n    },\n    {\n      \"matchRef\": \"MI-003\",\n      \"statement\": \"这段经历与岗位的部分职责存在一定相关性。\",\n      \"jdEvidence\": [\"能接受阶段性出差\"]\n    }\n  ],\n  \"strengthRefs\": [\"ST-001\", \"ST-002\"]\n}",
+          "rawTextLength": 597,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "greeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+            "candidateClaims": [
+              {
+                "candidateFactRef": "CF-002",
+                "statement": "教育：大专；专业：工商管理"
+              },
+              {
+                "candidateFactRef": "CF-007",
+                "statement": "出差：可接受阶段性出差"
+              }
+            ],
+            "jobRelations": [
+              {
+                "matchRef": "MI-004",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "大专及以上学历"
+                ]
+              },
+              {
+                "matchRef": "MI-003",
+                "statement": "这段经历与岗位的部分职责存在一定相关性。",
+                "jdEvidence": [
+                  "能接受阶段性出差"
+                ]
+              }
+            ],
+            "strengthRefs": [
+              "ST-001",
+              "ST-002"
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            },
+            {
+              "path": "greeting",
+              "message": "PG-A structured Candidate claim is missing from greeting text"
+            }
+          ],
+          "rejectedGreeting": "您好，看到贵司的岗位，想简单沟通一下。我的教育背景是大专，专业是工商管理；出差方面可接受阶段性出差。这些与岗位的部分要求有一定相关性。希望有机会进一步了解实际要求和招聘口径。",
+          "rejectedFragments": [
+            {
+              "candidateFactRef": "CF-002",
+              "statement": "教育：大专；专业：工商管理",
+              "validatorRules": [],
+              "rejectionReasons": []
+            },
+            {
+              "candidateFactRef": "CF-007",
+              "statement": "出差：可接受阶段性出差",
+              "validatorRules": [],
+              "rejectionReasons": []
+            }
+          ]
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    }
+  ],
+  "downstreamState": "complete",
+  "finalOutput": {
+    "jobAnalysis": {
+      "schemaVersion": "analysis-v1",
+      "candidateProfileProvided": false,
+      "basicInfo": {
+        "jobTitle": "产业园区运营岗位",
+        "companyName": null,
+        "location": null,
+        "employmentType": null,
+        "salaryRange": null,
+        "experienceRequirement": null,
+        "educationRequirement": "大专及以上学历",
+        "summary": "从JD信息看，可能属于产业园区运营类岗位，涉及企业客户关系维护、服务需求整理及项目落地协助等工作。",
+        "summarySourceType": "inference"
+      },
+      "coreResponsibilities": [
+        {
+          "title": "维护企业客户关系",
+          "description": "负责与企业客户保持联系，维护良好的合作关系。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "维护企业客户关系"
+          ]
+        },
+        {
+          "title": "整理园区服务需求",
+          "description": "收集和整理园区内企业的服务需求，以便后续跟进。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "整理园区服务需求"
+          ]
+        },
+        {
+          "title": "协助推进项目落地",
+          "description": "协助推动园区内相关项目的实施和落地。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "协助推进项目落地"
+          ]
+        }
+      ],
+      "roleProfile": {
+        "requirements": [
+          {
+            "content": "具有园区运营或企业服务经验者优先",
+            "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "具有园区运营或企业服务经验者优先"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "preferred_requirement"
+          },
+          {
+            "content": "具备客户沟通和文档整理能力",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "具备客户沟通和文档整理能力"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "能接受阶段性出差",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "能接受阶段性出差"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "大专及以上学历",
+            "explanation": "JD包含明确限制条件，归为硬性要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "大专及以上学历"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "hard_requirement"
+          }
+        ],
+        "workCharacteristics": [
+          {
+            "content": "从职责看，可能涉及较多客户沟通和关系维护工作",
+            "explanation": "职责中明确包含维护企业客户关系，推断工作重点可能在此。",
+            "sourceType": "inference",
+            "evidence": [
+              "维护企业客户关系"
+            ],
+            "verificationQuestion": null
+          },
+          {
+            "content": "可能需要阶段性出差，工作地点可能不固定",
+            "explanation": "任职要求中明确提到能接受阶段性出差，推断工作可能涉及外出。",
+            "sourceType": "inference",
+            "evidence": [
+              "能接受阶段性出差"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "riskSignals": [],
+        "unknowns": [
+          "工作地点未说明",
+          "薪资范围未说明",
+          "公司名称未说明",
+          "具体出差频率和时长未说明",
+          "项目落地的具体职责深度未说明"
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "工作地点在哪里？",
+            "reason": "JD未说明工作地点，需要确认。"
+          },
+          {
+            "question": "薪资范围是多少？",
+            "reason": "JD未提供薪资信息，需要确认。"
+          },
+          {
+            "question": "阶段性出差的频率和时长是怎样的？",
+            "reason": "JD仅提到能接受阶段性出差，但未明确具体安排。"
+          },
+          {
+            "question": "协助推进项目落地的具体职责和参与深度如何？",
+            "reason": "JD描述较为笼统，需要确认实际工作内容。"
+          }
+        ]
+      },
+      "applicationAdvice": {
+        "level": "worth_exploring",
+        "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+        "sourceType": "inference",
+        "verificationQuestion": null,
+        "reasons": [
+          {
+            "content": "从职责看，可能接触企业客户关系维护和项目落地协助工作",
+            "sourceType": "inference",
+            "evidence": [
+              "维护企业客户关系",
+              "协助推进项目落地"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+      },
+      "candidateAdvantages": null,
+      "hrGreeting": {
+        "personalizationStatus": "not_personalized",
+        "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+        "safeGreeting": "您好，我对贵公司的产业园区运营岗位很感兴趣，想进一步了解岗位的工作内容和要求，希望有机会沟通。",
+        "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+      }
+    },
+    "candidateProfile": {
+      "schemaVersion": "candidate-profile-v2",
+      "profileProvided": true,
+      "candidateProfile": {
+        "canonicalFacts": [
+          {
+            "factId": "CF-001",
+            "statement": "求职方向：运营（企业服务方向）",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-001"
+            ],
+            "semanticTags": [
+              "career_target"
+            ]
+          },
+          {
+            "factId": "CF-002",
+            "statement": "教育：大专；专业：工商管理",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-002"
+            ],
+            "semanticTags": [
+              "education"
+            ]
+          },
+          {
+            "factId": "CF-003",
+            "statement": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "experience"
+            ]
+          },
+          {
+            "factId": "CF-004",
+            "statement": "协助登记企业到访信息、整理活动物料",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-004"
+            ],
+            "semanticTags": [
+              "experience"
+            ]
+          },
+          {
+            "factId": "CF-005",
+            "statement": "没有负责招商或项目落地",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-004"
+            ],
+            "semanticTags": [
+              "experience",
+              "project_experience"
+            ]
+          },
+          {
+            "factId": "CF-006",
+            "statement": "工具：Office（能做基础表格）",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-005"
+            ],
+            "semanticTags": [
+              "skill_usage"
+            ]
+          },
+          {
+            "factId": "CF-007",
+            "statement": "出差：可接受阶段性出差",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-006"
+            ],
+            "semanticTags": [
+              "preference"
+            ]
+          }
+        ],
+        "careerTarget": "CF-001",
+        "education": [
+          "CF-002"
+        ],
+        "experiences": [
+          "CF-003",
+          "CF-004",
+          "CF-005"
+        ],
+        "projects": [
+          "CF-005"
+        ],
+        "skills": [
+          "CF-006"
+        ],
+        "certificates": [],
+        "portfolio": [],
+        "preferences": [
+          "CF-007"
+        ],
+        "derivedObservations": [],
+        "unknowns": [],
+        "questionsToConfirm": [],
+        "evidence": [
+          {
+            "id": "PF-001",
+            "text": "求职方向：运营（企业服务方向）"
+          },
+          {
+            "id": "PF-002",
+            "text": "教育：大专；专业：工商管理"
+          },
+          {
+            "id": "PF-003",
+            "text": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者"
+          },
+          {
+            "id": "PF-004",
+            "text": "工作内容：协助登记企业到访信息、整理活动物料；没有负责招商或项目落地"
+          },
+          {
+            "id": "PF-005",
+            "text": "工具：Office（能做基础表格）"
+          },
+          {
+            "id": "PF-006",
+            "text": "出差：可接受阶段性出差"
+          },
+          {
+            "id": "PF-007",
+            "text": "备注：排版来自旧简历，空格、斜杠和标点可能不统一"
+          }
+        ]
+      }
+    },
+    "matchCore": {
+      "schemaVersion": "match-core-v1",
+      "jdSchemaVersion": "analysis-v1",
+      "candidateProfileSchemaVersion": "candidate-profile-v2",
+      "matchItems": [
+        {
+          "requirementId": "REQ-001",
+          "requirement": "具有园区运营或企业服务经验者优先",
+          "requirementType": "preferred_requirement",
+          "jdEvidence": [
+            "具有园区运营或企业服务经验者优先"
+          ],
+          "status": "partial",
+          "requirementDimensions": [
+            {
+              "dimensionType": "domain",
+              "requirementFragment": "园区运营或企业服务经验",
+              "status": "partial",
+              "reason": "候选人具有园区活动志愿者经历，涉及协助登记企业到访信息，属于园区运营或企业服务相关经验，但为在校实践且职责有限，未达到正式工作经验的程度。",
+              "jdEvidence": [
+                "具有园区运营或企业服务经验者优先"
+              ],
+              "missingInformation": "该经验为在校实践，非正式工作，且职责为协助性质，未明确是否属于园区运营或企业服务的核心职责。",
+              "verificationQuestion": "请说明该志愿者经历的具体工作内容、时长及是否涉及园区运营或企业服务的核心职责。",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-003",
+                "CF-004"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-003",
+                "PF-004"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-002",
+          "requirement": "具备客户沟通和文档整理能力",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "具备客户沟通和文档整理能力"
+          ],
+          "status": "partial",
+          "requirementDimensions": [
+            {
+              "dimensionType": "skill",
+              "requirementFragment": "客户沟通能力",
+              "status": "partial",
+              "reason": "候选人协助登记企业到访信息，涉及与企业人员的接触，但未明确沟通的深度和频率，且为协助性质。",
+              "jdEvidence": [
+                "具备客户沟通和文档整理能力"
+              ],
+              "missingInformation": "未明确客户沟通的具体场景、频率和效果。",
+              "verificationQuestion": "请描述您在志愿者经历中与客户沟通的具体内容和频率。",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-004"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-004"
+              ]
+            },
+            {
+              "dimensionType": "skill",
+              "requirementFragment": "文档整理能力",
+              "status": "partial",
+              "reason": "候选人整理活动物料，但未明确涉及文档整理，且 Office 技能为基础水平。",
+              "jdEvidence": [
+                "具备客户沟通和文档整理能力"
+              ],
+              "missingInformation": "未明确文档整理的具体内容，Office 技能为基础水平，未体现高级文档处理能力。",
+              "verificationQuestion": "请说明您整理过哪些文档，以及使用 Office 的具体功能。",
+              "dimensionId": "DIM-002",
+              "candidateFactRefs": [
+                "CF-004",
+                "CF-006"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-004",
+                "PF-005"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-003",
+          "requirement": "能接受阶段性出差",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "能接受阶段性出差"
+          ],
+          "status": "met",
+          "requirementDimensions": [
+            {
+              "dimensionType": "other",
+              "requirementFragment": "接受阶段性出差",
+              "status": "met",
+              "reason": "候选人明确表示可接受阶段性出差。",
+              "jdEvidence": [
+                "能接受阶段性出差"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-007"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-006"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-004",
+          "requirement": "大专及以上学历",
+          "requirementType": "hard_requirement",
+          "jdEvidence": [
+            "大专及以上学历"
+          ],
+          "status": "met",
+          "requirementDimensions": [
+            {
+              "dimensionType": "credential",
+              "requirementFragment": "大专及以上学历",
+              "status": "met",
+              "reason": "候选人具有大专学历，满足要求。",
+              "jdEvidence": [
+                "大专及以上学历"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-002"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-002"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "recommendation": {
+      "recommendationLevel": "try",
+      "summary": "Match Core 正向证据：MI-003 为 met，MI-004 为 met；MI-001 为 partial，MI-002 为 partial。反证：无。待确认项：MI-001、MI-002 的 partial 状态需进一步核实。",
+      "supportingMatchRefs": [
+        "MI-001",
+        "MI-002",
+        "MI-003",
+        "MI-004"
+      ],
+      "counterMatchRefs": [],
+      "limitations": [
+        {
+          "content": "MI-001 为 partial，候选人相关经验为在校实践且职责有限，需确认是否属于园区运营或企业服务的核心职责。",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "content": "MI-002 为 partial，客户沟通和文档整理能力证据不充分，需确认具体沟通场景、频率及文档整理内容。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        }
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请说明该志愿者经历的具体工作内容、时长及是否涉及园区运营或企业服务的核心职责。",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "question": "请描述您在志愿者经历中与客户沟通的具体内容和频率。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        },
+        {
+          "question": "请说明您整理过哪些文档，以及使用 Office 的具体功能。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        }
+      ],
+      "schemaVersion": "recommendation-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "allowedRecommendationLevels": [
+        "try",
+        "cautious"
+      ]
+    },
+    "strengthGap": {
+      "schemaVersion": "strength-gap-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "strengths": [
+        {
+          "type": "direct_match",
+          "statement": "候选人明确表示可接受阶段性出差，与核心要求直接匹配。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "strengthId": "ST-001"
+        },
+        {
+          "type": "direct_match",
+          "statement": "候选人具有大专学历，满足硬性学历要求。",
+          "matchRefs": [
+            "MI-004"
+          ],
+          "strengthId": "ST-002"
+        },
+        {
+          "type": "transferable_strength",
+          "statement": "候选人协助登记企业到访信息，涉及与企业人员的接触，可部分支持客户沟通能力要求，但为协助性质且深度有限。",
+          "matchRefs": [
+            "MI-002"
+          ],
+          "strengthId": "ST-003"
+        }
+      ],
+      "gaps": [
+        {
+          "type": "evidence_expression",
+          "statement": "现有证据只能表明候选人具有园区活动志愿者经历，涉及协助登记企业到访信息，尚不足以证明完整满足园区运营或企业服务经验的要求。",
+          "matchRefs": [
+            "MI-001"
+          ],
+          "suggestedAction": "如果确实有更深入的园区运营或企业服务经历，请补充相关事实。",
+          "actionType": "evidence",
+          "gapId": "GP-001"
+        },
+        {
+          "type": "learnable_skill",
+          "statement": "现有证据表明候选人具备基础客户沟通和文档整理能力，但尚未达到完整满足要求的程度。",
+          "matchRefs": [
+            "MI-001",
+            "MI-002"
+          ],
+          "suggestedAction": "请针对客户沟通和文档整理能力进行学习和练习，以提升相关技能。",
+          "actionType": "learn",
+          "gapId": "GP-002"
+        }
+      ]
+    },
+    "greeting": {
+      "schemaVersion": "personalized-greeting-v1",
+      "personalizationStatus": "personalized",
+      "greeting": "您好，我看到贵司正在招聘相关岗位。教育：大专；专业：工商管理；出差：可接受阶段性出差。这些经历与岗位的部分职责存在一定相关性，希望有机会进一步沟通。",
+      "candidateFactRefs": [
+        "CF-002",
+        "CF-007"
+      ],
+      "matchRefs": [
+        "MI-004",
+        "MI-003"
+      ],
+      "jdEvidence": [
+        "大专及以上学历",
+        "能接受阶段性出差"
+      ],
+      "strengthRefs": [
+        "ST-002",
+        "ST-001"
+      ]
+    }
+  },
+  "invariantAudit": {
+    "status": "pass",
+    "values": {
+      "X-A_candidate_truth": true,
+      "X-B_jd_truth": true,
+      "X-C_status_stability": true,
+      "X-D_unknown_stability": true,
+      "X-E_negative_evidence_stability": true,
+      "X-F_modifier_integrity": true,
+      "X-G_waiver_integrity": true,
+      "X-H_candidate_semantic_preservation": true,
+      "X-I_reference_continuity": true,
+      "X-J_no_circular_truth": true
+    },
+    "passed": true
+  },
+  "expectation": {
+    "passed": true,
+    "checks": {
+      "outcome": true,
+      "requiredMatchStatuses": true,
+      "greetingPersonalizationStatus": true
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": true
+}

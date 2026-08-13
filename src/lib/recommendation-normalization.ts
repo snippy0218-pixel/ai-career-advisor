@@ -14,6 +14,8 @@ const NORMALIZABLE_SUMMARY_ISSUE =
   /(?:R-C_AMBIGUOUS_STATUS_ATTRIBUTION|unsupported waiver\/flexibility claim|Recommendation must reference Match Items)/;
 const NORMALIZABLE_STRICTNESS_ISSUE =
   /^R-K (MI-\d{3,}) cautious hard unmet without waiver evidence requires strictness confirmation/;
+const NORMALIZABLE_SUBSTITUTION_QUESTION_ISSUE =
+  /^R-K unsupported substitution claim has no explicit JD alternative qualification$/;
 
 /**
  * Bounded terminal recovery for an otherwise schema-valid Recommendation
@@ -39,7 +41,10 @@ export function normalizeRejectedRecommendationSummary(
     const strictnessIssue =
       issue.path === "questionsToConfirm" &&
       NORMALIZABLE_STRICTNESS_ISSUE.test(issue.message);
-    return summaryIssue || strictnessIssue;
+    const substitutionQuestionIssue =
+      /^questionsToConfirm\.\d+\.question$/.test(issue.path) &&
+      NORMALIZABLE_SUBSTITUTION_QUESTION_ISSUE.test(issue.message);
+    return summaryIssue || strictnessIssue || substitutionQuestionIssue;
   });
   if (!normalizable) {
     return {
@@ -64,6 +69,13 @@ export function normalizeRejectedRecommendationSummary(
       question: `请向招聘方确认 ${matchRef} 是否属于严格筛选门槛？`,
       matchItemRefs: [matchRef],
     });
+  }
+  for (const issue of issues) {
+    if (!NORMALIZABLE_SUBSTITUTION_QUESTION_ISSUE.test(issue.message)) continue;
+    const index = Number(issue.path.match(/^questionsToConfirm\.(\d+)\.question$/)?.[1]);
+    const entry = data.questionsToConfirm[index];
+    if (!entry || entry.matchItemRefs.length !== 1) continue;
+    entry.question = `请向招聘方确认 ${entry.matchItemRefs[0]} 是否属于严格筛选门槛？`;
   }
   return {
     data,

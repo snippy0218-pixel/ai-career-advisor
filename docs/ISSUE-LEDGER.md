@@ -92,6 +92,12 @@
 - TC-P2-11 R1 and TC-P2-14 R1 stopped at Strength/Gap. The bounded ISSUE-044/049-adjacent correction accepts conditional `描述` as an evidence-action verb and treats `不足以确认/证明` as a local modifier boundary; direct unsourced claims and unconditional experience invention remain rejected.
 - Summary SHA-256 is `b596ca0a7677c1b9d9be14b784bca4b0b4cb5713dcad65c56e3f857f733a87b0`. Focused `90/90`, full `636/636`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-10-STABILIZATION.md`.
 
+## Baseline 11 additional evidence
+
+- `phase-2-5-baseline-11-7460f02` is a valid complete content batch: `40/42` PASS, `41` complete chains, downstream-after-failure `0`; Baseline-10 failures passed 3/3.
+- TC-P2-10 R2 completed and failed only X-F on whitespace-equivalent `3 年` versus raw `3年`. TC-P2-11 R2 was correctly rejected for an unsupported substitution example appended to an otherwise valid strictness question.
+- Bounded recovery normalizes whitespace only for literal source comparison and replaces only the rejected single-ref substitution question with the canonical strictness question before full validation. Focused `108/108`, full `637/637`, lint/build PASS. Summary SHA-256: `517d5082dc6310b5aa24d98c85ea5e150474788fddc9665f0b190a18343f6b1d`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
