@@ -473,6 +473,26 @@ describe("finalizeRawStrengthGap", () => {
     );
   });
 
+  it("SG-H accepts a conditional request to describe a real evidence-bearing experience", () => {
+    const fixture = STRENGTH_GAP_FIXTURES.find((item) =>
+      item.validRaw.gaps.some((gap) => gap.type === "evidence_expression"),
+    )!;
+    const raw = structuredClone(fixture.validRaw);
+    const gap = raw.gaps.find((entry) => entry.type === "evidence_expression")!;
+    gap.suggestedAction =
+      "如果确实有真实经历，请描述您使用文档工具整理需求的具体经历。";
+    expect(finalizeRawStrengthGap(raw, fixture.matchCore).issues).toEqual([]);
+
+    gap.suggestedAction = "请描述一段相关项目经历。";
+    expect(
+      finalizeRawStrengthGap(raw, fixture.matchCore).issues,
+    ).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ message: expect.stringContaining("SG-H") }),
+      ]),
+    );
+  });
+
   it("accepts either natural word order for structural gate confirmation", () => {
     const fixture = STRENGTH_GAP_FIXTURES[7];
     const result = finalizeRawStrengthGap(

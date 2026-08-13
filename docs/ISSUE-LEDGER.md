@@ -86,6 +86,12 @@
 - ISSUE-042 adjacent evidence: TC-P2-04 R1 preserved `partial` but R-C treated `确认是否已满足` as a factual status claim. Hypothetical status grammar is excluded; direct contradiction controls remain.
 - Summary SHA-256 is `8535d68c30a852e65ecec6d1207690515a3859597f04b41328618fe178e7e0f9`. Focused `272/272`, full `634/634`, lint and build PASS; scope/secret/process audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-9-STABILIZATION.md`.
 
+## Baseline 10 additional evidence
+
+- `phase-2-5-baseline-10-28c0ccf` is a complete valid Phase 2 content batch: `40/42` PASS, `40` complete chains, downstream-after-failure `0`; all Baseline-9 failures passed 3/3.
+- TC-P2-11 R1 and TC-P2-14 R1 stopped at Strength/Gap. The bounded ISSUE-044/049-adjacent correction accepts conditional `描述` as an evidence-action verb and treats `不足以确认/证明` as a local modifier boundary; direct unsourced claims and unconditional experience invention remain rejected.
+- Summary SHA-256 is `b596ca0a7677c1b9d9be14b784bca4b0b4cb5713dcad65c56e3f857f733a87b0`. Focused `90/90`, full `636/636`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-10-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

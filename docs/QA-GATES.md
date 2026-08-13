@@ -54,7 +54,7 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **BASELINE-9 VALID 39/42 CONTENT MATRIX RETAINED / ISSUE-041/042/044 ADJACENT STABILIZATION IN PROGRESS**.
+Current Phase 2.5 disposition: **BASELINE-10 VALID 40/42 CONTENT MATRIX RETAINED / ISSUE-044/049 ADJACENT STABILIZATION IN PROGRESS**.
 
 Current evidence: baseline-2 Phase 1 `30/30` accepted. Phase 2 baseline-4 is a valid, complete, non-passing `21/42` batch with `26` complete chains and downstream-after-failure `0`; baseline-3 is zero-call preflight evidence. Updated stabilization focused suites `312/312` plus integration/boundary `40/40`; full automated suite `33 files / 618 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 
@@ -63,6 +63,8 @@ Infrastructure batch disposition: `phase-2-5-baseline-1-0373ad4` is **NOT A CONT
 Latest infrastructure disposition: `phase-2-5-baseline-8-6f0eab7` is also **NOT A FINAL CONTENT MATRIX**. It retains 2 completed passing samples, then one in-flight Match transport failure and 39 JD transport failures after the production server process exited. No post-failure content sample or downstream call occurred. A runner category/code mismatch bypassed ISSUE-039 fail-fast; exact `8/8`, full `631/631`, lint and build PASS after correction. The exact batch, summary hash and adjudication are retained, and a new committed full matrix is mandatory without cherry-picking the two successes.
 
 Latest content disposition: `phase-2-5-baseline-9-2b8bc40` is a valid complete fixed batch at `39/42`, with `40` complete chains and downstream-after-failure `0`. Its three failures are retained and adjudicated as local threshold/proficiency boundary handling, hypothetical Recommendation status grammar, and explicit numeric duration shortfall polarity. Focused `272/272`, full `634/634`, lint and build PASS; a new committed complete matrix remains mandatory with no cherry-pick.
+
+Newest content disposition: `phase-2-5-baseline-10-28c0ccf` is a valid complete fixed batch at `40/42`, with `40` complete chains and downstream-after-failure `0`; every Baseline-9 failure passed 3/3. Two Strength/Gap failures exposed conditional `描述` and `不足以证明` lexical boundaries. Focused `90/90`, full `636/636`, lint/build PASS; a new committed complete matrix remains mandatory.
 
 Content baseline disposition: baseline-2 Phase 1 is accepted at 30/30. `phase-2-5-baseline-4-f7838a1` is a complete, non-passing Phase 2 stabilization baseline at 21/42 with 26 complete chains and downstream-after-failure 0; baseline-3/4 artifacts and rejected raw are retained. ISSUE-040～047 have deterministic fixes with full 618/618, lint/build PASS. A new committed full Phase 2 14×3 matrix is required; no earlier success may be cherry-picked into the final matrix. See `PHASE-2-5-BASELINE-4-STABILIZATION.md`.
 

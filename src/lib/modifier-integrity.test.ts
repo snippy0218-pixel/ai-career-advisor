@@ -19,6 +19,21 @@ describe("Modifier Inference Contract", () => {
     ).toEqual([]);
   });
 
+  it("does not treat a modifier inside an explicit insufficient-evidence boundary as asserted", () => {
+    expect(
+      findUnsupportedModifiers(
+        "现有证据尚不足以证明独立负责客户沟通。",
+        ["协助登记企业到访信息"],
+      ),
+    ).toEqual([]);
+    expect(
+      findUnsupportedModifiers(
+        "候选人可以独立负责客户沟通。",
+        ["协助登记企业到访信息"],
+      ),
+    ).toEqual([{ category: "scope", value: "独立负责" }]);
+  });
+
   it("removes only unsupported modifiers without inventing replacement facts", () => {
     expect(
       stripUnsupportedModifiers("可能需要频繁拜访多个客户", ["拜访客户"]),

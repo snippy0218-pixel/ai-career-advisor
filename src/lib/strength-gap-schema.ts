@@ -597,7 +597,7 @@ export function finalizeRawStrengthGap(
     }
     if (
       entry.actionType === "evidence" &&
-      (!/(?:补充|说明|呈现|完善)/.test(entry.suggestedAction) ||
+      (!/(?:补充|说明|描述|呈现|完善)/.test(entry.suggestedAction) ||
         (/(?:经历|职责|项目)/.test(entry.suggestedAction) &&
           !/(?:如果|若|如有|确实|真实)/.test(entry.suggestedAction)))
     ) {

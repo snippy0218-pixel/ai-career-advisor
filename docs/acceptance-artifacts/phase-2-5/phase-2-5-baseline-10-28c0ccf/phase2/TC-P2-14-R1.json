@@ -1,0 +1,3369 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-10-28c0ccf",
+  "executionId": "TC-P2-14-R1",
+  "fixtureId": "TC-P2-14",
+  "fixtureName": "noisy but recoverable profile",
+  "repetition": 1,
+  "implementationCommit": "28c0ccf080f9a1659cbc3f5ed56c1716fbe562b6",
+  "input": {
+    "jdCharacters": 111,
+    "profileCharacters": 154,
+    "jdSha256": "4c2c6b6226019180f05ea79f0f6fc241f19b47ca15d5f4977eb08d94e54a538f",
+    "profileSha256": "a0b314d0686454836b44c8a88d149bf2a2467c2b6b9dced6fd870af237b6fbcf"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met"
+    ]
+  },
+  "coverage": [
+    "noisy-input",
+    "preferred-requirement",
+    "explicit-boundary",
+    "normalization"
+  ],
+  "completed": false,
+  "stoppedAt": "strengthGap",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "strengthGap",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "ad7ce731-e483-4cc8-8537-bcad9398cf8f",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 6735,
+      "requestId": "eb3622fc-1efb-4f79-b0f6-d398375a5a66",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "产业园区运营岗位",
+          "companyName": null,
+          "location": null,
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": null,
+          "educationRequirement": "大专及以上学历",
+          "summary": "从JD信息看，可能属于产业园区运营类岗位，涉及客户关系维护、需求整理和项目推进等工作。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "维护企业客户关系",
+            "description": "负责与企业客户保持联系，维护良好关系。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "维护企业客户关系"
+            ]
+          },
+          {
+            "title": "整理园区服务需求",
+            "description": "收集和整理园区内企业的服务需求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "整理园区服务需求"
+            ]
+          },
+          {
+            "title": "协助推进项目落地",
+            "description": "协助推动园区相关项目的实施和落地。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "协助推进项目落地"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "具有园区运营或企业服务经验者优先",
+              "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具有园区运营或企业服务经验者优先"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "preferred_requirement"
+            },
+            {
+              "content": "具备客户沟通和文档整理能力",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具备客户沟通和文档整理能力"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "能接受阶段性出差",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能接受阶段性出差"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "大专及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "大专及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及较多客户沟通和协调工作",
+              "explanation": "职责包括维护客户关系和整理需求，可能以沟通协调为主。",
+              "sourceType": "inference",
+              "evidence": [
+                "维护企业客户关系",
+                "整理园区服务需求"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "可能需要阶段性出差，工作地点可能不固定",
+              "explanation": "任职要求提到能接受阶段性出差，可能涉及外出工作。",
+              "sourceType": "inference",
+              "evidence": [
+                "能接受阶段性出差"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "工作地点未说明",
+            "薪资范围未说明",
+            "公司名称未说明",
+            "具体出差频率和时长未说明",
+            "项目推进的具体内容和深度未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "工作地点在哪里？",
+              "reason": "JD未说明工作地点，需确认。"
+            },
+            {
+              "question": "阶段性出差的频率和时长是怎样的？",
+              "reason": "JD仅提到能接受阶段性出差，但未说明具体安排。"
+            },
+            {
+              "question": "项目推进的具体职责和参与深度如何？",
+              "reason": "JD仅提到协助推进项目落地，但未说明具体内容。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能涉及客户关系维护和项目推进，适合对产业园区运营感兴趣的人。",
+              "sourceType": "inference",
+              "evidence": [
+                "维护企业客户关系",
+                "协助推进项目落地"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对贵公司的产业园区运营岗位很感兴趣，想进一步了解岗位的具体工作内容和要求。请问方便沟通吗？",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3051,
+      "requestId": "2e90d3af-d3eb-4460-a8e3-63110e4afe3b",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3047,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 654,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 7,
+        "pfTotal": 7,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 6,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 6,
+        "atomicClaimCount": 7,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 3,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 7,
+        "profileFactRecall": null,
+        "latencyMs": 3047,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 654,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "求职方向：运营（企业服务方向）",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "career_target"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "教育：大专；专业：工商管理",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "协助登记企业到访信息、整理活动物料",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-005",
+              "statement": "没有负责招商或项目落地",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "experience",
+                "project_experience"
+              ]
+            },
+            {
+              "factId": "CF-006",
+              "statement": "工具：Office（能做基础表格）",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-005"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-007",
+              "statement": "出差：可接受阶段性出差",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-006"
+              ],
+              "semanticTags": [
+                "preference"
+              ]
+            }
+          ],
+          "careerTarget": "CF-001",
+          "education": [
+            "CF-002"
+          ],
+          "experiences": [
+            "CF-003",
+            "CF-004",
+            "CF-005"
+          ],
+          "projects": [
+            "CF-005"
+          ],
+          "skills": [
+            "CF-006"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [
+            "CF-007"
+          ],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "求职方向：运营（企业服务方向）"
+            },
+            {
+              "id": "PF-002",
+              "text": "教育：大专；专业：工商管理"
+            },
+            {
+              "id": "PF-003",
+              "text": "经历：2025.03—2025.08  在校实践 / 园区活动志愿者"
+            },
+            {
+              "id": "PF-004",
+              "text": "工作内容：协助登记企业到访信息、整理活动物料；没有负责招商或项目落地"
+            },
+            {
+              "id": "PF-005",
+              "text": "工具：Office（能做基础表格）"
+            },
+            {
+              "id": "PF-006",
+              "text": "出差：可接受阶段性出差"
+            },
+            {
+              "id": "PF-007",
+              "text": "备注：排版来自旧简历，空格、斜杠和标点可能不统一"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 9502,
+      "requestId": "1c068108-e89c-4f5d-99a1-902a4347a0b2",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003",
+              "CF-004"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 1,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE",
+              "M-K"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-004",
+              "CF-006"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 0,
+            "dimensionIndex": null,
+            "issueCodes": [
+              "M-AGGREGATE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": false
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 9498,
+        "outputCompletionTokens": 906,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度"
+          },
+          {
+            "path": "matchItems.1.dimensions.1.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003",
+              "CF-004"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 1,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE",
+              "M-K"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-004",
+              "CF-006"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 0,
+            "dimensionIndex": null,
+            "issueCodes": [
+              "M-AGGREGATE"
+            ],
+            "previousStatus": "partial",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": false
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "园区运营或企业服务经验",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "具有园区运营或企业服务经验者优先"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                  "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "partial",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "客户沟通能力",
+                  "status": "partial",
+                  "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                  "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                },
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "文档整理能力",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                  "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "other",
+                  "requirementFragment": "能接受阶段性出差",
+                  "status": "met",
+                  "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                  "jdEvidence": [
+                    "能接受阶段性出差"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-007",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "大专及以上学历",
+                  "status": "met",
+                  "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                  "jdEvidence": [
+                    "大专及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 2,
+          "partial": 1,
+          "unmet": 0,
+          "unknown": 1
+        },
+        "latencyMs": 9498,
+        "outputCompletionTokens": 906,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"园区运营或企业服务经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。\",\n          \"jdEvidence\": [\"具有园区运营或企业服务经验者优先\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-003\", \"role\": \"positive\"},\n            {\"factId\": \"CF-004\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。\",\n          \"verificationQuestion\": \"该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"客户沟通能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"未明确是否独立负责客户沟通，沟通的深度和频率未知。\",\n          \"verificationQuestion\": \"在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"文档整理能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"positive\"},\n            {\"factId\": \"CF-006\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"未明确文档整理的具体类型（如报告、表格）和熟练程度。\",\n          \"verificationQuestion\": \"请描述你整理过的文档类型和使用的工具，以及你的熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"能接受阶段性出差\",\n          \"status\": \"met\",\n          \"reason\": \"CF-007 明确表明可接受阶段性出差，与要求一致。\",\n          \"jdEvidence\": [\"能接受阶段性出差\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-007\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"大专及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 表明教育为大专，满足大专及以上学历要求。\",\n          \"jdEvidence\": [\"大专及以上学历\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-002\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2879,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "园区运营或企业服务经验",
+                      "status": "partial",
+                      "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                      "jdEvidence": [
+                        "具有园区运营或企业服务经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                      "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "能接受阶段性出差",
+                      "status": "met",
+                      "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                      "jdEvidence": [
+                        "能接受阶段性出差"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-007",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "大专及以上学历",
+                      "status": "met",
+                      "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                      "jdEvidence": [
+                        "大专及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "园区运营或企业服务经验",
+                        "status": "partial",
+                        "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                        "jdEvidence": [
+                          "具有园区运营或企业服务经验者优先"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                        "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "园区运营或企业服务经验",
+                    "status": "partial",
+                    "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                    "jdEvidence": [
+                      "具有园区运营或企业服务经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                    "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.1.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 1,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "客户沟通能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                        "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "文档整理能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-006",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                        "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.1.dimensions.1.reason",
+                "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 1,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "客户沟通能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                        "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "文档整理能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-006",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                        "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"园区运营或企业服务经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。\",\n          \"jdEvidence\": [\"具有园区运营或企业服务经验者优先\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-003\", \"role\": \"positive\" },\n            { \"factId\": \"CF-004\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。\",\n          \"verificationQuestion\": \"该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"客户沟通能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-004\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"未明确是否独立负责客户沟通，沟通的深度和频率未知。\",\n          \"verificationQuestion\": \"在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"文档整理能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-004\", \"role\": \"positive\" },\n            { \"factId\": \"CF-006\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"未明确文档整理的具体类型（如报告、表格）和熟练程度。\",\n          \"verificationQuestion\": \"请描述你整理过的文档类型和使用的工具，以及你的熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"能接受阶段性出差\",\n          \"status\": \"met\",\n          \"reason\": \"CF-007 明确表明可接受阶段性出差，与要求一致。\",\n          \"jdEvidence\": [\"能接受阶段性出差\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-007\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"大专及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 表明教育为大专，满足大专及以上学历要求。\",\n          \"jdEvidence\": [\"大专及以上学历\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-002\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2893,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "园区运营或企业服务经验",
+                      "status": "partial",
+                      "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                      "jdEvidence": [
+                        "具有园区运营或企业服务经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                      "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "能接受阶段性出差",
+                      "status": "met",
+                      "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                      "jdEvidence": [
+                        "能接受阶段性出差"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-007",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "大专及以上学历",
+                      "status": "met",
+                      "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                      "jdEvidence": [
+                        "大专及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "园区运营或企业服务经验",
+                        "status": "partial",
+                        "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                        "jdEvidence": [
+                          "具有园区运营或企业服务经验者优先"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                        "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "园区运营或企业服务经验",
+                    "status": "partial",
+                    "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                    "jdEvidence": [
+                      "具有园区运营或企业服务经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                    "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.1.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 1,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "客户沟通能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                        "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "文档整理能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-006",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                        "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.1.dimensions.1.reason",
+                "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 1,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "客户沟通能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                        "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "文档整理能力",
+                        "status": "partial",
+                        "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                        "jdEvidence": [
+                          "具备客户沟通和文档整理能力"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-006",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                        "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "具有园区运营或企业服务经验者优先",
+            "requirementType": "preferred_requirement",
+            "jdEvidence": [
+              "具有园区运营或企业服务经验者优先"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "domain",
+                "requirementFragment": "园区运营或企业服务经验",
+                "status": "unknown",
+                "reason": "现有资料无法确认该维度是否满足。",
+                "jdEvidence": [
+                  "具有园区运营或企业服务经验者优先"
+                ],
+                "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-002",
+            "requirement": "具备客户沟通和文档整理能力",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "具备客户沟通和文档整理能力"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "客户沟通能力",
+                "status": "partial",
+                "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                "jdEvidence": [
+                  "具备客户沟通和文档整理能力"
+                ],
+                "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-004"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-004"
+                ]
+              },
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "文档整理能力",
+                "status": "unknown",
+                "reason": "现有资料无法确认该维度是否满足。",
+                "jdEvidence": [
+                  "具备客户沟通和文档整理能力"
+                ],
+                "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。",
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-003",
+            "requirement": "能接受阶段性出差",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "能接受阶段性出差"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "other",
+                "requirementFragment": "能接受阶段性出差",
+                "status": "met",
+                "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                "jdEvidence": [
+                  "能接受阶段性出差"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-007"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-006"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-004",
+            "requirement": "大专及以上学历",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "大专及以上学历"
+            ],
+            "status": "met",
+            "requirementDimensions": [
+              {
+                "dimensionType": "credential",
+                "requirementFragment": "大专及以上学历",
+                "status": "met",
+                "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                "jdEvidence": [
+                  "大专及以上学历"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-002"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-002"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"园区运营或企业服务经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。\",\n          \"jdEvidence\": [\"具有园区运营或企业服务经验者优先\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-003\", \"role\": \"positive\"},\n            {\"factId\": \"CF-004\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。\",\n          \"verificationQuestion\": \"该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"客户沟通能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"未明确是否独立负责客户沟通，沟通的深度和频率未知。\",\n          \"verificationQuestion\": \"在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"文档整理能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"positive\"},\n            {\"factId\": \"CF-006\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": \"未明确文档整理的具体类型（如报告、表格）和熟练程度。\",\n          \"verificationQuestion\": \"请描述你整理过的文档类型和使用的工具，以及你的熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"能接受阶段性出差\",\n          \"status\": \"met\",\n          \"reason\": \"CF-007 明确表明可接受阶段性出差，与要求一致。\",\n          \"jdEvidence\": [\"能接受阶段性出差\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-007\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"大专及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 表明教育为大专，满足大专及以上学历要求。\",\n          \"jdEvidence\": [\"大专及以上学历\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-002\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2879,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "园区运营或企业服务经验",
+                    "status": "partial",
+                    "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                    "jdEvidence": [
+                      "具有园区运营或企业服务经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                    "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "客户沟通能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                    "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "other",
+                    "requirementFragment": "能接受阶段性出差",
+                    "status": "met",
+                    "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                    "jdEvidence": [
+                      "能接受阶段性出差"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-007",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "大专及以上学历",
+                    "status": "met",
+                    "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                    "jdEvidence": [
+                      "大专及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "园区运营或企业服务经验",
+                      "status": "partial",
+                      "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                      "jdEvidence": [
+                        "具有园区运营或企业服务经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                      "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "园区运营或企业服务经验",
+                  "status": "partial",
+                  "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                  "jdEvidence": [
+                    "具有园区运营或企业服务经验者优先"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                  "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.1.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 1,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "文档整理能力",
+                  "status": "partial",
+                  "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-006",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                  "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.1.dimensions.1.reason",
+              "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 1,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "文档整理能力",
+                  "status": "partial",
+                  "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-006",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                  "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"园区运营或企业服务经验\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。\",\n          \"jdEvidence\": [\"具有园区运营或企业服务经验者优先\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-003\", \"role\": \"positive\" },\n            { \"factId\": \"CF-004\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。\",\n          \"verificationQuestion\": \"该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"客户沟通能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-004\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"未明确是否独立负责客户沟通，沟通的深度和频率未知。\",\n          \"verificationQuestion\": \"在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"文档整理能力\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。\",\n          \"jdEvidence\": [\"具备客户沟通和文档整理能力\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-004\", \"role\": \"positive\" },\n            { \"factId\": \"CF-006\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": \"未明确文档整理的具体类型（如报告、表格）和熟练程度。\",\n          \"verificationQuestion\": \"请描述你整理过的文档类型和使用的工具，以及你的熟练程度。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"能接受阶段性出差\",\n          \"status\": \"met\",\n          \"reason\": \"CF-007 明确表明可接受阶段性出差，与要求一致。\",\n          \"jdEvidence\": [\"能接受阶段性出差\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-007\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"大专及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 表明教育为大专，满足大专及以上学历要求。\",\n          \"jdEvidence\": [\"大专及以上学历\"],\n          \"candidateEvidence\": [\n            { \"factId\": \"CF-002\", \"role\": \"positive\" }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2893,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "园区运营或企业服务经验",
+                    "status": "partial",
+                    "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                    "jdEvidence": [
+                      "具有园区运营或企业服务经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                    "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "客户沟通能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                    "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "文档整理能力",
+                    "status": "partial",
+                    "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                    "jdEvidence": [
+                      "具备客户沟通和文档整理能力"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-006",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                    "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "other",
+                    "requirementFragment": "能接受阶段性出差",
+                    "status": "met",
+                    "reason": "CF-007 明确表明可接受阶段性出差，与要求一致。",
+                    "jdEvidence": [
+                      "能接受阶段性出差"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-007",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "大专及以上学历",
+                    "status": "met",
+                    "reason": "CF-002 表明教育为大专，满足大专及以上学历要求。",
+                    "jdEvidence": [
+                      "大专及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 未明确正式工作经验或独立负责程度",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "园区运营或企业服务经验",
+                      "status": "partial",
+                      "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                      "jdEvidence": [
+                        "具有园区运营或企业服务经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                      "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "园区运营或企业服务经验",
+                  "status": "partial",
+                  "reason": "CF-003 表明有园区活动志愿者经历，CF-004 表明协助登记企业到访信息、整理活动物料，属于园区运营或企业服务相关经验，但为在校实践且职责为协助性质，未明确正式工作经验或独立负责程度。",
+                  "jdEvidence": [
+                    "具有园区运营或企业服务经验者优先"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "该经验为在校实践，未明确是否为正式工作或全职经验；职责为协助性质，未明确独立负责程度。",
+                  "verificationQuestion": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.1.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 但未明确文档整理的具体范围和熟练程度",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 1,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "文档整理能力",
+                  "status": "partial",
+                  "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-006",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                  "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.1.dimensions.1.reason",
+              "message": "M-K cross-CF modifier isolation failed: proficiency:熟练->CF-004+CF-006",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 1,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "客户沟通能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明协助登记企业到访信息，涉及与客户接触，但为协助性质，未明确独立沟通或处理客户需求。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确是否独立负责客户沟通，沟通的深度和频率未知。",
+                      "verificationQuestion": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "文档整理能力",
+                      "status": "partial",
+                      "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                      "jdEvidence": [
+                        "具备客户沟通和文档整理能力"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-006",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                      "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "文档整理能力",
+                  "status": "partial",
+                  "reason": "CF-004 表明整理活动物料，CF-006 表明能做基础表格，但未明确文档整理的具体范围和熟练程度。",
+                  "jdEvidence": [
+                    "具备客户沟通和文档整理能力"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-006",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未明确文档整理的具体类型（如报告、表格）和熟练程度。",
+                  "verificationQuestion": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 0,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE"
+          ],
+          "previousStatus": "partial",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [
+            "CF-003",
+            "CF-004"
+          ],
+          "reasonRebuilt": true
+        },
+        {
+          "itemIndex": 1,
+          "dimensionIndex": 1,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE",
+            "M-K"
+          ],
+          "previousStatus": "partial",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [
+            "CF-004",
+            "CF-006"
+          ],
+          "reasonRebuilt": true
+        },
+        {
+          "itemIndex": 0,
+          "dimensionIndex": null,
+          "issueCodes": [
+            "M-AGGREGATE"
+          ],
+          "previousStatus": "partial",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [],
+          "reasonRebuilt": false
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2159,
+      "requestId": "852a86cf-89c3-48bf-b285-977d71c5c302",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 3,
+        "counterRefCount": 0,
+        "latencyMs": 2156,
+        "outputCompletionTokens": 299,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": false,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "try",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ],
+        "supportingRefCount": 3,
+        "counterRefCount": 0,
+        "latencyMs": 2156,
+        "outputCompletionTokens": 299,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "recommendationLevel": "try",
+        "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；MI-002 为 partial（客户沟通维度 partial，文档整理维度 unknown）；MI-001 为 unknown。待确认项集中在 MI-002 的文档整理能力与 MI-001 的经验性质。",
+        "supportingMatchRefs": [
+          "MI-002",
+          "MI-003",
+          "MI-004"
+        ],
+        "counterMatchRefs": [],
+        "limitations": [
+          {
+            "content": "MI-002 的客户沟通维度为 partial，文档整理维度为 unknown，需确认独立沟通程度与文档整理熟练度。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "content": "MI-001 为 unknown，需确认该经验是否为正式工作或全职，以及是否包含独立负责的运营或企业服务内容。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "在协助登记企业到访信息时，是否独立与客户沟通？请举例说明沟通内容和效果。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "请描述你整理过的文档类型和使用的工具，以及你的熟练程度。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "question": "该园区活动志愿者经历是否为正式工作或全职？具体职责是否包含独立负责的运营或企业服务内容？",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "try",
+          "cautious"
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 4690,
+      "requestId": "ad7ce731-e483-4cc8-8537-bcad9398cf8f",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "gaps.2.statement",
+            "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "gaps.2.statement",
+            "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+          }
+        ],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 4687,
+        "outputCompletionTokens": 341,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-N unsupported modifier upgrade: scope:独立负责",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-N unsupported modifier upgrade: scope:独立负责",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": true,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "gaps.2.statement",
+            "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "gaps.2.statement",
+            "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+          }
+        ],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": false,
+        "strengthEvidenceIntegrityPassed": false,
+        "strengthTruthfulnessPassed": false,
+        "transferableRelationBoundaryIntegrityPassed": false,
+        "gapTypeIntegrityPassed": false,
+        "unknownIntegrityPassed": false,
+        "hardGapCounterEvidencePassed": false,
+        "suggestedActionIntegrityPassed": false,
+        "referenceIntegrityPassed": false,
+        "sourceFactIsolationPassed": false,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 0,
+        "gapCount": 0,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 0,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 0
+        },
+        "latencyMs": 4687,
+        "outputCompletionTokens": 341,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-N unsupported modifier upgrade: scope:独立负责",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "SG-N unsupported modifier upgrade: scope:独立负责",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"能接受阶段性出差，与要求一致。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"大专学历满足大专及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"请补充该经验的正式工作性质、具体职责及独立负责程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"请补充文档整理的具体类型、使用工具及熟练程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有独立沟通客户的真实经历，请补充具体事例。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 937,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "能接受阶段性出差，与要求一致。",
+                  "matchRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "大专学历满足大专及以上学历要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "information",
+                  "statement": "资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "请补充该经验的正式工作性质、具体职责及独立负责程度。",
+                  "actionType": "confirm"
+                },
+                {
+                  "type": "information",
+                  "statement": "资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "请补充文档整理的具体类型、使用工具及熟练程度。",
+                  "actionType": "confirm"
+                },
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "gaps.2.statement",
+                "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "gaps",
+                "index": 2,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                "validatorRules": [
+                  "SG-N"
+                ],
+                "rejectionCodes": [
+                  "SG-N_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-N unsupported modifier upgrade: scope:独立负责"
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"能接受阶段性出差，与要求一致。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"大专学历满足大专及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"请补充该经验的正式工作性质、具体职责及独立负责程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"请补充文档整理的具体类型、使用工具及熟练程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有独立沟通客户的真实经历，请补充具体事例。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+            "rawTextLength": 937,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "strengths": [
+                {
+                  "type": "direct_match",
+                  "statement": "能接受阶段性出差，与要求一致。",
+                  "matchRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "type": "direct_match",
+                  "statement": "大专学历满足大专及以上学历要求。",
+                  "matchRefs": [
+                    "MI-004"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "type": "information",
+                  "statement": "资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。",
+                  "matchRefs": [
+                    "MI-001"
+                  ],
+                  "suggestedAction": "请补充该经验的正式工作性质、具体职责及独立负责程度。",
+                  "actionType": "confirm"
+                },
+                {
+                  "type": "information",
+                  "statement": "资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "请补充文档整理的具体类型、使用工具及熟练程度。",
+                  "actionType": "confirm"
+                },
+                {
+                  "type": "evidence_expression",
+                  "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                  "matchRefs": [
+                    "MI-002"
+                  ],
+                  "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                  "actionType": "evidence"
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "gaps.2.statement",
+                "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+              }
+            ],
+            "rejectedItems": [
+              {
+                "collection": "gaps",
+                "index": 2,
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                "validatorRules": [
+                  "SG-N"
+                ],
+                "rejectionCodes": [
+                  "SG-N_REJECTED"
+                ],
+                "rejectionReasons": [
+                  "SG-N unsupported modifier upgrade: scope:独立负责"
+                ]
+              }
+            ]
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "ad7ce731-e483-4cc8-8537-bcad9398cf8f",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "output": null,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"能接受阶段性出差，与要求一致。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"大专学历满足大专及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"请补充该经验的正式工作性质、具体职责及独立负责程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"请补充文档整理的具体类型、使用工具及熟练程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有独立沟通客户的真实经历，请补充具体事例。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 937,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "能接受阶段性出差，与要求一致。",
+                "matchRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "大专学历满足大专及以上学历要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "information",
+                "statement": "资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "请补充该经验的正式工作性质、具体职责及独立负责程度。",
+                "actionType": "confirm"
+              },
+              {
+                "type": "information",
+                "statement": "资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "请补充文档整理的具体类型、使用工具及熟练程度。",
+                "actionType": "confirm"
+              },
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "gaps.2.statement",
+              "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "gaps",
+              "index": 2,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+              "matchRefs": [
+                "MI-002"
+              ],
+              "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+              "validatorRules": [
+                "SG-N"
+              ],
+              "rejectionCodes": [
+                "SG-N_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-N unsupported modifier upgrade: scope:独立负责"
+              ]
+            }
+          ]
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"strengths\": [\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"能接受阶段性出差，与要求一致。\",\n      \"matchRefs\": [\"MI-003\"]\n    },\n    {\n      \"type\": \"direct_match\",\n      \"statement\": \"大专学历满足大专及以上学历要求。\",\n      \"matchRefs\": [\"MI-004\"]\n    }\n  ],\n  \"gaps\": [\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。\",\n      \"matchRefs\": [\"MI-001\"],\n      \"suggestedAction\": \"请补充该经验的正式工作性质、具体职责及独立负责程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"information\",\n      \"statement\": \"资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"请补充文档整理的具体类型、使用工具及熟练程度。\",\n      \"actionType\": \"confirm\"\n    },\n    {\n      \"type\": \"evidence_expression\",\n      \"statement\": \"现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。\",\n      \"matchRefs\": [\"MI-002\"],\n      \"suggestedAction\": \"如果确实有独立沟通客户的真实经历，请补充具体事例。\",\n      \"actionType\": \"evidence\"\n    }\n  ]\n}",
+          "rawTextLength": 937,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "strengths": [
+              {
+                "type": "direct_match",
+                "statement": "能接受阶段性出差，与要求一致。",
+                "matchRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "type": "direct_match",
+                "statement": "大专学历满足大专及以上学历要求。",
+                "matchRefs": [
+                  "MI-004"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "type": "information",
+                "statement": "资料缺少关于园区运营或企业服务经验的正式工作性质及独立负责程度的信息，无法判断是否满足该偏好要求。",
+                "matchRefs": [
+                  "MI-001"
+                ],
+                "suggestedAction": "请补充该经验的正式工作性质、具体职责及独立负责程度。",
+                "actionType": "confirm"
+              },
+              {
+                "type": "information",
+                "statement": "资料缺少关于文档整理能力的具体类型和熟练程度的信息，无法判断是否满足该维度。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "请补充文档整理的具体类型、使用工具及熟练程度。",
+                "actionType": "confirm"
+              },
+              {
+                "type": "evidence_expression",
+                "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+                "matchRefs": [
+                  "MI-002"
+                ],
+                "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+                "actionType": "evidence"
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "gaps.2.statement",
+              "message": "SG-N unsupported modifier upgrade: scope:独立负责"
+            }
+          ],
+          "rejectedItems": [
+            {
+              "collection": "gaps",
+              "index": 2,
+              "type": "evidence_expression",
+              "statement": "现有证据只能证明协助登记企业到访信息涉及客户接触，尚不足以证明独立负责客户沟通。",
+              "matchRefs": [
+                "MI-002"
+              ],
+              "suggestedAction": "如果确实有独立沟通客户的真实经历，请补充具体事例。",
+              "validatorRules": [
+                "SG-N"
+              ],
+              "rejectionCodes": [
+                "SG-N_REJECTED"
+              ],
+              "rejectionReasons": [
+                "SG-N unsupported modifier upgrade: scope:独立负责"
+              ]
+            }
+          ]
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_strengthGap",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

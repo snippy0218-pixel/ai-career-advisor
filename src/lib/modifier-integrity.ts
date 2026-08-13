@@ -54,7 +54,7 @@ export function findUnsupportedModifiers(
       const index = content.indexOf(value);
       if (index < 0 || evidence.some((item) => item.includes(value))) return false;
       const localContext = content.slice(Math.max(0, index - 10), index + value.length + 8);
-      return !/(?:没有|未|无法|不能|不得|并非|不是|是否|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(
+      return !/(?:没有|未|无法|不能|不得|并非|不是|不足以(?:确认|证明)|是否|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(
         localContext,
       );
     },
