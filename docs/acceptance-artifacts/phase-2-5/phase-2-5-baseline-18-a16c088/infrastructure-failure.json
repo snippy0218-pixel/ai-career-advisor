@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "phase-2-5-infrastructure-failure-v1",
+  "runId": "phase-2-5-baseline-18-a16c088",
+  "implementationCommit": "a16c088d9d5d73b420618a8e41026b3efeacbb6d",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "failedExecutionId": "TC-P2-01-R1",
+  "completedContentSamples": 0,
+  "failedAttemptCountsAsContentSample": false,
+  "additionalScheduledRequestsAfterFailure": 0,
+  "failure": {
+    "stage": "jd",
+    "category": "AI_SERVICE_UNAVAILABLE",
+    "infrastructure": true,
+    "httpStatus": 503,
+    "error": {
+      "code": "AI_SERVICE_UNAVAILABLE",
+      "message": "分析服务暂时不可用，请稍后重试。",
+      "request_id": "7b888fee-7f55-4fed-b46a-1660f139d189",
+      "retryable": true
+    }
+  },
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "resultState": "failed",
+    "status": 503,
+    "latencyMs": 33,
+    "requestId": "7b888fee-7f55-4fed-b46a-1660f139d189",
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": {
+      "code": "AI_SERVICE_UNAVAILABLE",
+      "message": "分析服务暂时不可用，请稍后重试。",
+      "request_id": "7b888fee-7f55-4fed-b46a-1660f139d189",
+      "retryable": true
+    },
+    "attempts": {
+      "state": "unknown",
+      "count": null
+    },
+    "repair": {
+      "state": "unknown",
+      "attempts": null
+    },
+    "fallback": {
+      "state": "unknown",
+      "attempts": null
+    },
+    "personalizedFallback": {
+      "state": "not_used",
+      "attempts": 0
+    },
+    "phase1Fallback": {
+      "state": "not_used",
+      "attempts": 0
+    },
+    "completionState": "failed",
+    "httpStatus": 503,
+    "output": null,
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "failureClassification": "AI_SERVICE_UNAVAILABLE"
+  }
+}

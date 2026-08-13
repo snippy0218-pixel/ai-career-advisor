@@ -960,6 +960,20 @@ describe("ISSUE-031 exact runtime MI/status attribution", () => {
     ).toEqual([]);
   });
 
+  it("keeps a partial item valid when a limitation says the requirement is not fully met", () => {
+    const matchCore = buildRecommendationMatchCore([
+      { requirement: "本科及以上学历", requirementType: "hard_requirement", status: "partial" },
+    ]);
+    const raw = statusRaw("MI-001 为 partial。");
+    raw.limitations = [
+      {
+        content: "MI-001 为 partial，候选人目前为本科在读，学历要求未完全满足。",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    expect(inspectRecommendationStatusClaimIntegrity(raw, matchCore)).toEqual([]);
+  });
+
   it("R31-9 rejects every contradicted member of an explicit MI group", () => {
     const matchCore = buildRecommendationMatchCore([
       { requirement: "A", requirementType: "core_requirement", status: "partial" },

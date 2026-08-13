@@ -1,0 +1,2372 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-18-replacement-a16c088",
+  "executionId": "TC-P2-02-R2",
+  "fixtureId": "TC-P2-02",
+  "fixtureName": "explicit hard counter-evidence",
+  "repetition": 2,
+  "implementationCommit": "a16c088d9d5d73b420618a8e41026b3efeacbb6d",
+  "input": {
+    "jdCharacters": 156,
+    "profileCharacters": 52,
+    "jdSha256": "cb7303c283451899f86111b9bb14a5e4670b73f0f017bf33ffacddcd9a0512ee",
+    "profileSha256": "bbdddd57d29f620d2770e86117016e174620c0196d677477ead4cf9930d9e6fb"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unmet"
+    ]
+  },
+  "coverage": [
+    "hard-constraint",
+    "explicit-counter",
+    "employment-type",
+    "unknown-not-unmet"
+  ],
+  "completed": true,
+  "stoppedAt": null,
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": null,
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8008,
+      "requestId": "86597ed0-d333-43a9-b48b-b0c7b29ac54e",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "数据分析岗位",
+          "companyName": null,
+          "location": "上海",
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": "3年以上正式全职数据分析经验",
+          "educationRequirement": "本科及以上学历",
+          "summary": "从JD信息看，可能属于数据分析类岗位，涉及使用SQL进行业务数据分析，并与产品和运营团队协作。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "使用SQL完成业务数据分析",
+            "description": "负责通过SQL进行数据分析，并输出可追溯的分析结论。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "使用 SQL 完成业务数据分析，输出可追溯的分析结论"
+            ]
+          },
+          {
+            "title": "与产品和运营团队协作",
+            "description": "与产品和运营团队合作，拜访客户并整理真实业务需求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "与产品和运营团队协作，拜访客户并整理真实业务需求"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "本科及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "本科及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            },
+            {
+              "content": "必须具有3年以上正式全职数据分析经验",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "必须具有3年以上正式全职数据分析经验"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            },
+            {
+              "content": "能使用 SQL 进行数据分析",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "有数据项目经验者优先",
+              "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "有数据项目经验者优先"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "preferred_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及较多SQL取数与报表输出工作",
+              "explanation": "职责中明确提到使用SQL完成数据分析，可能工作重心在SQL应用。",
+              "sourceType": "inference",
+              "evidence": [
+                "使用 SQL 完成业务数据分析"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能需要与产品和运营团队沟通协作",
+              "explanation": "职责中明确提到与产品和运营团队协作，可能工作涉及跨部门沟通。",
+              "sourceType": "inference",
+              "evidence": [
+                "与产品和运营团队协作"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能包含客户拜访和需求整理工作",
+              "explanation": "职责中明确提到拜访客户并整理需求，可能工作包含对外沟通。",
+              "sourceType": "inference",
+              "evidence": [
+                "拜访客户并整理真实业务需求"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "公司名称未说明",
+            "薪资范围未说明",
+            "雇佣形式未说明",
+            "具体业务领域未说明",
+            "团队规模未说明",
+            "培养机制未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "该岗位的团队结构是怎样的？",
+              "reason": "JD未说明团队结构，需要确认。"
+            },
+            {
+              "question": "实际参与数据分析的深度如何？是否独立负责模块？",
+              "reason": "JD未说明实际参与深度，需要确认。"
+            },
+            {
+              "question": "公司是否有明确的培养机制？",
+              "reason": "JD未说明培养机制，需要确认。"
+            },
+            {
+              "question": "该岗位的业务重点是什么？",
+              "reason": "JD未说明业务权重，需要确认。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触SQL数据分析相关工作",
+              "sourceType": "inference",
+              "evidence": [
+                "使用 SQL 完成业务数据分析"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能涉及与产品和运营团队协作",
+              "sourceType": "inference",
+              "evidence": [
+                "与产品和运营团队协作"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对数据分析岗位很感兴趣，想进一步了解岗位职责和团队情况，希望有机会沟通。",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2103,
+      "requestId": "e1fba197-9a89-4fcc-9989-a468f1d6409e",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2099,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 359,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2099,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 359,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "教育背景：大专",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "目前没有正式全职数据分析经验",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "experience"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "在课程中接触过 SQL",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "求职方向：数据助理",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "career_target",
+                "experience"
+              ]
+            }
+          ],
+          "careerTarget": "CF-004",
+          "education": [
+            "CF-001"
+          ],
+          "experiences": [
+            "CF-002",
+            "CF-004"
+          ],
+          "projects": [],
+          "skills": [
+            "CF-003"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "教育背景：大专"
+            },
+            {
+              "id": "PF-002",
+              "text": "工作经历：目前没有正式全职数据分析经验"
+            },
+            {
+              "id": "PF-003",
+              "text": "技能：在课程中接触过 SQL"
+            },
+            {
+              "id": "PF-004",
+              "text": "求职方向：数据助理"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 4009,
+      "requestId": "6321bd07-fff4-40ac-88d1-ecec8070edfa",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 2,
+          "unknown": 1
+        },
+        "latencyMs": 4006,
+        "outputCompletionTokens": 531,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 0,
+          "partial": 1,
+          "unmet": 2,
+          "unknown": 1
+        },
+        "latencyMs": 4006,
+        "outputCompletionTokens": 531,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "match-core-v1",
+        "jdSchemaVersion": "analysis-v1",
+        "candidateProfileSchemaVersion": "candidate-profile-v2",
+        "matchItems": [
+          {
+            "requirementId": "REQ-001",
+            "requirement": "本科及以上学历",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "本科及以上学历"
+            ],
+            "status": "unmet",
+            "requirementDimensions": [
+              {
+                "dimensionType": "credential",
+                "requirementFragment": "本科及以上学历",
+                "status": "unmet",
+                "reason": "候选人学历为大专，与本科及以上学历要求直接冲突。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-001"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-001"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-002",
+            "requirement": "必须具有3年以上正式全职数据分析经验",
+            "requirementType": "hard_requirement",
+            "jdEvidence": [
+              "必须具有3年以上正式全职数据分析经验"
+            ],
+            "status": "unmet",
+            "requirementDimensions": [
+              {
+                "dimensionType": "employment_type",
+                "requirementFragment": "正式全职数据分析经验",
+                "status": "unmet",
+                "reason": "候选人明确表示目前没有正式全职数据分析经验，与正式全职要求直接冲突。",
+                "jdEvidence": [
+                  "必须具有3年以上正式全职数据分析经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-002"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-002"
+                ]
+              },
+              {
+                "dimensionType": "duration",
+                "requirementFragment": "3年以上",
+                "status": "unmet",
+                "reason": "候选人明确表示目前没有正式全职数据分析经验，无法满足3年以上年限要求。",
+                "jdEvidence": [
+                  "必须具有3年以上正式全职数据分析经验"
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null,
+                "dimensionId": "DIM-002",
+                "candidateFactRefs": [
+                  "CF-002"
+                ],
+                "candidateEvidenceRole": "counter",
+                "pfEvidence": [
+                  "PF-002"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-003",
+            "requirement": "能使用 SQL 进行数据分析",
+            "requirementType": "core_requirement",
+            "jdEvidence": [
+              "能使用 SQL 进行数据分析"
+            ],
+            "status": "partial",
+            "requirementDimensions": [
+              {
+                "dimensionType": "skill",
+                "requirementFragment": "能使用 SQL 进行数据分析",
+                "status": "partial",
+                "reason": "候选人在课程中接触过 SQL，表明有使用 SQL 的基础，但未明确达到数据分析所需的熟练程度。",
+                "jdEvidence": [
+                  "能使用 SQL 进行数据分析"
+                ],
+                "missingInformation": "SQL 使用的熟练程度、实际数据分析应用场景及频率未说明。",
+                "verificationQuestion": "请描述在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [
+                  "CF-003"
+                ],
+                "candidateEvidenceRole": "positive",
+                "pfEvidence": [
+                  "PF-003"
+                ]
+              }
+            ]
+          },
+          {
+            "requirementId": "REQ-004",
+            "requirement": "有数据项目经验者优先",
+            "requirementType": "preferred_requirement",
+            "jdEvidence": [
+              "有数据项目经验者优先"
+            ],
+            "status": "unknown",
+            "requirementDimensions": [
+              {
+                "dimensionType": "domain",
+                "requirementFragment": "数据项目经验",
+                "status": "unknown",
+                "reason": "现有资料未表明候选人是否有数据项目经验。",
+                "jdEvidence": [
+                  "有数据项目经验者优先"
+                ],
+                "missingInformation": "候选人是否参与过数据项目及其具体内容未说明。",
+                "verificationQuestion": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+                "dimensionId": "DIM-001",
+                "candidateFactRefs": [],
+                "candidateEvidenceRole": null,
+                "pfEvidence": []
+              }
+            ]
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 5113,
+      "requestId": "6494649b-6db6-4809-baad-17eb7dc94bf8",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 2,
+        "latencyMs": 5109,
+        "outputCompletionTokens": 303,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 部分满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "not_recommended",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 1,
+        "counterRefCount": 2,
+        "latencyMs": 5109,
+        "outputCompletionTokens": 303,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "ambiguous status phrase attribution: 未满足",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"not_recommended\",\"summary\":\"Match Core 显示 MI-001 为 unmet（学历要求未满足），MI-002 为 unmet（正式全职数据分析经验要求未满足），MI-003 为 partial（SQL 技能部分满足），MI-004 为 unknown（数据项目经验待确认）。核心硬性要求存在明确反证，方向一致性不足。\",\"supportingMatchRefs\":[\"MI-003\"],\"counterMatchRefs\":[\"MI-001\",\"MI-002\"],\"limitations\":[{\"content\":\"MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。\",\"matchItemRefs\":[\"MI-003\"]},{\"question\":\"请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。\",\"matchItemRefs\":[\"MI-004\"]}]}",
+            "rawTextLength": 736,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "not_recommended",
+              "summary": "Match Core 显示 MI-001 为 unmet（学历要求未满足），MI-002 为 unmet（正式全职数据分析经验要求未满足），MI-003 为 partial（SQL 技能部分满足），MI-004 为 unknown（数据项目经验待确认）。核心硬性要求存在明确反证，方向一致性不足。",
+              "supportingMatchRefs": [
+                "MI-003"
+              ],
+              "counterMatchRefs": [
+                "MI-001",
+                "MI-002"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 未满足",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 未满足",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 部分满足",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"not_recommended\",\"summary\":\"Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。\",\"supportingMatchRefs\":[\"MI-003\"],\"counterMatchRefs\":[\"MI-001\",\"MI-002\"],\"limitations\":[{\"content\":\"MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。\",\"matchItemRefs\":[\"MI-003\"]},{\"question\":\"请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。\",\"matchItemRefs\":[\"MI-004\"]}]}",
+            "rawTextLength": 687,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "not_recommended",
+              "summary": "Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。",
+              "supportingMatchRefs": [
+                "MI-003"
+              ],
+              "counterMatchRefs": [
+                "MI-001",
+                "MI-002"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+                  "matchItemRefs": [
+                    "MI-004"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": null,
+            "failureCategory": null,
+            "validationIssues": [],
+            "rejectedItem": null
+          }
+        ],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "recommendationLevel": "not_recommended",
+        "summary": "Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。",
+        "supportingMatchRefs": [
+          "MI-003"
+        ],
+        "counterMatchRefs": [
+          "MI-001",
+          "MI-002"
+        ],
+        "limitations": [
+          {
+            "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+            "matchItemRefs": [
+              "MI-001"
+            ]
+          },
+          {
+            "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+            "matchItemRefs": [
+              "MI-002"
+            ]
+          },
+          {
+            "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          }
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+            "matchItemRefs": [
+              "MI-003"
+            ]
+          },
+          {
+            "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+            "matchItemRefs": [
+              "MI-004"
+            ]
+          }
+        ],
+        "schemaVersion": "recommendation-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ]
+      },
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"not_recommended\",\"summary\":\"Match Core 显示 MI-001 为 unmet（学历要求未满足），MI-002 为 unmet（正式全职数据分析经验要求未满足），MI-003 为 partial（SQL 技能部分满足），MI-004 为 unknown（数据项目经验待确认）。核心硬性要求存在明确反证，方向一致性不足。\",\"supportingMatchRefs\":[\"MI-003\"],\"counterMatchRefs\":[\"MI-001\",\"MI-002\"],\"limitations\":[{\"content\":\"MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。\",\"matchItemRefs\":[\"MI-003\"]},{\"question\":\"请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。\",\"matchItemRefs\":[\"MI-004\"]}]}",
+          "rawTextLength": 736,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "not_recommended",
+            "summary": "Match Core 显示 MI-001 为 unmet（学历要求未满足），MI-002 为 unmet（正式全职数据分析经验要求未满足），MI-003 为 partial（SQL 技能部分满足），MI-004 为 unknown（数据项目经验待确认）。核心硬性要求存在明确反证，方向一致性不足。",
+            "supportingMatchRefs": [
+              "MI-003"
+            ],
+            "counterMatchRefs": [
+              "MI-001",
+              "MI-002"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 未满足",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 未满足",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 部分满足",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"not_recommended\",\"summary\":\"Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。\",\"supportingMatchRefs\":[\"MI-003\"],\"counterMatchRefs\":[\"MI-001\",\"MI-002\"],\"limitations\":[{\"content\":\"MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。\",\"matchItemRefs\":[\"MI-003\"]},{\"question\":\"请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。\",\"matchItemRefs\":[\"MI-004\"]}]}",
+          "rawTextLength": 687,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "not_recommended",
+            "summary": "Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。",
+            "supportingMatchRefs": [
+              "MI-003"
+            ],
+            "counterMatchRefs": [
+              "MI-001",
+              "MI-002"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+                "matchItemRefs": [
+                  "MI-004"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null,
+          "validationIssues": [],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3752,
+      "requestId": "881b34ed-d33e-40bd-9868-ec8608ed4694",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 5,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 2,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 1
+        },
+        "latencyMs": 3747,
+        "outputCompletionTokens": 508,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 1,
+        "gapCount": 5,
+        "strengthTypeCounts": {
+          "direct_match": 0,
+          "transferable_strength": 1,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 2,
+          "evidence_expression": 1,
+          "learnable_skill": 1,
+          "information": 1
+        },
+        "latencyMs": 3747,
+        "outputCompletionTokens": 508,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "strength-gap-core-v1",
+        "matchSchemaVersion": "match-core-v1",
+        "strengths": [
+          {
+            "type": "transferable_strength",
+            "statement": "候选人在课程中接触过 SQL，具备一定的 SQL 基础，可迁移至数据分析场景，部分支持该要求。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "strengthId": "ST-001"
+          }
+        ],
+        "gaps": [
+          {
+            "type": "hard_constraint",
+            "statement": "候选人学历为大专，与本科及以上学历要求直接冲突，该条件未满足。",
+            "matchRefs": [
+              "MI-001"
+            ],
+            "suggestedAction": "投递前确认/核实该条件是否为严格门槛及具体执行口径。",
+            "actionType": "structural",
+            "gapId": "GP-001"
+          },
+          {
+            "type": "hard_constraint",
+            "statement": "候选人明确表示目前没有正式全职数据分析经验，与3年以上正式全职数据分析经验要求直接冲突，该条件未满足。",
+            "matchRefs": [
+              "MI-002"
+            ],
+            "suggestedAction": "投递前确认/核实该条件是否为严格门槛及具体执行口径。",
+            "actionType": "structural",
+            "gapId": "GP-002"
+          },
+          {
+            "type": "evidence_expression",
+            "statement": "现有证据只能证明候选人在课程中接触过 SQL，尚不足以证明其能熟练使用 SQL 进行数据分析。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "suggestedAction": "如果确实有真实经历，请补充在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+            "actionType": "evidence",
+            "gapId": "GP-003"
+          },
+          {
+            "type": "learnable_skill",
+            "statement": "候选人在课程中接触过 SQL，但尚未达到数据分析所需的熟练程度，需要进一步学习或练习以提升 SQL 数据分析能力。",
+            "matchRefs": [
+              "MI-003"
+            ],
+            "suggestedAction": "学习并练习 SQL 数据分析技能，以提升熟练程度。",
+            "actionType": "learn",
+            "gapId": "GP-004"
+          },
+          {
+            "type": "information",
+            "statement": "现有资料缺少候选人是否有数据项目经验的信息，无法判断其是否满足该优先条件。",
+            "matchRefs": [
+              "MI-004"
+            ],
+            "suggestedAction": "请补充候选人是否参与过数据项目及其具体内容、角色和使用的工具。",
+            "actionType": "confirm",
+            "gapId": "GP-005"
+          }
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "greeting",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 1665,
+      "requestId": "54a0b1e6-f900-4a3c-8b84-96b8f945b8f5",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-003"
+        ],
+        "selectedMatchRefs": [
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1661,
+        "outputCompletionTokens": 160,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-003"
+        ],
+        "selectedMatchRefs": [
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 1661,
+        "outputCompletionTokens": 160,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "personalized-greeting-v1",
+        "personalizationStatus": "personalized",
+        "greeting": "您好，看到贵司数据分析岗位的招聘信息，想就这个机会与您沟通。我在课程中接触过 SQL，这与岗位中能使用 SQL 进行数据分析的要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+        "candidateFactRefs": [
+          "CF-003"
+        ],
+        "matchRefs": [
+          "MI-003"
+        ],
+        "jdEvidence": [
+          "能使用 SQL 进行数据分析"
+        ],
+        "strengthRefs": [
+          "ST-001"
+        ]
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    }
+  ],
+  "downstreamState": "complete",
+  "finalOutput": {
+    "jobAnalysis": {
+      "schemaVersion": "analysis-v1",
+      "candidateProfileProvided": false,
+      "basicInfo": {
+        "jobTitle": "数据分析岗位",
+        "companyName": null,
+        "location": "上海",
+        "employmentType": null,
+        "salaryRange": null,
+        "experienceRequirement": "3年以上正式全职数据分析经验",
+        "educationRequirement": "本科及以上学历",
+        "summary": "从JD信息看，可能属于数据分析类岗位，涉及使用SQL进行业务数据分析，并与产品和运营团队协作。",
+        "summarySourceType": "inference"
+      },
+      "coreResponsibilities": [
+        {
+          "title": "使用SQL完成业务数据分析",
+          "description": "负责通过SQL进行数据分析，并输出可追溯的分析结论。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "使用 SQL 完成业务数据分析，输出可追溯的分析结论"
+          ]
+        },
+        {
+          "title": "与产品和运营团队协作",
+          "description": "与产品和运营团队合作，拜访客户并整理真实业务需求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "与产品和运营团队协作，拜访客户并整理真实业务需求"
+          ]
+        }
+      ],
+      "roleProfile": {
+        "requirements": [
+          {
+            "content": "本科及以上学历",
+            "explanation": "JD包含明确限制条件，归为硬性要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "本科及以上学历"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "hard_requirement"
+          },
+          {
+            "content": "必须具有3年以上正式全职数据分析经验",
+            "explanation": "JD包含明确限制条件，归为硬性要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "必须具有3年以上正式全职数据分析经验"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "hard_requirement"
+          },
+          {
+            "content": "能使用 SQL 进行数据分析",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "能使用 SQL 进行数据分析"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "有数据项目经验者优先",
+            "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "有数据项目经验者优先"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "preferred_requirement"
+          }
+        ],
+        "workCharacteristics": [
+          {
+            "content": "从职责看，可能涉及较多SQL取数与报表输出工作",
+            "explanation": "职责中明确提到使用SQL完成数据分析，可能工作重心在SQL应用。",
+            "sourceType": "inference",
+            "evidence": [
+              "使用 SQL 完成业务数据分析"
+            ],
+            "verificationQuestion": null
+          },
+          {
+            "content": "从职责看，可能需要与产品和运营团队沟通协作",
+            "explanation": "职责中明确提到与产品和运营团队协作，可能工作涉及跨部门沟通。",
+            "sourceType": "inference",
+            "evidence": [
+              "与产品和运营团队协作"
+            ],
+            "verificationQuestion": null
+          },
+          {
+            "content": "从职责看，可能包含客户拜访和需求整理工作",
+            "explanation": "职责中明确提到拜访客户并整理需求，可能工作包含对外沟通。",
+            "sourceType": "inference",
+            "evidence": [
+              "拜访客户并整理真实业务需求"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "riskSignals": [],
+        "unknowns": [
+          "公司名称未说明",
+          "薪资范围未说明",
+          "雇佣形式未说明",
+          "具体业务领域未说明",
+          "团队规模未说明",
+          "培养机制未说明"
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "该岗位的团队结构是怎样的？",
+            "reason": "JD未说明团队结构，需要确认。"
+          },
+          {
+            "question": "实际参与数据分析的深度如何？是否独立负责模块？",
+            "reason": "JD未说明实际参与深度，需要确认。"
+          },
+          {
+            "question": "公司是否有明确的培养机制？",
+            "reason": "JD未说明培养机制，需要确认。"
+          },
+          {
+            "question": "该岗位的业务重点是什么？",
+            "reason": "JD未说明业务权重，需要确认。"
+          }
+        ]
+      },
+      "applicationAdvice": {
+        "level": "worth_exploring",
+        "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+        "sourceType": "inference",
+        "verificationQuestion": null,
+        "reasons": [
+          {
+            "content": "从职责看，可能接触SQL数据分析相关工作",
+            "sourceType": "inference",
+            "evidence": [
+              "使用 SQL 完成业务数据分析"
+            ],
+            "verificationQuestion": null
+          },
+          {
+            "content": "从职责看，可能涉及与产品和运营团队协作",
+            "sourceType": "inference",
+            "evidence": [
+              "与产品和运营团队协作"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+      },
+      "candidateAdvantages": null,
+      "hrGreeting": {
+        "personalizationStatus": "not_personalized",
+        "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+        "safeGreeting": "您好，我对数据分析岗位很感兴趣，想进一步了解岗位职责和团队情况，希望有机会沟通。",
+        "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+      }
+    },
+    "candidateProfile": {
+      "schemaVersion": "candidate-profile-v2",
+      "profileProvided": true,
+      "candidateProfile": {
+        "canonicalFacts": [
+          {
+            "factId": "CF-001",
+            "statement": "教育背景：大专",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-001"
+            ],
+            "semanticTags": [
+              "education"
+            ]
+          },
+          {
+            "factId": "CF-002",
+            "statement": "目前没有正式全职数据分析经验",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-002"
+            ],
+            "semanticTags": [
+              "experience"
+            ]
+          },
+          {
+            "factId": "CF-003",
+            "statement": "在课程中接触过 SQL",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "skill_usage"
+            ]
+          },
+          {
+            "factId": "CF-004",
+            "statement": "求职方向：数据助理",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-004"
+            ],
+            "semanticTags": [
+              "career_target",
+              "experience"
+            ]
+          }
+        ],
+        "careerTarget": "CF-004",
+        "education": [
+          "CF-001"
+        ],
+        "experiences": [
+          "CF-002",
+          "CF-004"
+        ],
+        "projects": [],
+        "skills": [
+          "CF-003"
+        ],
+        "certificates": [],
+        "portfolio": [],
+        "preferences": [],
+        "derivedObservations": [],
+        "unknowns": [],
+        "questionsToConfirm": [],
+        "evidence": [
+          {
+            "id": "PF-001",
+            "text": "教育背景：大专"
+          },
+          {
+            "id": "PF-002",
+            "text": "工作经历：目前没有正式全职数据分析经验"
+          },
+          {
+            "id": "PF-003",
+            "text": "技能：在课程中接触过 SQL"
+          },
+          {
+            "id": "PF-004",
+            "text": "求职方向：数据助理"
+          }
+        ]
+      }
+    },
+    "matchCore": {
+      "schemaVersion": "match-core-v1",
+      "jdSchemaVersion": "analysis-v1",
+      "candidateProfileSchemaVersion": "candidate-profile-v2",
+      "matchItems": [
+        {
+          "requirementId": "REQ-001",
+          "requirement": "本科及以上学历",
+          "requirementType": "hard_requirement",
+          "jdEvidence": [
+            "本科及以上学历"
+          ],
+          "status": "unmet",
+          "requirementDimensions": [
+            {
+              "dimensionType": "credential",
+              "requirementFragment": "本科及以上学历",
+              "status": "unmet",
+              "reason": "候选人学历为大专，与本科及以上学历要求直接冲突。",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-001"
+              ],
+              "candidateEvidenceRole": "counter",
+              "pfEvidence": [
+                "PF-001"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-002",
+          "requirement": "必须具有3年以上正式全职数据分析经验",
+          "requirementType": "hard_requirement",
+          "jdEvidence": [
+            "必须具有3年以上正式全职数据分析经验"
+          ],
+          "status": "unmet",
+          "requirementDimensions": [
+            {
+              "dimensionType": "employment_type",
+              "requirementFragment": "正式全职数据分析经验",
+              "status": "unmet",
+              "reason": "候选人明确表示目前没有正式全职数据分析经验，与正式全职要求直接冲突。",
+              "jdEvidence": [
+                "必须具有3年以上正式全职数据分析经验"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-002"
+              ],
+              "candidateEvidenceRole": "counter",
+              "pfEvidence": [
+                "PF-002"
+              ]
+            },
+            {
+              "dimensionType": "duration",
+              "requirementFragment": "3年以上",
+              "status": "unmet",
+              "reason": "候选人明确表示目前没有正式全职数据分析经验，无法满足3年以上年限要求。",
+              "jdEvidence": [
+                "必须具有3年以上正式全职数据分析经验"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-002",
+              "candidateFactRefs": [
+                "CF-002"
+              ],
+              "candidateEvidenceRole": "counter",
+              "pfEvidence": [
+                "PF-002"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-003",
+          "requirement": "能使用 SQL 进行数据分析",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "能使用 SQL 进行数据分析"
+          ],
+          "status": "partial",
+          "requirementDimensions": [
+            {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用 SQL 进行数据分析",
+              "status": "partial",
+              "reason": "候选人在课程中接触过 SQL，表明有使用 SQL 的基础，但未明确达到数据分析所需的熟练程度。",
+              "jdEvidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "missingInformation": "SQL 使用的熟练程度、实际数据分析应用场景及频率未说明。",
+              "verificationQuestion": "请描述在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-003"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-003"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-004",
+          "requirement": "有数据项目经验者优先",
+          "requirementType": "preferred_requirement",
+          "jdEvidence": [
+            "有数据项目经验者优先"
+          ],
+          "status": "unknown",
+          "requirementDimensions": [
+            {
+              "dimensionType": "domain",
+              "requirementFragment": "数据项目经验",
+              "status": "unknown",
+              "reason": "现有资料未表明候选人是否有数据项目经验。",
+              "jdEvidence": [
+                "有数据项目经验者优先"
+              ],
+              "missingInformation": "候选人是否参与过数据项目及其具体内容未说明。",
+              "verificationQuestion": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [],
+              "candidateEvidenceRole": null,
+              "pfEvidence": []
+            }
+          ]
+        }
+      ]
+    },
+    "recommendation": {
+      "recommendationLevel": "not_recommended",
+      "summary": "Match Core 显示 MI-001 为 unmet，MI-002 为 unmet，MI-003 为 partial，MI-004 为 unknown。核心硬性要求存在明确反证，方向一致性不足。",
+      "supportingMatchRefs": [
+        "MI-003"
+      ],
+      "counterMatchRefs": [
+        "MI-001",
+        "MI-002"
+      ],
+      "limitations": [
+        {
+          "content": "MI-001 硬性学历要求未满足，候选人学历为大专，与本科及以上学历要求直接冲突。",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "content": "MI-002 硬性工作经验要求未满足，候选人明确表示没有正式全职数据分析经验，无法满足3年以上年限要求。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        },
+        {
+          "content": "MI-003 为 partial，SQL 使用熟练程度及实际数据分析应用场景未明确，需进一步确认。",
+          "matchItemRefs": [
+            "MI-003"
+          ]
+        }
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请描述您在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+          "matchItemRefs": [
+            "MI-003"
+          ]
+        },
+        {
+          "question": "请提供您参与过的数据项目经验（如有），包括项目内容、您的角色及使用的工具。",
+          "matchItemRefs": [
+            "MI-004"
+          ]
+        }
+      ],
+      "schemaVersion": "recommendation-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "allowedRecommendationLevels": [
+        "cautious",
+        "not_recommended"
+      ]
+    },
+    "strengthGap": {
+      "schemaVersion": "strength-gap-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "strengths": [
+        {
+          "type": "transferable_strength",
+          "statement": "候选人在课程中接触过 SQL，具备一定的 SQL 基础，可迁移至数据分析场景，部分支持该要求。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "strengthId": "ST-001"
+        }
+      ],
+      "gaps": [
+        {
+          "type": "hard_constraint",
+          "statement": "候选人学历为大专，与本科及以上学历要求直接冲突，该条件未满足。",
+          "matchRefs": [
+            "MI-001"
+          ],
+          "suggestedAction": "投递前确认/核实该条件是否为严格门槛及具体执行口径。",
+          "actionType": "structural",
+          "gapId": "GP-001"
+        },
+        {
+          "type": "hard_constraint",
+          "statement": "候选人明确表示目前没有正式全职数据分析经验，与3年以上正式全职数据分析经验要求直接冲突，该条件未满足。",
+          "matchRefs": [
+            "MI-002"
+          ],
+          "suggestedAction": "投递前确认/核实该条件是否为严格门槛及具体执行口径。",
+          "actionType": "structural",
+          "gapId": "GP-002"
+        },
+        {
+          "type": "evidence_expression",
+          "statement": "现有证据只能证明候选人在课程中接触过 SQL，尚不足以证明其能熟练使用 SQL 进行数据分析。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "suggestedAction": "如果确实有真实经历，请补充在课程中使用 SQL 完成的具体数据分析任务及熟练程度。",
+          "actionType": "evidence",
+          "gapId": "GP-003"
+        },
+        {
+          "type": "learnable_skill",
+          "statement": "候选人在课程中接触过 SQL，但尚未达到数据分析所需的熟练程度，需要进一步学习或练习以提升 SQL 数据分析能力。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "suggestedAction": "学习并练习 SQL 数据分析技能，以提升熟练程度。",
+          "actionType": "learn",
+          "gapId": "GP-004"
+        },
+        {
+          "type": "information",
+          "statement": "现有资料缺少候选人是否有数据项目经验的信息，无法判断其是否满足该优先条件。",
+          "matchRefs": [
+            "MI-004"
+          ],
+          "suggestedAction": "请补充候选人是否参与过数据项目及其具体内容、角色和使用的工具。",
+          "actionType": "confirm",
+          "gapId": "GP-005"
+        }
+      ]
+    },
+    "greeting": {
+      "schemaVersion": "personalized-greeting-v1",
+      "personalizationStatus": "personalized",
+      "greeting": "您好，看到贵司数据分析岗位的招聘信息，想就这个机会与您沟通。我在课程中接触过 SQL，这与岗位中能使用 SQL 进行数据分析的要求有一定相关性。希望进一步了解岗位的实际要求和招聘口径，期待您的回复。",
+      "candidateFactRefs": [
+        "CF-003"
+      ],
+      "matchRefs": [
+        "MI-003"
+      ],
+      "jdEvidence": [
+        "能使用 SQL 进行数据分析"
+      ],
+      "strengthRefs": [
+        "ST-001"
+      ]
+    }
+  },
+  "invariantAudit": {
+    "status": "fail",
+    "values": {
+      "X-A_candidate_truth": true,
+      "X-B_jd_truth": true,
+      "X-C_status_stability": true,
+      "X-D_unknown_stability": true,
+      "X-E_negative_evidence_stability": true,
+      "X-F_modifier_integrity": false,
+      "X-G_waiver_integrity": true,
+      "X-H_candidate_semantic_preservation": true,
+      "X-I_reference_continuity": true,
+      "X-J_no_circular_truth": true
+    },
+    "passed": false
+  },
+  "expectation": {
+    "passed": true,
+    "checks": {
+      "outcome": true,
+      "requiredMatchStatuses": true,
+      "greetingPersonalizationStatus": true
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

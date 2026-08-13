@@ -137,6 +137,12 @@
 - Ten Match failures share one structural omission after correct terminal `met -> partial`: missingInformation and verificationQuestion were null. Recovery now fills those required uncertainty fields from the same requirement fragment only.
 - Summary SHA-256 `92d08c66d6a65106c81385d6fd4c179e012ecdef8b2ba0c55955111eaf6d9acc`; focused `148/148`, full `645/645`, lint/build PASS. See `PHASE-2-5-BASELINE-17-STABILIZATION.md`.
 
+## Baseline 18 additional evidence
+
+- The first attempt is preserved as zero-content infrastructure evidence. Authorized-network replacement `phase-2-5-baseline-18-replacement-a16c088` completed `42/42` at `39/42`, with `40` complete chains and downstream-after-failure `0`.
+- TC-P2-04 R2/R3 reproduce one R-C negation-boundary false positive; TC-P2-02 R2 reproduces one X-F uncertainty-boundary false positive after an otherwise valid completed chain. Both are bounded deterministic defects, not new Contract ambiguity or truth failure.
+- Content summary SHA-256 `09085fa322cec24646d802957a2928b9cd147afd7d757dd77f93c682de3f854b`; focused `106/106`, full `646/646`, lint/build PASS. See `PHASE-2-5-BASELINE-18-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

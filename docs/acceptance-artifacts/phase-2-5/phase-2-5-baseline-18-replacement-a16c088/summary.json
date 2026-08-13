@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "phase-2-5-acceptance-summary-v1",
+  "runManifest": {
+    "schemaVersion": "phase-2-5-run-manifest-v1",
+    "phase": "2.5",
+    "runId": "phase-2-5-baseline-18-replacement-a16c088",
+    "implementationCommit": "a16c088d9d5d73b420618a8e41026b3efeacbb6d",
+    "suite": "phase2",
+    "repetitions": 3,
+    "dryRun": false,
+    "baseUrl": "http://127.0.0.1:3000",
+    "fixtureSchemaVersion": "phase-2-5-fixtures-v1",
+    "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+    "modelConfiguration": {
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-flash",
+      "temperature": {
+        "jd": 0.2,
+        "profile": 0.2,
+        "match": 0.1,
+        "recommendation": 0.1,
+        "strengthGap": 0.1,
+        "greeting": 0.1
+      },
+      "maxOutputTokens": {
+        "jd": 4096,
+        "profile": 4096,
+        "match": 8192,
+        "recommendation": 4096,
+        "strengthGap": 8192,
+        "greeting": 4096
+      },
+      "totalTimeoutMs": {
+        "jd": 60000,
+        "profile": 60000,
+        "match": 90000,
+        "recommendation": 90000,
+        "strengthGap": 90000,
+        "greeting": 90000
+      },
+      "repairPolicy": "released single targeted repair path; no top-level replacement sample"
+    },
+    "policy": {
+      "phase1": "TC-01..10 x 3 complete matrix",
+      "phase2": "TC-P2-01..14 x 3 complete full-chain matrix",
+      "cherryPick": false,
+      "fourthRun": false,
+      "partialRerunComposition": false,
+      "incrementalEvidenceWrite": true
+    }
+  },
+  "preflight": {
+    "status": "passed",
+    "available": true,
+    "error": null,
+    "modelCalls": 0,
+    "capabilities": [
+      {
+        "module": "profile",
+        "path": "/api/profile/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "match",
+        "path": "/api/match/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "recommendation",
+        "path": "/api/recommendation/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "strengthGap",
+        "path": "/api/strength-gap/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      },
+      {
+        "module": "greeting",
+        "path": "/api/greeting/analyze",
+        "status": 200,
+        "enabled": true,
+        "rejectedOutputCapture": true,
+        "error": null
+      }
+    ]
+  },
+  "generatedAt": "2026-08-13T13:28:50.354Z",
+  "resultFiles": {
+    "phase1": [],
+    "phase2": [
+      "phase2/TC-P2-01-R1.json",
+      "phase2/TC-P2-01-R2.json",
+      "phase2/TC-P2-01-R3.json",
+      "phase2/TC-P2-02-R1.json",
+      "phase2/TC-P2-02-R2.json",
+      "phase2/TC-P2-02-R3.json",
+      "phase2/TC-P2-03-R1.json",
+      "phase2/TC-P2-03-R2.json",
+      "phase2/TC-P2-03-R3.json",
+      "phase2/TC-P2-04-R1.json",
+      "phase2/TC-P2-04-R2.json",
+      "phase2/TC-P2-04-R3.json",
+      "phase2/TC-P2-05-R1.json",
+      "phase2/TC-P2-05-R2.json",
+      "phase2/TC-P2-05-R3.json",
+      "phase2/TC-P2-06-R1.json",
+      "phase2/TC-P2-06-R2.json",
+      "phase2/TC-P2-06-R3.json",
+      "phase2/TC-P2-07-R1.json",
+      "phase2/TC-P2-07-R2.json",
+      "phase2/TC-P2-07-R3.json",
+      "phase2/TC-P2-08-R1.json",
+      "phase2/TC-P2-08-R2.json",
+      "phase2/TC-P2-08-R3.json",
+      "phase2/TC-P2-09-R1.json",
+      "phase2/TC-P2-09-R2.json",
+      "phase2/TC-P2-09-R3.json",
+      "phase2/TC-P2-10-R1.json",
+      "phase2/TC-P2-10-R2.json",
+      "phase2/TC-P2-10-R3.json",
+      "phase2/TC-P2-11-R1.json",
+      "phase2/TC-P2-11-R2.json",
+      "phase2/TC-P2-11-R3.json",
+      "phase2/TC-P2-12-R1.json",
+      "phase2/TC-P2-12-R2.json",
+      "phase2/TC-P2-12-R3.json",
+      "phase2/TC-P2-13-R1.json",
+      "phase2/TC-P2-13-R2.json",
+      "phase2/TC-P2-13-R3.json",
+      "phase2/TC-P2-14-R1.json",
+      "phase2/TC-P2-14-R2.json",
+      "phase2/TC-P2-14-R3.json"
+    ]
+  },
+  "counts": {
+    "scheduled": 42,
+    "passed": 39,
+    "failed": 3,
+    "phase1Passed": 0,
+    "phase1Scheduled": 0,
+    "phase2Passed": 39,
+    "phase2Scheduled": 42,
+    "completedChains": 40,
+    "safeFailures": 0,
+    "downstreamCallsAfterFailure": 0
+  },
+  "metrics": {
+    "latency": {
+      "jd": {
+        "samples": 42,
+        "minimumMs": 6051,
+        "averageMs": 7934,
+        "maximumMs": 10495
+      },
+      "profile": {
+        "samples": 42,
+        "minimumMs": 1404,
+        "averageMs": 2437,
+        "maximumMs": 3872
+      },
+      "match": {
+        "samples": 42,
+        "minimumMs": 2137,
+        "averageMs": 6288,
+        "maximumMs": 12665
+      },
+      "recommendation": {
+        "samples": 42,
+        "minimumMs": 1667,
+        "averageMs": 2723,
+        "maximumMs": 5835
+      },
+      "strengthGap": {
+        "samples": 40,
+        "minimumMs": 1438,
+        "averageMs": 3270,
+        "maximumMs": 7869
+      },
+      "greeting": {
+        "samples": 40,
+        "minimumMs": 2,
+        "averageMs": 2787,
+        "maximumMs": 4491
+      }
+    },
+    "profileRepairs": {
+      "called": 1,
+      "completed": 1,
+      "failed": 0
+    },
+    "matchRepairs": {
+      "called": 26,
+      "completed": 26,
+      "failed": 0
+    },
+    "recommendationRepairs": {
+      "called": 10,
+      "completed": 8,
+      "failed": 2
+    },
+    "strengthGapRepairs": {
+      "called": 9,
+      "completed": 9,
+      "failed": 0
+    },
+    "greetingRepairs": {
+      "called": 24,
+      "completed": 11,
+      "failed": 13
+    },
+    "hrSafeFallback": {
+      "disposition": "report_only_non_blocking",
+      "requests": {
+        "called": 13,
+        "completed": 13,
+        "failed": 0
+      },
+      "phase1FallbackRequests": {
+        "called": 3,
+        "completed": 3,
+        "failed": 0
+      }
+    }
+  },
+  "passed": false
+}

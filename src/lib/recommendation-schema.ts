@@ -494,6 +494,12 @@ function isHypotheticalStatusClaim(text: string, start: number) {
   return /(?:是否|确认是否)$/.test(text.slice(Math.max(0, start - 16), start));
 }
 
+function isNegatedMetClaim(text: string, start: number) {
+  return /(?:未|不|没有|尚未|并未|无法|不能|难以)\s*$/.test(
+    text.slice(Math.max(0, start - 8), start),
+  );
+}
+
 export function inspectRecommendationStatusClaimIntegrity(
   raw: RawRecommendation,
   matchCore: FinalMatchCore,
@@ -525,6 +531,7 @@ export function inspectRecommendationStatusClaimIntegrity(
           const start = match.index;
           if (start === undefined) continue;
           if (isHypotheticalStatusClaim(fragment, start)) continue;
+          if (kind === "met" && isNegatedMetClaim(fragment, start)) continue;
           const end = start + match[0].length;
           const parentheticalRefs = parentheticalTargetRefs(
             fragment,
