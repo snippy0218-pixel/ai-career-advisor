@@ -431,10 +431,6 @@ describe("Match rejected-reason normalization", () => {
       input,
       [
         {
-          path: "matchItems.0.dimensions.0.status",
-          message: "unknown omitted explicit same-domain positive evidence: CF-001",
-        },
-        {
           path: "matchItems.0.aggregateStatus",
           message: "aggregateStatus must be unknown",
         },
@@ -456,6 +452,50 @@ describe("Match rejected-reason normalization", () => {
       reason: "CF-001 原文：“日常使用 Vue3”。",
       candidateEvidence: [{ factId: "CF-001", role: "positive" }],
       missingInformation: "未表明 Vue3 的熟练程度",
+    });
+  });
+
+  it("N11 reduces a rejected multi-CF met skill claim to one exact partial CF", () => {
+    const input = raw({
+      dimensionType: "skill",
+      requirementFragment: "能使用 SQL 进行数据分析",
+      status: "met",
+      reason: "CF-001 和 CF-002 表明在课程中负责 SQL 数据分析。",
+      jdEvidence: ["能使用 SQL 进行数据分析"],
+      candidateEvidence: [
+        { factId: "CF-001", role: "positive" },
+        { factId: "CF-002", role: "positive" },
+      ],
+      missingInformation: null,
+      verificationQuestion: null,
+    });
+    input.matchItems[0].aggregateStatus = "met";
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [reasonIssue("M-K cross-CF modifier isolation failed: experience_type:课程->CF-002")],
+      [
+        {
+          factId: "CF-001",
+          statement: "在课程项目中使用 SQL 分析公开数据",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-001"],
+          semanticTags: ["project_experience", "skill_usage"],
+        },
+        {
+          factId: "CF-002",
+          statement: "日常使用 SQL",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-002"],
+          semanticTags: ["skill_usage"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0].aggregateStatus).toBe("partial");
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "partial",
+      candidateEvidence: [{ factId: "CF-001", role: "positive" }],
+      reason: "CF-001 原文：“在课程项目中使用 SQL 分析公开数据”。",
     });
   });
 });

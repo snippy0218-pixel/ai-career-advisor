@@ -54,7 +54,7 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **BASELINE-15 VALID 41/42 CONTENT MATRIX RETAINED / ISSUE-041/048 ADJACENT STABILIZATION IN PROGRESS**.
+Current Phase 2.5 disposition: **BASELINE-16 REGRESSION 33/42 RETAINED / TERMINAL-ONLY RESTABILIZATION IN PROGRESS**.
 
 Current evidence: baseline-2 Phase 1 `30/30` accepted. Phase 2 baseline-4 is a valid, complete, non-passing `21/42` batch with `26` complete chains and downstream-after-failure `0`; baseline-3 is zero-call preflight evidence. Updated stabilization focused suites `312/312` plus integration/boundary `40/40`; full automated suite `33 files / 618 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 
@@ -75,6 +75,8 @@ Latest content disposition: `phase-2-5-baseline-13-55cc2de` is valid and complet
 Latest content disposition: `phase-2-5-baseline-14-a5ff6eb` is valid and complete at `40/42`, with `40` complete chains and downstream-after-failure `0`; both Baseline-13 failures passed 3/3. TC-P2-10 R1/R3 share one already-unmet numeric-shortfall reason ownership root. Focused `146/146`, full `643/643`, lint/build PASS; a new committed complete matrix remains mandatory.
 
 Latest content disposition: `phase-2-5-baseline-15-75be908` is valid and complete at `41/42`, with all `42` complete chains and downstream-after-failure `0`. The only failure passed X-A～X-J but over-corrected explicit skill usage to unknown instead of frozen partial. Focused `148/148`, full `645/645`, lint/build PASS; a new committed complete matrix remains mandatory.
+
+Latest regression disposition: `phase-2-5-baseline-16-0598947` completed at `33/42`, with `33` complete chains and downstream-after-failure `0`. A global same-skill omission extension caused TC-P2-01/06/07 deterministic regressions and has been removed; terminal-only partial preservation passes focused `148/148`, full `645/645`, lint/build. A new committed complete matrix remains mandatory.
 
 Content baseline disposition: baseline-2 Phase 1 is accepted at 30/30. `phase-2-5-baseline-4-f7838a1` is a complete, non-passing Phase 2 stabilization baseline at 21/42 with 26 complete chains and downstream-after-failure 0; baseline-3/4 artifacts and rejected raw are retained. ISSUE-040～047 have deterministic fixes with full 618/618, lint/build PASS. A new committed full Phase 2 14×3 matrix is required; no earlier success may be cherry-picked into the final matrix. See `PHASE-2-5-BASELINE-4-STABILIZATION.md`.
 

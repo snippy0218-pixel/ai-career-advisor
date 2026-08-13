@@ -124,6 +124,13 @@
 - ISSUE-041/048 adjacent evidence is a fully valid chain where repair over-corrected explicit skill usage beneath a proficiency threshold to unknown. The same-domain omission Gate now recognizes exact ASCII skill tokens; recovery restores only `partial`, exact CF/ref, and retains proficiency uncertainty.
 - Summary SHA-256 is `e74aef6ce847563e4b6b68907ec04a2e17a159b996d8e1d8c4c349521ffb2678`. Focused `148/148`, full `645/645`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-15-STABILIZATION.md`.
 
+## Baseline 16 regression evidence
+
+- `phase-2-5-baseline-16-0598947` is a complete regression batch: `33/42` PASS, `33` complete chains, downstream-after-failure `0`; TC-P2-10 passed 3/3.
+- TC-P2-01/06/07 each failed 3/3 because the Baseline-15 global same-skill omission extension conflicted with M-K terminal downgrade after course/cross-CF contamination. The global extension is removed.
+- Terminal-only recovery retains at most one independently supporting exact CF, caps rejected met skill claims at partial, removes contaminated refs, and keeps the aggregate-only proficiency restoration required by Baseline 15.
+- Summary SHA-256 is `72897df00ee47d58c38edd464f027971d1aa19187a6b266fb4cd73ab82ad8de1`. Focused `148/148`, full `645/645`, lint/build PASS; a complete replacement matrix remains. See `PHASE-2-5-BASELINE-16-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

@@ -1,0 +1,1793 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-16-0598947",
+  "executionId": "TC-P2-07-R2",
+  "fixtureId": "TC-P2-07",
+  "fixtureName": "near validated input limits",
+  "repetition": 2,
+  "implementationCommit": "0598947ecdc4fc8c8199641e1b9fa2459dad7e90",
+  "input": {
+    "jdCharacters": 10781,
+    "profileCharacters": 10368,
+    "jdSha256": "618bf6e046225b52d097ed7a5eea1e8a42dac7c114adf999d49002d3fd56eb8a",
+    "profileSha256": "da9fb481082536adf2cb6ee63575e14dbfd8273452fa2d3f98bbbda8e521b206"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": []
+  },
+  "coverage": [
+    "near-limit",
+    "no-truncation",
+    "latency",
+    "coverage-ledger"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "d69e7324-d198-4f76-9e40-94bf9ec5c6fe",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 13302,
+      "requestId": "fae30df9-b658-44b6-a9c3-43ddc178e492",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "数据分析岗位",
+          "companyName": null,
+          "location": "上海",
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": null,
+          "educationRequirement": "本科及以上学历",
+          "summary": "从JD信息看，可能属于数据分析类岗位，涉及SQL数据分析及与产品、运营团队协作整理业务需求。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "使用SQL完成业务数据分析",
+            "description": "利用SQL进行数据分析，并输出可追溯的分析结论。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "使用 SQL 完成业务数据分析，输出可追溯的分析结论"
+            ]
+          },
+          {
+            "title": "与产品和运营团队协作，拜访客户并整理需求",
+            "description": "与产品和运营团队合作，通过拜访客户来整理真实的业务需求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "与产品和运营团队协作，拜访客户并整理真实业务需求"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "本科及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "本科及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            },
+            {
+              "content": "能使用 SQL 进行数据分析",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "有数据项目经验者优先",
+              "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "有数据项目经验者优先"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "preferred_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及与产品和运营团队的跨部门协作",
+              "explanation": "职责中明确提到与产品和运营团队协作，因此推断工作可能涉及跨部门沟通。",
+              "sourceType": "inference",
+              "evidence": [
+                "与产品和运营团队协作"
+              ],
+              "verificationQuestion": null
+            },
+            {
+              "content": "从职责看，可能需要外出拜访客户",
+              "explanation": "职责中提到拜访客户，因此推断可能需要外出。",
+              "sourceType": "inference",
+              "evidence": [
+                "拜访客户"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "公司名称未说明",
+            "薪资范围未说明",
+            "具体项目范围未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "该岗位的具体项目范围是什么？",
+              "reason": "JD中仅说明服务真实业务场景，具体项目范围需确认。"
+            },
+            {
+              "question": "该岗位的团队结构和汇报关系是怎样的？",
+              "reason": "JD未说明团队结构，需确认。"
+            },
+            {
+              "question": "该岗位是否有明确的培养机制或晋升路径？",
+              "reason": "JD未提及培养安排，需确认。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触SQL数据分析及业务需求整理工作",
+              "sourceType": "inference",
+              "evidence": [
+                "使用 SQL 完成业务数据分析",
+                "拜访客户并整理真实业务需求"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对数据分析岗位很感兴趣，想进一步了解岗位职责和项目情况，请问方便沟通吗？",
+          "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 3204,
+      "requestId": "a9c99548-be5d-48e9-8c0d-104cac147f17",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 6,
+        "pfTotal": 6,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 3200,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 547,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 6,
+        "pfTotal": 6,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 5,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 5,
+        "atomicClaimCount": 6,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 1,
+        "finalFactCount": 6,
+        "profileFactRecall": null,
+        "latencyMs": 3200,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 547,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "求职方向：数据分析",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "career_target"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "教育背景：统计学本科",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理",
+              "sourceType": "normalized_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "project_experience",
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-004",
+              "statement": "日常使用 SQL",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-005",
+              "statement": "了解 Python",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-004"
+              ],
+              "semanticTags": [
+                "skill_usage"
+              ]
+            },
+            {
+              "factId": "CF-006",
+              "statement": "与三人课程团队共同完成项目报告",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-005"
+              ],
+              "semanticTags": [
+                "project_experience"
+              ]
+            }
+          ],
+          "careerTarget": "CF-001",
+          "education": [
+            "CF-002"
+          ],
+          "experiences": [],
+          "projects": [
+            "CF-003",
+            "CF-006"
+          ],
+          "skills": [
+            "CF-003",
+            "CF-004",
+            "CF-005"
+          ],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "求职方向：数据分析"
+            },
+            {
+              "id": "PF-002",
+              "text": "教育背景：统计学本科"
+            },
+            {
+              "id": "PF-003",
+              "text": "项目经历：在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理"
+            },
+            {
+              "id": "PF-004",
+              "text": "技能：日常使用 SQL，了解 Python"
+            },
+            {
+              "id": "PF-005",
+              "text": "协作经历：与三人课程团队共同完成项目报告"
+            },
+            {
+              "id": "PF-006",
+              "text": "补充说明：以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。以下仅为资料完整性占位，不新增技能、经历、成果或年限。"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 6021,
+      "requestId": "d69e7324-d198-4f76-9e40-94bf9ec5c6fe",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-K"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003",
+              "CF-004"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": null,
+            "issueCodes": [
+              "M-AGGREGATE"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": false
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.status",
+            "message": "unknown omitted explicit same-domain positive evidence: CF-003, CF-004"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 6016,
+        "outputCompletionTokens": 494,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "unknown omitted explicit same-domain positive evidence: CF-003, CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-K"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-003",
+              "CF-004"
+            ],
+            "reasonRebuilt": true
+          },
+          {
+            "itemIndex": 1,
+            "dimensionIndex": null,
+            "issueCodes": [
+              "M-AGGREGATE"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": false
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.status",
+            "message": "unknown omitted explicit same-domain positive evidence: CF-003, CF-004"
+          }
+        ],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人教育背景为统计学本科，满足本科及以上学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用 SQL 进行数据分析",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "能使用 SQL 进行数据分析"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "尚缺少可验证的“能使用 SQL 进行数据分析”同维度候选人证据。",
+                  "verificationQuestion": "请补充可验证的“能使用 SQL 进行数据分析”相关事实或经历。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "有数据项目经验者优先",
+                  "status": "met",
+                  "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。",
+                  "jdEvidence": [
+                    "有数据项目经验者优先"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 6016,
+        "outputCompletionTokens": 494,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "unknown omitted explicit same-domain positive evidence: CF-003, CF-004",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为统计学本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用 SQL 进行数据分析\",\"status\":\"met\",\"reason\":\"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。\",\"jdEvidence\":[\"能使用 SQL 进行数据分析\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"},{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"有数据项目经验者优先\",\"status\":\"met\",\"reason\":\"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。\",\"jdEvidence\":[\"有数据项目经验者优先\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1101,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为统计学本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用 SQL 进行数据分析",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "有数据项目经验者优先",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。",
+                      "jdEvidence": [
+                        "有数据项目经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "能使用 SQL 进行数据分析",
+                        "status": "met",
+                        "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                        "jdEvidence": [
+                          "能使用 SQL 进行数据分析"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 1,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "能使用 SQL 进行数据分析",
+                "status": "met",
+                "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                "jdEvidence": [
+                  "能使用 SQL 进行数据分析"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-003",
+                    "role": "positive"
+                  },
+                  {
+                    "factId": "CF-004",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为统计学本科，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用 SQL 进行数据分析\",\n          \"status\": \"met\",\n          \"reason\": \"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。\",\n          \"jdEvidence\": [\"能使用 SQL 进行数据分析\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            },\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"有数据项目经验者优先\",\n          \"status\": \"met\",\n          \"reason\": \"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。\",\n          \"jdEvidence\": [\"有数据项目经验者优先\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 1839,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为统计学本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用 SQL 进行数据分析",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "有数据项目经验者优先",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。",
+                      "jdEvidence": [
+                        "有数据项目经验者优先"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "能使用 SQL 进行数据分析",
+                        "status": "met",
+                        "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                        "jdEvidence": [
+                          "能使用 SQL 进行数据分析"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          },
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 1,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "能使用 SQL 进行数据分析",
+                "status": "met",
+                "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                "jdEvidence": [
+                  "能使用 SQL 进行数据分析"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-003",
+                    "role": "positive"
+                  },
+                  {
+                    "factId": "CF-004",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "d69e7324-d198-4f76-9e40-94bf9ec5c6fe",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "output": null,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为统计学本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用 SQL 进行数据分析\",\"status\":\"met\",\"reason\":\"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。\",\"jdEvidence\":[\"能使用 SQL 进行数据分析\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"},{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"有数据项目经验者优先\",\"status\":\"met\",\"reason\":\"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。\",\"jdEvidence\":[\"有数据项目经验者优先\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1101,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为统计学本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "有数据项目经验者优先",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。",
+                    "jdEvidence": [
+                      "有数据项目经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用 SQL 进行数据分析",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用 SQL 进行数据分析",
+                  "status": "met",
+                  "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                  "jdEvidence": [
+                    "能使用 SQL 进行数据分析"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用 SQL 进行数据分析",
+                  "status": "met",
+                  "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                  "jdEvidence": [
+                    "能使用 SQL 进行数据分析"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用 SQL 进行数据分析",
+              "status": "met",
+              "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+              "jdEvidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-003",
+                  "role": "positive"
+                },
+                {
+                  "factId": "CF-004",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为统计学本科，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用 SQL 进行数据分析\",\n          \"status\": \"met\",\n          \"reason\": \"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。\",\n          \"jdEvidence\": [\"能使用 SQL 进行数据分析\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            },\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"有数据项目经验者优先\",\n          \"status\": \"met\",\n          \"reason\": \"候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。\",\n          \"jdEvidence\": [\"有数据项目经验者优先\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 1839,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为统计学本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用 SQL 进行数据分析",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                    "jdEvidence": [
+                      "能使用 SQL 进行数据分析"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      },
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "有数据项目经验者优先",
+                    "status": "met",
+                    "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，属于明确的数据项目经验，满足优先条件。",
+                    "jdEvidence": [
+                      "有数据项目经验者优先"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: experience_type:课程->CF-004, responsibility:负责->CF-004",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用 SQL 进行数据分析",
+                      "status": "met",
+                      "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                      "jdEvidence": [
+                        "能使用 SQL 进行数据分析"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        },
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用 SQL 进行数据分析",
+                  "status": "met",
+                  "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                  "jdEvidence": [
+                    "能使用 SQL 进行数据分析"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用 SQL 进行数据分析",
+                  "status": "met",
+                  "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+                  "jdEvidence": [
+                    "能使用 SQL 进行数据分析"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    },
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用 SQL 进行数据分析",
+              "status": "met",
+              "reason": "候选人在课程项目中使用 SQL 分析公开电商数据，负责数据清洗和指标整理，且日常使用 SQL，充分证明能使用 SQL 进行数据分析。",
+              "jdEvidence": [
+                "能使用 SQL 进行数据分析"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-003",
+                  "role": "positive"
+                },
+                {
+                  "factId": "CF-004",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 1,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-K"
+          ],
+          "previousStatus": "met",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [
+            "CF-003",
+            "CF-004"
+          ],
+          "reasonRebuilt": true
+        },
+        {
+          "itemIndex": 1,
+          "dimensionIndex": null,
+          "issueCodes": [
+            "M-AGGREGATE"
+          ],
+          "previousStatus": "met",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [],
+          "reasonRebuilt": false
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

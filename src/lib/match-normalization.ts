@@ -201,43 +201,6 @@ export function normalizeRejectedMatchReasons(
   for (const issue of issues) {
     const match = issue.path.match(STATUS_PATH);
     if (
-      match &&
-      issue.message.includes("unknown omitted explicit same-domain positive evidence")
-    ) {
-      const itemIndex = Number(match[1]);
-      const dimensionIndex = Number(match[2]);
-      const dimension = data.matchItems[itemIndex]?.dimensions[dimensionIndex];
-      const factIds = issue.message.match(/CF-\d{3,}/g) ?? [];
-      const positiveFact = factIds
-        .map((factId) => factById.get(factId))
-        .find(
-          (fact): fact is FinalCanonicalCandidateFact =>
-            Boolean(
-              fact &&
-                dimension &&
-                dimension.status === "unknown" &&
-                factCanPreservePositiveDimension(dimension, fact),
-            ),
-        );
-      if (dimension && positiveFact) {
-        dimension.status = "partial";
-        dimension.reason = `${positiveFact.factId} 原文：“${positiveFact.statement}”。`;
-        dimension.candidateEvidence = [
-          { factId: positiveFact.factId, role: "positive" },
-        ];
-        actions.push({
-          itemIndex,
-          dimensionIndex,
-          issueCodes: ["MATCH_VALIDATION_REJECTED"],
-          previousStatus: "unknown",
-          normalizedStatus: "partial",
-          removedCandidateFactRefs: [],
-          reasonRebuilt: true,
-        });
-      }
-      continue;
-    }
-    if (
       !match ||
       !issue.message.includes("M-DURATION explicit numeric shortfall must be unmet")
     ) {
@@ -359,23 +322,34 @@ export function normalizeRejectedMatchReasons(
       continue;
     }
     const exactPositiveFact =
-      dimension.status !== "unknown" &&
-      dimension.candidateEvidence.length === 1 &&
-      dimension.candidateEvidence[0].role === "positive"
-        ? factById.get(dimension.candidateEvidence[0].factId)
+      dimension.status !== "unknown"
+        ? dimension.candidateEvidence
+            .filter((entry) => entry.role === "positive")
+            .map((entry) => factById.get(entry.factId))
+            .find(
+              (fact): fact is FinalCanonicalCandidateFact =>
+                Boolean(fact && factCanPreservePositiveDimension(dimension, fact)),
+            ) ?? null
         : null;
     if (
       exactPositiveFact &&
       factCanPreservePositiveDimension(dimension, exactPositiveFact)
     ) {
-      dimension.reason = `${dimension.candidateEvidence[0].factId} 原文：“${exactPositiveFact.statement}”。`;
+      const normalizedStatus = dimension.status === "met" ? "partial" : dimension.status;
+      dimension.status = normalizedStatus;
+      dimension.candidateEvidence = [
+        { factId: exactPositiveFact.factId, role: "positive" },
+      ];
+      dimension.reason = `${exactPositiveFact.factId} 原文：“${exactPositiveFact.statement}”。`;
       actions.push({
         itemIndex,
         dimensionIndex,
         issueCodes: [...codes].sort(),
         previousStatus,
-        normalizedStatus: dimension.status,
-        removedCandidateFactRefs: [],
+        normalizedStatus,
+        removedCandidateFactRefs: removedCandidateFactRefs.filter(
+          (factId) => factId !== exactPositiveFact.factId,
+        ),
         reasonRebuilt: true,
       });
       continue;
@@ -410,6 +384,39 @@ export function normalizeRejectedMatchReasons(
         : [];
     }),
   );
+  for (const itemIndex of aggregateIssueItems) {
+    const item = data.matchItems[itemIndex];
+    if (!item) continue;
+    for (const [dimensionIndex, dimension] of item.dimensions.entries()) {
+      if (
+        dimension.status !== "unknown" ||
+        !["skill", "proficiency"].includes(dimension.dimensionType) ||
+        !/(?:熟练|精通)/.test(dimension.requirementFragment)
+      ) {
+        continue;
+      }
+      const positiveFact = canonicalFacts.find(
+        (fact) =>
+          fact.semanticTags.includes("skill_usage") &&
+          factCanPreservePositiveDimension(dimension, fact),
+      );
+      if (!positiveFact) continue;
+      dimension.status = "partial";
+      dimension.reason = `${positiveFact.factId} 原文：“${positiveFact.statement}”。`;
+      dimension.candidateEvidence = [
+        { factId: positiveFact.factId, role: "positive" },
+      ];
+      actions.push({
+        itemIndex,
+        dimensionIndex,
+        issueCodes: ["MATCH_VALIDATION_REJECTED"],
+        previousStatus: "unknown",
+        normalizedStatus: "partial",
+        removedCandidateFactRefs: [],
+        reasonRebuilt: true,
+      });
+    }
+  }
   for (const [itemIndex, item] of data.matchItems.entries()) {
     const computed = aggregateDimensionStatuses(
       item.dimensions.map((dimension) => dimension.status),

@@ -223,19 +223,6 @@ function explicitSameDimensionPositiveFacts(
   dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
   facts: FinalCanonicalCandidateFact[],
 ) {
-  if (["skill", "proficiency"].includes(dimension.dimensionType)) {
-    const tokens =
-      dimension.requirementFragment
-        .toLowerCase()
-        .match(/[a-z][a-z0-9+#.]{1,}/g) ?? [];
-    if (tokens.length === 0) return [];
-    return facts.filter(
-      (fact) =>
-        candidateFactPolarity(fact.statement) === "positive" &&
-        fact.semanticTags.includes("skill_usage") &&
-        tokens.every((token) => fact.statement.toLowerCase().includes(token)),
-    );
-  }
   if (dimension.dimensionType !== "domain") return [];
   const terms = CONSERVATIVE_DOMAIN_TERMS.filter((term) =>
     dimension.requirementFragment.includes(term),
