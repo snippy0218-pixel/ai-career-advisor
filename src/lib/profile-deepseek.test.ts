@@ -122,6 +122,61 @@ function projectedFacts(
 }
 
 describe("coverage-driven profile structuring (Phase 2.1)", () => {
+  it("preserves generic preferences while keeping missing-category text as context", async () => {
+    const input = [
+      "兴趣偏好：喜欢摄影和城市散步",
+      "求职偏好：希望了解数据相关岗位",
+      "当前技能、教育和项目经历暂未提供",
+    ].join("\n");
+    const fetchMock = vi.fn().mockResolvedValueOnce(
+      successfulProfileResponse({
+        coverage: [
+          candidatePf("PF-001", [
+            claim("preferences", "喜欢摄影和城市散步", "PF-001"),
+          ]),
+          candidatePf("PF-002", [
+            claim("careerTarget", "希望了解数据相关岗位", "PF-002"),
+          ]),
+          nonFactPf("PF-003", "context_only"),
+        ],
+      }),
+    );
+    const { result } = await run(input, fetchMock);
+    expect(result.candidateProfile.canonicalFacts.map((fact) => fact.statement)).toEqual([
+      "喜欢摄影和城市散步",
+      "希望了解数据相关岗位",
+    ]);
+    expect(result.candidateProfile.skills).toEqual([]);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("recognizes Office table usage and travel preference without qualifier upgrades", async () => {
+    const input = [
+      "工具：Office（能做基础表格）",
+      "出差：可接受阶段性出差",
+    ].join("\n");
+    const fetchMock = vi.fn().mockResolvedValueOnce(
+      successfulProfileResponse({
+        coverage: [
+          candidatePf("PF-001", [
+            claim("skills", "Office（能做基础表格）", "PF-001"),
+          ]),
+          candidatePf("PF-002", [
+            claim("preferences", "可接受阶段性出差", "PF-002"),
+          ]),
+        ],
+      }),
+    );
+    const { result } = await run(input, fetchMock);
+    expect(projectedFacts(result, "skills").map((fact) => fact.statement)).toEqual([
+      "Office（能做基础表格）",
+    ]);
+    expect(
+      projectedFacts(result, "preferences").map((fact) => fact.statement),
+    ).toEqual(["可接受阶段性出差"]);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it("builds Final Candidate Facts only from validated atomic claims", async () => {
     const fetchMock = vi
       .fn()

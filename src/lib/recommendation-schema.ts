@@ -165,7 +165,7 @@ const HARD_UNMET_ADMISSION_PATTERN =
 const REQUIREMENT_STRICTNESS_PATTERN =
   /(?:(?:确认|核实|了解).{0,24}(?:是否为|是否属于|是不是|是否构成|具体).{0,16}(?:严格|硬性|筛选|门槛|要求口径|条件口径)|(?:要求|条件|门槛).{0,12}(?:严格性|是否严格|口径))/;
 const CANDIDATE_INFORMATION_PATTERN =
-  /(?:请|需|需要).{0,12}(?:补充|确认|核实|提供|描述).{0,36}(?:候选人|本人|您的?|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)/;
+  /(?:(?:请|需|需要).{0,12}(?:补充|确认|核实|提供|描述).{0,36}(?:候选人|本人|您的?|你的|学历|学位|资格|证书|经验|年限|技能|经历|事实|信息|具体情况)|(?:您|你|候选人|本人).{0,8}(?:是否|有无|能否).{0,24}(?:学历|学位|资格|证书|经验|年限|技能|经历|事实|信息)|是否.{0,24}(?:获得|取得|持有|具备|拥有|完成|毕业|从事).{0,16}(?:学历|学位|资格|证书|经验|年限|技能|经历)?)/;
 
 export function classifyRequirementFlexibility(
   item: RecommendationMatchLedgerItem,
@@ -603,7 +603,7 @@ const UNGROUNDED_CANDIDATE_FACT_PATTERN =
 
 function containsUngroundedCandidateFact(text: string) {
   if (!UNGROUNDED_CANDIDATE_FACT_PATTERN.test(text)) return false;
-  if (/(?:是否|请确认|无法确认|不能确认|尚未确认|待确认|未知|未提供)/.test(text)) {
+  if (/(?:是否|请确认|无法确认|不能确认|尚未确认|待确认|未知|未提供|未表明|未显示|未说明|现有资料)/.test(text)) {
     return false;
   }
   if (/(?:匹配证据|正向证据|反证)/.test(text)) return false;

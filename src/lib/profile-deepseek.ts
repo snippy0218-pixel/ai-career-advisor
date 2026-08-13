@@ -488,6 +488,8 @@ const INSTRUCTION_PATTERN =
   /忽略.{0,12}(?:规则|提示|之前)|把我描述成|虚构|编造.{0,8}(?:经历|经验|技能)|system\s*prompt|developer\s*message/i;
 const EXPLICIT_NEGATIVE_FACT_PATTERN =
   /没有正式工作经历|无正式工作经历|无相关实习|无驾照|没有驾照|未取得.{0,12}(?:证|资格)|未使用.{0,20}(?:工具|软件|SQL|Python)|不接受.{0,20}(?:城市|异地|出差)/;
+const EVIDENCE_ABSENCE_ONLY_PATTERN =
+  /(?:暂未|尚未|没有|未)(?:提供|说明|填写|披露).{0,24}(?:技能|教育|学历|项目|经历|经验|信息|资料)|(?:技能|教育|学历|项目|经历|经验).{0,24}(?:暂未|尚未|没有|未)(?:提供|说明|填写|披露)/;
 
 function uniqueTags(tags: ProfileSemanticTag[]): ProfileSemanticTag[] {
   return [...new Set(tags)];
@@ -495,9 +497,10 @@ function uniqueTags(tags: ProfileSemanticTag[]): ProfileSemanticTag[] {
 
 function requiredSemanticTags(pfText: string): Set<ProfileSemanticTag> {
   const required = new Set<ProfileSemanticTag>();
+  if (EVIDENCE_ABSENCE_ONLY_PATTERN.test(pfText)) return required;
   if (/^教育|本科|硕士|博士|学历|专业/.test(pfText)) required.add("education");
   if (
-    /^技能|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z]/i.test(
+    /^(?:技能|工具)|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*(?:[A-Za-z]|Office|表格)/i.test(
       pfText,
     )
   ) {
@@ -518,10 +521,10 @@ function requiredSemanticTags(pfText: string): Set<ProfileSemanticTag> {
     required.add("experience");
   }
   if (/^证书|CET|资格证|驾驶证|驾照/.test(pfText)) required.add("certificate");
-  if (/期望城市|意向城市|不接受.{0,12}(?:城市|异地)/.test(pfText)) {
+  if (/兴趣偏好|期望城市|意向城市|(?:可接受|不接受).{0,12}(?:城市|异地|出差)/.test(pfText)) {
     required.add("preference");
   }
-  if (/求职方向|职业方向|目标岗位/.test(pfText)) required.add("career_target");
+  if (/求职偏好|求职方向|职业方向|目标岗位/.test(pfText)) required.add("career_target");
   if (/^(?:作品|作品集|成果|GitHub|仓库链接)/i.test(pfText)) {
     required.add("portfolio");
   }
@@ -537,7 +540,7 @@ function inferSemanticTags(
     tags.add("education");
   }
   if (
-    /(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z][A-Za-z0-9.+#-]*/i.test(
+    /(?:工具|Office|表格)|(?:了解|接触过|基础|熟悉|掌握|使用过|会使用|使用)\s*[A-Za-z][A-Za-z0-9.+#-]*/i.test(
       statement,
     )
   ) {
@@ -559,12 +562,14 @@ function inferSemanticTags(
   }
   if (/证书|CET|资格证|驾驶证|驾照/.test(statement)) tags.add("certificate");
   if (/作品|作品集|成果|GitHub|仓库链接/i.test(statement)) tags.add("portfolio");
-  if (/求职方向|职业方向|目标岗位|方向$/.test(statement)) {
+  if (/求职偏好|求职方向|职业方向|目标岗位|方向$/.test(statement)) {
     tags.add("career_target");
   }
-  if (/期望城市|意向城市|不接受.{0,12}(?:城市|异地)|偏好/.test(statement)) {
+  if (/期望城市|意向城市|(?:可接受|不接受).{0,12}(?:城市|异地|出差)|偏好/.test(statement)) {
     tags.add("preference");
   }
+  if (/^求职偏好/.test(pfText)) tags.add("career_target");
+  if (/^兴趣偏好/.test(pfText)) tags.add("preference");
 
   const required = requiredSemanticTags(pfText);
   if (tags.size === 0 && required.size === 1) tags.add([...required][0]);

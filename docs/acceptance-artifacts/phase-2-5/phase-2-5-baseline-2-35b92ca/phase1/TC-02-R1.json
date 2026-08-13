@@ -1,0 +1,230 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-02-R1",
+  "fixtureId": "TC-02",
+  "repetition": 1,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 329,
+    "jdSha256": "f4df62e87e547ff6551470e74f208b9ce835565276c6046cb20c33d05f063ed7",
+    "source": "docs/验收执行报告.md §5.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 9074,
+    "requestId": "c4b53be5-310c-40f4-adac-df7fb67d300d",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": "电气设计",
+      "companyName": null,
+      "location": "汉中",
+      "employmentType": null,
+      "salaryRange": "10-13K",
+      "experienceRequirement": "1-3年",
+      "educationRequirement": "本科",
+      "summary": "从JD信息看，可能属于电气设计类岗位，涉及PLC编程、电气图纸绘制、设备调试与维护等工作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "电气设计",
+        "description": "负责电气原理图设计、控制柜接线、PLC编程、设备调试与维护。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责电气原理图设计、控制柜接线、PLC编程、设备调试与维护。"
+        ]
+      },
+      {
+        "title": "图纸绘制与元器件选型",
+        "description": "熟练使用AutoCAD/EPLAN，独立完成电气图纸绘制、元器件选型与方案优化。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "熟练使用AutoCAD/EPLAN，独立完成电气图纸绘制、元器件选型与方案优化。"
+        ]
+      },
+      {
+        "title": "PLC编程与调试",
+        "description": "熟悉主流PLC，能独立完成PLC选型、程序编制、调试。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "熟悉主流PLC，能独立完成PLC选型、程序编制、调试。"
+        ]
+      },
+      {
+        "title": "现场故障处理",
+        "description": "现场处理设备电气故障，保障生产稳定运行。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "现场处理设备电气故障，保障生产稳定运行"
+        ]
+      },
+      {
+        "title": "技术文档与项目支持",
+        "description": "编写技术文档、作业指导书；配合项目验收与售后技术支持。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "编写技术文档、作业指导书；配合项目验收与售后技术支持"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "本科及以上",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "本科及以上"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "电气工程、自动化、机电一体化相关专业",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "电气工程、自动化、机电一体化相关专业"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "3年及以上电气相关工作经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "3年及以上电气相关工作经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "能独立完成设备电气设计、编程、调试，动手能力强",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "能独立完成设备电气设计、编程、调试，动手能力强"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "能接受出差。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "能接受出差。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及现场设备调试与故障处理，需要出差。",
+          "explanation": "根据职责推断，工作可能包含现场支持。",
+          "sourceType": "inference",
+          "evidence": [
+            "现场处理设备电气故障，保障生产稳定运行",
+            "能接受出差。"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及技术文档编写和项目验收支持。",
+          "explanation": "根据职责推断，工作可能包含文档和项目支持。",
+          "sourceType": "inference",
+          "evidence": [
+            "编写技术文档、作业指导书；配合项目验收与售后技术支持"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "公司名称未说明",
+        "具体出差频率和时长未说明",
+        "团队规模未说明",
+        "培养机制未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请确认公司名称和主营业务。",
+          "reason": "JD中未提供公司信息。"
+        },
+        {
+          "question": "请确认出差频率和时长。",
+          "reason": "JD仅提到能接受出差，但未说明具体出差安排。"
+        },
+        {
+          "question": "请确认团队规模和协作方式。",
+          "reason": "JD未说明团队结构。"
+        },
+        {
+          "question": "请确认是否有系统的培养机制。",
+          "reason": "JD未提及培养安排。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触电气设计、PLC编程和现场调试等工作。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责电气原理图设计、控制柜接线、PLC编程、设备调试与维护。"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及技术文档和项目支持。",
+          "sourceType": "inference",
+          "evidence": [
+            "编写技术文档、作业指导书；配合项目验收与售后技术支持"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对贵公司的电气设计岗位很感兴趣，想进一步了解岗位职责和工作内容，希望有机会沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

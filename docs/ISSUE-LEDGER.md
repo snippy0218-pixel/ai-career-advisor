@@ -16,6 +16,23 @@
 | ISSUE-037 Match lineage semantic classification | P1 | CLOSED / legal boundary accepted, illegal narration not released | regression only |
 | ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | CLOSED / final Strength-Gap initial 3/3 PASS, upgrade 0 | regression only |
 | ISSUE-039 Phase 2.5 runner infrastructure fail-fast/classification | P1 | CLOSED / provider and transport failures are separated from content samples; runner persists `infrastructure-failure.json` and stops after the first infrastructure failure | regression only |
+| ISSUE-040 Phase 2.5 Profile generic-label/evidence-absence coverage | P1 | DETERMINISTIC CLOSED / generic preference, career target, Office/table, travel and missing-category boundaries have focused regression | replacement Phase 2 matrix |
+| ISSUE-041 Phase 2.5 Match threshold/relation generation stability | P1 | DETERMINISTIC CLOSED / credential, duration and responsibility relations are dimension-local; invalid sibling counter reuse remains fail-closed | replacement Phase 2 matrix |
+| ISSUE-042 Phase 2.5 Recommendation absence/question grammar | P1 | DETERMINISTIC CLOSED / evidence-absence limitations and direct Candidate education questions pass without weakening R-J/R-K | replacement Phase 2 matrix |
+| ISSUE-043 Phase 2.5 duplicate optional Gap recovery | P1 | DETERMINISTIC CLOSED / terminal normalization keeps the first duplicate key and reruns SG-A～SG-N | replacement Phase 2 matrix |
+| ISSUE-044 Phase 2.5 X-F assertion scope | P1 | DETERMINISTIC CLOSED / assertions remain audited while questions/actions are no longer treated as Candidate claims | replacement Phase 2 matrix |
+| ISSUE-045 Phase 2.5 lifecycle metric aggregation | P1 | DETERMINISTIC CLOSED / summary reads normalized stage repair/fallback lifecycle | replacement Phase 2 matrix |
+
+## ISSUE-040～045 baseline evidence
+
+- Reproduction: `phase-2-5-baseline-2-35b92ca` is a valid, complete fixed batch: Phase 1 30/30 PASS; Phase 2 11/42 PASS, 19 complete chains, downstream-after-failure 0. All 72 result artifacts are retained and no code/fixture/provider setting changed during the batch.
+- ISSUE-040: Profile stopped all TC-P2-13/14 chains on safe but ordinary generic labels and explicit missing-category text.
+- ISSUE-041: Match rejected legal JD-threshold relations in TC-P2-02/09/10/12; the stabilization keeps cross-dimension counter reuse fail-closed and only recognizes bounded same-dimension education, duration, employment and responsibility relations.
+- ISSUE-042: Recommendation rejected `现有资料未表明...持有...` and `您是否已获得本科学历？`; both are uncertainty/question grammar, not Candidate facts.
+- ISSUE-043: TC-P2-05 R1 repeated the same optional Gap type/reference key after repair. Bounded terminal dedupe removes later duplicates only and reruns the complete validator.
+- ISSUE-044: eight otherwise complete results failed only because X-F included verification questions/actions in its assertion scan. X-F now scans reasons, summaries, limitation/Strength/Gap statements and Greeting claims, while still rejecting unsourced modifiers in those assertions.
+- ISSUE-045: result artifacts recorded repair/fallback attempts, but baseline summary totals were zero because aggregation bypassed normalized stage lifecycle fields.
+- Deterministic closure: focused `271/271`, full `607/607`, lint and production build PASS. Runtime closure remains the mandatory new Phase 2 14×3 matrix.
 
 ## ISSUE-039 closure evidence
 

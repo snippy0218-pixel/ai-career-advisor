@@ -196,7 +196,7 @@ function sameStringSet(left: string[], right: string[]) {
 }
 
 const EVIDENCE_BOUNDARY_PATTERN =
-  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
+  /(?:没有.{0,12}(?:资料|信息|证据|事实|年限)|未表明|未体现|尚未体现|未提供|没有提供|尚未提供|无法确认|不能确认|不足以确认|不能证明|无法证明|不足以证明|不清楚|未知|待确认|需要确认|需确认|低于|不及|尚未达到|没有达到|未达到)/;
 const EXPLICIT_NEGATIVE_CANDIDATE_PATTERN =
   /(?:没有(?!提供|资料|信息|证据)|不具备|未曾|从未|未取得|未获得|未持有|未从事|未参加|尚无(?!资料|信息|证据))/;
 
@@ -281,6 +281,7 @@ const DISTINCTIVE_SHORT_CLAIM_ANCHORS = new Set([
   "博士",
   "学历",
   "课程",
+  "在读",
 ]);
 
 function isSupportedEvidenceRelationExplanation(
@@ -373,6 +374,38 @@ function factEntailsWeakerTeamProjectParticipation(
   return hasTeamContext && hasProjectContext && hasCandidateInvolvement;
 }
 
+function factEntailsNarrowerEmploymentAbsence(
+  clause: string,
+  fact: FinalCanonicalCandidateFact,
+) {
+  if (
+    candidateFactPolarity(fact.statement) !== "counter" ||
+    !/(?:正式|全职)/.test(clause) ||
+    !EXPLICIT_NEGATIVE_CANDIDATE_PATTERN.test(clause)
+  ) {
+    return false;
+  }
+  return (
+    ((/正式/.test(clause) && /正式/.test(fact.statement)) ||
+      (/全职/.test(clause) && /全职/.test(fact.statement))) &&
+    /(?:工作|经历|经验)/.test(fact.statement)
+  );
+}
+
+function factEntailsNoIndependentResponsibility(
+  clause: string,
+  fact: FinalCanonicalCandidateFact,
+) {
+  return (
+    /(?:未|没有).{0,8}(?:独立|本人).{0,8}(?:负责|完成|上线|制定|主导)/.test(
+      clause,
+    ) &&
+    /由.{0,12}(?:负责人|队长|主管).{0,12}(?:负责|上线|制定|主导)/.test(
+      fact.statement,
+    )
+  );
+}
+
 function factSupportsCandidateClause(
   clause: string,
   facts: FinalCanonicalCandidateFact[],
@@ -396,6 +429,8 @@ function factSupportsCandidateClause(
   if (clauseAnchors.length === 0) return false;
   return facts.some((fact) => {
     if (factEntailsWeakerTeamProjectParticipation(clause, fact)) return true;
+    if (factEntailsNarrowerEmploymentAbsence(clause, fact)) return true;
+    if (factEntailsNoIndependentResponsibility(clause, fact)) return true;
     const statement = normalizedClaimText(fact.statement);
     return clauseAnchors.some(
       (anchor) =>
@@ -454,7 +489,7 @@ function isSupportedQualificationThresholdMismatch(
   referencedFacts: FinalCanonicalCandidateFact[],
 ) {
   if (
-    dimension.dimensionType !== "qualification" ||
+    !["qualification", "credential"].includes(dimension.dimensionType) ||
     dimension.status !== "unmet" ||
     dimension.candidateEvidence.length === 0 ||
     dimension.candidateEvidence.some((entry) => entry.role !== "counter") ||
@@ -487,6 +522,62 @@ function isSupportedQualificationThresholdMismatch(
   });
 }
 
+function isSupportedDurationThresholdMismatch(
+  clause: string,
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  requirement: MatchRequirementLedgerItem,
+  referencedFacts: FinalCanonicalCandidateFact[],
+) {
+  if (
+    dimension.dimensionType !== "duration" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length === 0 ||
+    dimension.candidateEvidence.some((entry) => entry.role !== "counter") ||
+    !REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)
+  ) {
+    return false;
+  }
+  const requirementContext = `${dimension.requirementFragment} ${dimension.jdEvidence.join(
+    " ",
+  )} ${requirement.requirement}`;
+  const requiredYears = Number(requirementContext.match(/(\d+)\s*年/)?.[1]);
+  if (!Number.isFinite(requiredYears)) return false;
+  return referencedFacts.some((fact) => {
+    const candidateYears = Number(fact.statement.match(/(\d+)\s*年/)?.[1]);
+    if (Number.isFinite(candidateYears) && candidateYears < requiredYears) {
+      return true;
+    }
+    if (candidateFactPolarity(fact.statement) !== "counter") return false;
+    return (
+      (/正式/.test(requirementContext) && /正式/.test(fact.statement)) ||
+      (/全职/.test(requirementContext) && /全职/.test(fact.statement))
+    );
+  });
+}
+
+function isSupportedResponsibilityMismatch(
+  clause: string,
+  dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
+  referencedFacts: FinalCanonicalCandidateFact[],
+) {
+  if (
+    dimension.dimensionType !== "responsibility" ||
+    dimension.status !== "unmet" ||
+    dimension.candidateEvidence.length === 0 ||
+    dimension.candidateEvidence.some((entry) => entry.role !== "counter") ||
+    !REQUIREMENT_RELATIONAL_MISMATCH_PATTERN.test(clause)
+  ) {
+    return false;
+  }
+  return referencedFacts.some(
+    (fact) =>
+      explicitNegativeFactDimensions(fact.statement).has("responsibility") ||
+      /由.{0,12}(?:负责人|队长|主管).{0,12}(?:负责|上线|制定|主导)/.test(
+        fact.statement,
+      ),
+  );
+}
+
 function isSupportedRequirementMismatchClause(
   clause: string,
   dimension: RawMatchCore["matchItems"][number]["dimensions"][number],
@@ -500,6 +591,17 @@ function isSupportedRequirementMismatchClause(
       requirement,
       referencedFacts,
     )
+  ) {
+    return true;
+  }
+  if (
+    isSupportedDurationThresholdMismatch(
+      clause,
+      dimension,
+      requirement,
+      referencedFacts,
+    ) ||
+    isSupportedResponsibilityMismatch(clause, dimension, referencedFacts)
   ) {
     return true;
   }

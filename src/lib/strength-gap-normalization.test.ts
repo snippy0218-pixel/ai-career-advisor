@@ -66,4 +66,25 @@ describe("normalizeRejectedTransferableStrengths", () => {
     ]);
     expect(result.applied).toBe(false);
   });
+
+  it("keeps the first schema-valid gap when the model repeats a type/reference key", () => {
+    const input = structuredClone(raw);
+    input.gaps.push({
+      ...input.gaps[0],
+      statement: "资料还缺少该项职责范围。",
+      suggestedAction: "请补充职责范围。",
+    });
+    const result = normalizeRejectedTransferableStrengths(input, [
+      { path: "gaps", message: "duplicate Gap type/reference entry" },
+    ]);
+    expect(result.applied).toBe(true);
+    expect(result.data.gaps).toEqual([input.gaps[0]]);
+    expect(result.actions).toEqual([
+      expect.objectContaining({
+        gapIndex: 1,
+        issueCodes: ["SG-DUPLICATE-GAP"],
+        removedMatchRefs: ["MI-003"],
+      }),
+    ]);
+  });
 });

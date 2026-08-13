@@ -54,8 +54,10 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **DETERMINISTIC GATE PASS / CANDIDATE BASELINE COMMIT PENDING — model calls 0**.
+Current Phase 2.5 disposition: **ISSUE-040～045 DETERMINISTIC STABILIZATION PASS / NEW IMMUTABLE BASELINE COMMIT PENDING**.
 
-Current evidence: fixture/runner/UI focused `19/19`; full automated suite `32 files / 598 tests`; lint zero warnings; production build and TypeScript PASS; `/`, `/personalized-match`, invalid-input API, and five acceptance capability probes PASS; server stopped after smoke; diff/whitespace/scope/secret/history audits PASS. Only the committed-clean-baseline audit remains before formal model execution.
+Current evidence: baseline-2 Phase 1 `30/30` accepted; Phase 2 `11/42` rejected for release with all artifacts retained. Stabilization focused `271/271`; full automated suite `32 files / 607 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 
 Infrastructure batch disposition: `phase-2-5-baseline-1-0373ad4` is **NOT A CONTENT MATRIX**. Five probes passed, but all 72 local requests returned JD-stage `AI_SERVICE_UNAVAILABLE` before provider completion (`completion tokens=0`, completed chains=0, downstream calls=0, max latency 35 ms). Artifacts are retained; content sample count is 0. ISSUE-039 fail-fast correction passes focused 8/8, full 599/599, lint/build. A complete replacement matrix on a new committed runner baseline is required.
+
+Content baseline disposition: `phase-2-5-baseline-2-35b92ca` is a complete, non-passing stabilization baseline. Phase 1 is accepted at 30/30. Phase 2 is 11/42 PASS with 19 complete chains and downstream-after-failure 0; all artifacts and rejected raw are retained. ISSUE-040～045 have deterministic fixes with focused 271/271, full 607/607, lint/build PASS. A new committed full Phase 2 14×3 matrix is required; no baseline-2 result may be cherry-picked into the final matrix.

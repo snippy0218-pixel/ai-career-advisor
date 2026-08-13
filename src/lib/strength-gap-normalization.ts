@@ -4,9 +4,10 @@ import type {
 } from "./strength-gap-schema";
 
 export interface StrengthGapNormalizationAction {
-  strengthIndex: number;
+  strengthIndex?: number;
+  gapIndex?: number;
   issueCodes: string[];
-  removedType: "transferable_strength";
+  removedType: "transferable_strength" | RawStrengthGap["gaps"][number]["type"];
   removedStatement: string;
   removedMatchRefs: string[];
 }
@@ -51,7 +52,7 @@ export function normalizeRejectedTransferableStrengths(
     targeted.set(index, codes);
   }
 
-  const actions = [...targeted.entries()]
+  const strengthActions: StrengthGapNormalizationAction[] = [...targeted.entries()]
     .sort(([left], [right]) => left - right)
     .map(([strengthIndex, codes]) => {
       const entry = raw.strengths[strengthIndex];
@@ -63,8 +64,38 @@ export function normalizeRejectedTransferableStrengths(
         removedMatchRefs: [...entry.matchRefs],
       };
     });
-  const removed = new Set(actions.map((action) => action.strengthIndex));
+  const duplicateGapIssue = issues.some(
+    (issue) =>
+      issue.path === "gaps" &&
+      issue.message === "duplicate Gap type/reference entry",
+  );
+  const gapActions: StrengthGapNormalizationAction[] = [];
+  const seenGapKeys = new Set<string>();
+  if (duplicateGapIssue) {
+    raw.gaps.forEach((entry, gapIndex) => {
+      const key = `${entry.type}:${[...entry.matchRefs].sort().join(",")}`;
+      if (!seenGapKeys.has(key)) {
+        seenGapKeys.add(key);
+        return;
+      }
+      gapActions.push({
+        gapIndex,
+        issueCodes: ["SG-DUPLICATE-GAP"],
+        removedType: entry.type,
+        removedStatement: entry.statement,
+        removedMatchRefs: [...entry.matchRefs],
+      });
+    });
+  }
+  const actions = [...strengthActions, ...gapActions];
+  const removedStrengths = new Set(
+    strengthActions.map((action) => action.strengthIndex),
+  );
+  const removedGaps = new Set(gapActions.map((action) => action.gapIndex));
   const data = structuredClone(raw);
-  data.strengths = data.strengths.filter((_entry, index) => !removed.has(index));
+  data.strengths = data.strengths.filter(
+    (_entry, index) => !removedStrengths.has(index),
+  );
+  data.gaps = data.gaps.filter((_entry, index) => !removedGaps.has(index));
   return { data, applied: actions.length > 0, actions };
 }

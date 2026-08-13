@@ -20,6 +20,7 @@ import {
   inspectPhase1Result,
   inspectPhase2Invariants,
   isPhase25InfrastructureFailure,
+  summarizeStageLifecycle,
 } from "./phase-2-5-runner-utils.mjs";
 
 const args = new Map();
@@ -318,23 +319,6 @@ function latencySummary(results) {
   );
 }
 
-function lifecycleTotal(results, stageName, field) {
-  let called = 0;
-  let completed = 0;
-  let failed = 0;
-  for (const result of results) {
-    for (const stage of result.stages ?? []) {
-      if (stage.stage !== stageName) continue;
-      const value = stage.acceptanceDiagnostics?.[field] ?? stage.diagnostics?.[field];
-      if (!value) continue;
-      if (value.called === true || value.requested === true) called += 1;
-      if (value.completed === true || value.result === "completed") completed += 1;
-      if (value.failed === true || value.result === "failed") failed += 1;
-    }
-  }
-  return { called, completed, failed };
-}
-
 await persistJson(resolve(artifactRoot, "run-manifest.json"), runManifest);
 await persistJson(resolve(artifactRoot, "fixture-manifest.json"), fixtureManifest);
 if (dryRun) {
@@ -409,15 +393,15 @@ const summary = {
   },
   metrics: {
     latency: latencySummary(allResults),
-    profileRepairs: lifecycleTotal(results.phase2, "profile", "repair"),
-    matchRepairs: lifecycleTotal(results.phase2, "match", "repair"),
-    recommendationRepairs: lifecycleTotal(results.phase2, "recommendation", "repair"),
-    strengthGapRepairs: lifecycleTotal(results.phase2, "strengthGap", "repair"),
-    greetingRepairs: lifecycleTotal(results.phase2, "greeting", "repair"),
+    profileRepairs: summarizeStageLifecycle(results.phase2, "profile", "repair"),
+    matchRepairs: summarizeStageLifecycle(results.phase2, "match", "repair"),
+    recommendationRepairs: summarizeStageLifecycle(results.phase2, "recommendation", "repair"),
+    strengthGapRepairs: summarizeStageLifecycle(results.phase2, "strengthGap", "repair"),
+    greetingRepairs: summarizeStageLifecycle(results.phase2, "greeting", "repair"),
     hrSafeFallback: {
       disposition: "report_only_non_blocking",
-      requests: lifecycleTotal(results.phase2, "greeting", "personalizedFallback"),
-      phase1FallbackRequests: lifecycleTotal(results.phase2, "greeting", "phase1Fallback"),
+      requests: summarizeStageLifecycle(results.phase2, "greeting", "personalizedFallback"),
+      phase1FallbackRequests: summarizeStageLifecycle(results.phase2, "greeting", "phase1Fallback"),
     },
   },
   passed: allResults.length > 0 && allResults.every((item) => item.passed),

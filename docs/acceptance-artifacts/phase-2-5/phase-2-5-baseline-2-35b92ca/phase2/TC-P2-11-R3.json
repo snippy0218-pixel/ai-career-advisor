@@ -1,0 +1,2569 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-P2-11-R3",
+  "fixtureId": "TC-P2-11",
+  "fixtureName": "explicit JD waiver boundary",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 116,
+    "profileCharacters": 96,
+    "jdSha256": "a422582477cb4db915ae916b12c65f54fd2911023799d7f62716470c66a8e522",
+    "profileSha256": "e3a13667924ccead67c206dc050f96eeaef716dd2e2641f917ded5a3da1b873c"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "partial"
+    ]
+  },
+  "coverage": [
+    "explicit-waiver",
+    "no-unsupported-waiver",
+    "course-context",
+    "uncertainty"
+  ],
+  "completed": true,
+  "stoppedAt": null,
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": null,
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 9369,
+      "requestId": "deaa0d69-54f0-4dcf-941e-5707786d941f",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2759,
+      "requestId": "e331d1df-919a-4e3d-aa4b-f1f08a6e6743",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 1,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2755,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 372,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 1,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2755,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 372,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8362,
+      "requestId": "a6a0ab36-3700-4c48-bad1-c5f9dcd45df1",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "unknown",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 2,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 8359,
+        "outputCompletionTokens": 657,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": true,
+        "normalizationActions": [
+          {
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-CANDIDATE-LINEAGE"
+            ],
+            "previousStatus": "unknown",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "qualification",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "unmet",
+                  "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-001",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "优秀且可核验的 AI 项目经历",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                  "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "了解大模型产品能力边界",
+                  "status": "met",
+                  "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+                  "jdEvidence": [
+                    "了解大模型产品能力边界"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "能使用文档工具整理需求",
+                  "status": "met",
+                  "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+                  "jdEvidence": [
+                    "能使用文档工具整理需求"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 4,
+        "statusCounts": {
+          "met": 2,
+          "partial": 0,
+          "unmet": 1,
+          "unknown": 1
+        },
+        "latencyMs": 8359,
+        "outputCompletionTokens": 657,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"qualification\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"优秀且可核验的 AI 项目经历\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。\",\n          \"verificationQuestion\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2267,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "qualification",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "unmet",
+                      "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "优秀且可核验的 AI 项目经历",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                      "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "了解大模型产品能力边界",
+                      "status": "met",
+                      "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+                      "jdEvidence": [
+                        "了解大模型产品能力边界"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "unknown",
+                    "dimensions": [
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "优秀且可核验的 AI 项目经历",
+                        "status": "unknown",
+                        "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                        "jdEvidence": [
+                          "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                        ],
+                        "candidateEvidence": [],
+                        "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                        "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 1,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "domain",
+                "requirementFragment": "优秀且可核验的 AI 项目经历",
+                "status": "unknown",
+                "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                "jdEvidence": [
+                  "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                ],
+                "candidateEvidence": [],
+                "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"qualification\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"优秀且可核验的 AI 项目经历\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。\",\n          \"verificationQuestion\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2255,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "qualification",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "unmet",
+                      "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "优秀且可核验的 AI 项目经历",
+                      "status": "unknown",
+                      "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                      "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "了解大模型产品能力边界",
+                      "status": "met",
+                      "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+                      "jdEvidence": [
+                        "了解大模型产品能力边界"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用文档工具整理需求",
+                      "status": "met",
+                      "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+                      "jdEvidence": [
+                        "能使用文档工具整理需求"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "unknown",
+                    "dimensions": [
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "优秀且可核验的 AI 项目经历",
+                        "status": "unknown",
+                        "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                        "jdEvidence": [
+                          "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                        ],
+                        "candidateEvidence": [],
+                        "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                        "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 1,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "domain",
+                "requirementFragment": "优秀且可核验的 AI 项目经历",
+                "status": "unknown",
+                "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                "jdEvidence": [
+                  "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                ],
+                "candidateEvidence": [],
+                "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+              }
+            }
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"qualification\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"优秀且可核验的 AI 项目经历\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。\",\n          \"verificationQuestion\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2267,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "qualification",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "unmet",
+                    "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "了解大模型产品能力边界",
+                    "status": "met",
+                    "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+                    "jdEvidence": [
+                      "了解大模型产品能力边界"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 且项目是否达到优秀标准尚未确认",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "优秀且可核验的 AI 项目经历",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                      "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "优秀且可核验的 AI 项目经历",
+                  "status": "unknown",
+                  "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                  "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "优秀且可核验的 AI 项目经历",
+                  "status": "unknown",
+                  "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                  "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "domain",
+              "requirementFragment": "优秀且可核验的 AI 项目经历",
+              "status": "unknown",
+              "reason": "现有资料未表明候选人具有优秀且可核验的 AI 项目经历，且项目是否达到优秀标准尚未确认。",
+              "jdEvidence": [
+                "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+              ],
+              "candidateEvidence": [],
+              "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+              "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"qualification\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确为大专在读，与本科及以上学历要求直接冲突。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"优秀且可核验的 AI 项目经历\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。\",\n          \"jdEvidence\": [\"具有优秀且可核验的 AI 项目经历者可适当放宽学历要求\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。\",\n          \"verificationQuestion\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"domain\",\n          \"requirementFragment\": \"了解大模型产品能力边界\",\n          \"status\": \"met\",\n          \"reason\": \"候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。\",\n          \"jdEvidence\": [\"了解大模型产品能力边界\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"能使用文档工具整理需求\",\n          \"status\": \"met\",\n          \"reason\": \"候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。\",\n          \"jdEvidence\": [\"能使用文档工具整理需求\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-003\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2255,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "qualification",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "unmet",
+                    "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "优秀且可核验的 AI 项目经历",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                    "jdEvidence": [
+                      "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                    "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "了解大模型产品能力边界",
+                    "status": "met",
+                    "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+                    "jdEvidence": [
+                      "了解大模型产品能力边界"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用文档工具整理需求",
+                    "status": "met",
+                    "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+                    "jdEvidence": [
+                      "能使用文档工具整理需求"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE candidate factual assertion requires Candidate Fact lineage: 现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "优秀且可核验的 AI 项目经历",
+                      "status": "unknown",
+                      "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                      "jdEvidence": [
+                        "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                      "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "domain",
+                  "requirementFragment": "优秀且可核验的 AI 项目经历",
+                  "status": "unknown",
+                  "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                  "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "优秀且可核验的 AI 项目经历",
+                  "status": "unknown",
+                  "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                  "jdEvidence": [
+                    "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+                  "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "domain",
+              "requirementFragment": "优秀且可核验的 AI 项目经历",
+              "status": "unknown",
+              "reason": "现有资料不足以确认候选人是否具有优秀且可核验的 AI 项目经历。",
+              "jdEvidence": [
+                "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+              ],
+              "candidateEvidence": [],
+              "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+              "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。"
+            }
+          }
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 1,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-CANDIDATE-LINEAGE"
+          ],
+          "previousStatus": "unknown",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [],
+          "reasonRebuilt": true
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 5635,
+      "requestId": "7370af96-7d1f-4e71-ab70-f59a8027626e",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "limitations",
+            "message": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement"
+          }
+        ],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 5631,
+        "outputCompletionTokens": 306,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "limitations",
+            "message": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement"
+          }
+        ],
+        "repairValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "allowedLevelValidationPassed": true,
+        "referenceValidationPassed": true,
+        "statusFidelityPassed": true,
+        "unknownPreservationPassed": true,
+        "hardGapExplanationPassed": true,
+        "waiverEvidenceIntegrityPassed": true,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": "cautious",
+        "allowedRecommendationLevels": [
+          "cautious",
+          "not_recommended"
+        ],
+        "supportingRefCount": 2,
+        "counterRefCount": 1,
+        "latencyMs": 5631,
+        "outputCompletionTokens": 306,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。\",\"supportingMatchRefs\":[\"MI-003\",\"MI-004\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求，当前状态为 unmet，需明确该要求是否为严格筛选门槛。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\",\"matchItemRefs\":[\"MI-002\"]}]}",
+            "rawTextLength": 605,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。",
+              "supportingMatchRefs": [
+                "MI-003",
+                "MI-004"
+              ],
+              "counterMatchRefs": [
+                "MI-001"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为硬性学历要求，当前状态为 unmet，需明确该要求是否为严格筛选门槛。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": null,
+                "validationCode": null,
+                "rule": null,
+                "path": "limitations",
+                "message": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"recommendationLevel\": \"cautious\",\n  \"summary\": \"Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。\",\n  \"supportingMatchRefs\": [\"MI-003\", \"MI-004\"],\n  \"counterMatchRefs\": [\"MI-001\"],\n  \"limitations\": [\n    {\n      \"content\": \"MI-001 为硬性学历要求，当前状态为 unmet，硬性门槛未满足。\",\n      \"matchItemRefs\": [\"MI-001\"]\n    },\n    {\n      \"content\": \"MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。\",\n      \"matchItemRefs\": [\"MI-002\"]\n    }\n  ],\n  \"questionsToConfirm\": [\n    {\n      \"question\": \"请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？\",\n      \"matchItemRefs\": [\"MI-001\"]\n    },\n    {\n      \"question\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\",\n      \"matchItemRefs\": [\"MI-002\"]\n    }\n  ]\n}",
+            "rawTextLength": 733,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。",
+              "supportingMatchRefs": [
+                "MI-003",
+                "MI-004"
+              ],
+              "counterMatchRefs": [
+                "MI-001"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为硬性学历要求，当前状态为 unmet，硬性门槛未满足。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": null,
+            "failureCategory": null,
+            "validationIssues": [],
+            "rejectedItem": null
+          }
+        ]
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。\",\"supportingMatchRefs\":[\"MI-003\",\"MI-004\"],\"counterMatchRefs\":[\"MI-001\"],\"limitations\":[{\"content\":\"MI-001 为硬性学历要求，当前状态为 unmet，需明确该要求是否为严格筛选门槛。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\",\"matchItemRefs\":[\"MI-002\"]}]}",
+          "rawTextLength": 605,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。",
+            "supportingMatchRefs": [
+              "MI-003",
+              "MI-004"
+            ],
+            "counterMatchRefs": [
+              "MI-001"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为硬性学历要求，当前状态为 unmet，需明确该要求是否为严格筛选门槛。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": null,
+              "validationCode": null,
+              "rule": null,
+              "path": "limitations",
+              "message": "R-K MI-001 cautious hard unmet must explicitly admit the unmet requirement",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"recommendationLevel\": \"cautious\",\n  \"summary\": \"Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。\",\n  \"supportingMatchRefs\": [\"MI-003\", \"MI-004\"],\n  \"counterMatchRefs\": [\"MI-001\"],\n  \"limitations\": [\n    {\n      \"content\": \"MI-001 为硬性学历要求，当前状态为 unmet，硬性门槛未满足。\",\n      \"matchItemRefs\": [\"MI-001\"]\n    },\n    {\n      \"content\": \"MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。\",\n      \"matchItemRefs\": [\"MI-002\"]\n    }\n  ],\n  \"questionsToConfirm\": [\n    {\n      \"question\": \"请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？\",\n      \"matchItemRefs\": [\"MI-001\"]\n    },\n    {\n      \"question\": \"请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。\",\n      \"matchItemRefs\": [\"MI-002\"]\n    }\n  ]\n}",
+          "rawTextLength": 733,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。",
+            "supportingMatchRefs": [
+              "MI-003",
+              "MI-004"
+            ],
+            "counterMatchRefs": [
+              "MI-001"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为硬性学历要求，当前状态为 unmet，硬性门槛未满足。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null,
+          "validationIssues": [],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2905,
+      "requestId": "109ece58-8ece-470b-9e29-2addbe7d2cb7",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 2,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 2,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 2902,
+        "outputCompletionTokens": 276,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "strengthGapRepairAttempted": false,
+        "strengthGapRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "strengthGapNormalizationAttempted": false,
+        "strengthGapNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "strengthEvidenceIntegrityPassed": true,
+        "strengthTruthfulnessPassed": true,
+        "transferableRelationBoundaryIntegrityPassed": true,
+        "gapTypeIntegrityPassed": true,
+        "unknownIntegrityPassed": true,
+        "hardGapCounterEvidencePassed": true,
+        "suggestedActionIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "sourceFactIsolationPassed": true,
+        "matchCoreImmutable": true,
+        "recommendationIsolationPassed": true,
+        "fabricatedClaimCount": 0,
+        "candidateClaimUpgradeCount": 0,
+        "ownershipUpgradeCount": 0,
+        "proficiencyUpgradeCount": 0,
+        "employmentUpgradeCount": 0,
+        "contextUpgradeCount": 0,
+        "unknownDeficiencyCount": 0,
+        "unsupportedActionCount": 0,
+        "strengthCount": 2,
+        "gapCount": 2,
+        "strengthTypeCounts": {
+          "direct_match": 2,
+          "transferable_strength": 0,
+          "supporting_strength": 0
+        },
+        "gapTypeCounts": {
+          "hard_constraint": 1,
+          "evidence_expression": 0,
+          "learnable_skill": 0,
+          "information": 1
+        },
+        "latencyMs": 2902,
+        "outputCompletionTokens": 276,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "greeting",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2156,
+      "requestId": "c6aaa1fc-fe9b-47d1-aa52-850b3533e50c",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-003",
+          "CF-004"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-002",
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2153,
+        "outputCompletionTokens": 198,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "personalizedGreetingRepairAttempted": false,
+        "personalizedGreetingRepairSucceeded": false,
+        "personalizedGreetingSafeFallbackUsed": false,
+        "phase1GreetingFallbackUsed": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "candidateFactIntegrityPassed": true,
+        "pfEvidenceIntegrityPassed": true,
+        "semanticPreservationPassed": true,
+        "crossSourceIsolationPassed": true,
+        "quantificationIntegrityPassed": true,
+        "teamAttributionPassed": true,
+        "unknownIntegrityPassed": true,
+        "matchConsistencyPassed": true,
+        "waiverIntegrityPassed": true,
+        "recommendationToneIntegrityPassed": true,
+        "referenceIntegrityPassed": true,
+        "finalSchemaValidationPassed": true,
+        "repairFallbackSafetyPassed": true,
+        "unsupportedCandidateClaimCount": 0,
+        "semanticUpgradeCount": 0,
+        "crossSourceContaminationCount": 0,
+        "unsupportedNumberCount": 0,
+        "teamAttributionViolationCount": 0,
+        "unknownToCandidateClaimCount": 0,
+        "matchContradictionCount": 0,
+        "waiverViolationCount": 0,
+        "toneViolationCount": 0,
+        "selectedCandidateFactRefs": [
+          "CF-003",
+          "CF-004"
+        ],
+        "selectedMatchRefs": [
+          "MI-004",
+          "MI-003"
+        ],
+        "selectedStrengthRefs": [
+          "ST-002",
+          "ST-001"
+        ],
+        "personalizationStatus": "personalized",
+        "matchCoreImmutable": true,
+        "candidateProfileImmutable": true,
+        "recommendationImmutable": true,
+        "strengthGapImmutable": true,
+        "latencyMs": 2153,
+        "outputCompletionTokens": 198,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    }
+  ],
+  "downstreamState": "complete",
+  "finalOutput": {
+    "jobAnalysis": {
+      "schemaVersion": "analysis-v1",
+      "candidateProfileProvided": false,
+      "basicInfo": {
+        "jobTitle": "AI 产品助理",
+        "companyName": null,
+        "location": null,
+        "employmentType": null,
+        "salaryRange": null,
+        "experienceRequirement": null,
+        "educationRequirement": "本科及以上学历",
+        "summary": "从JD信息看，可能属于AI产品助理岗位，涉及协助整理产品需求、测试模型效果并输出记录等工作。",
+        "summarySourceType": "inference"
+      },
+      "coreResponsibilities": [
+        {
+          "title": "协助整理AI产品需求",
+          "description": "协助整理AI产品需求，可能包括收集、梳理和文档化需求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "协助整理 AI 产品需求"
+          ]
+        },
+        {
+          "title": "测试模型效果并输出记录",
+          "description": "测试模型效果并输出记录，可能涉及执行测试、记录结果和反馈。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "测试模型效果并输出记录"
+          ]
+        }
+      ],
+      "roleProfile": {
+        "requirements": [
+          {
+            "content": "本科及以上学历",
+            "explanation": "JD包含明确限制条件，归为硬性要求。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "本科及以上学历"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "hard_requirement"
+          },
+          {
+            "content": "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "了解大模型产品能力边界",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "了解大模型产品能力边界"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          },
+          {
+            "content": "能使用文档工具整理需求",
+            "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "能使用文档工具整理需求"
+            ],
+            "verificationQuestion": null,
+            "requirementType": "core_requirement"
+          }
+        ],
+        "workCharacteristics": [
+          {
+            "content": "从职责看，可能涉及与AI产品相关的需求整理和模型测试工作，工作内容可能偏执行层面。",
+            "explanation": "基于职责描述推断工作特点。",
+            "sourceType": "inference",
+            "evidence": [
+              "协助整理 AI 产品需求",
+              "测试模型效果并输出记录"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "riskSignals": [],
+        "unknowns": [
+          "工作地点未说明",
+          "薪资范围未说明",
+          "公司名称未说明",
+          "具体培养机制未说明"
+        ],
+        "questionsToConfirm": [
+          {
+            "question": "该岗位的具体工作地点在哪里？",
+            "reason": "JD中未说明工作地点。"
+          },
+          {
+            "question": "该岗位的薪资范围是多少？",
+            "reason": "JD中未说明薪资范围。"
+          },
+          {
+            "question": "该岗位所属的公司或团队规模如何？",
+            "reason": "JD中未说明公司名称。"
+          },
+          {
+            "question": "该岗位是否有系统的培养机制或晋升路径？",
+            "reason": "JD中未提及培养安排。"
+          }
+        ]
+      },
+      "applicationAdvice": {
+        "level": "worth_exploring",
+        "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+        "sourceType": "inference",
+        "verificationQuestion": null,
+        "reasons": [
+          {
+            "content": "从职责看，可能接触AI产品需求整理和模型测试相关工作。",
+            "sourceType": "inference",
+            "evidence": [
+              "协助整理 AI 产品需求",
+              "测试模型效果并输出记录"
+            ],
+            "verificationQuestion": null
+          }
+        ],
+        "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+      },
+      "candidateAdvantages": null,
+      "hrGreeting": {
+        "personalizationStatus": "not_personalized",
+        "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+        "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+        "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+      }
+    },
+    "candidateProfile": {
+      "schemaVersion": "candidate-profile-v2",
+      "profileProvided": true,
+      "candidateProfile": {
+        "canonicalFacts": [
+          {
+            "factId": "CF-001",
+            "statement": "大专在读",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-001"
+            ],
+            "semanticTags": [
+              "education"
+            ]
+          },
+          {
+            "factId": "CF-002",
+            "statement": "在课程团队中参与 AI 问答项目，协助整理测试问题并记录结果",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-002"
+            ],
+            "semanticTags": [
+              "project_experience",
+              "experience"
+            ]
+          },
+          {
+            "factId": "CF-003",
+            "statement": "日常使用飞书文档",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "skill_usage"
+            ]
+          },
+          {
+            "factId": "CF-004",
+            "statement": "了解大模型会出现错误回答",
+            "sourceType": "profile_stated",
+            "pfEvidence": [
+              "PF-003"
+            ],
+            "semanticTags": [
+              "skill_usage"
+            ]
+          }
+        ],
+        "careerTarget": null,
+        "education": [
+          "CF-001"
+        ],
+        "experiences": [
+          "CF-002"
+        ],
+        "projects": [
+          "CF-002"
+        ],
+        "skills": [
+          "CF-003",
+          "CF-004"
+        ],
+        "certificates": [],
+        "portfolio": [],
+        "preferences": [],
+        "derivedObservations": [],
+        "unknowns": [],
+        "questionsToConfirm": [],
+        "evidence": [
+          {
+            "id": "PF-001",
+            "text": "教育背景：大专在读"
+          },
+          {
+            "id": "PF-002",
+            "text": "项目经历：在课程团队中参与 AI 问答项目，协助整理测试问题并记录结果"
+          },
+          {
+            "id": "PF-003",
+            "text": "技能：日常使用飞书文档，了解大模型会出现错误回答"
+          },
+          {
+            "id": "PF-004",
+            "text": "补充说明：项目是否达到招聘方所说的优秀标准尚未确认"
+          }
+        ]
+      }
+    },
+    "matchCore": {
+      "schemaVersion": "match-core-v1",
+      "jdSchemaVersion": "analysis-v1",
+      "candidateProfileSchemaVersion": "candidate-profile-v2",
+      "matchItems": [
+        {
+          "requirementId": "REQ-001",
+          "requirement": "本科及以上学历",
+          "requirementType": "hard_requirement",
+          "jdEvidence": [
+            "本科及以上学历"
+          ],
+          "status": "unmet",
+          "requirementDimensions": [
+            {
+              "dimensionType": "qualification",
+              "requirementFragment": "本科及以上学历",
+              "status": "unmet",
+              "reason": "候选人明确为大专在读，与本科及以上学历要求直接冲突。",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-001"
+              ],
+              "candidateEvidenceRole": "counter",
+              "pfEvidence": [
+                "PF-001"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-002",
+          "requirement": "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+          ],
+          "status": "unknown",
+          "requirementDimensions": [
+            {
+              "dimensionType": "domain",
+              "requirementFragment": "优秀且可核验的 AI 项目经历",
+              "status": "unknown",
+              "reason": "现有资料无法确认该维度是否满足。",
+              "jdEvidence": [
+                "具有优秀且可核验的 AI 项目经历者可适当放宽学历要求"
+              ],
+              "missingInformation": "候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+              "verificationQuestion": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [],
+              "candidateEvidenceRole": null,
+              "pfEvidence": []
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-003",
+          "requirement": "了解大模型产品能力边界",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "了解大模型产品能力边界"
+          ],
+          "status": "met",
+          "requirementDimensions": [
+            {
+              "dimensionType": "domain",
+              "requirementFragment": "了解大模型产品能力边界",
+              "status": "met",
+              "reason": "候选人明确表示了解大模型会出现错误回答，这直接体现其对大模型能力边界的认知。",
+              "jdEvidence": [
+                "了解大模型产品能力边界"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-004"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-003"
+              ]
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-004",
+          "requirement": "能使用文档工具整理需求",
+          "requirementType": "core_requirement",
+          "jdEvidence": [
+            "能使用文档工具整理需求"
+          ],
+          "status": "met",
+          "requirementDimensions": [
+            {
+              "dimensionType": "skill",
+              "requirementFragment": "能使用文档工具整理需求",
+              "status": "met",
+              "reason": "候选人日常使用飞书文档，飞书文档是文档工具，满足使用文档工具的要求。",
+              "jdEvidence": [
+                "能使用文档工具整理需求"
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null,
+              "dimensionId": "DIM-001",
+              "candidateFactRefs": [
+                "CF-003"
+              ],
+              "candidateEvidenceRole": "positive",
+              "pfEvidence": [
+                "PF-003"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "recommendation": {
+      "recommendationLevel": "cautious",
+      "summary": "Match Core 正向证据：MI-003、MI-004 均为 met；反证：MI-001 为 unmet（硬性学历要求未满足）；待确认项：MI-002 为 unknown（AI 项目经历及可核验性待确认）。",
+      "supportingMatchRefs": [
+        "MI-003",
+        "MI-004"
+      ],
+      "counterMatchRefs": [
+        "MI-001"
+      ],
+      "limitations": [
+        {
+          "content": "MI-001 为硬性学历要求，当前状态为 unmet，硬性门槛未满足。",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "content": "MI-002 为 unknown，需确认候选人是否具有优秀且可核验的 AI 项目经历。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        }
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请确认 MI-001 所要求的学历是否为严格筛选门槛，具体口径是什么？",
+          "matchItemRefs": [
+            "MI-001"
+          ]
+        },
+        {
+          "question": "请提供您参与过的 AI 项目的详细描述、您的具体贡献、项目成果及可核验的证明（如链接、报告或推荐信）。",
+          "matchItemRefs": [
+            "MI-002"
+          ]
+        }
+      ],
+      "schemaVersion": "recommendation-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "allowedRecommendationLevels": [
+        "cautious",
+        "not_recommended"
+      ]
+    },
+    "strengthGap": {
+      "schemaVersion": "strength-gap-core-v1",
+      "matchSchemaVersion": "match-core-v1",
+      "strengths": [
+        {
+          "type": "direct_match",
+          "statement": "候选人了解大模型产品能力边界，直接满足该要求。",
+          "matchRefs": [
+            "MI-003"
+          ],
+          "strengthId": "ST-001"
+        },
+        {
+          "type": "direct_match",
+          "statement": "候选人能使用文档工具整理需求，直接满足该要求。",
+          "matchRefs": [
+            "MI-004"
+          ],
+          "strengthId": "ST-002"
+        }
+      ],
+      "gaps": [
+        {
+          "type": "hard_constraint",
+          "statement": "候选人学历为大专在读，未满足本科及以上学历的硬性要求。",
+          "matchRefs": [
+            "MI-001"
+          ],
+          "suggestedAction": "投递前确认/核实该条件是否为严格门槛及具体执行口径。",
+          "actionType": "structural",
+          "gapId": "GP-001"
+        },
+        {
+          "type": "information",
+          "statement": "资料缺少关于候选人是否具有优秀且可核验的 AI 项目经历的信息，无法判断是否满足该要求。",
+          "matchRefs": [
+            "MI-002"
+          ],
+          "suggestedAction": "请补充候选人是否具有优秀且可核验的 AI 项目经历，以及项目成果的可核验性。",
+          "actionType": "confirm",
+          "gapId": "GP-002"
+        }
+      ]
+    },
+    "greeting": {
+      "schemaVersion": "personalized-greeting-v1",
+      "personalizationStatus": "personalized",
+      "greeting": "您好，看到贵司的岗位信息，想和您沟通一下。我日常使用飞书文档，了解大模型会出现错误回答。这两点与岗位中“能使用文档工具整理需求”和“了解大模型产品能力边界”的部分职责有一定相关性。希望有机会进一步交流，了解实际要求和招聘口径。",
+      "candidateFactRefs": [
+        "CF-003",
+        "CF-004"
+      ],
+      "matchRefs": [
+        "MI-004",
+        "MI-003"
+      ],
+      "jdEvidence": [
+        "能使用文档工具整理需求",
+        "了解大模型产品能力边界"
+      ],
+      "strengthRefs": [
+        "ST-002",
+        "ST-001"
+      ]
+    }
+  },
+  "invariantAudit": {
+    "status": "pass",
+    "values": {
+      "X-A_candidate_truth": true,
+      "X-B_jd_truth": true,
+      "X-C_status_stability": true,
+      "X-D_unknown_stability": true,
+      "X-E_negative_evidence_stability": true,
+      "X-F_modifier_integrity": true,
+      "X-G_waiver_integrity": true,
+      "X-H_candidate_semantic_preservation": true,
+      "X-I_reference_continuity": true,
+      "X-J_no_circular_truth": true
+    },
+    "passed": true
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": true,
+      "requiredMatchStatuses": false,
+      "greetingPersonalizationStatus": true
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

@@ -1,0 +1,707 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-P2-13-R3",
+  "fixtureId": "TC-P2-13",
+  "fixtureName": "no safe personalized greeting fact",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 107,
+    "profileCharacters": 47,
+    "jdSha256": "c944547ba82d068272437fdd390b96a51bce1f9436110693578fc1a3b41db1ca",
+    "profileSha256": "5688a48ff0ab3f90854ebb6bae34a9cabdf39e6c70587666b61f0a102f3ad47b"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unknown"
+    ],
+    "greetingPersonalizationStatus": "not_personalized"
+  },
+  "coverage": [
+    "phase1-safe-fallback",
+    "irrelevant-preference",
+    "unknown",
+    "OBS-006"
+  ],
+  "completed": false,
+  "stoppedAt": "profile",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "profile",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "f42c94c0-5391-435e-b5eb-513d6ec6d0ae",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8163,
+      "requestId": "cfd753e8-a302-440d-b988-f196051e9f2c",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 3894,
+      "requestId": "f42c94c0-5391-435e-b5eb-513d6ec6d0ae",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 0,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 0,
+        "atomicClaimCount": 0,
+        "unprocessedPfCount": 3,
+        "completenessRepairRequestCount": 1,
+        "atomicClaimRepairCount": 3,
+        "semanticRepairRequestCount": 1,
+        "projectionRepairCount": 4,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 0,
+        "profileFactRecall": null,
+        "latencyMs": 3891,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 4,
+        "unusedPfCount": 3,
+        "completenessRepairUsed": true,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 4,
+        "profileRepairAttempted": true,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "finalEvidenceValidationPassed": false,
+        "finalValidationPassed": false,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 222,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "one or more atomic claims failed strict validation",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "one or more atomic claims failed strict validation",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "pfLedgerCount": 3,
+        "pfTotal": 3,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 0,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 0,
+        "atomicClaimCount": 0,
+        "unprocessedPfCount": 3,
+        "completenessRepairRequestCount": 1,
+        "atomicClaimRepairCount": 3,
+        "semanticRepairRequestCount": 1,
+        "projectionRepairCount": 4,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 0,
+        "profileFactRecall": null,
+        "latencyMs": 3891,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 4,
+        "unusedPfCount": 3,
+        "completenessRepairUsed": true,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 4,
+        "profileRepairAttempted": true,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": false,
+        "finalEvidenceValidationPassed": false,
+        "finalValidationPassed": false,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 222,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "one or more atomic claims failed strict validation",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "one or more atomic claims failed strict validation",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"coverage\": [\n    {\n      \"pfId\": \"PF-001\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"喜欢摄影和城市散步\",\n          \"semanticTags\": [\"preference\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-001\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-002\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"希望了解数据相关岗位\",\n          \"semanticTags\": [\"career_target\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-002\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-003\",\n      \"disposition\": \"context_only\",\n      \"atomicClaims\": [],\n      \"duplicateOf\": null\n    }\n  ]\n}",
+            "rawTextLength": 786,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "coverage": [
+                {
+                  "pfId": "PF-001",
+                  "disposition": "candidate_fact_source",
+                  "atomicClaims": [
+                    {
+                      "statement": "喜欢摄影和城市散步",
+                      "semanticTags": [
+                        "preference"
+                      ],
+                      "sourceType": "profile_stated",
+                      "pfEvidence": [
+                        "PF-001"
+                      ]
+                    }
+                  ],
+                  "duplicateOf": null
+                },
+                {
+                  "pfId": "PF-002",
+                  "disposition": "candidate_fact_source",
+                  "atomicClaims": [
+                    {
+                      "statement": "希望了解数据相关岗位",
+                      "semanticTags": [
+                        "career_target"
+                      ],
+                      "sourceType": "profile_stated",
+                      "pfEvidence": [
+                        "PF-002"
+                      ]
+                    }
+                  ],
+                  "duplicateOf": null
+                },
+                {
+                  "pfId": "PF-003",
+                  "disposition": "context_only",
+                  "atomicClaims": [],
+                  "duplicateOf": null
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "coverage.PF-001",
+                "message": "one or more atomic claims failed strict validation"
+              },
+              {
+                "path": "coverage.PF-002",
+                "message": "one or more atomic claims failed strict validation"
+              },
+              {
+                "path": "coverage.PF-003",
+                "message": "PF contains explicit candidate fact semantics: project_experience"
+              }
+            ],
+            "rejectedItems": []
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"coverage\": [\n    {\n      \"pfId\": \"PF-001\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"喜欢摄影和城市散步\",\n          \"semanticTags\": [\"preference\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-001\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-002\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"希望了解数据相关岗位\",\n          \"semanticTags\": [\"career_target\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-002\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-003\",\n      \"disposition\": \"context_only\",\n      \"atomicClaims\": [],\n      \"duplicateOf\": null\n    }\n  ]\n}",
+            "rawTextLength": 786,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "coverage": [
+                {
+                  "pfId": "PF-001",
+                  "disposition": "candidate_fact_source",
+                  "atomicClaims": [
+                    {
+                      "statement": "喜欢摄影和城市散步",
+                      "semanticTags": [
+                        "preference"
+                      ],
+                      "sourceType": "profile_stated",
+                      "pfEvidence": [
+                        "PF-001"
+                      ]
+                    }
+                  ],
+                  "duplicateOf": null
+                },
+                {
+                  "pfId": "PF-002",
+                  "disposition": "candidate_fact_source",
+                  "atomicClaims": [
+                    {
+                      "statement": "希望了解数据相关岗位",
+                      "semanticTags": [
+                        "career_target"
+                      ],
+                      "sourceType": "profile_stated",
+                      "pfEvidence": [
+                        "PF-002"
+                      ]
+                    }
+                  ],
+                  "duplicateOf": null
+                },
+                {
+                  "pfId": "PF-003",
+                  "disposition": "context_only",
+                  "atomicClaims": [],
+                  "duplicateOf": null
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "path": "coverage.PF-001",
+                "message": "one or more atomic claims failed strict validation"
+              },
+              {
+                "path": "coverage.PF-002",
+                "message": "one or more atomic claims failed strict validation"
+              },
+              {
+                "path": "coverage.PF-003",
+                "message": "PF contains explicit candidate fact semantics: project_experience"
+              }
+            ],
+            "rejectedItems": []
+          }
+        ]
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "f42c94c0-5391-435e-b5eb-513d6ec6d0ae",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"coverage\": [\n    {\n      \"pfId\": \"PF-001\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"喜欢摄影和城市散步\",\n          \"semanticTags\": [\"preference\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-001\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-002\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"希望了解数据相关岗位\",\n          \"semanticTags\": [\"career_target\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-002\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-003\",\n      \"disposition\": \"context_only\",\n      \"atomicClaims\": [],\n      \"duplicateOf\": null\n    }\n  ]\n}",
+          "rawTextLength": 786,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "coverage": [
+              {
+                "pfId": "PF-001",
+                "disposition": "candidate_fact_source",
+                "atomicClaims": [
+                  {
+                    "statement": "喜欢摄影和城市散步",
+                    "semanticTags": [
+                      "preference"
+                    ],
+                    "sourceType": "profile_stated",
+                    "pfEvidence": [
+                      "PF-001"
+                    ]
+                  }
+                ],
+                "duplicateOf": null
+              },
+              {
+                "pfId": "PF-002",
+                "disposition": "candidate_fact_source",
+                "atomicClaims": [
+                  {
+                    "statement": "希望了解数据相关岗位",
+                    "semanticTags": [
+                      "career_target"
+                    ],
+                    "sourceType": "profile_stated",
+                    "pfEvidence": [
+                      "PF-002"
+                    ]
+                  }
+                ],
+                "duplicateOf": null
+              },
+              {
+                "pfId": "PF-003",
+                "disposition": "context_only",
+                "atomicClaims": [],
+                "duplicateOf": null
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "coverage.PF-001",
+              "message": "one or more atomic claims failed strict validation"
+            },
+            {
+              "path": "coverage.PF-002",
+              "message": "one or more atomic claims failed strict validation"
+            },
+            {
+              "path": "coverage.PF-003",
+              "message": "PF contains explicit candidate fact semantics: project_experience"
+            }
+          ],
+          "rejectedItems": []
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"coverage\": [\n    {\n      \"pfId\": \"PF-001\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"喜欢摄影和城市散步\",\n          \"semanticTags\": [\"preference\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-001\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-002\",\n      \"disposition\": \"candidate_fact_source\",\n      \"atomicClaims\": [\n        {\n          \"statement\": \"希望了解数据相关岗位\",\n          \"semanticTags\": [\"career_target\"],\n          \"sourceType\": \"profile_stated\",\n          \"pfEvidence\": [\"PF-002\"]\n        }\n      ],\n      \"duplicateOf\": null\n    },\n    {\n      \"pfId\": \"PF-003\",\n      \"disposition\": \"context_only\",\n      \"atomicClaims\": [],\n      \"duplicateOf\": null\n    }\n  ]\n}",
+          "rawTextLength": 786,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "coverage": [
+              {
+                "pfId": "PF-001",
+                "disposition": "candidate_fact_source",
+                "atomicClaims": [
+                  {
+                    "statement": "喜欢摄影和城市散步",
+                    "semanticTags": [
+                      "preference"
+                    ],
+                    "sourceType": "profile_stated",
+                    "pfEvidence": [
+                      "PF-001"
+                    ]
+                  }
+                ],
+                "duplicateOf": null
+              },
+              {
+                "pfId": "PF-002",
+                "disposition": "candidate_fact_source",
+                "atomicClaims": [
+                  {
+                    "statement": "希望了解数据相关岗位",
+                    "semanticTags": [
+                      "career_target"
+                    ],
+                    "sourceType": "profile_stated",
+                    "pfEvidence": [
+                      "PF-002"
+                    ]
+                  }
+                ],
+                "duplicateOf": null
+              },
+              {
+                "pfId": "PF-003",
+                "disposition": "context_only",
+                "atomicClaims": [],
+                "duplicateOf": null
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "path": "coverage.PF-001",
+              "message": "one or more atomic claims failed strict validation"
+            },
+            {
+              "path": "coverage.PF-002",
+              "message": "one or more atomic claims failed strict validation"
+            },
+            {
+              "path": "coverage.PF-003",
+              "message": "PF contains explicit candidate fact semantics: project_experience"
+            }
+          ],
+          "rejectedItems": []
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "match",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_profile",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

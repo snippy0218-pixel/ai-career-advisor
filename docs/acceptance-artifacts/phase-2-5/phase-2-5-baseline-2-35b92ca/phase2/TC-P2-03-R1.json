@@ -1,0 +1,960 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-P2-03-R1",
+  "fixtureId": "TC-P2-03",
+  "fixtureName": "unknown-heavy credential and language requirements",
+  "repetition": 1,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 154,
+    "profileCharacters": 54,
+    "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+    "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unknown"
+    ]
+  },
+  "coverage": [
+    "unknown",
+    "credential",
+    "language",
+    "domain",
+    "questions-to-confirm"
+  ],
+  "completed": false,
+  "stoppedAt": "recommendation",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "recommendation",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "9d22adf2-aa24-45cb-960a-0423882b75cf",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8784,
+      "requestId": "8e50b008-99d2-4a6d-b286-77eda7626dd0",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2530,
+      "requestId": "705e90de-c17b-45cd-af27-7da83812f5a6",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2528,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 309,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 1,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 2528,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 309,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 4859,
+      "requestId": "d07b5356-8ca9-4af4-b1ef-9c97b3a5715a",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 1,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 3
+        },
+        "latencyMs": 4856,
+        "outputCompletionTokens": 693,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": false,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 5,
+        "statusCounts": {
+          "met": 1,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 3
+        },
+        "latencyMs": 4856,
+        "outputCompletionTokens": 693,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 5406,
+      "requestId": "9d22adf2-aa24-45cb-960a-0423882b75cf",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "Recommendation must reference Match Items instead of creating Candidate facts"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "Recommendation must reference Match Items instead of creating Candidate facts"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 5401,
+        "outputCompletionTokens": 255,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Recommendation must reference Match Items instead of creating Candidate facts",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Recommendation must reference Match Items instead of creating Candidate facts",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "summary",
+            "message": "Recommendation must reference Match Items instead of creating Candidate facts"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "summary",
+            "message": "Recommendation must reference Match Items instead of creating Candidate facts"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 5401,
+        "outputCompletionTokens": 255,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Recommendation must reference Match Items instead of creating Candidate facts",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Recommendation must reference Match Items instead of creating Candidate facts",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。\",\"supportingMatchRefs\":[\"MI-004\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请提供您持有的行业资格证书名称及编号。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您的日语能力证明（如JLPT等级）及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供您在海外支付行业的工作经历（公司、职位、起止时间）。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 644,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "try",
+              "summary": "MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。",
+              "supportingMatchRefs": [
+                "MI-004"
+              ],
+              "counterMatchRefs": [],
+              "limitations": [
+                {
+                  "content": "MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请提供您持有的行业资格证书名称及编号。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供您的日语能力证明（如JLPT等级）及商务谈判经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请提供您在海外支付行业的工作经历（公司、职位、起止时间）。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": null,
+                "validationCode": null,
+                "rule": null,
+                "path": "summary",
+                "message": "Recommendation must reference Match Items instead of creating Candidate facts",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。\",\"supportingMatchRefs\":[\"MI-004\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请提供您持有的行业资格证书名称及编号。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您的日语能力证明（如JLPT等级）及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供您在海外支付行业的工作经历（公司、职位、起止时间）。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 644,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "try",
+              "summary": "MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。",
+              "supportingMatchRefs": [
+                "MI-004"
+              ],
+              "counterMatchRefs": [],
+              "limitations": [
+                {
+                  "content": "MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "请提供您持有的行业资格证书名称及编号。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "请提供您的日语能力证明（如JLPT等级）及商务谈判经验。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "请提供您在海外支付行业的工作经历（公司、职位、起止时间）。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": null,
+                "validationCode": null,
+                "rule": null,
+                "path": "summary",
+                "message": "Recommendation must reference Match Items instead of creating Candidate facts",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          }
+        ]
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "9d22adf2-aa24-45cb-960a-0423882b75cf",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。\",\"supportingMatchRefs\":[\"MI-004\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请提供您持有的行业资格证书名称及编号。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您的日语能力证明（如JLPT等级）及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供您在海外支付行业的工作经历（公司、职位、起止时间）。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 644,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "try",
+            "summary": "MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。",
+            "supportingMatchRefs": [
+              "MI-004"
+            ],
+            "counterMatchRefs": [],
+            "limitations": [
+              {
+                "content": "MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请提供您持有的行业资格证书名称及编号。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供您的日语能力证明（如JLPT等级）及商务谈判经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请提供您在海外支付行业的工作经历（公司、职位、起止时间）。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": null,
+              "validationCode": null,
+              "rule": null,
+              "path": "summary",
+              "message": "Recommendation must reference Match Items instead of creating Candidate facts",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"try\",\"summary\":\"MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。\",\"supportingMatchRefs\":[\"MI-004\"],\"counterMatchRefs\":[],\"limitations\":[{\"content\":\"MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"content\":\"MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。\",\"matchItemRefs\":[\"MI-003\"]}],\"questionsToConfirm\":[{\"question\":\"请提供您持有的行业资格证书名称及编号。\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"请提供您的日语能力证明（如JLPT等级）及商务谈判经验。\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"请提供您在海外支付行业的工作经历（公司、职位、起止时间）。\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 644,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "try",
+            "summary": "MI-004 为 met，构成正向证据；MI-001、MI-002、MI-003 均为 unknown，需待确认。",
+            "supportingMatchRefs": [
+              "MI-004"
+            ],
+            "counterMatchRefs": [],
+            "limitations": [
+              {
+                "content": "MI-001 为 unknown，现有资料未表明候选人持有指定行业资格证书。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-002 为 unknown，现有资料未表明候选人的日语能力及商务谈判经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "content": "MI-003 为 unknown，现有资料未表明候选人具有海外支付行业正式工作经验。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "请提供您持有的行业资格证书名称及编号。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "请提供您的日语能力证明（如JLPT等级）及商务谈判经验。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "请提供您在海外支付行业的工作经历（公司、职位、起止时间）。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": null,
+              "validationCode": null,
+              "rule": null,
+              "path": "summary",
+              "message": "Recommendation must reference Match Items instead of creating Candidate facts",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_recommendation",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

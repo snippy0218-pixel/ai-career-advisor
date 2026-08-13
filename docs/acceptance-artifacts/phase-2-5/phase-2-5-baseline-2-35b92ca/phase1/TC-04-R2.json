@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-04-R2",
+  "fixtureId": "TC-04",
+  "repetition": 2,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 170,
+    "jdSha256": "a00529969bbe35f44c750fe862a1c2f3a8183eb0c9e04b4026e4fabdd41af122",
+    "source": "docs/验收执行报告.md §7.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 10557,
+    "requestId": "3602d017-be8e-47ea-a16f-d6a95bff7f2e",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": null,
+      "educationRequirement": null,
+      "summary": "从JD信息看，可能属于微缩模型行业的市场推广或变现相关岗位，涉及项目曝光和变现工作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "项目曝光与变现",
+        "description": "负责将微缩模型项目进行推广曝光，并实现商业变现。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "把我们的项目曝光出去，变现。没有别的了"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "有创业心态",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有创业心态"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有抗压能力",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有抗压能力"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "愿意付出努力拿高薪的人",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "愿意付出努力拿高薪的人"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及市场推广和商业变现工作，需要较强的结果导向。",
+          "explanation": "基于职责描述推断工作特点。",
+          "sourceType": "inference",
+          "evidence": [
+            "把我们的项目曝光出去，变现。没有别的了"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从团队描述看，可能属于创业团队，工作氛围可能较为灵活。",
+          "explanation": "基于团队描述推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "我们是年轻的小创业团队"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [
+        {
+          "content": "JD未明确岗位具体职责细节，可能工作内容较为单一。",
+          "explanation": "JD职责描述非常简短，可能工作内容不明确。",
+          "sourceType": "inference",
+          "evidence": [
+            "没有别的了"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "JD强调创业心态和抗压能力，可能工作压力较大。",
+          "explanation": "从要求推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "有创业心态，有抗压能力"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "unknowns": [
+        "岗位具体名称未说明",
+        "公司名称未说明",
+        "工作地点未说明",
+        "薪资范围未说明",
+        "具体职责细节未说明",
+        "培养机制未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请确认岗位的具体职责和工作内容是什么？",
+          "reason": "JD中职责描述非常简短，需要明确具体工作内容。"
+        },
+        {
+          "question": "请确认薪资结构和计算方式？",
+          "reason": "JD提到薪资不设限，但未说明具体结构。"
+        },
+        {
+          "question": "请确认工作地点和办公形式？",
+          "reason": "JD未提及工作地点。"
+        },
+        {
+          "question": "请确认团队规模和协作方式？",
+          "reason": "JD提到是年轻的小创业团队，但未说明具体规模。"
+        },
+        {
+          "question": "请确认是否有培训或成长支持？",
+          "reason": "JD未提及培养机制。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触项目曝光和变现相关工作。",
+          "sourceType": "inference",
+          "evidence": [
+            "把我们的项目曝光出去，变现。没有别的了"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从团队描述看，可能属于创业团队，工作氛围可能较为灵活。",
+          "sourceType": "inference",
+          "evidence": [
+            "我们是年轻的小创业团队"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

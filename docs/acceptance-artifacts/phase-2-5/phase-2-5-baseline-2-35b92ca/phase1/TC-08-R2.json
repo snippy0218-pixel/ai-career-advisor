@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-08-R2",
+  "fixtureId": "TC-08",
+  "repetition": 2,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 416,
+    "jdSha256": "06567ac662fdaf1f74e0ce0553d0815627b2838fc9991827312540c5d74eff8f",
+    "source": "docs/验收执行报告.md §11.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 14874,
+    "requestId": "dc2a8bf2-a094-4b19-b815-65cc76057cd1",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "5年以上工业仪器仪表行业工作经验",
+      "educationRequirement": null,
+      "summary": "从JD信息看，可能属于工业自动化产品销售岗位，涉及PLC及相关产品的销售、市场开拓和客户维护等工作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "PLC及相关产品销售",
+        "description": "负责PLC及相关产品的销售工作，独立或协同开发并组织实施运作项目，达成销售目标。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责PLC及相关产品的销售工作，独立/协同开发并组织实施运作项目，达成销售目标。"
+        ]
+      },
+      {
+        "title": "开拓新市场与新客户",
+        "description": "开拓新市场，发展新客户，并持续维护客户资源，增加产品销售范围。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责开拓新市场，发展新客户并持续维护客户资源，增加产品销售范围。"
+        ]
+      },
+      {
+        "title": "销售全流程跟进",
+        "description": "负责报价、合同签订、回款跟踪等销售全流程跟进，与内部部门有效沟通，确保合同落地。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责报价、合同签订、回款跟踪等销售全流程跟进，与内部部门有效沟通，确保合同落地。"
+        ]
+      },
+      {
+        "title": "客户关系维护",
+        "description": "负责客户及相关单位的关系维护，开展合作，推进业务发展，包括重要客户的拜访、接待及关系维持。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责客户及相关单位的关系维护，开展合作，推进业务发展，负责重要客户的拜访、接待及关系维持。"
+        ]
+      },
+      {
+        "title": "市场信息收集与分析",
+        "description": "收集分析客户信息、市场需求及产品竞争状况，协助制定行业营销策略。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责收集分析客户信息、市场需求及产品竞争状况，协助制定行业营销策略。"
+        ]
+      },
+      {
+        "title": "完成其他销售相关工作",
+        "description": "完成上级安排的其他市场销售相关工作。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "完成上级安排的其他市场销售相关工作。"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "有烟草行业或工业大企业销售经验，并有落地项目经验者优先。",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有烟草行业或工业大企业销售经验，并有落地项目经验者优先。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "具备5年以上工业仪器仪表行业工作经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备5年以上工业仪器仪表行业工作经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "有PLC、DCS、变频器等自动化相关产品销售或项目经验者优先。",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有PLC、DCS、变频器等自动化相关产品销售或项目经验者优先。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "具备较强的客户沟通能力和一定的商务处理能力",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备较强的客户沟通能力和一定的商务处理能力"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "具有良好的团队协作精神。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具有良好的团队协作精神。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "具备一定的技术能力，能够理解并传达产品的技术特点。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备一定的技术能力，能够理解并传达产品的技术特点。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "具有强烈的销售欲望和内驱力，抗压能力强，适应出差。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具有强烈的销售欲望和内驱力，抗压能力强，适应出差。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及的客户拜访和出差",
+          "explanation": "职责中包含客户拜访、接待及关系维持，且任职要求明确适应出差，因此推断可能出差。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责重要客户的拜访、接待及关系维持。",
+            "适应出差"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及跨部门沟通与协作",
+          "explanation": "职责中明确提到与内部部门有效沟通，确保合同落地，因此可能涉及跨部门协作。",
+          "sourceType": "inference",
+          "evidence": [
+            "与内部部门有效沟通，确保合同落地。"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及市场分析和策略制定",
+          "explanation": "职责中包含收集分析市场信息并协助制定营销策略，因此可能参与市场策略工作。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责收集分析客户信息、市场需求及产品竞争状况，协助制定行业营销策略。"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "公司名称未说明",
+        "薪资范围未说明",
+        "具体出差频率未说明",
+        "团队规模未说明",
+        "汇报对象未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "工作地点在哪里？",
+          "reason": "JD中未说明工作地点，需要确认。"
+        },
+        {
+          "question": "公司名称和所属行业是什么？",
+          "reason": "JD中未说明公司名称，需要确认。"
+        },
+        {
+          "question": "薪资范围是多少？",
+          "reason": "JD中未说明薪资范围，需要确认。"
+        },
+        {
+          "question": "出差的频率和范围是怎样的？",
+          "reason": "JD中仅提到适应出差，但未说明具体频率和范围，需要确认。"
+        },
+        {
+          "question": "销售团队规模如何？",
+          "reason": "JD中未说明团队规模，需要确认。"
+        },
+        {
+          "question": "该岗位的汇报对象是谁？",
+          "reason": "JD中未说明汇报关系，需要确认。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触工业自动化产品销售相关工作",
+          "sourceType": "inference",
+          "evidence": [
+            "负责PLC及相关产品的销售工作"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及市场开拓和客户维护",
+          "sourceType": "inference",
+          "evidence": [
+            "负责开拓新市场，发展新客户并持续维护客户资源"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能参与销售全流程和跨部门协作",
+          "sourceType": "inference",
+          "evidence": [
+            "负责报价、合同签订、回款跟踪等销售全流程跟进，与内部部门有效沟通"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

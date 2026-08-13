@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-04-R3",
+  "fixtureId": "TC-04",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 170,
+    "jdSha256": "a00529969bbe35f44c750fe862a1c2f3a8183eb0c9e04b4026e4fabdd41af122",
+    "source": "docs/验收执行报告.md §7.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 10033,
+    "requestId": "e99027e0-f05b-4b38-97ad-bb8eadf1b1b4",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": null,
+      "educationRequirement": null,
+      "summary": "从JD信息看，可能属于微缩模型行业的推广运营类岗位，涉及项目曝光与变现。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "项目曝光与变现",
+        "description": "负责将微缩模型项目进行推广曝光，并实现商业变现。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "把我们的项目曝光出去，变现。没有别的了"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "有创业心态",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有创业心态"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有抗压能力",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有抗压能力"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及项目推广与变现的工作，工作内容较为聚焦。",
+          "explanation": "JD仅提及曝光和变现，可能工作重心在于营销和商业转化。",
+          "sourceType": "inference",
+          "evidence": [
+            "把我们的项目曝光出去，变现。没有别的了"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从团队描述看，可能属于小团队创业环境，工作氛围较为直接。",
+          "explanation": "JD提到年轻小创业团队，可能工作节奏和氛围具有创业特点。",
+          "sourceType": "inference",
+          "evidence": [
+            "我们是年轻的小创业团队"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "岗位具体名称未说明",
+        "工作地点未说明",
+        "薪资范围未明确说明",
+        "具体职责细节未说明",
+        "团队结构未说明",
+        "培养机制未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请确认该岗位的具体职责范围，是否只负责曝光和变现，还是也包括其他工作？",
+          "reason": "JD中职责描述较为简略，需要明确实际工作内容。"
+        },
+        {
+          "question": "请确认工作地点在哪里？",
+          "reason": "JD未说明工作地点。"
+        },
+        {
+          "question": "请确认薪资的具体构成和范围？",
+          "reason": "JD仅提到薪资不设限，但未给出具体范围。"
+        },
+        {
+          "question": "请确认团队规模和结构，以及该岗位在团队中的角色？",
+          "reason": "JD仅提到是小创业团队，但未说明具体结构。"
+        },
+        {
+          "question": "请确认是否有系统的培养安排或成长路径？",
+          "reason": "JD未提及培养机制。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能涉及项目推广与变现，工作内容较为聚焦。",
+          "sourceType": "inference",
+          "evidence": [
+            "把我们的项目曝光出去，变现。没有别的了"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从团队描述看，可能属于创业团队，薪资与结果挂钩。",
+          "sourceType": "inference",
+          "evidence": [
+            "薪资不设限，一定跟你拿到的结果成正比",
+            "我们是年轻的小创业团队"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

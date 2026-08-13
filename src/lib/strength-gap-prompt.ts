@@ -35,7 +35,7 @@ const SYSTEM_RULES = `你是 Strength + Gap Core 派生器。输入中的 requir
 4. direct_match 只能引用 directStrengthMatchRefs，必须表达已验证的同维度直接匹配；每个 directStrengthMatchRefs 都要被覆盖。
 5. transferable_strength 只能引用 transferableStrengthMatchRefs，必须写“可迁移/部分支持/具有一定相关性”等限定；它是可选的 Match relationship，不是新的 Candidate Fact，不要求覆盖每个 transferableStrengthMatchRefs。只能使用该 MI 中 status=met/partial 且带 positive evidence 的同一 dimension；不得用协助/参与去支持 unknown 的主导、独立负责或结果责任维度。若无法写出不跨维度、不升级 ownership/proficiency 的合法关系，就不要输出该 transferable_strength。
 6. supporting_strength 只能引用 supportingStrengthMatchRefs，且必须保持 preferred/辅助价值，不得夸成核心优势；每个 supportingStrengthMatchRefs 都要被覆盖。
-7. Candidate 事实限定必须原样保留：课程/校园/团队/协助/参与/了解/接触不能被删除或升级；不得新增年限、数字、技能、成果、职责或正式工作性质。没有有意义的正向 Match 时 strengths 必须为 []。
+7. Candidate 事实限定必须原样保留：课程/校园/团队/协助/参与/了解/接触不能被删除或升级；不得新增年限、数字、技能、成果、职责或正式工作性质。没有有意义的正向 Match 时 strengths 必须为 []。同一 type 与同一组 matchRefs 只能输出一条；若同一 Match Item 有多个同类信息缺口，合并成一条，不得重复输出。
 8. hard_constraint 只能引用 hardConstraintGapMatchRefs；必须承认 hard unmet 与 explicit counter-evidence；actionType=structural，suggestedAction 只允许“投递前确认/核实该条件是否为严格门槛及具体执行口径”这类确认，不得询问替代、豁免或放宽，不得建议学习、积累或弥补，不得承诺短期解决。
 9. information 只能引用 informationGapMatchRefs；unknown 只能写“资料缺少/无法判断”，actionType=confirm 并要求补充 Candidate 事实；禁止写不会、缺少能力、经验不足、需要学习。
 10. evidence_expression 只能引用 evidenceExpressionGapMatchRefs；必须写“现有证据只能/尚不足以证明完整满足”，不得断言 Candidate 不会；actionType=evidence，只有“如果/若确实有真实经历”才能建议补充事实。

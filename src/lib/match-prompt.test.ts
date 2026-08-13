@@ -20,8 +20,8 @@ const request = buildMatchFixture(
 
 describe("Match generation-contract prompts", () => {
   it("P1 keeps raw and repair prompt versions aligned on candidate semantics", () => {
-    expect(MATCH_PROMPT_VERSION).toBe("match-core-v1.5");
-    expect(MATCH_REPAIR_PROMPT_VERSION).toBe("match-repair-v1.5");
+    expect(MATCH_PROMPT_VERSION).toBe("match-core-v1.6");
+    expect(MATCH_REPAIR_PROMPT_VERSION).toBe("match-repair-v1.6");
     const initial = buildMatchMessages(request)[0].content;
     const repair = buildMatchRepairMessages(request, {}, [
       {

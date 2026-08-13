@@ -68,9 +68,9 @@ Each top-level case records input/fixture/implementation/run IDs; per-stage call
 | 1 | Record authorization; recover/freeze 10 Phase 1 and 14 Phase 2 fixtures | COMPLETE |
 | 2 | Implement narrow integrated product flow and focused UI/API regression | COMPLETE |
 | 3 | Implement Phase 2.5 runner, artifact schema, metrics, and zero-model tests | COMPLETE |
-| 4 | Complete deterministic gate and commit immutable candidate baseline | DETERMINISTIC PASS / COMMIT IN PROGRESS |
-| 5 | Execute complete Phase 1 and Phase 2 formal matrices | PENDING |
-| 6 | Stabilize reproducible in-scope defects on new baselines when necessary | PENDING |
+| 4 | Complete deterministic gate and commit immutable candidate baseline | COMPLETE |
+| 5 | Execute complete Phase 1 and Phase 2 formal matrices | BASELINE-2 COMPLETE / PHASE 1 ACCEPTED / PHASE 2 REPLACEMENT REQUIRED |
+| 6 | Stabilize reproducible in-scope defects on new baselines when necessary | ISSUE-040～045 DETERMINISTIC PASS / COMMIT IN PROGRESS |
 | 7 | Product acceptance, evidence/Git/secret audit, docs reconciliation, final disposition | PENDING |
 
 ## 6. Stop & Escalate

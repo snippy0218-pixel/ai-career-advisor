@@ -31,6 +31,44 @@ export function isPhase25InfrastructureFailure(failureClassification) {
   return INFRASTRUCTURE_FAILURE_CODES.has(failureClassification);
 }
 
+export function summarizeStageLifecycle(results, stageName, field) {
+  let called = 0;
+  let completed = 0;
+  let failed = 0;
+  for (const result of results) {
+    for (const stage of result.stages ?? []) {
+      if (stage.stage !== stageName) continue;
+      const value =
+        stage[field] ??
+        stage.acceptanceDiagnostics?.[field] ??
+        stage.diagnostics?.[field];
+      if (!value) continue;
+      if (
+        value.called === true ||
+        value.requested === true ||
+        (typeof value.attempts === "number" && value.attempts > 0)
+      ) {
+        called += 1;
+      }
+      if (
+        value.completed === true ||
+        value.result === "completed" ||
+        ["accepted", "used", "completed"].includes(value.state)
+      ) {
+        completed += 1;
+      }
+      if (
+        value.failed === true ||
+        value.result === "failed" ||
+        ["failed", "rejected", "completion_failed"].includes(value.state)
+      ) {
+        failed += 1;
+      }
+    }
+  }
+  return { called, completed, failed };
+}
+
 function everyEvidenceInRaw(evidence, rawText) {
   return evidence.every(
     (value) => typeof value === "string" && value.length > 0 && rawText.includes(value),
@@ -48,6 +86,23 @@ function outputModifiersAreSourced(outputText, sourceText) {
     if (values.some((value) => !sourceText.includes(value))) return false;
   }
   return true;
+}
+
+function assertionText(result) {
+  return JSON.stringify({
+    matchReasons: result.matchCore.matchItems.flatMap((item) =>
+      item.requirementDimensions.map((dimension) => dimension.reason),
+    ),
+    recommendation: {
+      summary: result.recommendation.summary,
+      limitations: result.recommendation.limitations.map((item) => item.content),
+    },
+    strengthGap: {
+      strengths: result.strengthGap.strengths.map((item) => item.statement),
+      gaps: result.strengthGap.gaps.map((item) => item.statement),
+    },
+    greeting: result.greeting.greeting,
+  });
 }
 
 function allMatchRefs(result) {
@@ -175,7 +230,10 @@ export function inspectPhase2Invariants(input, result) {
     "X-C_status_stability": recommendationStatusStable,
     "X-D_unknown_stability": greetingAvoidsUnknown,
     "X-E_negative_evidence_stability": explicitNegativeStable,
-    "X-F_modifier_integrity": outputModifiersAreSourced(outputText, sourceText),
+    "X-F_modifier_integrity": outputModifiersAreSourced(
+      assertionText(result),
+      sourceText,
+    ),
     "X-G_waiver_integrity": waiverStable,
     "X-H_candidate_semantic_preservation": greetingFactsExact,
     "X-I_reference_continuity": referencesContinuous,

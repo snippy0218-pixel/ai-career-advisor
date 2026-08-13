@@ -1,0 +1,244 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-07-R3",
+  "fixtureId": "TC-07",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 520,
+    "jdSha256": "dd49ed52ab52e9e76768d63cbd96fcd827cfebbfaef51d31edd6ade78a2cfc38",
+    "source": "docs/验收执行报告.md §10.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 12265,
+    "requestId": "5dc9beb6-b9d4-436e-8b76-86b07ab0012b",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "3年以上餐饮行业或食品制造业产品开发/产品管理经验",
+      "educationRequirement": "本科及以上学历",
+      "summary": "从JD信息看，可能属于食品行业产品经理岗位，涉及产品规划、研发落地、供应链协同及上市赋能等工作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "产品规划与策略",
+        "description": "负责炸物品类的产品线规划、生命周期管理、市场调研、竞品分析及新品概念输出，制定上新与下市计划。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责炸物品类的产品线规划、生命周期管理及迭代策略",
+          "制定年度/季度产品上新与下市计划，并推动执行"
+        ]
+      },
+      {
+        "title": "产品研发与落地",
+        "description": "主导新品试吃与内部评测，跟进产品从小试、中试到规模化生产的全过程并解决问题。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "主导新品试吃与内部评测，收集反馈并持续优化产品",
+          "负责产品小试、中试到规模化生产的全过程跟进与问题解决"
+        ]
+      },
+      {
+        "title": "供应链开发与协同",
+        "description": "寻找并管理供应商，主导成本核算与优化，与采购、品控、计划部门合作建立标准化SOP。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "寻找、评估并管理上游原料及成品供应商",
+          "主导新品的成本核算与分析",
+          "与采购、品控、计划部门紧密合作，建立并优化产品的标准化SOP"
+        ]
+      },
+      {
+        "title": "上市与赋能",
+        "description": "管理新品上市项目全流程，编写产品手册和培训资料，跟踪上市后数据并制定优化方案。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责新品上市项目的全流程管理",
+          "编写产品手册、培训资料",
+          "跟踪新品上市后的销售数据、顾客反馈，进行复盘并制定优化方案"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "本科及以上学历",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "本科及以上学历"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "食品科学、供应链管理、市场营销等相关专业优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "食品科学、供应链管理、市场营销等相关专业优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "3年以上餐饮行业或食品制造业产品开发/产品管理经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "3年以上餐饮行业或食品制造业产品开发/产品管理经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "具备供应链相关经验者优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备供应链相关经验者优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "有炸鸡、小吃、快餐等品类经验者尤佳",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有炸鸡、小吃、快餐等品类经验者尤佳"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及跨部门协作，需要与采购、品控、计划、市场、运营、培训等多部门沟通。",
+          "explanation": "职责中明确提到与多部门合作，推断工作特点",
+          "sourceType": "inference",
+          "evidence": [
+            "与采购、品控、计划部门紧密合作",
+            "协调市场、运营、培训等部门"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能需全程跟进产品从概念到上市，工作链条较长。",
+          "explanation": "职责覆盖规划、研发、供应链、上市，推断工作特点",
+          "sourceType": "inference",
+          "evidence": [
+            "负责炸物品类的产品线规划",
+            "负责产品小试、中试到规模化生产",
+            "负责新品上市项目的全流程管理"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能需关注成本控制与供应链优化。",
+          "explanation": "职责中明确提到成本核算与供应链优化，推断工作特点",
+          "sourceType": "inference",
+          "evidence": [
+            "主导新品的成本核算与分析",
+            "通过供应链优化、工艺改进等方式实现成本目标"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "公司名称未说明",
+        "工作地点未说明",
+        "薪资范围未说明",
+        "具体团队规模未说明",
+        "实际参与深度未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "该岗位的团队结构是怎样的？产品、研发、供应链等职能如何分工？",
+          "reason": "JD未说明团队结构，需确认实际协作模式"
+        },
+        {
+          "question": "该岗位是否能够独立负责产品模块，还是更多参与执行？",
+          "reason": "JD未明确实际参与深度，需确认职责范围"
+        },
+        {
+          "question": "公司是否有完善的培养机制或晋升路径？",
+          "reason": "JD未提及培养安排，需确认成长空间"
+        },
+        {
+          "question": "该岗位在业务中的权重如何？是否为核心业务？",
+          "reason": "JD未说明业务权重，需确认岗位重要性"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触产品全流程管理，包括规划、研发、供应链和上市。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责炸物品类的产品线规划",
+            "负责产品小试、中试到规模化生产",
+            "负责新品上市项目的全流程管理"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及跨部门协作，有助于积累综合经验。",
+          "sourceType": "inference",
+          "evidence": [
+            "与采购、品控、计划部门紧密合作",
+            "协调市场、运营、培训等部门"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对贵司的产品岗位很感兴趣，想进一步了解岗位职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

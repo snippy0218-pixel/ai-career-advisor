@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "phase-2-5-content-adjudication-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "disposition": "valid_complete_baseline_rejected_for_release_and_retained_as_stabilization_evidence",
+  "matrix": {
+    "phase1": {
+      "scheduled": 30,
+      "passed": 30,
+      "acceptedAsFinalCompatibilityEvidence": true
+    },
+    "phase2": {
+      "scheduled": 42,
+      "passed": 11,
+      "completedChains": 19,
+      "downstreamCallsAfterFailure": 0,
+      "acceptedAsFinalReleaseEvidence": false
+    }
+  },
+  "adjudicatedRoots": [
+    {
+      "issue": "ISSUE-040",
+      "area": "Profile",
+      "evidence": "TC-P2-13 R1-R3 and TC-P2-14 R1-R3",
+      "root": "generic preference/career labels, Office/table usage, travel preference, and evidence-absence category text were not classified consistently"
+    },
+    {
+      "issue": "ISSUE-041",
+      "area": "Match",
+      "evidence": "TC-P2-02, TC-P2-09, TC-P2-10 and TC-P2-12 rejected raw and repairs",
+      "root": "valid education/duration/responsibility threshold relations and JD-side qualifiers were conflated with Candidate assertions, while invalid sibling-dimension counter propagation remained correctly fail-closed"
+    },
+    {
+      "issue": "ISSUE-042",
+      "area": "Recommendation",
+      "evidence": "TC-P2-03 R1-R3 and TC-P2-04 R1",
+      "root": "evidence-absence prose and direct Candidate education questions were classified as ungrounded assertions or non-Candidate questions"
+    },
+    {
+      "issue": "ISSUE-043",
+      "area": "StrengthGap",
+      "evidence": "TC-P2-05 R1",
+      "root": "repair repeated an optional Gap type/reference key and had no bounded duplicate removal"
+    },
+    {
+      "issue": "ISSUE-044",
+      "area": "Phase 2.5 invariant runner",
+      "evidence": "eight completed chains whose only failed invariant was X-F",
+      "root": "verification questions and suggested actions were audited as Candidate assertions"
+    },
+    {
+      "issue": "ISSUE-045",
+      "area": "Phase 2.5 metrics",
+      "evidence": "summary.json reported zero repairs/fallbacks despite stage lifecycle records with attempts",
+      "root": "summary aggregation read nested diagnostics instead of the normalized stage lifecycle fields"
+    }
+  ],
+  "runPolicy": {
+    "allArtifactsRetained": true,
+    "cherryPick": false,
+    "fourthRun": false,
+    "codeChangedDuringBatch": false,
+    "fixturesChangedDuringBatch": false
+  },
+  "nextEvidence": "new committed implementation baseline; full affected Phase 2 TC-P2-01..14 x3 matrix"
+}

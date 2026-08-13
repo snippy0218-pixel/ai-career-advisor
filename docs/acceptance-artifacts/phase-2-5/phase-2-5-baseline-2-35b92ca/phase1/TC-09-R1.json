@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-09-R1",
+  "fixtureId": "TC-09",
+  "repetition": 1,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 836,
+    "jdSha256": "99083d9833b1b65b2055773239402d1b550164f66b1964ec3d50c5c129a70fd0",
+    "source": "docs/验收执行报告.md §12.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 12331,
+    "requestId": "e4d4760a-e024-4d65-8994-42d6b35a2729",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": "TikTok",
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "4年以上",
+      "educationRequirement": null,
+      "summary": "从JD信息看，可能属于TikTok生活服务业务的活动策划与增长岗位，涉及活动框架制定、市场分析、洞察生成和跨职能协作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "制定活动框架",
+        "description": "明确活动目标和时间线，建立核心主题，设定总体目标和预算，分解具体目标，并将职责分配给跨职能团队。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "制定活动框架：明确活动目标和时间线，建立核心主题，设定总体目标和预算，分解具体目标，并将职责分配给跨职能团队"
+        ]
+      },
+      {
+        "title": "市场分析",
+        "description": "持续监控市场趋势和动态，从卖家和买家中获取认知，借鉴最佳实践，建立信息库并发掘增长机会。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "市场分析：持续监控市场趋势和市场动态，从卖家和买家中获取认知，同时借鉴其他国家或地区的最佳实践，建立信息库并发掘新的增长机会"
+        ]
+      },
+      {
+        "title": "生成洞察",
+        "description": "整合内部数据、市场研究以及反馈，挖掘可执行的洞察，以解锁增长机会或提升运营效率。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "生成洞察：整合内部数据、市场研究以及来自卖家和买家的反馈，挖掘可执行的洞察，以解锁新的增长机会或提升运营效率"
+        ]
+      },
+      {
+        "title": "促进跨职能协作",
+        "description": "作为知识中心，与业务发展、创作者团队及其他团队合作，设计并执行一致且有影响力的活动。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "促进跨职能协作：作为知识中心，与业务发展团队、创作者团队及其他团队（包括产品经理）合作，设计并执行一致且有影响力的活动"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "拥有4年以上增长/需求规划、战略规划或咨询相关工作经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "拥有4年以上增长/需求规划、战略规划或咨询相关工作经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "具备预测、计划制定及活动策划背景",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备预测、计划制定及活动策划背景"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有主人翁意识，能够对项目结果负责、保持积极乐观的工作心态，并在规定时间内完成任务",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有主人翁意识，能够对项目结果负责、保持积极乐观的工作心态，并在规定时间内完成任务"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "具备管理和同时执行多个项目的专业能力，包括制定时间表、管理预算以及高效协调团队",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "具备管理和同时执行多个项目的专业能力，包括制定时间表、管理预算以及高效协调团队"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "熟练分析数据和指标，评估营销活动效果，并运用经验进行持续改进",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟练分析数据和指标，评估营销活动效果，并运用经验进行持续改进"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "能流利使用英语进行专业交流",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "能流利使用英语进行专业交流"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "熟悉印尼语者优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟悉印尼语者优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "愿意定期进行国际出差",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "愿意定期进行国际出差"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及跨时区、跨文化协作，需要与国际团队沟通。",
+          "explanation": "基于职责和团队分布推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "促进跨职能协作：作为知识中心，与业务发展团队、创作者团队及其他团队（包括产品经理）合作"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能需要在早期业务阶段承担较多从0到1的探索性工作。",
+          "explanation": "基于业务处于国际化布局早期阶段的描述推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "TikTok生活服务业务在国际化布局早期阶段"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能需要出差，工作节奏可能较快。",
+          "explanation": "基于明确要求国际出差推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "愿意定期进行国际出差"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "具体汇报关系未说明",
+        "团队规模未说明",
+        "薪资范围未说明",
+        "教育背景要求未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "该岗位的具体工作地点是哪里？",
+          "reason": "JD未明确工作地点，需要确认。"
+        },
+        {
+          "question": "该岗位的汇报对象和团队规模是怎样的？",
+          "reason": "JD未说明团队结构和汇报关系，需要确认。"
+        },
+        {
+          "question": "该岗位的薪资范围是多少？",
+          "reason": "JD未提供薪资信息，需要确认。"
+        },
+        {
+          "question": "该岗位对教育背景有要求吗？",
+          "reason": "JD未提及学历要求，需要确认。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触活动策划、市场分析和跨职能协作等工作。",
+          "sourceType": "inference",
+          "evidence": [
+            "制定活动框架：明确活动目标和时间线，建立核心主题，设定总体目标和预算，分解具体目标，并将职责分配给跨职能团队"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "该岗位提供了参与国际化业务早期阶段的可能性。",
+          "sourceType": "inference",
+          "evidence": [
+            "TikTok生活服务业务在国际化布局早期阶段"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对TikTok生活服务业务的活动策划与增长岗位很感兴趣，想进一步了解岗位的具体工作内容和团队情况，希望能与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-03-R1",
+  "fixtureId": "TC-03",
+  "repetition": 1,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 771,
+    "jdSha256": "4d5316b525bbd6f0ef3a6c72c55662e77fb3dd3cc13e2f9bd876dbde65545592",
+    "source": "docs/验收执行报告.md §6.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 13949,
+    "requestId": "fcb53314-d960-464d-8cf6-21d1bfedf925",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": null,
+      "educationRequirement": "硕士及以上学历，或高匹配下述三点及以上要求的本科生",
+      "summary": "从JD信息看，可能属于飞行汽车自动驾驶领域的高性能计算/软件架构岗位，涉及异构计算、相机数据pipeline和深度学习模型部署优化。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "异构软件架构设计与开发",
+        "description": "负责设计和开发飞行汽车自动驾驶中相机、感知等上下游的异构软件架构，包括CPU+GPU+DLA+NPU+xPU等，最大化利用硬件计算平台。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "针对飞行汽车自动驾驶领域的相机、感知等上下游，负责设计和开发高性能的异构(CPU+GPU+DLA+NPU+xPU)软件架构、相机数据pipeline和异构调度，最大化利用硬件计算平台"
+        ]
+      },
+      {
+        "title": "性能分析与调优",
+        "description": "对实车的性能表现和稳定性进行深度分析和调优。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "并对实车的性能表现和稳定性进行深度分析和调优"
+        ]
+      },
+      {
+        "title": "深度学习模型优化与部署",
+        "description": "探索前沿深度学习算法模型的优化和高效推理部署，满足量产车型嵌入式芯片的性能要求。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "探索前沿深度学习算法模型的优化和高效推理部署，达到量产车型上\n不局限于NVIDIAAGXOrin芯片平台的嵌入式芯片的性能要求"
+        ]
+      },
+      {
+        "title": "下一代芯片技术探索",
+        "description": "探索下一代嵌入式芯片在飞行汽车领域软件架构和高性能计算的可能性。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "探索下一代嵌入式芯片在飞行汽车领域里，软件架构和高性能计算的无限可能"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "电子与信息工程相关领域的硕士及以上学历",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "电子与信息工程相关领域的硕士及以上学历"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "或者高匹配下述三点及以上要求的本科生",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "或者高匹配下述三点及以上要求的本科生"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "熟悉Linux开发环境、智能硬件领域的Modem C++编程、数据结构与算法、软件设计模式和计算机体系结构等相\n关知识，具备扎实严谨的软件工程习惯",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟悉Linux开发环境、智能硬件领域的Modem C++编程、数据结构与算法、软件设计模式和计算机体系结构等相\n关知识，具备扎实严谨的软件工程习惯"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "拥有基于NVIDIAAGXOrin芯片平台的DRIVEOS、SIPL、NvMedia、NvStreams等相关组件从业经历优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "拥有基于NVIDIAAGXOrin芯片平台的DRIVEOS、SIPL、NvMedia、NvStreams等相关组件从业经历优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "拥有CUDA/OpenCL/OpenGL(ES)/Taichi/ROCm等异构平台的相关开发经验，熟悉GPGPU编程模型和架构原理\n优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "拥有CUDA/OpenCL/OpenGL(ES)/Taichi/ROCm等异构平台的相关开发经验，熟悉GPGPU编程模型和架构原理\n优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "熟悉或者了解各种高性能计算优化技术，诸如Roofline Model、Latency、Throughput、Fusion、Loop Paralleliza\ntion, Amdahl's Law、 Memory&Compute Bound等优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟悉或者了解各种高性能计算优化技术，诸如Roofline Model、Latency、Throughput、Fusion、Loop Paralleliza\ntion, Amdahl's Law、 Memory&Compute Bound等优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "了解基本的深度学习算法即可，但拥有嵌入式芯片模型部署经验、了解或者探究过类似于TensorRT、Apache TV\nM等AI编译器的背后机理优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "了解基本的深度学习算法即可，但拥有嵌入式芯片模型部署经验、了解或者探究过类似于TensorRT、Apache TV\nM等AI编译器的背后机理优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "对追求极致高性能充满热情，具有优秀的分析问题和解决问题能力、良好的工作文档习惯、良好的团队合作意识\n和沟通能力",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "对追求极致高性能充满热情，具有优秀的分析问题和解决问题能力、良好的工作文档习惯、良好的团队合作意识\n和沟通能力"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "或者高匹配下述三点及以上要求的本科生。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "或者高匹配下述三点及以上要求的本科生。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及飞行汽车自动驾驶领域的高性能计算和软件架构设计，工作内容技术深度较高。",
+          "explanation": "根据职责描述推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责设计和开发高性能的异构(CPU+GPU+DLA+NPU+xPU)软件架构"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "可能涉及实车性能调优和稳定性分析，需要现场测试和调试。",
+          "explanation": "根据职责描述推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "对实车的性能表现和稳定性进行深度分析和调优"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "可能涉及前沿深度学习模型优化和嵌入式芯片部署，需要关注最新技术。",
+          "explanation": "根据职责描述推断。",
+          "sourceType": "inference",
+          "evidence": [
+            "探索前沿深度学习算法模型的优化和高效推理部署"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "薪资范围未说明",
+        "公司名称未说明",
+        "具体团队规模未说明",
+        "实际参与深度未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "工作地点在哪里？",
+          "reason": "JD未说明工作地点，需要确认。"
+        },
+        {
+          "question": "薪资范围是多少？",
+          "reason": "JD未说明薪资范围，需要确认。"
+        },
+        {
+          "question": "公司名称和团队规模是怎样的？",
+          "reason": "JD未提供公司信息，需要确认。"
+        },
+        {
+          "question": "该岗位在项目中的实际参与深度如何？是独立负责模块还是协作参与？",
+          "reason": "JD未明确实际参与深度，需要确认。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触飞行汽车自动驾驶领域的高性能计算和软件架构设计，技术挑战较大。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责设计和开发高性能的异构(CPU+GPU+DLA+NPU+xPU)软件架构"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及深度学习模型优化和嵌入式芯片部署，技术方向前沿。",
+          "sourceType": "inference",
+          "evidence": [
+            "探索前沿深度学习算法模型的优化和高效推理部署"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对贵公司飞行汽车自动驾驶领域的高性能计算岗位很感兴趣，想进一步了解岗位职责和团队情况，希望有机会沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

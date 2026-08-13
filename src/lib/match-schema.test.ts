@@ -1285,6 +1285,7 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
     reason,
     refs,
     dimensionType = "employment_type",
+    requirementType = "core_requirement",
   }: {
     requirement?: string;
     requirementFragment?: string;
@@ -1293,9 +1294,10 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
     reason: string;
     refs: Array<{ factId: string; role: "positive" | "counter" }>;
     dimensionType?: RawMatchCore["matchItems"][number]["dimensions"][number]["dimensionType"];
+    requirementType?: "hard_requirement" | "core_requirement";
   }) {
     const request = buildMatchFixture(
-      [{ content: requirement, requirementType: "core_requirement" }],
+      [{ content: requirement, requirementType }],
       facts,
     );
     const unresolved = status !== "unmet";
@@ -1430,6 +1432,19 @@ describe("ISSUE-034 supported CF-to-JD relational conclusions", () => {
     const result = relationResult({
       facts: [negativeFact],
       reason: "候选人明确表示没有正式数据产品工作经历，与正式工作经验要求不符。",
+      refs: [{ factId: "CF-001", role: "counter" }],
+    });
+    expect(result.issues).toEqual([]);
+  });
+
+  it("L34-10 accepts an education threshold relation on credential dimensions", () => {
+    const result = relationResult({
+      requirement: "本科及以上学历",
+      requirementFragment: "本科及以上学历",
+      dimensionType: "credential",
+      requirementType: "hard_requirement",
+      facts: [{ statement: "大专学历", semanticTags: ["education"] }],
+      reason: "候选人为大专学历，与本科及以上学历要求直接冲突。",
       refs: [{ factId: "CF-001", role: "counter" }],
     });
     expect(result.issues).toEqual([]);

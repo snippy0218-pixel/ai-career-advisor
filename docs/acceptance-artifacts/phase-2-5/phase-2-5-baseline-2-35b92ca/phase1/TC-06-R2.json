@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-06-R2",
+  "fixtureId": "TC-06",
+  "repetition": 2,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 426,
+    "jdSha256": "8f48db28ff81cb6c49b723fd594dc013f375c997df2aa4097bdfbed4293db4b4",
+    "source": "docs/验收执行报告.md §9.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 15218,
+    "requestId": "7437bb2c-f923-41f4-afc3-edfc26ade920",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": "前端开发工程师",
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "2年以上前端开发经验（应届生可备注接收优秀毕业生）",
+      "educationRequirement": "统招本科及以上学历",
+      "summary": "从JD信息看，可能属于企业级业务管理系统前端开发岗位，涉及Vue3技术栈和全流程开发。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "前端架构设计与开发",
+        "description": "负责企业级业务管理系统前端架构设计，并独立完成从需求分析到部署上线的全流程开发。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责企业级业务管理系统前端架构设计与开发，独立完成从需求分析到部署上线的全流程开发"
+        ]
+      },
+      {
+        "title": "技术栈应用与代码质量",
+        "description": "运用Vue3和TypeScript实现高质量代码，确保项目的可维护性和扩展性。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "运用Vue3+TypeScript技术栈实现高质量代码产出，确保项目可维护性和扩展性"
+        ]
+      },
+      {
+        "title": "跨团队协作与体验优化",
+        "description": "与产品、UI设计及后端团队协同，通过技术方案优化用户体验，提升产品竞争力。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "协同产品、UI设计及后端团队，通过技术方案优化用户体验，提升产品竞争力"
+        ]
+      },
+      {
+        "title": "前端工程化建设",
+        "description": "参与前端工程化建设，推动组件库、工具链等基础设施的优化。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "参与前端工程化建设，推动组件库、工具链等基础设施优化"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "统招本科及以上学历",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "统招本科及以上学历"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "计算机相关专业优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "计算机相关专业优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "2年以上前端开发经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "2年以上前端开发经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "应届生可备注接收优秀毕业生",
+          "explanation": "原文存在粘连或限定词范围不清，需要向HR确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "应届生可备注接收优秀毕业生"
+          ],
+          "verificationQuestion": "应届生接收的具体标准是什么？是否对项目经验或技能有额外要求？",
+          "requirementType": "unclear"
+        },
+        {
+          "content": "精通Vue3全家桶（Vue3+Pinia+Vue Router）及TypeScript开发",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "精通Vue3全家桶（Vue3+Pinia+Vue Router）及TypeScript开发"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "熟练掌握Element Plus/Vant/ECharts等主流组件库",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟练掌握Element Plus/Vant/ECharts等主流组件库"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "扎实的HTML5/CSS3/ES6+开发能力，熟悉Webpack/Vite等构建工具",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "扎实的HTML5/CSS3/ES6+开发能力，熟悉Webpack/Vite等构建工具"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有uni-app跨端开发经验，具备小程序/APP项目落地经验",
+          "explanation": "JD包含明确的加分项/优先项章节作用域，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "加分项：",
+            "有uni-app跨端开发经验，具备小程序/APP项目落地经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "熟悉微前端架构或低代码平台开发经验",
+          "explanation": "JD包含明确的加分项/优先项章节作用域，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "加分项：",
+            "熟悉微前端架构或低代码平台开发经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "参与过中后台管理系统/数据可视化项目",
+          "explanation": "JD包含明确的加分项/优先项章节作用域，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "加分项：",
+            "参与过中后台管理系统/数据可视化项目"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "有开源项目贡献或技术博客输出",
+          "explanation": "JD包含明确的加分项/优先项章节作用域，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "加分项：",
+            "有开源项目贡献或技术博客输出"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及全流程开发，包括需求分析、设计、开发、部署等环节。",
+          "explanation": "基于职责描述推断，实际参与深度需确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "独立完成从需求分析到部署上线的全流程开发"
+          ],
+          "verificationQuestion": "请向HR确认“从职责看，可能涉及全流程开发，包括需求分析、设计、开发、部署等环节”的具体要求和实际情况？"
+        },
+        {
+          "content": "从职责看，可能涉及跨团队协作，与产品、UI、后端等团队紧密配合。",
+          "explanation": "基于职责描述推断，协作方式需确认。",
+          "sourceType": "inference",
+          "evidence": [
+            "协同产品、UI设计及后端团队"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能参与工程化建设，推动组件库和工具链优化。",
+          "explanation": "基于职责描述推断，具体工作内容需确认。",
+          "sourceType": "inference",
+          "evidence": [
+            "参与前端工程化建设，推动组件库、工具链等基础设施优化"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "薪资范围未说明",
+        "公司名称未说明",
+        "团队规模未说明",
+        "具体业务领域未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "应届生接收的具体标准是什么？是否对项目经验或技能有额外要求？",
+          "reason": "该结论无法由JD直接确定，需要确认：应届生可备注接收优秀毕业生"
+        },
+        {
+          "question": "请向HR确认“从职责看，可能涉及全流程开发，包括需求分析、设计、开发、部署等环节”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：从职责看，可能涉及全流程开发，包括需求分析、设计、开发、部署等环节。"
+        },
+        {
+          "question": "工作地点在哪里？",
+          "reason": "JD未说明工作地点。"
+        },
+        {
+          "question": "薪资范围是多少？",
+          "reason": "JD未说明薪资范围。"
+        },
+        {
+          "question": "公司名称和团队规模是怎样的？",
+          "reason": "JD未提供公司信息。"
+        },
+        {
+          "question": "具体负责哪类企业级业务管理系统？",
+          "reason": "JD未明确具体业务领域。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触企业级业务管理系统前端开发，涉及Vue3技术栈。",
+          "sourceType": "inference",
+          "evidence": [
+            "负责企业级业务管理系统前端架构设计与开发"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能参与全流程开发和工程化建设，成长空间需确认。",
+          "sourceType": "inference",
+          "evidence": [
+            "独立完成从需求分析到部署上线的全流程开发",
+            "参与前端工程化建设"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

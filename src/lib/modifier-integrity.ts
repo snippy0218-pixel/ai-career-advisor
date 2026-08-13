@@ -131,13 +131,13 @@ function isNegatedOrRequirementQualifier(
     Math.min(clauseEnd, index + value.length + 10),
   );
   if (
-    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|是否|未表明|未体现|不足以证明|尚无证据证明|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
+    /(?:没有|未|无法|不能|不得|并非|不是|低于|不及|是否|未表明|未体现|未达到|不足以确认|不足以证明|尚无证据证明|尚待|需.{0,4}确认|需要.{0,4}确认)/.test(before) ||
     /^(?:并)?(?:不能|无法|不得|并非|不是)/.test(after)
   ) {
     return true;
   }
   return (
-    /(?:岗位|任职|职位|JD|该项|本项).{0,5}(?:要求|需要)$/.test(before) ||
+    /(?:(?:岗位|任职|职位|JD|该项|本项).{0,5}|(?:与|和|同)(?:该)?)?(?:要求|需要)$/.test(before) ||
     /^(?:的)?(?:经验|经历|项目|能力|程度|年限)?(?:要求|门槛|标准)/.test(after)
   );
 }
@@ -196,6 +196,13 @@ function candidateFactSupportsQualifier(
   statement: string,
   occurrence: UnsupportedModifier & { index: number },
 ) {
+  if (
+    occurrence.category === "ownership" &&
+    occurrence.value === "团队" &&
+    /(?:[二三四五六七八九十两\d]+)人.{0,12}(?:项目|作业)/.test(statement)
+  ) {
+    return true;
+  }
   if (occurrence.category !== "experience_type" || occurrence.value !== "工作") {
     return statement.includes(occurrence.value);
   }

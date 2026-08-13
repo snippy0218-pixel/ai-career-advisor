@@ -185,6 +185,23 @@ describe("Recommendation Core deterministic contract", () => {
     expect(result.data?.recommendationLevel).toBe("cautious");
   });
 
+  it("R-J permits an evidence-absence limitation about a Candidate credential", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const result = finalizeRawRecommendation(
+      {
+        ...fixture.validRaw,
+        limitations: [
+          {
+            content: "现有资料未表明候选人持有该行业资格证书。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      fixture.matchCore,
+    );
+    expect(result.issues).toEqual([]);
+  });
+
   it("RK-TC-01 hard unknown requires Candidate information and rejects waiver inference", () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const valid = finalizeRawRecommendation(fixture.validRaw, fixture.matchCore);
@@ -235,6 +252,18 @@ describe("Recommendation Core deterministic contract", () => {
         issue.message.includes("Candidate-information question"),
       ),
     ).toBe(true);
+  });
+
+  it("R-K accepts a direct education verification question", () => {
+    const fixture = RECOMMENDATION_FIXTURES[2];
+    const raw = structuredClone(fixture.validRaw);
+    raw.questionsToConfirm = [
+      {
+        question: "您是否已获得本科学历？",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    expect(finalizeRawRecommendation(raw, fixture.matchCore).issues).toEqual([]);
   });
 
   it("RK-TC-02 hard unmet without JD waiver permits strictness confirmation only", () => {

@@ -1,0 +1,1564 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-P2-12-R3",
+  "fixtureId": "TC-P2-12",
+  "fixtureName": "team achievement attribution",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 102,
+    "profileCharacters": 82,
+    "jdSha256": "ea0692c6f47f76cdd5b13e311e14a98efc346614499b74620df8fb80414b2e32",
+    "profileSha256": "48d76f331981516889995130d670301acdef31ffcc6f8308ec9f9c104bb1a49a"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "met",
+      "unmet"
+    ]
+  },
+  "coverage": [
+    "team-achievement",
+    "individual-attribution",
+    "ownership",
+    "explicit-counter"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "01ab213f-1722-4f86-9874-d85eb23e4ed5",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 7898,
+      "requestId": "c9db95cd-03b4-4b22-8ce0-033b61cc7712",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2730,
+      "requestId": "9ef8cdc8-1076-46ec-b5a7-3f96fc07310d",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2727,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 380,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 4,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 4,
+        "profileFactRecall": null,
+        "latencyMs": 2727,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 380,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 8190,
+      "requestId": "01ab213f-1722-4f86-9874-d85eb23e4ed5",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-K"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-002"
+            ],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 8187,
+        "outputCompletionTokens": 598,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.0.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "matchNormalizationAttempted": true,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [
+          {
+            "itemIndex": 0,
+            "dimensionIndex": 0,
+            "issueCodes": [
+              "M-K"
+            ],
+            "previousStatus": "met",
+            "normalizedStatus": "unknown",
+            "removedCandidateFactRefs": [
+              "CF-002"
+            ],
+            "reasonRebuilt": true
+          }
+        ],
+        "normalizationValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突"
+          }
+        ],
+        "normalizedRepairOutput": {
+          "matchItems": [
+            {
+              "requirementId": "REQ-001",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "other",
+                  "requirementFragment": "具有团队项目协作经验",
+                  "status": "unknown",
+                  "reason": "现有资料无法确认该维度是否满足。",
+                  "jdEvidence": [
+                    "具有团队项目协作经验"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "尚缺少可验证的“具有团队项目协作经验”同维度候选人证据。",
+                  "verificationQuestion": "请补充可验证的“具有团队项目协作经验”相关事实或经历。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "unmet",
+              "dimensions": [
+                {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                  "status": "unmet",
+                  "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                  "jdEvidence": [
+                    "能独立制定项目计划并对整体结果负责"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "具备清晰的书面沟通能力",
+                  "status": "unknown",
+                  "reason": "现有资料不足以确认候选人的书面沟通能力是否满足要求。",
+                  "jdEvidence": [
+                    "具备清晰的书面沟通能力"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人书面沟通能力的证据缺失",
+                  "verificationQuestion": "请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。"
+                }
+              ]
+            },
+            {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "credential",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人教育背景为本科，满足学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-001",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            }
+          ]
+        },
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 8187,
+        "outputCompletionTokens": 598,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"具有团队项目协作经验\",\n          \"status\": \"met\",\n          \"reason\": \"候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。\",\n          \"jdEvidence\": [\"具有团队项目协作经验\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-002\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"能独立制定项目计划并对整体结果负责\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。\",\n          \"jdEvidence\": [\"能独立制定项目计划并对整体结果负责\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"counter\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"具备清晰的书面沟通能力\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料未表明候选人的书面沟通能力，无法确认是否具备。\",\n          \"jdEvidence\": [\"具备清晰的书面沟通能力\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人书面沟通能力的证据缺失\",\n          \"verificationQuestion\": \"请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为本科，满足学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-001\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2072,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "具有团队项目协作经验",
+                      "status": "met",
+                      "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                      "jdEvidence": [
+                        "具有团队项目协作经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                      "status": "unmet",
+                      "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立制定项目计划并对整体结果负责"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "具备清晰的书面沟通能力",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人的书面沟通能力，无法确认是否具备。",
+                      "jdEvidence": [
+                        "具备清晰的书面沟通能力"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人书面沟通能力的证据缺失",
+                      "verificationQuestion": "请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为本科，满足学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "other",
+                        "requirementFragment": "具有团队项目协作经验",
+                        "status": "met",
+                        "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                        "jdEvidence": [
+                          "具有团队项目协作经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "other",
+                    "requirementFragment": "具有团队项目协作经验",
+                    "status": "met",
+                    "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                    "jdEvidence": [
+                      "具有团队项目协作经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "responsibility",
+                        "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                        "status": "unmet",
+                        "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                        "jdEvidence": [
+                          "能独立制定项目计划并对整体结果负责"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                    "status": "unmet",
+                    "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立制定项目计划并对整体结果负责"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"具有团队项目协作经验\",\n          \"status\": \"met\",\n          \"reason\": \"候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。\",\n          \"jdEvidence\": [\"具有团队项目协作经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"能独立制定项目计划并对整体结果负责\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。\",\n          \"jdEvidence\": [\"能独立制定项目计划并对整体结果负责\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"具备清晰的书面沟通能力\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人的书面沟通能力是否满足要求。\",\n          \"jdEvidence\": [\"具备清晰的书面沟通能力\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人书面沟通能力的证据缺失\",\n          \"verificationQuestion\": \"请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为本科，满足学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 2197,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "具有团队项目协作经验",
+                      "status": "met",
+                      "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                      "jdEvidence": [
+                        "具有团队项目协作经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                      "status": "unmet",
+                      "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立制定项目计划并对整体结果负责"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "具备清晰的书面沟通能力",
+                      "status": "unknown",
+                      "reason": "现有资料不足以确认候选人的书面沟通能力是否满足要求。",
+                      "jdEvidence": [
+                        "具备清晰的书面沟通能力"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人书面沟通能力的证据缺失",
+                      "verificationQuestion": "请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为本科，满足学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.0.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 0,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-001",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "other",
+                        "requirementFragment": "具有团队项目协作经验",
+                        "status": "met",
+                        "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                        "jdEvidence": [
+                          "具有团队项目协作经验"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "other",
+                    "requirementFragment": "具有团队项目协作经验",
+                    "status": "met",
+                    "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                    "jdEvidence": [
+                      "具有团队项目协作经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "unmet",
+                    "dimensions": [
+                      {
+                        "dimensionType": "responsibility",
+                        "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                        "status": "unmet",
+                        "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                        "jdEvidence": [
+                          "能独立制定项目计划并对整体结果负责"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "counter"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                    "status": "unmet",
+                    "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立制定项目计划并对整体结果负责"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": null
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "01ab213f-1722-4f86-9874-d85eb23e4ed5",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"具有团队项目协作经验\",\n          \"status\": \"met\",\n          \"reason\": \"候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。\",\n          \"jdEvidence\": [\"具有团队项目协作经验\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-002\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"能独立制定项目计划并对整体结果负责\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。\",\n          \"jdEvidence\": [\"能独立制定项目计划并对整体结果负责\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-004\", \"role\": \"counter\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"具备清晰的书面沟通能力\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料未表明候选人的书面沟通能力，无法确认是否具备。\",\n          \"jdEvidence\": [\"具备清晰的书面沟通能力\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人书面沟通能力的证据缺失\",\n          \"verificationQuestion\": \"请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为本科，满足学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\"factId\": \"CF-001\", \"role\": \"positive\"}\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2072,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "other",
+                    "requirementFragment": "具有团队项目协作经验",
+                    "status": "met",
+                    "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                    "jdEvidence": [
+                      "具有团队项目协作经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                    "status": "unmet",
+                    "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立制定项目计划并对整体结果负责"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "具备清晰的书面沟通能力",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人的书面沟通能力，无法确认是否具备。",
+                    "jdEvidence": [
+                      "具备清晰的书面沟通能力"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人书面沟通能力的证据缺失",
+                    "verificationQuestion": "请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "具有团队项目协作经验",
+                      "status": "met",
+                      "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                      "jdEvidence": [
+                        "具有团队项目协作经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "other",
+                  "requirementFragment": "具有团队项目协作经验",
+                  "status": "met",
+                  "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                  "jdEvidence": [
+                    "具有团队项目协作经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                      "status": "unmet",
+                      "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立制定项目计划并对整体结果负责"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                  "status": "unmet",
+                  "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                  "jdEvidence": [
+                    "能独立制定项目计划并对整体结果负责"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"other\",\n          \"requirementFragment\": \"具有团队项目协作经验\",\n          \"status\": \"met\",\n          \"reason\": \"候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。\",\n          \"jdEvidence\": [\"具有团队项目协作经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"能独立制定项目计划并对整体结果负责\",\n          \"status\": \"unmet\",\n          \"reason\": \"候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。\",\n          \"jdEvidence\": [\"能独立制定项目计划并对整体结果负责\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unknown\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"具备清晰的书面沟通能力\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认候选人的书面沟通能力是否满足要求。\",\n          \"jdEvidence\": [\"具备清晰的书面沟通能力\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"候选人书面沟通能力的证据缺失\",\n          \"verificationQuestion\": \"请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"候选人教育背景为本科，满足学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 2197,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "other",
+                    "requirementFragment": "具有团队项目协作经验",
+                    "status": "met",
+                    "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                    "jdEvidence": [
+                      "具有团队项目协作经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                    "status": "unmet",
+                    "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                    "jdEvidence": [
+                      "能独立制定项目计划并对整体结果负责"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "具备清晰的书面沟通能力",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认候选人的书面沟通能力是否满足要求。",
+                    "jdEvidence": [
+                      "具备清晰的书面沟通能力"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人书面沟通能力的证据缺失",
+                    "verificationQuestion": "请提供候选人书面沟通能力的证明，如报告、邮件或文档样本。"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.0.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: ownership:团队->CF-002",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 0,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "other",
+                      "requirementFragment": "具有团队项目协作经验",
+                      "status": "met",
+                      "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                      "jdEvidence": [
+                        "具有团队项目协作经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "other",
+                  "requirementFragment": "具有团队项目协作经验",
+                  "status": "met",
+                  "reason": "候选人参与五人校园项目，协助跟进任务清单并整理会议纪要，明确体现团队协作经验。",
+                  "jdEvidence": [
+                    "具有团队项目协作经验"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 与要求直接冲突",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                      "status": "unmet",
+                      "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                      "jdEvidence": [
+                        "能独立制定项目计划并对整体结果负责"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "responsibility",
+                  "requirementFragment": "能独立制定项目计划并对整体结果负责",
+                  "status": "unmet",
+                  "reason": "候选人明确表示项目计划由队长制定，自己没有对整体结果独立负责，与要求直接冲突。",
+                  "jdEvidence": [
+                    "能独立制定项目计划并对整体结果负责"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "counter"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": [
+        {
+          "itemIndex": 0,
+          "dimensionIndex": 0,
+          "issueCodes": [
+            "M-K"
+          ],
+          "previousStatus": "met",
+          "normalizedStatus": "unknown",
+          "removedCandidateFactRefs": [
+            "CF-002"
+          ],
+          "reasonRebuilt": true
+        }
+      ],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

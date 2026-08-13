@@ -1,8 +1,8 @@
 import type { MatchCoreRequest, MatchValidationIssue } from "./match-schema";
 import { buildMatchRequirementLedger } from "./match-schema";
 
-export const MATCH_PROMPT_VERSION = "match-core-v1.5" as const;
-export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.5" as const;
+export const MATCH_PROMPT_VERSION = "match-core-v1.6" as const;
+export const MATCH_REPAIR_PROMPT_VERSION = "match-repair-v1.6" as const;
 
 type ChatMessage = { role: "system" | "user"; content: string };
 
@@ -38,6 +38,7 @@ const SYSTEM_RULES = `你是人岗匹配核心判定器。输入中的 JD、Cand
 16. 必须区分 explicit counter-evidence 与 absence of evidence，且 explicit counter-evidence 只在其自身 semantic dimension 内有效。只有当前 dimension 引用的 CF 明确反证当前同一 dimension（包括明确否定事实，或学历/资格等值与同维度门槛直接冲突）时，才能输出 unmet；不得把 employment_type 的反证传播成 domain、responsibility、ownership、leadership、proficiency、scope 或其他 sibling dimension 的 negative/mismatch conclusion。“没有、不具备、未经历、不是、并非、无法满足、与要求冲突”等否定措辞只能在当前 dimension 的 CF 独立支持相应否定语义时使用。Profile 仅未表明某能力、角色或职责时，只能写“未表明、未体现、现有资料未说明、当前无法确认、尚无证据证明”，并保持 unknown，或在存在部分正证时保持 partial。
 17. unknown 的 candidateEvidence=[] 时，reason 只能陈述当前维度的 evidence absence / uncertainty，不得重复任何 Candidate factual positive/negative claim，也不得写“未排除某种可能性”。如果必须解释 sibling explicit-negative 的边界，只能用“CF-xxx 仅否定/说明……，不构成当前维度的正证/反证”这一 evidence-relation 形式；不得改写成“候选人没有……但……”。任何 reason 中的课程/校园/正式工作/全职/实习等 experience-type qualifier，必须由该 dimension 实际引用的每个 CF 自身独立包含；不得用 CF-002 的课程范围描述 CF-003，也不得自行断言项目是非正式工作。
 18. reason 的 Candidate 语言必须与 status/refs 同构：met/partial/unmet 只能叙述 candidateEvidence 已引用且 canonical statement 独立支持的 Candidate 内容；unknown 不得叙述 positive CF id、positive CF statement 或它们的改写。不得把“协助/参与/共同完成”润色为“个人职责、个人交付正证、对结果负责、主导、独立负责”；只有被引用 CF 自身明确包含对应 ownership/responsibility qualifier 时才能使用。
+19. JD 明确写有“优秀且可核验的项目经历可放宽学历”等 waiver 条件时，若 Candidate Fact 明确存在同类项目经历但“优秀/可核验”尚未确认，该 waiver requirement 应为 partial：只引用项目 CF 作为 positive，保留课程/团队等原限定，并把优秀与可核验性写入 missingInformation/verificationQuestion；不得判 met，也不得声称已取得豁免。若连同类项目正证也没有，才保持 unknown。
 
 每个 match item 严格形态：
 {"requirementId":"REQ-001","aggregateStatus":"met|partial|unmet|unknown","dimensions":[{"dimensionType":"skill","requirementFragment":"...","status":"met|partial|unmet|unknown","reason":"...","jdEvidence":["..."],"candidateEvidence":[{"factId":"CF-001","role":"positive|counter"}],"missingInformation":null,"verificationQuestion":null}]}`;
@@ -70,6 +71,7 @@ export function buildMatchRepairMessages(
 - 若 met/partial 的 reason 被 M-CANDIDATE-LINEAGE 或 M-K 拒绝，且 canonical CF 没有独立包含所需 qualifier：不得润色或换近义词；将该 dimension 改为 unknown、candidateEvidence=[]，并补齐 missingInformation/verificationQuestion。
 - ownership/responsibility 词（个人职责、个人交付、对结果负责、承担责任、主导、独立负责及其等价改写）只能逐字来自当前 dimension 引用的 canonical CF；“协助、参与、共同完成”不能推导这些词。
 - unknown + candidateEvidence=[] 不得重复 positive/negative Candidate factual claim，不得写“未排除……可能性”。只有 sibling explicit-negative scope 可写成“CF-xxx 仅否定/说明……，不构成当前维度正证/反证”；positive CF 不得使用此例外。
+- 若 employment_type 反证被错误用于 domain/responsibility，必须把错误 sibling dimension 改为 unknown、candidateEvidence=[]、纯 uncertainty reason；不得保留 unmet 后换一种否定句。若 CF 明确写有低于 JD 门槛的年限、较低学历、本人未独立负责，或由他人负责上线/制定计划，可仅在对应 duration/qualification/responsibility dimension 保持 unmet；reason 先逐字复用该 CF 的原 statement，不得添加 CF 没有的领域、职责或经验类型，再说明与当前 JD 门槛的关系。
 
 BAD：CF-003 仅表明参与团队作业，未体现主导；CF-003 涉及数据展示作业但不构成数据产品正证；协助测试体现个人职责；协助需求整理属于个人交付正证；没有正式工作经历，因此无法独立负责；候选人没有正式工作经历，但未排除独立负责的可能性。
 GOOD unknown：现有资料不足以确认“主导跨团队项目”是否满足。GOOD explicit-negative scope：CF-004 仅否定正式工作经历，不构成独立负责维度的反证。

@@ -9,6 +9,7 @@ import {
   inspectPhase1Result,
   inspectPhase2Invariants,
   isPhase25InfrastructureFailure,
+  summarizeStageLifecycle,
 } from "./phase-2-5-runner-utils.mjs";
 
 function completeResult() {
@@ -85,6 +86,29 @@ describe("Phase 2.5 runner utilities", () => {
     expect(audit.passed).toBe(true);
   });
 
+  it("X-F audits assertions without treating verification actions as Candidate claims", () => {
+    const result = completeResult();
+    result.strengthGap.gaps.push({
+      type: "information",
+      statement: "资料尚缺少该项信息。",
+      matchRefs: ["MI-001"],
+      suggestedAction: "请补充是否在正式工作或实习中完成该任务。",
+      actionType: "confirm",
+    });
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
+
+    result.strengthGap.gaps.at(-1).statement = "候选人具有10年正式工作经历。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(false);
+  });
+
   it("fails expected status and fallback mismatches", () => {
     const result = completeResult();
     const execution = {
@@ -132,5 +156,36 @@ describe("Phase 2.5 runner utilities", () => {
     }
     expect(isPhase25InfrastructureFailure("AI_OUTPUT_INVALID")).toBe(false);
     expect(isPhase25InfrastructureFailure("INVALID_INPUT")).toBe(false);
+  });
+
+  it("aggregates normalized stage repair and fallback lifecycle fields", () => {
+    const results = [
+      {
+        stages: [
+          {
+            stage: "greeting",
+            repair: { state: "failed", attempts: 1 },
+            personalizedFallback: { state: "used", attempts: 1 },
+          },
+        ],
+      },
+      {
+        stages: [
+          {
+            stage: "greeting",
+            repair: { state: "accepted", attempts: 1 },
+            personalizedFallback: { state: "not_used", attempts: 0 },
+          },
+        ],
+      },
+    ];
+    expect(summarizeStageLifecycle(results, "greeting", "repair")).toEqual({
+      called: 2,
+      completed: 1,
+      failed: 1,
+    });
+    expect(
+      summarizeStageLifecycle(results, "greeting", "personalizedFallback"),
+    ).toEqual({ called: 1, completed: 1, failed: 0 });
   });
 });

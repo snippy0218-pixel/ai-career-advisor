@@ -1,0 +1,320 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-01-R3",
+  "fixtureId": "TC-01",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 414,
+    "jdSha256": "2689b587f46490675551d6b877b2bc4799742bdcab7c6727b46ff5beb79effa3",
+    "source": "docs/验收执行报告.md §4.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 16914,
+    "requestId": "39079447-db6d-4e28-a999-7917fc69e2e1",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "本科及以上在读或应届毕业生",
+      "educationRequirement": "本科及以上",
+      "summary": "从JD信息看，可能属于AI产品助理或相关实习岗位，涉及需求文档、原型设计、AI工具应用等。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "需求收集与文档输出",
+        "description": "协助收集内部团队需求，整理并输出需求文档和会议纪要。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "协助收集和整理内部团队的需求，输出需求文档与会议纪要"
+        ]
+      },
+      {
+        "title": "AI工具使用优化",
+        "description": "协同优化内部团队使用AI工具的方法，提升效率。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "协同优化内部团队使用AI工具的使用方法，使灰度重复效化利用"
+        ]
+      },
+      {
+        "title": "产品调研与竞品分析",
+        "description": "参与AI功能的产品调研、竞品分析和用户访谈。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "参与AI功能的产品调研、竞品分析和用户访谈"
+        ]
+      },
+      {
+        "title": "原型设计与项目跟进",
+        "description": "协助绘制产品原型，跟进设计落地和研发排期，协助项目进度管理。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "协助绘制产品原型(Axure/Figma/墨刀)，跟进设计落地跟进研发排期，协助项目进度管理和风险同步。"
+        ]
+      },
+      {
+        "title": "数据分析与报告",
+        "description": "收集整理产品数据与用户反馈，输出简单分析报告。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "收集并整理产品数据与用户反馈，输出简单分析报告"
+        ]
+      },
+      {
+        "title": "AI模型评估与Prompt调优",
+        "description": "协助开发人员进行AI模型效果评估和Prompt调优。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "协助开发人员进行AI模型效果评估和Prompt调优"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "本科及以上在读或应届毕业生",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "本科及以上在读或应届毕业生"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "专业不限",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "专业不限"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "具备优秀的逻辑思维、文档能力和沟通表达能力",
+          "explanation": "原文存在粘连或限定词范围不清，需要向HR确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "具备优秀的逻辑思维、文档能力和沟通表达能力"
+          ],
+          "verificationQuestion": "请向HR确认“具备优秀的逻辑思维、文档能力和沟通表达能力”的具体要求和实际情况？",
+          "requirementType": "unclear"
+        },
+        {
+          "content": "有责任心，学习能力强，愿意从基础工作做起",
+          "explanation": "原文存在粘连或限定词范围不清，需要向HR确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "有责任心，学习能力强，愿意从基础工作做起"
+          ],
+          "verificationQuestion": "请向HR确认“有责任心，学习能力强，愿意从基础工作做起”的具体要求和实际情况？",
+          "requirementType": "unclear"
+        },
+        {
+          "content": "能熟练使用Office/飞书文档/腾讯文档等协作工具",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "能熟练使用Office/飞书文档/腾讯文档等协作工具"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有产品分析、原型设计或项目管理相关实习经验",
+          "explanation": "原文存在粘连或限定词范围不清，需要向HR确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "有产品分析、原型设计或项目管理相关实习经验"
+          ],
+          "verificationQuestion": "请向HR确认“有产品分析、原型设计或项目管理相关实习经验”的具体要求和实际情况？",
+          "requirementType": "unclear"
+        },
+        {
+          "content": "对AI和agent产品有好奇心，日常使用过大模型或AI和agent工具并有自己的思考",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "对AI和agent产品有好奇心，日常使用过大模型或AI和agent工具并有自己的思考"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "了解PromptEngineering，能尝试用AI工具提升工作效率",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "了解PromptEngineering，能尝试用AI工具提升工作效率"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "有游戏/玩具/教育/内容类产品爱好者或项目经历",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "有游戏/玩具/教育/内容类产品爱好者或项目经历"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及AI产品从需求到落地的环节，工作内容较为综合。",
+          "explanation": "职责涵盖需求、原型、项目、数据、模型评估，可能接触产品。",
+          "sourceType": "inference",
+          "evidence": [
+            "协助收集和整理内部团队的需求",
+            "协助绘制产品原型",
+            "协助开发人员进行AI模型效果评估"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "可能以协助和跟进为主，实际独立负责程度需要确认。",
+          "explanation": "职责中出现“协助”，可能参与深度有限。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "协助收集和整理",
+            "协助绘制",
+            "协助开发人员"
+          ],
+          "verificationQuestion": "请向HR确认“可能以协助和跟进为主，实际独立负责程度需要确认”的具体要求和实际情况？"
+        },
+        {
+          "content": "可能要求较强的沟通和文档能力，需要与多团队协作。",
+          "explanation": "职责涉及需求收集、会议纪要、项目进度同步，可能需沟通。",
+          "sourceType": "inference",
+          "evidence": [
+            "输出需求文档与会议纪要",
+            "协助项目进度管理和风险同步"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "薪资范围未说明",
+        "公司名称未说明",
+        "具体团队规模未说明",
+        "培养机制未说明",
+        "转正机会未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请向HR确认“具备优秀的逻辑思维、文档能力和沟通表达能力”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：具备优秀的逻辑思维、文档能力和沟通表达能力"
+        },
+        {
+          "question": "请向HR确认“有责任心，学习能力强，愿意从基础工作做起”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：有责任心，学习能力强，愿意从基础工作做起"
+        },
+        {
+          "question": "请向HR确认“有产品分析、原型设计或项目管理相关实习经验”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：有产品分析、原型设计或项目管理相关实习经验"
+        },
+        {
+          "question": "请向HR确认“可能以协助和跟进为主，实际独立负责程度需要确认”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：可能以协助和跟进为主，实际独立负责程度需要确认。"
+        },
+        {
+          "question": "请向HR确认“从职责看，可能接触相关工作；实际参与深度和成长收益需要确认”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：从职责看，可能接触相关工作；实际参与深度和成长收益需要确认"
+        },
+        {
+          "question": "请向HR确认“JD未说明公司、地点、薪资和培养机制，需要进一步确认”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：JD未说明公司、地点、薪资和培养机制，需要进一步确认。"
+        },
+        {
+          "question": "该岗位的工作地点在哪里？",
+          "reason": "JD未说明工作地点，需要确认。"
+        },
+        {
+          "question": "该岗位的薪资范围是多少？",
+          "reason": "JD未说明薪资，需要确认。"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触相关工作；实际参与深度和成长收益需要确认",
+          "sourceType": "to_verify",
+          "evidence": [
+            "协助收集和整理内部团队的需求",
+            "协助绘制产品原型",
+            "协助开发人员进行AI模型效果评估"
+          ],
+          "verificationQuestion": "请向HR确认“从职责看，可能接触相关工作；实际参与深度和成长收益需要确认”的具体要求和实际情况？"
+        },
+        {
+          "content": "岗位要求了解AI工具和Prompt，可能适合对AI有兴趣的候选人。",
+          "sourceType": "inference",
+          "evidence": [
+            "对AI和agent产品有好奇心",
+            "了解PromptEngineering"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "JD未说明公司、地点、薪资和培养机制，需要进一步确认。",
+          "sourceType": "to_verify",
+          "evidence": [
+            "本科及以上在读或应届毕业生"
+          ],
+          "verificationQuestion": "请向HR确认“JD未说明公司、地点、薪资和培养机制，需要进一步确认”的具体要求和实际情况？"
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}

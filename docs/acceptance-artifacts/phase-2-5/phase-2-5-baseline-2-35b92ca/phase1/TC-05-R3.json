@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-2-35b92ca",
+  "executionId": "TC-05-R3",
+  "fixtureId": "TC-05",
+  "repetition": 3,
+  "implementationCommit": "35b92ca67a369523bbf5d9f7604006d800db2b68",
+  "input": {
+    "jdCharacters": 427,
+    "jdSha256": "a86f58dff8969c60876943604507edbdb79b5ee06c0fbc30a05aeff745cd4734",
+    "source": "docs/验收执行报告.md §8.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "completed",
+    "httpStatus": 200,
+    "latencyMs": 12082,
+    "requestId": "9112f295-f29b-49b9-8b36-6011201d849b",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": null,
+    "failureClassification": null
+  },
+  "finalOutput": {
+    "schemaVersion": "analysis-v1",
+    "candidateProfileProvided": false,
+    "basicInfo": {
+      "jobTitle": null,
+      "companyName": null,
+      "location": null,
+      "employmentType": null,
+      "salaryRange": null,
+      "experienceRequirement": "3年以上产品经验，且至少有2年负责过Agent平台、智能客服、智能质检、RAG产品等LLM应用平台的持续迭代和优化经验",
+      "educationRequirement": "本科及以上学历",
+      "summary": "从JD信息看，可能属于AI产品经理岗位，涉及Agent平台的产品规划与迭代，并需要与多团队协作。",
+      "summarySourceType": "inference"
+    },
+    "coreResponsibilities": [
+      {
+        "title": "产品迭代规划与功能设计",
+        "description": "负责Agent平台的产品迭代规划与功能设计，独立推动功能从设计、开发到上线的全过程。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "负责公司Agent平台的产品迭代规划与功能设计，独立推动功能从设计、开发到上线的全过程。"
+        ]
+      },
+      {
+        "title": "用户反馈分析与解决方案设计",
+        "description": "深入分析用户反馈与业务线需求，设计有效的解决方案，持续优化产品体验与核心业务指标。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "深入分析用户反馈与业务线需求，设计有效的解决方案，持续优化产品体验与核心业务指标。"
+        ]
+      },
+      {
+        "title": "中台化系统交互逻辑设计",
+        "description": "基于中台化思路，梳理和设计复杂的系统交互逻辑，提升平台的复用性、扩展性与易用性。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "基于中台化思路，梳理和设计复杂的系统交互逻辑，提升平台的复用性、扩展性与易用性。"
+        ]
+      },
+      {
+        "title": "跨团队协作与项目落地",
+        "description": "与业务、运营及技术团队紧密协作，确保新功能顺利落地，并支撑重点客户项目的成功交付。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "与业务、运营及技术团队紧密协作，确保新功能顺利落地，并支撑重点客户项目的成功交付。"
+        ]
+      },
+      {
+        "title": "行业前沿跟踪与技术应用",
+        "description": "跟进行业前沿动态，将有价值的LLM和Agent技术趋势应用到产品迭代中，以提升产品竞争力。",
+        "sourceType": "jd_explicit",
+        "evidence": [
+          "跟进行业前沿动态，将有价值的LLM和Agent技术趋势应用到产品迭代中，以提升产品竞争力。"
+        ]
+      }
+    ],
+    "roleProfile": {
+      "requirements": [
+        {
+          "content": "本科及以上学历",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "本科及以上学历"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "计算机、人工智能等相关专业优先",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "计算机、人工智能等相关专业优先"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        },
+        {
+          "content": "3年以上产品经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "3年以上产品经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "至少有2年负责过Agent平台、智能客服、智能质检、RAG产品等LLM应用平台的持续迭代和优化经验",
+          "explanation": "JD包含明确限制条件，归为硬性要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "至少有2年负责过Agent平台、智能客服、智能质检、RAG产品等LLM应用平台的持续迭代和优化经验"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "hard_requirement"
+        },
+        {
+          "content": "熟悉大模型及Agent相关技术，理解其应用场景与能力边界，能将技术与业务需求有效结合。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "熟悉大模型及Agent相关技术，理解其应用场景与能力边界，能将技术与业务需求有效结合。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "出色的沟通协调能力和团队合作精神，逻辑严谨，执行力强，能承受一定的工作压力。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "出色的沟通协调能力和团队合作精神，逻辑严谨，执行力强，能承受一定的工作压力。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "英语可作为工作语言，具备良好的听说读写能力。",
+          "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "英语可作为工作语言，具备良好的听说读写能力。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "core_requirement"
+        },
+        {
+          "content": "计算机、人工智能等相关专业优先。",
+          "explanation": "JD包含明确的优先或加分限定词，归为偏好要求。",
+          "sourceType": "jd_explicit",
+          "evidence": [
+            "计算机、人工智能等相关专业优先。"
+          ],
+          "verificationQuestion": null,
+          "requirementType": "preferred_requirement"
+        }
+      ],
+      "workCharacteristics": [
+        {
+          "content": "从职责看，可能涉及产品模块，需要较强的自驱力",
+          "explanation": "职责中强调独立推动功能全过程，可能要求独立工作能力",
+          "sourceType": "inference",
+          "evidence": [
+            "独立推动功能从设计、开发到上线的全过程"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及跨部门协作，需要较强的沟通能力",
+          "explanation": "职责中明确与业务、运营及技术团队协作",
+          "sourceType": "inference",
+          "evidence": [
+            "与业务、运营及技术团队紧密协作"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能涉及中台化系统设计，需要较强的抽象能力",
+          "explanation": "职责中要求梳理复杂系统交互逻辑，提升复用性",
+          "sourceType": "inference",
+          "evidence": [
+            "基于中台化思路，梳理和设计复杂的系统交互逻辑"
+          ],
+          "verificationQuestion": null
+        }
+      ],
+      "riskSignals": [],
+      "unknowns": [
+        "工作地点未说明",
+        "薪资范围未说明",
+        "公司名称未说明",
+        "具体团队规模未说明",
+        "实际参与深度未说明"
+      ],
+      "questionsToConfirm": [
+        {
+          "question": "请向HR确认“从职责看，可能接触相关工作；实际参与深度和成长收益需要确认”的具体要求和实际情况？",
+          "reason": "该结论无法由JD直接确定，需要确认：从职责看，可能接触相关工作；实际参与深度和成长收益需要确认"
+        },
+        {
+          "question": "该岗位的工作地点在哪里？",
+          "reason": "JD中未说明工作地点，需要确认"
+        },
+        {
+          "question": "该岗位的薪资范围是多少？",
+          "reason": "JD中未说明薪资范围，需要确认"
+        },
+        {
+          "question": "该岗位所属的公司名称是什么？",
+          "reason": "JD中未说明公司名称，需要确认"
+        },
+        {
+          "question": "该岗位的团队规模如何？",
+          "reason": "JD中未说明团队规模，需要确认"
+        },
+        {
+          "question": "该岗位实际参与产品迭代的深度如何？",
+          "reason": "JD中未明确实际参与深度，需要确认"
+        }
+      ]
+    },
+    "applicationAdvice": {
+      "level": "worth_exploring",
+      "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+      "sourceType": "inference",
+      "verificationQuestion": null,
+      "reasons": [
+        {
+          "content": "从职责看，可能接触Agent平台的产品迭代与设计工作",
+          "sourceType": "inference",
+          "evidence": [
+            "负责公司Agent平台的产品迭代规划与功能设计"
+          ],
+          "verificationQuestion": null
+        },
+        {
+          "content": "从职责看，可能接触相关工作；实际参与深度和成长收益需要确认",
+          "sourceType": "to_verify",
+          "evidence": [
+            "与业务、运营及技术团队紧密协作"
+          ],
+          "verificationQuestion": "请向HR确认“从职责看，可能接触相关工作；实际参与深度和成长收益需要确认”的具体要求和实际情况？"
+        }
+      ],
+      "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+    },
+    "candidateAdvantages": null,
+    "hrGreeting": {
+      "personalizationStatus": "not_personalized",
+      "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+      "safeGreeting": "您好，我对该岗位很感兴趣，想进一步了解岗位的具体工作内容和团队情况，希望能与您沟通。",
+      "editableGreetingTemplate": "您好，我对该岗位感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "schema": true,
+      "phase1CandidateBoundary": true,
+      "jdEvidenceVerbatim": true,
+      "genericGreetingBoundary": true,
+      "usableOutput": true
+    }
+  },
+  "failure": null,
+  "passed": true
+}
