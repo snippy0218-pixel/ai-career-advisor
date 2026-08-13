@@ -25,6 +25,7 @@ export interface MatchNormalizationResult {
 const REASON_PATH = /^matchItems\.(\d+)\.dimensions\.(\d+)\.reason$/;
 const STATUS_PATH = /^matchItems\.(\d+)\.dimensions\.(\d+)\.status$/;
 const AGGREGATE_PATH = /^matchItems\.(\d+)\.aggregateStatus$/;
+const DIMENSIONS_PATH = /^matchItems\.(\d+)\.dimensions$/;
 const NORMALIZABLE_REASON_RULE = /\b(?:M-CANDIDATE-LINEAGE|M-K)\b/;
 
 function issueCode(message: string) {
@@ -129,6 +130,51 @@ export function normalizeRejectedMatchReasons(
   const data = structuredClone(raw);
   const actions: MatchNormalizationAction[] = [];
   const factById = new Map(canonicalFacts.map((fact) => [fact.factId, fact]));
+  for (const issue of issues) {
+    const match = issue.path.match(DIMENSIONS_PATH);
+    if (
+      !match ||
+      issue.message !==
+        "explicit full-time/formal-work requirement requires an employment_type dimension"
+    ) {
+      continue;
+    }
+    const itemIndex = Number(match[1]);
+    const item = data.matchItems[itemIndex];
+    const sourceDimension = item?.dimensions.find(
+      (dimension) =>
+        dimension.status === "unknown" &&
+        /(?:正式工作|全职)/.test(
+          `${dimension.requirementFragment} ${dimension.jdEvidence.join(" ")}`,
+        ),
+    );
+    if (
+      !item ||
+      !sourceDimension ||
+      item.dimensions.some((dimension) => dimension.dimensionType === "employment_type")
+    ) {
+      continue;
+    }
+    item.dimensions.push({
+      dimensionType: "employment_type",
+      requirementFragment: sourceDimension.requirementFragment,
+      status: "unknown",
+      reason: unknownReason(),
+      jdEvidence: [...sourceDimension.jdEvidence],
+      candidateEvidence: [],
+      missingInformation: missingInformation(sourceDimension.requirementFragment),
+      verificationQuestion: verificationQuestion(sourceDimension.requirementFragment),
+    });
+    actions.push({
+      itemIndex,
+      dimensionIndex: item.dimensions.length - 1,
+      issueCodes: ["MATCH_VALIDATION_REJECTED"],
+      previousStatus: item.aggregateStatus,
+      normalizedStatus: item.aggregateStatus,
+      removedCandidateFactRefs: [],
+      reasonRebuilt: true,
+    });
+  }
   for (const issue of issues) {
     const match = issue.path.match(STATUS_PATH);
     if (

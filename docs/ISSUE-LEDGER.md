@@ -105,6 +105,13 @@
 - ISSUE-042 adjacent evidence is an aggregate-unmet MI included in both supporting and counter refs because one sibling dimension was positive. Supporting eligibility now follows X-C aggregate status; terminal recovery removes only the rejected supporting ref and reruns R-A～R-L.
 - Summary SHA-256 is `e0cdb9b6f4056edce14bfc914fd56054626a6f4d5887dbadbe85cb81cbe9f760`. Focused `135/135`, full `640/640`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-12-STABILIZATION.md`.
 
+## Baseline 13 additional evidence
+
+- `phase-2-5-baseline-13-55cc2de` is a valid complete content batch: `40/42` PASS, `41` complete chains, downstream-after-failure `0`; the prior X-C case passed 3/3.
+- ISSUE-044 adjacent evidence is a completed result whose only failure was `熟练度及实际应用场景待确认`; the bounded uncertainty lookahead remains within the existing clause window and does not admit an unsourced positive proficiency claim.
+- ISSUE-048 adjacent evidence is a repair that corrected an invalid dimension enum but omitted mandatory `employment_type` decomposition for explicit formal-work text. Recovery adds only a fact-free unknown dimension from the same JD evidence and reruns the complete Match validator.
+- Summary SHA-256 is `37d0f99628b365eaa08ca37d72593c0ddd45cea8b87fdcb340c318c14d7451cf`. Focused `152/152`, full `641/641`, lint/build PASS; audit, immutable commit, and a complete replacement matrix remain. See `PHASE-2-5-BASELINE-13-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

@@ -134,6 +134,14 @@ describe("Phase 2.5 runner utilities", () => {
     ).toBe(true);
 
     result.strengthGap.gaps.at(-1).statement =
+      "MI-003 为 partial，SQL 技能熟练度及实际应用场景待确认。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
+
+    result.strengthGap.gaps.at(-1).statement =
       "缺少剩余2年经验的证据。";
     expect(
       inspectPhase2Invariants(rawInputs(result), result).values[

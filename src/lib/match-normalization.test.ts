@@ -338,4 +338,37 @@ describe("Match rejected-reason normalization", () => {
       ]),
     );
   });
+
+  it("N8 adds only a fact-free unknown employment dimension required by explicit formal-work text", () => {
+    const input = raw({
+      dimensionType: "domain",
+      requirementFragment: "具有海外支付行业正式工作经验",
+      status: "unknown",
+      reason: "现有资料无法确认该维度是否满足。",
+      jdEvidence: ["具有海外支付行业正式工作经验"],
+      candidateEvidence: [],
+      missingInformation: "是否具有海外支付行业正式工作经验",
+      verificationQuestion: "请补充海外支付行业正式工作经验。",
+    });
+    input.matchItems[0].aggregateStatus = "unknown";
+    const result = normalizeRejectedMatchReasons(input, [
+      {
+        path: "matchItems.0.dimensions",
+        message:
+          "explicit full-time/formal-work requirement requires an employment_type dimension",
+      },
+    ]);
+
+    expect(result.applied).toBe(true);
+    expect(result.data.matchItems[0].aggregateStatus).toBe("unknown");
+    expect(result.data.matchItems[0].dimensions).toHaveLength(2);
+    expect(result.data.matchItems[0].dimensions[1]).toMatchObject({
+      dimensionType: "employment_type",
+      requirementFragment: "具有海外支付行业正式工作经验",
+      status: "unknown",
+      reason: "现有资料无法确认该维度是否满足。",
+      jdEvidence: ["具有海外支付行业正式工作经验"],
+      candidateEvidence: [],
+    });
+  });
 });

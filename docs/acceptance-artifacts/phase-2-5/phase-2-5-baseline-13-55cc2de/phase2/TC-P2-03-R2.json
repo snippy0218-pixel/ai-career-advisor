@@ -1,0 +1,1486 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-13-55cc2de",
+  "executionId": "TC-P2-03-R2",
+  "fixtureId": "TC-P2-03",
+  "fixtureName": "unknown-heavy credential and language requirements",
+  "repetition": 2,
+  "implementationCommit": "55cc2de3f3c10e0321b960d2704e1a0337443d65",
+  "input": {
+    "jdCharacters": 154,
+    "profileCharacters": 54,
+    "jdSha256": "1189875a15cd898c6c381cb6a9e3e06d8701b439176ed0527da767e8d82be879",
+    "profileSha256": "5879a3eab90eed025f48e41cf0c3d2169bd84fbf8899813eff3963a8d693ddd3"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unknown"
+    ]
+  },
+  "coverage": [
+    "unknown",
+    "credential",
+    "language",
+    "domain",
+    "questions-to-confirm"
+  ],
+  "completed": false,
+  "stoppedAt": "match",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "match",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "a53f0225-7333-45e7-87bf-af5e833cecd2",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 9279,
+      "requestId": "12fb6cf6-f9c8-4dc9-8f64-cc5bfc306e37",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "analysis-v1",
+        "candidateProfileProvided": false,
+        "basicInfo": {
+          "jobTitle": "海外业务运营岗位",
+          "companyName": null,
+          "location": null,
+          "employmentType": null,
+          "salaryRange": null,
+          "experienceRequirement": "具有海外支付行业正式工作经验",
+          "educationRequirement": "本科及以上学历",
+          "summary": "从JD信息看，可能属于海外业务运营类岗位，涉及市场资料整理、合作方沟通和业务复盘等工作。",
+          "summarySourceType": "inference"
+        },
+        "coreResponsibilities": [
+          {
+            "title": "海外市场资料整理",
+            "description": "负责整理海外市场的相关资料，可能涉及市场信息收集与归纳。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "负责海外市场资料整理"
+            ]
+          },
+          {
+            "title": "合作方沟通",
+            "description": "与海外合作方进行沟通，可能涉及日常联络与关系维护。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "合作方沟通"
+            ]
+          },
+          {
+            "title": "业务复盘",
+            "description": "参与业务复盘工作，可能涉及对业务进展的回顾与分析。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "业务复盘"
+            ]
+          },
+          {
+            "title": "协同团队推进项目",
+            "description": "与团队协作，共同推进项目进展。",
+            "sourceType": "jd_explicit",
+            "evidence": [
+              "协同团队推进项目"
+            ]
+          }
+        ],
+        "roleProfile": {
+          "requirements": [
+            {
+              "content": "必须持有指定行业资格证书",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "必须持有指定行业资格证书"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            },
+            {
+              "content": "能使用日语进行专业商务谈判",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "能使用日语进行专业商务谈判"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "具有海外支付行业正式工作经验",
+              "explanation": "JD未包含明确的优先或加分限定词，按核心要求展示。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "具有海外支付行业正式工作经验"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "core_requirement"
+            },
+            {
+              "content": "本科及以上学历",
+              "explanation": "JD包含明确限制条件，归为硬性要求。",
+              "sourceType": "jd_explicit",
+              "evidence": [
+                "本科及以上学历"
+              ],
+              "verificationQuestion": null,
+              "requirementType": "hard_requirement"
+            }
+          ],
+          "workCharacteristics": [
+            {
+              "content": "从职责看，可能涉及海外市场资料整理、合作方沟通和业务复盘等工作，工作内容可能较为综合。",
+              "explanation": "基于职责描述推断，该岗位可能涉及多方面工作。",
+              "sourceType": "inference",
+              "evidence": [
+                "负责海外市场资料整理、合作方沟通和业务复盘，协同团队推进项目"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "riskSignals": [],
+          "unknowns": [
+            "证书名称未说明",
+            "工作年限未说明",
+            "工作地点未说明",
+            "项目规模未说明"
+          ],
+          "questionsToConfirm": [
+            {
+              "question": "指定行业资格证书具体指什么证书？",
+              "reason": "JD未说明证书名称，需要确认具体证书要求。"
+            },
+            {
+              "question": "该岗位对工作年限有何具体要求？",
+              "reason": "JD未说明工作年限，需要确认经验要求。"
+            },
+            {
+              "question": "该岗位的工作地点在哪里？",
+              "reason": "JD未说明工作地点，需要确认工作地点。"
+            },
+            {
+              "question": "该岗位涉及的项目规模如何？",
+              "reason": "JD未说明项目规模，需要确认项目情况。"
+            }
+          ]
+        },
+        "applicationAdvice": {
+          "level": "worth_exploring",
+          "summary": "基于JD，建议进一步了解并确认实际工作重点。",
+          "sourceType": "inference",
+          "verificationQuestion": null,
+          "reasons": [
+            {
+              "content": "从职责看，可能接触海外市场资料整理、合作方沟通和业务复盘等工作。",
+              "sourceType": "inference",
+              "evidence": [
+                "负责海外市场资料整理、合作方沟通和业务复盘，协同团队推进项目"
+              ],
+              "verificationQuestion": null
+            }
+          ],
+          "limitations": "当前建议仅基于JD，不包含个人经历、职业偏好或公司外部信息。"
+        },
+        "candidateAdvantages": null,
+        "hrGreeting": {
+          "personalizationStatus": "not_personalized",
+          "personalizationNotice": "未提供个人资料，以下内容仅为通用沟通话术，不代表个人匹配结论。",
+          "safeGreeting": "您好，我对该岗位很感兴趣，希望进一步了解岗位的具体职责和团队情况，期待与您沟通。",
+          "editableGreetingTemplate": "您好，我对该岗位很感兴趣。我是【学历/专业】，具备【真实相关技能】，有【真实项目或实习经历】。以上信息请按真实情况填写，希望进一步沟通。"
+        }
+      },
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 1826,
+      "requestId": "3a66ad6e-5156-4a47-a80a-4cb1584fbb30",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 1822,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 315,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 3,
+          "context_only": 1,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 3,
+        "atomicClaimCount": 3,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 3,
+        "profileFactRecall": null,
+        "latencyMs": 1822,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 315,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "output": {
+        "schemaVersion": "candidate-profile-v2",
+        "profileProvided": true,
+        "candidateProfile": {
+          "canonicalFacts": [
+            {
+              "factId": "CF-001",
+              "statement": "求职方向：运营",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-001"
+              ],
+              "semanticTags": [
+                "career_target"
+              ]
+            },
+            {
+              "factId": "CF-002",
+              "statement": "教育背景：本科",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-002"
+              ],
+              "semanticTags": [
+                "education"
+              ]
+            },
+            {
+              "factId": "CF-003",
+              "statement": "参加过校园社团活动，协助整理报名资料",
+              "sourceType": "profile_stated",
+              "pfEvidence": [
+                "PF-003"
+              ],
+              "semanticTags": [
+                "experience",
+                "project_experience"
+              ]
+            }
+          ],
+          "careerTarget": "CF-001",
+          "education": [
+            "CF-002"
+          ],
+          "experiences": [
+            "CF-003"
+          ],
+          "projects": [
+            "CF-003"
+          ],
+          "skills": [],
+          "certificates": [],
+          "portfolio": [],
+          "preferences": [],
+          "derivedObservations": [],
+          "unknowns": [],
+          "questionsToConfirm": [],
+          "evidence": [
+            {
+              "id": "PF-001",
+              "text": "求职方向：运营"
+            },
+            {
+              "id": "PF-002",
+              "text": "教育背景：本科"
+            },
+            {
+              "id": "PF-003",
+              "text": "经历：参加过校园社团活动，协助整理报名资料"
+            },
+            {
+              "id": "PF-004",
+              "text": "其他资格、语言和行业经验暂未提供"
+            }
+          ]
+        }
+      },
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 5304,
+      "requestId": "a53f0225-7333-45e7-87bf-af5e833cecd2",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.dimensionType",
+            "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\""
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions",
+            "message": "explicit full-time/formal-work requirement requires an employment_type dimension"
+          }
+        ],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 5301,
+        "outputCompletionTokens": 424,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+          "finishReason": "stop",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "explicit full-time/formal-work requirement requires an employment_type dimension",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": false,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.3.dimensions.0.dimensionType",
+            "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\""
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "matchItems.2.dimensions",
+            "message": "explicit full-time/formal-work requirement requires an employment_type dimension"
+          }
+        ],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": false,
+        "jdEvidenceValidationPassed": false,
+        "candidateEvidenceValidationPassed": false,
+        "statusValidationPassed": false,
+        "aggregateValidationPassed": false,
+        "candidateProfileImmutable": true,
+        "requirementCount": 0,
+        "dimensionCount": 0,
+        "statusCounts": {
+          "met": 0,
+          "partial": 0,
+          "unmet": 0,
+          "unknown": 0
+        },
+        "latencyMs": 5301,
+        "outputCompletionTokens": 424,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+          "finishReason": "stop",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "explicit full-time/formal-work requirement requires an employment_type dimension",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"必须持有指定行业资格证书\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。\",\"jdEvidence\":[\"必须持有指定行业资格证书\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否持有指定行业资格证书\",\"verificationQuestion\":\"请提供候选人持有的行业资格证书名称及编号\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用日语进行专业商务谈判\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人的日语能力，也未提供任何语言能力证明。\",\"jdEvidence\":[\"能使用日语进行专业商务谈判\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人的日语水平及商务谈判能力\",\"verificationQuestion\":\"请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"具有海外支付行业正式工作经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。\",\"jdEvidence\":[\"具有海外支付行业正式工作经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有海外支付行业正式工作经验\",\"verificationQuestion\":\"请提供候选人在海外支付行业的工作经历及年限\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"education\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1368,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "必须持有指定行业资格证书",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。",
+                      "jdEvidence": [
+                        "必须持有指定行业资格证书"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否持有指定行业资格证书",
+                      "verificationQuestion": "请提供候选人持有的行业资格证书名称及编号"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用日语进行专业商务谈判",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人的日语能力，也未提供任何语言能力证明。",
+                      "jdEvidence": [
+                        "能使用日语进行专业商务谈判"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人的日语水平及商务谈判能力",
+                      "verificationQuestion": "请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "具有海外支付行业正式工作经验",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                      "jdEvidence": [
+                        "具有海外支付行业正式工作经验"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                      "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "education",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "raw_schema",
+            "failureStage": "raw_schema",
+            "failureCategory": "schema",
+            "validationIssues": [
+              {
+                "validationLayer": "raw_schema",
+                "validationCode": "RAW_SCHEMA_INVALID",
+                "rule": null,
+                "path": "matchItems.3.dimensions.0.dimensionType",
+                "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 3,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-004",
+                    "aggregateStatus": "met",
+                    "dimensions": [
+                      {
+                        "dimensionType": "education",
+                        "requirementFragment": "本科及以上学历",
+                        "status": "met",
+                        "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                        "jdEvidence": [
+                          "本科及以上学历"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-002",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "education",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 3,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "education",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "education",
+                "requirementFragment": "本科及以上学历",
+                "status": "met",
+                "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                "jdEvidence": [
+                  "本科及以上学历"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-002",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"必须持有指定行业资格证书\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。\",\"jdEvidence\":[\"必须持有指定行业资格证书\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否持有指定行业资格证书\",\"verificationQuestion\":\"请提供候选人持有的行业资格证书名称及编号\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用日语进行专业商务谈判\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人的日语能力，也未提供任何语言能力证明。\",\"jdEvidence\":[\"能使用日语进行专业商务谈判\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人的日语水平及商务谈判能力\",\"verificationQuestion\":\"请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"具有海外支付行业正式工作经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。\",\"jdEvidence\":[\"具有海外支付行业正式工作经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有海外支付行业正式工作经验\",\"verificationQuestion\":\"请提供候选人在海外支付行业的工作经历及年限\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"qualification\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1372,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "必须持有指定行业资格证书",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。",
+                      "jdEvidence": [
+                        "必须持有指定行业资格证书"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否持有指定行业资格证书",
+                      "verificationQuestion": "请提供候选人持有的行业资格证书名称及编号"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "能使用日语进行专业商务谈判",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人的日语能力，也未提供任何语言能力证明。",
+                      "jdEvidence": [
+                        "能使用日语进行专业商务谈判"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人的日语水平及商务谈判能力",
+                      "verificationQuestion": "请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "具有海外支付行业正式工作经验",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                      "jdEvidence": [
+                        "具有海外支付行业正式工作经验"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                      "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "qualification",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "MATCH_VALIDATION_REJECTED",
+                "rule": null,
+                "path": "matchItems.2.dimensions",
+                "message": "explicit full-time/formal-work requirement requires an employment_type dimension",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 2,
+                  "dimensionIndex": null,
+                  "item": {
+                    "requirementId": "REQ-003",
+                    "aggregateStatus": "unknown",
+                    "dimensions": [
+                      {
+                        "dimensionType": "domain",
+                        "requirementFragment": "具有海外支付行业正式工作经验",
+                        "status": "unknown",
+                        "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                        "jdEvidence": [
+                          "具有海外支付行业正式工作经验"
+                        ],
+                        "candidateEvidence": [],
+                        "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                        "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                      }
+                    ]
+                  },
+                  "dimension": null
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 2,
+              "dimensionIndex": null,
+              "item": {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "具有海外支付行业正式工作经验",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                    "jdEvidence": [
+                      "具有海外支付行业正式工作经验"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                    "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                  }
+                ]
+              },
+              "dimension": null
+            }
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "a53f0225-7333-45e7-87bf-af5e833cecd2",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "output": null,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"必须持有指定行业资格证书\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。\",\"jdEvidence\":[\"必须持有指定行业资格证书\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否持有指定行业资格证书\",\"verificationQuestion\":\"请提供候选人持有的行业资格证书名称及编号\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用日语进行专业商务谈判\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人的日语能力，也未提供任何语言能力证明。\",\"jdEvidence\":[\"能使用日语进行专业商务谈判\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人的日语水平及商务谈判能力\",\"verificationQuestion\":\"请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"具有海外支付行业正式工作经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。\",\"jdEvidence\":[\"具有海外支付行业正式工作经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有海外支付行业正式工作经验\",\"verificationQuestion\":\"请提供候选人在海外支付行业的工作经历及年限\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"education\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1368,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "必须持有指定行业资格证书",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。",
+                    "jdEvidence": [
+                      "必须持有指定行业资格证书"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否持有指定行业资格证书",
+                    "verificationQuestion": "请提供候选人持有的行业资格证书名称及编号"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用日语进行专业商务谈判",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人的日语能力，也未提供任何语言能力证明。",
+                    "jdEvidence": [
+                      "能使用日语进行专业商务谈判"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人的日语水平及商务谈判能力",
+                    "verificationQuestion": "请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "具有海外支付行业正式工作经验",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                    "jdEvidence": [
+                      "具有海外支付行业正式工作经验"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                    "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "education",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "raw_schema",
+          "failureStage": "raw_schema",
+          "failureCategory": "schema",
+          "validationIssues": [
+            {
+              "validationLayer": "raw_schema",
+              "validationCode": "RAW_SCHEMA_INVALID",
+              "rule": null,
+              "path": "matchItems.3.dimensions.0.dimensionType",
+              "message": "Invalid option: expected one of \"qualification\"|\"skill\"|\"proficiency\"|\"domain\"|\"role\"|\"employment_type\"|\"duration\"|\"responsibility\"|\"credential\"|\"location\"|\"career_direction\"|\"other\"",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 3,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "education",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "education",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 3,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-004",
+              "aggregateStatus": "met",
+              "dimensions": [
+                {
+                  "dimensionType": "education",
+                  "requirementFragment": "本科及以上学历",
+                  "status": "met",
+                  "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                  "jdEvidence": [
+                    "本科及以上学历"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-002",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "education",
+              "requirementFragment": "本科及以上学历",
+              "status": "met",
+              "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+              "jdEvidence": [
+                "本科及以上学历"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-002",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"必须持有指定行业资格证书\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。\",\"jdEvidence\":[\"必须持有指定行业资格证书\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否持有指定行业资格证书\",\"verificationQuestion\":\"请提供候选人持有的行业资格证书名称及编号\"}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"能使用日语进行专业商务谈判\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人的日语能力，也未提供任何语言能力证明。\",\"jdEvidence\":[\"能使用日语进行专业商务谈判\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人的日语水平及商务谈判能力\",\"verificationQuestion\":\"请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unknown\",\"dimensions\":[{\"dimensionType\":\"domain\",\"requirementFragment\":\"具有海外支付行业正式工作经验\",\"status\":\"unknown\",\"reason\":\"现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。\",\"jdEvidence\":[\"具有海外支付行业正式工作经验\"],\"candidateEvidence\":[],\"missingInformation\":\"候选人是否具有海外支付行业正式工作经验\",\"verificationQuestion\":\"请提供候选人在海外支付行业的工作经历及年限\"}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"qualification\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"候选人教育背景为本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1372,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "必须持有指定行业资格证书",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人持有指定行业资格证书，也未提供任何相关证书信息。",
+                    "jdEvidence": [
+                      "必须持有指定行业资格证书"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否持有指定行业资格证书",
+                    "verificationQuestion": "请提供候选人持有的行业资格证书名称及编号"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "能使用日语进行专业商务谈判",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人的日语能力，也未提供任何语言能力证明。",
+                    "jdEvidence": [
+                      "能使用日语进行专业商务谈判"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人的日语水平及商务谈判能力",
+                    "verificationQuestion": "请提供候选人的日语能力证明（如JLPT等级）及商务谈判经验"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unknown",
+                "dimensions": [
+                  {
+                    "dimensionType": "domain",
+                    "requirementFragment": "具有海外支付行业正式工作经验",
+                    "status": "unknown",
+                    "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                    "jdEvidence": [
+                      "具有海外支付行业正式工作经验"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                    "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "qualification",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "候选人教育背景为本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "MATCH_VALIDATION_REJECTED",
+              "rule": null,
+              "path": "matchItems.2.dimensions",
+              "message": "explicit full-time/formal-work requirement requires an employment_type dimension",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 2,
+                "dimensionIndex": null,
+                "item": {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unknown",
+                  "dimensions": [
+                    {
+                      "dimensionType": "domain",
+                      "requirementFragment": "具有海外支付行业正式工作经验",
+                      "status": "unknown",
+                      "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                      "jdEvidence": [
+                        "具有海外支付行业正式工作经验"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                      "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                    }
+                  ]
+                },
+                "dimension": null
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 2,
+            "dimensionIndex": null,
+            "item": {
+              "requirementId": "REQ-003",
+              "aggregateStatus": "unknown",
+              "dimensions": [
+                {
+                  "dimensionType": "domain",
+                  "requirementFragment": "具有海外支付行业正式工作经验",
+                  "status": "unknown",
+                  "reason": "现有资料未表明候选人具有海外支付行业工作经验，也未提供任何相关行业经历。",
+                  "jdEvidence": [
+                    "具有海外支付行业正式工作经验"
+                  ],
+                  "candidateEvidence": [],
+                  "missingInformation": "候选人是否具有海外支付行业正式工作经验",
+                  "verificationQuestion": "请提供候选人在海外支付行业的工作经历及年限"
+                }
+              ]
+            },
+            "dimension": null
+          }
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "recommendation",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_match",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

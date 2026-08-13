@@ -54,7 +54,7 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **BASELINE-12 VALID 40/42 CONTENT MATRIX RETAINED / ISSUE-041/042 ADJACENT STABILIZATION IN PROGRESS**.
+Current Phase 2.5 disposition: **BASELINE-13 VALID 40/42 CONTENT MATRIX RETAINED / ISSUE-044/048 ADJACENT STABILIZATION IN PROGRESS**.
 
 Current evidence: baseline-2 Phase 1 `30/30` accepted. Phase 2 baseline-4 is a valid, complete, non-passing `21/42` batch with `26` complete chains and downstream-after-failure `0`; baseline-3 is zero-call preflight evidence. Updated stabilization focused suites `312/312` plus integration/boundary `40/40`; full automated suite `33 files / 618 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 
@@ -69,6 +69,8 @@ Newest content disposition: `phase-2-5-baseline-10-28c0ccf` is a valid complete 
 Latest content disposition: `phase-2-5-baseline-11-7460f02` is valid and complete at `40/42`, with `41` complete chains and downstream-after-failure `0`; every Baseline-10 failure passed 3/3. Remaining failures are one whitespace-equivalent X-F source comparison and one correctly rejected unsupported substitution example. Focused `108/108`, full `637/637`, lint/build PASS; a new committed complete matrix remains mandatory.
 
 Latest content disposition: `phase-2-5-baseline-12-da1877f` is valid and complete at `40/42`, with `41` complete chains and downstream-after-failure `0`; both Baseline-11 failures passed 3/3. Remaining failures are one qualifier-free generic employment relation after an exact counter and one aggregate-unmet MI simultaneously used as supporting/counter. Focused `135/135`, full `640/640`, lint/build PASS; a new committed complete matrix remains mandatory.
+
+Latest content disposition: `phase-2-5-baseline-13-55cc2de` is valid and complete at `40/42`, with `41` complete chains and downstream-after-failure `0`; the Baseline-12 X-C case passed 3/3. Remaining failures are one X-F coordinated uncertainty phrase and one omitted fact-free unknown employment dimension after Match repair. Focused `152/152`, full `641/641`, lint/build PASS; a new committed complete matrix remains mandatory.
 
 Content baseline disposition: baseline-2 Phase 1 is accepted at 30/30. `phase-2-5-baseline-4-f7838a1` is a complete, non-passing Phase 2 stabilization baseline at 21/42 with 26 complete chains and downstream-after-failure 0; baseline-3/4 artifacts and rejected raw are retained. ISSUE-040～047 have deterministic fixes with full 618/618, lint/build PASS. A new committed full Phase 2 14×3 matrix is required; no earlier success may be cherry-picked into the final matrix. See `PHASE-2-5-BASELINE-4-STABILIZATION.md`.
 
