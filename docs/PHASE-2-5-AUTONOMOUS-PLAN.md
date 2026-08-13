@@ -1,8 +1,8 @@
 # Phase 2.5 Final Regression / Release Gate — Autonomous Plan
 
-> Status: **AUTHORIZED / IN PROGRESS**  
-> Authorization date: 2026-08-13  
-> Starting baseline: `16c92d6021ef2843d6904f0740ebbc419de98cba`  
+> Status: **AUTHORIZED / IN PROGRESS**
+> Authorization date: 2026-08-13
+> Starting baseline: `16c92d6021ef2843d6904f0740ebbc419de98cba`
 > Governing contracts: `PHASE-2-CONTRACT.md`, `PHASE-2-5-PRE-AUTHORIZATION-AUDIT.md`, `CODEX-OPERATING-PROTOCOL.md`, `PROJECT_RULES.md`
 
 ## 1. Product Owner / QA decisions
