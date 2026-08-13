@@ -149,6 +149,12 @@
 - TC-P2-05 R1 and TC-P2-14 R1 are bounded Strength/Gap synonym-boundary false positives (`提供`, `但尚不足以`), with both initial and repair raw outputs preserved and no downstream execution.
 - Summary SHA-256 `c9e2bd741eeb554ccb7a90752152f4fe8f29b26f44e8a0cd3359af524fd5a1ff`; focused `57/57`, full `648/648`, lint/build PASS. See `PHASE-2-5-BASELINE-19-STABILIZATION.md`.
 
+## Baseline 20 infrastructure evidence
+
+- `phase-2-5-baseline-20-2a2a56d` recorded ten PASS content samples, then stopped at TC-P2-04 R2 Match on provider `AI_BALANCE_INSUFFICIENT`; completion was not received, completion tokens were 0, and no later request was scheduled.
+- The incomplete batch is excluded from content acceptance and cannot be combined with later evidence. Infrastructure artifact SHA-256 is `42a33deb451a48040a6a8386fca8580bb7cd567d5a4ce4ceeabab2a7f4c0c490`.
+- External blocker: sufficient DeepSeek account balance is required before one fresh complete baseline-20 replacement. See `PHASE-2-5-BASELINE-20-INFRASTRUCTURE-STOP.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

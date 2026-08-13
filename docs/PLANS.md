@@ -31,6 +31,7 @@
 - baseline-17（`4f042e1…`）完整执行为 32/42 PASS、downstream-after-failure 0；TC-P2-10 3/3 PASS。10 条 terminal `met -> partial` 已选对 exact CF，但漏同步 partial 必需的 missing/question 字段；窄字段修复 focused `148/148`、full `645/645`、lint/build PASS。下一步提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-18 implementation `a16c088…` 的首个 attempt 因 sandbox 网络在内容样本前 fail-fast 并独立保留；同 commit 的 authorized-network replacement 完整执行为 39/42 PASS、40 complete chains、downstream-after-failure 0。失败收敛为 Recommendation 对 `未完全满足` 的 negation 漏判（2 条）与 runner X-F 对 `熟练程度…未明确` 的 uncertainty 漏判（1 条）；窄修复 focused `106/106`、full `646/646`、lint/build PASS。下一步提交 immutable baseline 并完整 replacement。
 - baseline-19（`aea8eb7…`）完整执行为 40/42 PASS、40 complete chains、downstream-after-failure 0；baseline-18 三项目标均 3/3 PASS。TC-P2-05 R1 与 TC-P2-14 R1 均被 Strength/Gap 同义边界假拒绝：SG-H 漏 `提供`，SG-E 漏 `但尚不足以`。窄修复 focused `57/57`、full `648/648`、lint/build PASS；下一步提交 immutable baseline 并完整 replacement。
+- baseline-20（`2a2a56d…`）前 10 个内容样本均 PASS，随后 TC-P2-04 R2 在 Match 收到 DeepSeek `AI_BALANCE_INSUFFICIENT`（retryable=false、completion 0 token），runner 立即停批且后续调度 0。该不完整 infrastructure batch 永久保留并排除；补足 API 账户余额后必须从头执行完整 14×3 replacement，不得复用前 10 条。
 
 ## Execution discipline
 

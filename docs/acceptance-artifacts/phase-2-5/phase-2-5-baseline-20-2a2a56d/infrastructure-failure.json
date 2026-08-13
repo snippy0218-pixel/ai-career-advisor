@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "phase-2-5-infrastructure-failure-v1",
+  "runId": "phase-2-5-baseline-20-2a2a56d",
+  "implementationCommit": "2a2a56db434a61e8ad22ea4c4e506de42df2663e",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "failedExecutionId": "TC-P2-04-R2",
+  "completedContentSamples": 10,
+  "failedAttemptCountsAsContentSample": false,
+  "additionalScheduledRequestsAfterFailure": 0,
+  "failure": {
+    "stage": "match",
+    "category": "AI_BALANCE_INSUFFICIENT",
+    "infrastructure": true,
+    "httpStatus": 503,
+    "error": {
+      "code": "AI_BALANCE_INSUFFICIENT",
+      "message": "分析服务暂时不可用，请检查 API 账户余额。",
+      "request_id": "37220b8a-b96c-46ae-9806-7a0507b64562",
+      "retryable": false
+    }
+  },
+  "stage": {
+    "stage": "match",
+    "callState": "called",
+    "resultState": "failed",
+    "status": 503,
+    "latencyMs": 389,
+    "requestId": "37220b8a-b96c-46ae-9806-7a0507b64562",
+    "diagnostics": {
+      "upstreamAttempts": 1,
+      "jsonParsePassed": false,
+      "rawSchemaValidationPassed": false,
+      "matchRepairAttempted": false,
+      "matchRepairSucceeded": false,
+      "initialValidationIssues": [],
+      "repairValidationIssues": [],
+      "matchNormalizationAttempted": false,
+      "matchNormalizationSucceeded": false,
+      "normalizationActions": [],
+      "normalizationValidationIssues": [],
+      "finalSchemaValidationPassed": false,
+      "jdEvidenceValidationPassed": false,
+      "candidateEvidenceValidationPassed": false,
+      "statusValidationPassed": false,
+      "aggregateValidationPassed": false,
+      "candidateProfileImmutable": true,
+      "requirementCount": 0,
+      "dimensionCount": 0,
+      "statusCounts": {
+        "met": 0,
+        "partial": 0,
+        "unmet": 0,
+        "unknown": 0
+      },
+      "latencyMs": 386,
+      "outputCompletionTokens": 0,
+      "truncatedByLength": false,
+      "evidenceCaptureEnabled": true,
+      "initialAttempt": {
+        "called": true,
+        "completionReceived": false,
+        "rawAvailable": false,
+        "parseResult": "not_run",
+        "validationResult": "not_run",
+        "rejectionReason": "AI_BALANCE_INSUFFICIENT",
+        "finishReason": null,
+        "failureStage": "provider_response",
+        "failureCategory": "provider"
+      },
+      "repairState": "not_attempted",
+      "repairAttempt": {
+        "called": false,
+        "completionReceived": false,
+        "rawAvailable": false,
+        "parseResult": "not_run",
+        "validationResult": "not_run",
+        "rejectionReason": null,
+        "finishReason": null,
+        "failureStage": null,
+        "failureCategory": null
+      },
+      "modelMetadata": {
+        "model": "deepseek-v4-flash",
+        "temperature": 0.1,
+        "maxOutputTokens": 8192
+      }
+    },
+    "acceptanceDiagnostics": {
+      "upstreamAttempts": 1,
+      "jsonParsePassed": false,
+      "rawSchemaValidationPassed": false,
+      "matchRepairAttempted": false,
+      "matchRepairSucceeded": false,
+      "initialValidationIssues": [],
+      "repairValidationIssues": [],
+      "matchNormalizationAttempted": false,
+      "matchNormalizationSucceeded": false,
+      "normalizationActions": [],
+      "normalizationValidationIssues": [],
+      "normalizedRepairOutput": null,
+      "finalSchemaValidationPassed": false,
+      "jdEvidenceValidationPassed": false,
+      "candidateEvidenceValidationPassed": false,
+      "statusValidationPassed": false,
+      "aggregateValidationPassed": false,
+      "candidateProfileImmutable": true,
+      "requirementCount": 0,
+      "dimensionCount": 0,
+      "statusCounts": {
+        "met": 0,
+        "partial": 0,
+        "unmet": 0,
+        "unknown": 0
+      },
+      "latencyMs": 386,
+      "outputCompletionTokens": 0,
+      "truncatedByLength": false,
+      "evidenceCaptureEnabled": true,
+      "initialAttempt": {
+        "called": true,
+        "completionReceived": false,
+        "rawAvailable": false,
+        "parseResult": "not_run",
+        "validationResult": "not_run",
+        "rejectionReason": "AI_BALANCE_INSUFFICIENT",
+        "finishReason": null,
+        "failureStage": "provider_response",
+        "failureCategory": "provider"
+      },
+      "repairState": "not_attempted",
+      "repairAttempt": {
+        "called": false,
+        "completionReceived": false,
+        "rawAvailable": false,
+        "parseResult": "not_run",
+        "validationResult": "not_run",
+        "rejectionReason": null,
+        "finishReason": null,
+        "failureStage": null,
+        "failureCategory": null
+      },
+      "outputEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "rawText": "",
+          "rawTextLength": 0,
+          "artifactTruncated": false,
+          "finishReason": null,
+          "parsedOutputAvailable": false,
+          "parsedOutput": null,
+          "parseError": null,
+          "validationLayer": "completion",
+          "failureStage": "provider_response",
+          "failureCategory": "provider",
+          "validationIssues": [],
+          "rejectedItem": null
+        }
+      ],
+      "modelMetadata": {
+        "model": "deepseek-v4-flash",
+        "temperature": 0.1,
+        "maxOutputTokens": 8192
+      }
+    },
+    "error": {
+      "code": "AI_BALANCE_INSUFFICIENT",
+      "message": "分析服务暂时不可用，请检查 API 账户余额。",
+      "request_id": "37220b8a-b96c-46ae-9806-7a0507b64562",
+      "retryable": false
+    },
+    "attempts": {
+      "state": "known",
+      "count": 1
+    },
+    "repair": {
+      "state": "not_needed",
+      "attempts": 0
+    },
+    "fallback": {
+      "state": "not_used",
+      "attempts": 0
+    },
+    "personalizedFallback": {
+      "state": "not_used",
+      "attempts": 0
+    },
+    "phase1Fallback": {
+      "state": "not_used",
+      "attempts": 0
+    },
+    "completionState": "failed",
+    "httpStatus": 503,
+    "output": null,
+    "rawAndRepairEvidence": [
+      {
+        "stage": "initial",
+        "rejected": true,
+        "completionReceived": false,
+        "rawAvailable": false,
+        "rawText": "",
+        "rawTextLength": 0,
+        "artifactTruncated": false,
+        "finishReason": null,
+        "parsedOutputAvailable": false,
+        "parsedOutput": null,
+        "parseError": null,
+        "validationLayer": "completion",
+        "failureStage": "provider_response",
+        "failureCategory": "provider",
+        "validationIssues": [],
+        "rejectedItem": null
+      }
+    ],
+    "normalization": [],
+    "validatorDiagnostics": null,
+    "failureClassification": "AI_BALANCE_INSUFFICIENT"
+  }
+}
