@@ -15,6 +15,14 @@
 | ISSUE-036 Match experience-type lexical precision | P1 | CLOSED / final accepted Match has no generic-work qualifier ownership | regression only |
 | ISSUE-037 Match lineage semantic classification | P1 | CLOSED / legal boundary accepted, illegal narration not released | regression only |
 | ISSUE-038 Strength/Gap optional transferable generation-contract robustness | P1 | CLOSED / final Strength-Gap initial 3/3 PASS, upgrade 0 | regression only |
+| ISSUE-039 Phase 2.5 runner infrastructure fail-fast/classification | P1 | CLOSED / provider and transport failures are separated from content samples; runner persists `infrastructure-failure.json` and stops after the first infrastructure failure | regression only |
+
+## ISSUE-039 closure evidence
+
+- Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
+- Adjudication: the production server ran inside the restricted network sandbox. Provider completions and content samples were 0; the immutable 72 request artifacts remain preserved and are excluded from both formal matrices by `infrastructure-adjudication.json`.
+- Fix: central infrastructure classification now includes transport, auth, balance, rate, availability, and timeout failures. The runner writes a separate infrastructure failure artifact and throws before scheduling another top-level request.
+- Verification: focused fixture/runner `8/8`, full `599/599`, lint zero warnings, production build/TypeScript PASS, diff check PASS.
 
 ## ISSUE-037 root cause record
 

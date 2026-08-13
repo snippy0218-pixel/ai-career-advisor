@@ -8,6 +8,7 @@ import {
   buildProductScorecardTemplate,
   inspectPhase1Result,
   inspectPhase2Invariants,
+  isPhase25InfrastructureFailure,
 } from "./phase-2-5-runner-utils.mjs";
 
 function completeResult() {
@@ -116,5 +117,20 @@ describe("Phase 2.5 runner utilities", () => {
       average: null,
       minimum: null,
     });
+  });
+
+  it("separates provider and transport infrastructure failures from content samples", () => {
+    for (const code of [
+      "RUNNER_TRANSPORT_FAILURE",
+      "AI_AUTH_FAILED",
+      "AI_BALANCE_INSUFFICIENT",
+      "AI_RATE_LIMITED",
+      "AI_SERVICE_UNAVAILABLE",
+      "AI_TIMEOUT",
+    ]) {
+      expect(isPhase25InfrastructureFailure(code)).toBe(true);
+    }
+    expect(isPhase25InfrastructureFailure("AI_OUTPUT_INVALID")).toBe(false);
+    expect(isPhase25InfrastructureFailure("INVALID_INPUT")).toBe(false);
   });
 });

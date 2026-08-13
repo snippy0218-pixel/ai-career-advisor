@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "phase-2-5-infrastructure-adjudication-v1",
+  "runId": "phase-2-5-baseline-1-0373ad4",
+  "implementationCommit": "0373ad4412dfc9af0d902bf2d7b3e1fb8a8f93ec",
+  "adjudicatedAt": "2026-08-13T05:45:00.000Z",
+  "classification": "infrastructure_failure_not_content_matrix",
+  "rootCause": "The production server ran inside the restricted network sandbox. Every JD adapter fetch failed before any provider response was received.",
+  "evidence": {
+    "acceptanceCapabilityPreflight": "5/5 passed before business execution",
+    "topLevelHttpRequests": 72,
+    "jdStageHttpStatus": 503,
+    "publicErrorCode": "AI_SERVICE_UNAVAILABLE",
+    "upstreamAttemptsPerRequest": 1,
+    "providerCompletions": 0,
+    "completionTokens": 0,
+    "completedContentSamples": 0,
+    "completedPhase2Chains": 0,
+    "downstreamCallsAfterJdFailure": 0,
+    "maximumObservedLatencyMs": 35
+  },
+  "matrixDisposition": {
+    "phase1ScheduledEntriesCountAsSamples": false,
+    "phase2ScheduledEntriesCountAsSamples": false,
+    "reason": "Phase 2.5 policy stores infrastructure failures separately; a request with no provider response and no generated content is not a content sample.",
+    "artifactsPreserved": true,
+    "cherryPick": false,
+    "replacementRunAuthorizedByExistingPolicy": true
+  },
+  "runnerFinding": {
+    "issue": "ISSUE-039",
+    "finding": "The runner continued scheduling after a systemic infrastructure failure and its summary labeled all scheduled entries as failed content cases.",
+    "requiredCorrection": "Classify provider/transport infrastructure failures separately and stop the batch immediately after the first such failure."
+  }
+}

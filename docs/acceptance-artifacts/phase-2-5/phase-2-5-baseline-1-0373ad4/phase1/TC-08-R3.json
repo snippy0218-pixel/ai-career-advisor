@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "phase-2-5-phase1-result-v1",
+  "runId": "phase-2-5-baseline-1-0373ad4",
+  "executionId": "TC-08-R3",
+  "fixtureId": "TC-08",
+  "repetition": 3,
+  "implementationCommit": "0373ad4412dfc9af0d902bf2d7b3e1fb8a8f93ec",
+  "input": {
+    "jdCharacters": 416,
+    "jdSha256": "06567ac662fdaf1f74e0ce0553d0815627b2838fc9991827312540c5d74eff8f",
+    "source": "docs/验收执行报告.md §11.2"
+  },
+  "expected": "success",
+  "stage": {
+    "stage": "jd",
+    "callState": "called",
+    "completionState": "failed",
+    "httpStatus": 503,
+    "latencyMs": 6,
+    "requestId": "b439771d-e83a-4658-acf2-db323f733ff1",
+    "rawAndRepairEvidence": null,
+    "normalization": null,
+    "validatorDiagnostics": null,
+    "diagnostics": null,
+    "acceptanceDiagnostics": null,
+    "error": {
+      "code": "AI_SERVICE_UNAVAILABLE",
+      "message": "分析服务暂时不可用，请稍后重试。",
+      "request_id": "b439771d-e83a-4658-acf2-db323f733ff1",
+      "retryable": true
+    },
+    "failureClassification": "AI_SERVICE_UNAVAILABLE"
+  },
+  "finalOutput": null,
+  "audit": {
+    "passed": false,
+    "checks": null
+  },
+  "failure": {
+    "stage": "jd",
+    "category": "AI_SERVICE_UNAVAILABLE",
+    "infrastructure": false,
+    "httpStatus": 503,
+    "error": {
+      "code": "AI_SERVICE_UNAVAILABLE",
+      "message": "分析服务暂时不可用，请稍后重试。",
+      "request_id": "b439771d-e83a-4658-acf2-db323f733ff1",
+      "retryable": true
+    }
+  },
+  "passed": false
+}

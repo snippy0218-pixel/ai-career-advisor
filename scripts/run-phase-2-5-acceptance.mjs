@@ -19,6 +19,7 @@ import {
   buildProductScorecardTemplate,
   inspectPhase1Result,
   inspectPhase2Invariants,
+  isPhase25InfrastructureFailure,
 } from "./phase-2-5-runner-utils.mjs";
 
 const args = new Map();
@@ -163,10 +164,30 @@ function classifyFailure(stages) {
   return {
     stage: failed.stage,
     category: failed.failureClassification,
-    infrastructure: failed.failureClassification === "infrastructure_transport_failure",
+    infrastructure: isPhase25InfrastructureFailure(failed.failureClassification),
     httpStatus: failed.status,
     error: failed.error,
   };
+}
+
+async function stopForInfrastructureFailure(result, completedContentSamples) {
+  if (!result.failure?.infrastructure) return;
+  const artifact = {
+    schemaVersion: "phase-2-5-infrastructure-failure-v1",
+    runId,
+    implementationCommit,
+    fixtureManifestSha256: fixtureManifest.manifestSha256,
+    failedExecutionId: result.executionId,
+    completedContentSamples,
+    failedAttemptCountsAsContentSample: false,
+    additionalScheduledRequestsAfterFailure: 0,
+    failure: result.failure,
+    stage: result.stage ?? result.stages?.find((item) => item.stage === result.failure.stage) ?? null,
+  };
+  await persistJson(resolve(artifactRoot, "infrastructure-failure.json"), artifact);
+  throw new Error(
+    `INFRASTRUCTURE_FAILURE at ${result.executionId}; contentSamples=${completedContentSamples}; batch stopped`,
+  );
 }
 
 async function runPhase1Case(fixture, repetition) {
@@ -344,6 +365,7 @@ if (suite === "phase1" || suite === "all") {
   for (const fixture of loadPhase1Fixtures()) {
     for (let repetition = 1; repetition <= repetitions; repetition += 1) {
       const result = await runPhase1Case(fixture, repetition);
+      await stopForInfrastructureFailure(result, results.phase1.length + results.phase2.length);
       results.phase1.push(result);
       process.stdout.write(`${result.executionId} ${result.passed ? "PASS" : "FAIL"}\n`);
     }
@@ -353,6 +375,7 @@ if (suite === "phase2" || suite === "all") {
   for (const fixture of PHASE2_FIXTURES) {
     for (let repetition = 1; repetition <= repetitions; repetition += 1) {
       const result = await runPhase2Case(fixture, repetition);
+      await stopForInfrastructureFailure(result, results.phase1.length + results.phase2.length);
       results.phase2.push(result);
       process.stdout.write(`${result.executionId} ${result.passed ? "PASS" : "FAIL"}\n`);
     }

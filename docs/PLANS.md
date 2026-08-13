@@ -13,6 +13,7 @@
 - Product Owner / QA 已于 2026-08-13 关闭 Pre-Authorization Audit §K 三项决策并授权 Phase 2.5；release surface、fixture/model budget、fallback rule 已冻结在 `PHASE-2-5-AUTONOMOUS-PLAN.md`。
 - Stage 1 已逐字恢复 Phase 1 TC-01～10（全部历史字符数与 SHA-256 匹配），并建立 TC-P2-01～14 raw JD/Profile 覆盖集；当前模型调用 0。
 - 统一 `/personalized-match` 用户流、六 API fail-closed 编排、完整结果展示及 Phase 2.5 runner 已实现；focused 19/19、full 598/598、lint 零 warning、production build、页面/API/capability smoke PASS。下一步冻结 committed acceptance baseline 后执行正式矩阵。
+- Formal baseline-1 在 capability 5/5 后因 server 位于 restricted network sandbox 而产生 72 个极速 `AI_SERVICE_UNAVAILABLE`；provider completion/content sample 均为 0，完整 artifact 保留并由 `infrastructure-adjudication.json` 排除出内容矩阵。ISSUE-039 已修复 runner infrastructure fail-fast，full Gate 更新为 599/599；下一 baseline 将使用已授权的网络环境运行 server。
 
 ## Execution discipline
 

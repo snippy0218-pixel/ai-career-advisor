@@ -18,6 +18,18 @@ const MODIFIER_PATTERNS = [
   /大量/g,
   /[一二三四五六七八九十\d]+\s*年/g,
 ];
+const INFRASTRUCTURE_FAILURE_CODES = new Set([
+  "RUNNER_TRANSPORT_FAILURE",
+  "AI_AUTH_FAILED",
+  "AI_BALANCE_INSUFFICIENT",
+  "AI_RATE_LIMITED",
+  "AI_SERVICE_UNAVAILABLE",
+  "AI_TIMEOUT",
+]);
+
+export function isPhase25InfrastructureFailure(failureClassification) {
+  return INFRASTRUCTURE_FAILURE_CODES.has(failureClassification);
+}
 
 function everyEvidenceInRaw(evidence, rawText) {
   return evidence.every(
