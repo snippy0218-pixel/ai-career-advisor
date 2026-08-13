@@ -496,6 +496,8 @@ describe("Match rejected-reason normalization", () => {
       status: "partial",
       candidateEvidence: [{ factId: "CF-001", role: "positive" }],
       reason: "CF-001 原文：“在课程项目中使用 SQL 分析公开数据”。",
+      missingInformation: "尚缺少可验证的“能使用 SQL 进行数据分析”同维度候选人证据。",
+      verificationQuestion: "请补充可验证的“能使用 SQL 进行数据分析”相关事实或经历。",
     });
   });
 });

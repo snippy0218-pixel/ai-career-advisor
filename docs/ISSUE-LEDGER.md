@@ -131,6 +131,12 @@
 - Terminal-only recovery retains at most one independently supporting exact CF, caps rejected met skill claims at partial, removes contaminated refs, and keeps the aggregate-only proficiency restoration required by Baseline 15.
 - Summary SHA-256 is `72897df00ee47d58c38edd464f027971d1aa19187a6b266fb4cd73ab82ad8de1`. Focused `148/148`, full `645/645`, lint/build PASS; a complete replacement matrix remains. See `PHASE-2-5-BASELINE-16-STABILIZATION.md`.
 
+## Baseline 17 additional evidence
+
+- `phase-2-5-baseline-17-4f042e1` completed at `32/42`, downstream-after-failure `0`; TC-P2-10 passed 3/3.
+- Ten Match failures share one structural omission after correct terminal `met -> partial`: missingInformation and verificationQuestion were null. Recovery now fills those required uncertainty fields from the same requirement fragment only.
+- Summary SHA-256 `92d08c66d6a65106c81385d6fd4c179e012ecdef8b2ba0c55955111eaf6d9acc`; focused `148/148`, full `645/645`, lint/build PASS. See `PHASE-2-5-BASELINE-17-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

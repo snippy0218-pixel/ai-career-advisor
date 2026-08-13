@@ -28,6 +28,7 @@
 - baseline-14（`a5ff6eb…`）是有效完整 Phase 2 14×3 content batch：40/42 PASS、40 complete chains、失败后下游调用 0；baseline-13 两项失败均 3/3 PASS。TC-P2-10 R1/R3 同属 already-unmet numeric shortfall reason 把 JD 门槛归给 CF；M-DURATION 相邻恢复 focused `146/146`、full `643/643`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-15（`75be908…`）是有效完整 Phase 2 14×3 content batch：41/42 PASS、42 complete chains、失败后下游调用 0。唯一 TC-P2-10 R3 六阶段/X-A～X-J 全绿，但 repair 把明确 skill usage 过度降为 unknown，违反 frozen partial expectation；窄恢复 focused `148/148`、full `645/645`、lint/build PASS。下一步审计、提交 immutable baseline 并运行完整 replacement matrix。
 - baseline-16（`0598947…`）完整执行 Phase 2 14×3，为 33/42 PASS、33 complete chains、失败后下游调用 0。TC-P2-10 3/3 PASS，但全局 same-skill omission 扩展与既有 terminal downgrade 冲突，导致 TC-P2-01/06/07 各 3/3 deterministic regression；已撤回全局扩展并收敛到 terminal-only partial，focused `148/148`、full `645/645`、lint/build PASS。下一步提交 immutable baseline 并运行完整 replacement matrix。
+- baseline-17（`4f042e1…`）完整执行为 32/42 PASS、downstream-after-failure 0；TC-P2-10 3/3 PASS。10 条 terminal `met -> partial` 已选对 exact CF，但漏同步 partial 必需的 missing/question 字段；窄字段修复 focused `148/148`、full `645/645`、lint/build PASS。下一步提交 immutable baseline 并运行完整 replacement matrix。
 
 ## Execution discipline
 

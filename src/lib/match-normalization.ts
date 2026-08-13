@@ -341,6 +341,14 @@ export function normalizeRejectedMatchReasons(
         { factId: exactPositiveFact.factId, role: "positive" },
       ];
       dimension.reason = `${exactPositiveFact.factId} 原文：“${exactPositiveFact.statement}”。`;
+      if (normalizedStatus === "partial") {
+        dimension.missingInformation ??= missingInformation(
+          dimension.requirementFragment,
+        );
+        dimension.verificationQuestion ??= verificationQuestion(
+          dimension.requirementFragment,
+        );
+      }
       actions.push({
         itemIndex,
         dimensionIndex,
