@@ -354,6 +354,53 @@ describe("Recommendation Core deterministic contract", () => {
     expect(invalid.issues.some((issue) => issue.message.includes("R-K"))).toBe(true);
   });
 
+  it("R-K preserves a mixed hard item aggregate unmet while its unknown dimension stays explicit", () => {
+    const matchCore = buildRecommendationMatchCore([
+      {
+        requirement: "必须具有3年以上正式全职数据分析经验",
+        requirementType: "hard_requirement",
+        status: "unmet",
+        dimensionType: "duration",
+      },
+    ]);
+    matchCore.matchItems[0].requirementDimensions.push({
+      ...matchCore.matchItems[0].requirementDimensions[0],
+      dimensionId: "DIM-002",
+      dimensionType: "domain",
+      requirementFragment: "数据分析经验",
+      status: "unknown",
+      reason: "现有资料不足以确认数据分析领域经验。",
+      candidateFactRefs: [],
+      candidateEvidenceRole: null,
+      pfEvidence: [],
+      missingInformation: "数据分析领域经验",
+      verificationQuestion: "请补充数据分析相关经验。",
+    });
+    const result = finalizeRawRecommendation(
+      {
+        recommendationLevel: "not_recommended",
+        summary: "MI-001 为 unmet；其 domain 维度仍为 unknown。",
+        supportingMatchRefs: [],
+        counterMatchRefs: ["MI-001"],
+        limitations: [
+          {
+            content: "MI-001 的硬性年限要求未满足；domain 维度仍为 unknown。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+        questionsToConfirm: [
+          {
+            question: "请补充数据分析领域经验的具体情况。",
+            matchItemRefs: ["MI-001"],
+          },
+        ],
+      },
+      matchCore,
+    );
+
+    expect(result.issues).toEqual([]);
+  });
+
   it("RK-TC-03 explicit JD waiver may be cited without changing the hard unmet", () => {
     const fixture = RECOMMENDATION_FIXTURES[6];
     const result = finalizeRawRecommendation(fixture.validRaw, fixture.matchCore);

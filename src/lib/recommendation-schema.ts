@@ -730,7 +730,10 @@ export function inspectWaiverEvidenceIntegrity(
     for (const entry of textEntries.filter((entry) =>
       entry.refs.includes(item.matchItemRef),
     )) {
-      if (UNKNOWN_TO_UNMET_PATTERN.test(entry.text)) {
+      if (
+        item.status === "unknown" &&
+        UNKNOWN_TO_UNMET_PATTERN.test(entry.text)
+      ) {
         unknownToUnmetDriftCount += 1;
         addIssue(
           issues,

@@ -132,6 +132,14 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(true);
+
+    result.strengthGap.gaps.at(-1).statement =
+      "缺少剩余2年经验的证据。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
   });
 
   it("preserves a completed stage output for failed-chain artifact continuity", () => {

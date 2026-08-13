@@ -65,6 +65,14 @@
 - ISSUE-050 was discovered during failed-chain adjudication: completed upstream stage outputs were held in memory but excluded by `stageEvidence`. The new artifact field is acceptance-only and contains de-identified structured output.
 - Complete adjudication: `PHASE-2-5-BASELINE-6-STABILIZATION.md`. Focused `139/139`, full `630/630`, lint, production build, diff/scope/secret/process PASS; immutable commit and a new complete Phase 2 matrix remain.
 
+## Baseline 7 additional evidence
+
+- `phase-2-5-baseline-7-13900bf` is a complete fixed Phase 2 batch: `39/42` PASS, `40` complete chains, downstream-after-failure `0`, with no run 4 or partial composition.
+- ISSUE-042 adjacent evidence exposed mixed-status granularity: hard items may be aggregate `unmet` while one orthogonal dimension remains `unknown`. R-K must preserve both truths, not forbid the real aggregate status.
+- ISSUE-044 adjacent evidence is a single X-F false positive on missing-duration evidence wording; no other invariant failed.
+- ISSUE-050 runtime verification PASS: failed Recommendation artifacts preserve completed JD/Profile/Match structured outputs.
+- Complete adjudication: `PHASE-2-5-BASELINE-7-STABILIZATION.md`. Focused `103/103`, full `631/631`, lint, production build, diff/scope/secret/process PASS; immutable commit and a complete replacement matrix remain.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
