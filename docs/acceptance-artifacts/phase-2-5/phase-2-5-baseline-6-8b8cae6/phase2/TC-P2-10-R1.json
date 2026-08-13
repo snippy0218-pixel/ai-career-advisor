@@ -1,0 +1,2038 @@
+{
+  "schemaVersion": "phase-2-5-phase2-result-v1",
+  "runId": "phase-2-5-baseline-6-8b8cae6",
+  "executionId": "TC-P2-10-R1",
+  "fixtureId": "TC-P2-10",
+  "fixtureName": "explicit duration shortfall",
+  "repetition": 1,
+  "implementationCommit": "8b8cae686fb11dfdc3923b317cec56e13aedda47",
+  "input": {
+    "jdCharacters": 104,
+    "profileCharacters": 84,
+    "jdSha256": "beb6eb5a5c6dc623e755f1b1fa1ab1b3788d6f4ca65d4194159183110572d684",
+    "profileSha256": "34f48f0b0b92be240fb9cf311708757f34ea70de5411b0f9986e306282c446d6"
+  },
+  "expected": {
+    "outcome": "success",
+    "requiredMatchStatuses": [
+      "unmet",
+      "partial"
+    ]
+  },
+  "coverage": [
+    "duration",
+    "proficiency",
+    "ownership",
+    "team-delivery"
+  ],
+  "completed": false,
+  "stoppedAt": "recommendation",
+  "downstreamCallsAfterFailure": 0,
+  "safeFailure": false,
+  "failure": {
+    "stage": "recommendation",
+    "category": "AI_OUTPUT_INVALID",
+    "infrastructure": false,
+    "httpStatus": 502,
+    "error": {
+      "code": "AI_OUTPUT_INVALID",
+      "message": "本次分析生成失败，请重新尝试。",
+      "request_id": "6046b0c4-12cf-49ac-a629-53b729de1993",
+      "retryable": true
+    }
+  },
+  "stages": [
+    {
+      "stage": "jd",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 6180,
+      "requestId": "66e7ade9-235d-4099-970d-9a18c64a6983",
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "unknown",
+        "count": null
+      },
+      "repair": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "unknown",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": null,
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "profile",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 2368,
+      "requestId": "b8579851-0b96-42a8-9a60-0dc4abcc806b",
+      "diagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 5,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 5,
+        "profileFactRecall": null,
+        "latencyMs": 2365,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 411,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 1,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "pfLedgerCount": 4,
+        "pfTotal": 4,
+        "pfDispositionCounts": {
+          "candidate_fact_source": 4,
+          "context_only": 0,
+          "duplicate": 0,
+          "non_candidate_fact": 0,
+          "instruction_text": 0,
+          "unsupported_or_ambiguous": 0
+        },
+        "candidateFactPfCount": 4,
+        "atomicClaimCount": 5,
+        "unprocessedPfCount": 0,
+        "completenessRepairRequestCount": 0,
+        "atomicClaimRepairCount": 0,
+        "semanticRepairRequestCount": 0,
+        "projectionRepairCount": 0,
+        "deterministicCanonicalizationCount": 0,
+        "finalFactCount": 5,
+        "profileFactRecall": null,
+        "latencyMs": 2365,
+        "removedFactCount": 0,
+        "invalidEvidenceCount": 0,
+        "semanticUpgradeViolationCount": 0,
+        "untraceableFactCount": 0,
+        "layeringViolationCount": 0,
+        "unusedPfCount": 0,
+        "completenessRepairUsed": false,
+        "completenessRepairSucceeded": false,
+        "droppedCandidateFactCount": 0,
+        "profileRepairAttempted": false,
+        "profileRepairSucceeded": false,
+        "finalSchemaValidationPassed": true,
+        "finalEvidenceValidationPassed": true,
+        "finalValidationPassed": true,
+        "truncatedByLength": false,
+        "outputCompletionTokens": 411,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "repairState": "not_needed",
+        "repairAttempt": {
+          "called": false,
+          "completionReceived": false,
+          "rawAvailable": false,
+          "parseResult": "not_run",
+          "validationResult": "not_run",
+          "rejectionReason": null,
+          "finishReason": null,
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": []
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 1
+      },
+      "repair": {
+        "state": "not_needed",
+        "attempts": 0
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "match",
+      "callState": "called",
+      "resultState": "completed",
+      "status": 200,
+      "latencyMs": 8328,
+      "requestId": "8597fecd-9001-412f-adc3-e5160334649d",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练使用->CF-003"
+          }
+        ],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 6,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 2,
+          "unknown": 0
+        },
+        "latencyMs": 8325,
+        "outputCompletionTokens": 836,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "matchRepairAttempted": true,
+        "matchRepairSucceeded": true,
+        "initialValidationIssues": [
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证"
+          },
+          {
+            "path": "matchItems.1.dimensions.0.reason",
+            "message": "M-K cross-CF modifier isolation failed: proficiency:熟练使用->CF-003"
+          }
+        ],
+        "repairValidationIssues": [],
+        "matchNormalizationAttempted": false,
+        "matchNormalizationSucceeded": false,
+        "normalizationActions": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null,
+        "finalSchemaValidationPassed": true,
+        "jdEvidenceValidationPassed": true,
+        "candidateEvidenceValidationPassed": true,
+        "statusValidationPassed": true,
+        "aggregateValidationPassed": true,
+        "candidateProfileImmutable": true,
+        "requirementCount": 4,
+        "dimensionCount": 6,
+        "statusCounts": {
+          "met": 1,
+          "partial": 1,
+          "unmet": 2,
+          "unknown": 0
+        },
+        "latencyMs": 8325,
+        "outputCompletionTokens": 836,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "accepted",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "passed",
+          "rejectionReason": null,
+          "finishReason": "stop",
+          "failureStage": null,
+          "failureCategory": null
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色要求相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"met\",\"reason\":\"CF-003 明确日常使用 Vue3，构成熟练使用的正证。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度\",\"verificationQuestion\":\"TypeScript 的使用频率和熟练程度如何？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+            "rawTextLength": 1949,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "3年以上前端开发经验",
+                      "status": "unmet",
+                      "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "role",
+                      "requirementFragment": "前端开发经验",
+                      "status": "met",
+                      "reason": "CF-002 明确为前端开发工作经验，与前端开发角色要求相符。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "met",
+                      "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度",
+                      "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": "semantic_validation",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-CANDIDATE-LINEAGE",
+                "rule": "M-CANDIDATE-LINEAGE",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练掌握 Vue3",
+                        "status": "met",
+                        "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                        "jdEvidence": [
+                          "熟练掌握 Vue3 和 TypeScript"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练掌握 TypeScript",
+                        "status": "partial",
+                        "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                        "jdEvidence": [
+                          "熟练掌握 Vue3 和 TypeScript"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未表明 TypeScript 的熟练程度",
+                        "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "met",
+                    "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "M-K",
+                "rule": "M-K",
+                "path": "matchItems.1.dimensions.0.reason",
+                "message": "M-K cross-CF modifier isolation failed: proficiency:熟练使用->CF-003",
+                "rejectedItem": {
+                  "collection": "matchItems",
+                  "itemIndex": 1,
+                  "dimensionIndex": 0,
+                  "item": {
+                    "requirementId": "REQ-002",
+                    "aggregateStatus": "partial",
+                    "dimensions": [
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练掌握 Vue3",
+                        "status": "met",
+                        "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                        "jdEvidence": [
+                          "熟练掌握 Vue3 和 TypeScript"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-003",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": null,
+                        "verificationQuestion": null
+                      },
+                      {
+                        "dimensionType": "skill",
+                        "requirementFragment": "熟练掌握 TypeScript",
+                        "status": "partial",
+                        "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                        "jdEvidence": [
+                          "熟练掌握 Vue3 和 TypeScript"
+                        ],
+                        "candidateEvidence": [
+                          {
+                            "factId": "CF-004",
+                            "role": "positive"
+                          }
+                        ],
+                        "missingInformation": "未表明 TypeScript 的熟练程度",
+                        "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                      }
+                    ]
+                  },
+                  "dimension": {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "met",
+                    "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                }
+              }
+            ],
+            "rejectedItem": {
+              "collection": "matchItems",
+              "itemIndex": 1,
+              "dimensionIndex": 0,
+              "item": {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "met",
+                    "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 TypeScript",
+                    "status": "partial",
+                    "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 TypeScript 的熟练程度",
+                    "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                  }
+                ]
+              },
+              "dimension": {
+                "dimensionType": "skill",
+                "requirementFragment": "熟练掌握 Vue3",
+                "status": "met",
+                "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                "jdEvidence": [
+                  "熟练掌握 Vue3 和 TypeScript"
+                ],
+                "candidateEvidence": [
+                  {
+                    "factId": "CF-003",
+                    "role": "positive"
+                  }
+                ],
+                "missingInformation": null,
+                "verificationQuestion": null
+              }
+            }
+          },
+          {
+            "stage": "repair",
+            "rejected": false,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"duration\",\n          \"requirementFragment\": \"3年以上前端开发经验\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\n          \"jdEvidence\": [\"具有3年以上前端开发经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"role\",\n          \"requirementFragment\": \"前端开发经验\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 明确为前端开发工作经验，与前端开发角色要求相符。\",\n          \"jdEvidence\": [\"具有3年以上前端开发经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练掌握 Vue3\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认“熟练掌握 Vue3”是否满足。\",\n          \"jdEvidence\": [\"熟练掌握 Vue3 和 TypeScript\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"未表明 Vue3 的熟练程度\",\n          \"verificationQuestion\": \"Vue3 的使用频率和熟练程度如何？\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练掌握 TypeScript\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。\",\n          \"jdEvidence\": [\"熟练掌握 Vue3 和 TypeScript\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"未表明 TypeScript 的熟练程度\",\n          \"verificationQuestion\": \"TypeScript 的使用频率和熟练程度如何？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"独立上线项目经验\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。\",\n          \"jdEvidence\": [\"有独立上线项目经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-005\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+            "rawTextLength": 3141,
+            "artifactTruncated": false,
+            "finishReason": "stop",
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "matchItems": [
+                {
+                  "requirementId": "REQ-001",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "duration",
+                      "requirementFragment": "3年以上前端开发经验",
+                      "status": "unmet",
+                      "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "role",
+                      "requirementFragment": "前端开发经验",
+                      "status": "met",
+                      "reason": "CF-002 明确为前端开发工作经验，与前端开发角色要求相符。",
+                      "jdEvidence": [
+                        "具有3年以上前端开发经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-002",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "unknown",
+                      "reason": "现有资料不足以确认“熟练掌握 Vue3”是否满足。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [],
+                      "missingInformation": "未表明 Vue3 的熟练程度",
+                      "verificationQuestion": "Vue3 的使用频率和熟练程度如何？"
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度",
+                      "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-003",
+                  "aggregateStatus": "unmet",
+                  "dimensions": [
+                    {
+                      "dimensionType": "responsibility",
+                      "requirementFragment": "独立上线项目经验",
+                      "status": "unmet",
+                      "reason": "CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。",
+                      "jdEvidence": [
+                        "有独立上线项目经验"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-005",
+                          "role": "counter"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                },
+                {
+                  "requirementId": "REQ-004",
+                  "aggregateStatus": "met",
+                  "dimensions": [
+                    {
+                      "dimensionType": "credential",
+                      "requirementFragment": "本科及以上学历",
+                      "status": "met",
+                      "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                      "jdEvidence": [
+                        "本科及以上学历"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-001",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    }
+                  ]
+                }
+              ]
+            },
+            "parseError": null,
+            "validationLayer": null,
+            "failureStage": null,
+            "failureCategory": null,
+            "validationIssues": [],
+            "rejectedItem": null
+          }
+        ],
+        "modelMetadata": {
+          "model": "deepseek-v4-flash",
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      },
+      "error": null,
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "accepted",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "completed",
+      "httpStatus": 200,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"matchItems\":[{\"requirementId\":\"REQ-001\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"duration\",\"requirementFragment\":\"3年以上前端开发经验\",\"status\":\"unmet\",\"reason\":\"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"role\",\"requirementFragment\":\"前端开发经验\",\"status\":\"met\",\"reason\":\"CF-002 明确为前端开发工作经验，与前端开发角色要求相符。\",\"jdEvidence\":[\"具有3年以上前端开发经验\"],\"candidateEvidence\":[{\"factId\":\"CF-002\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-002\",\"aggregateStatus\":\"partial\",\"dimensions\":[{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 Vue3\",\"status\":\"met\",\"reason\":\"CF-003 明确日常使用 Vue3，构成熟练使用的正证。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-003\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null},{\"dimensionType\":\"skill\",\"requirementFragment\":\"熟练掌握 TypeScript\",\"status\":\"partial\",\"reason\":\"CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。\",\"jdEvidence\":[\"熟练掌握 Vue3 和 TypeScript\"],\"candidateEvidence\":[{\"factId\":\"CF-004\",\"role\":\"positive\"}],\"missingInformation\":\"未表明 TypeScript 的熟练程度\",\"verificationQuestion\":\"TypeScript 的使用频率和熟练程度如何？\"}]},{\"requirementId\":\"REQ-003\",\"aggregateStatus\":\"unmet\",\"dimensions\":[{\"dimensionType\":\"responsibility\",\"requirementFragment\":\"独立上线项目经验\",\"status\":\"unmet\",\"reason\":\"CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。\",\"jdEvidence\":[\"有独立上线项目经验\"],\"candidateEvidence\":[{\"factId\":\"CF-005\",\"role\":\"counter\"}],\"missingInformation\":null,\"verificationQuestion\":null}]},{\"requirementId\":\"REQ-004\",\"aggregateStatus\":\"met\",\"dimensions\":[{\"dimensionType\":\"credential\",\"requirementFragment\":\"本科及以上学历\",\"status\":\"met\",\"reason\":\"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\"jdEvidence\":[\"本科及以上学历\"],\"candidateEvidence\":[{\"factId\":\"CF-001\",\"role\":\"positive\"}],\"missingInformation\":null,\"verificationQuestion\":null}]}]}",
+          "rawTextLength": 1949,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "3年以上前端开发经验",
+                    "status": "unmet",
+                    "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "role",
+                    "requirementFragment": "前端开发经验",
+                    "status": "met",
+                    "reason": "CF-002 明确为前端开发工作经验，与前端开发角色要求相符。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "met",
+                    "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-003",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 TypeScript",
+                    "status": "partial",
+                    "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 TypeScript 的熟练程度",
+                    "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": "semantic_validation",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-CANDIDATE-LINEAGE",
+              "rule": "M-CANDIDATE-LINEAGE",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 构成熟练使用的正证",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "met",
+                      "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度",
+                      "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练掌握 Vue3",
+                  "status": "met",
+                  "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                  "jdEvidence": [
+                    "熟练掌握 Vue3 和 TypeScript"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "M-K",
+              "rule": "M-K",
+              "path": "matchItems.1.dimensions.0.reason",
+              "message": "M-K cross-CF modifier isolation failed: proficiency:熟练使用->CF-003",
+              "rejectedItem": {
+                "collection": "matchItems",
+                "itemIndex": 1,
+                "dimensionIndex": 0,
+                "item": {
+                  "requirementId": "REQ-002",
+                  "aggregateStatus": "partial",
+                  "dimensions": [
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 Vue3",
+                      "status": "met",
+                      "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-003",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": null,
+                      "verificationQuestion": null
+                    },
+                    {
+                      "dimensionType": "skill",
+                      "requirementFragment": "熟练掌握 TypeScript",
+                      "status": "partial",
+                      "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                      "jdEvidence": [
+                        "熟练掌握 Vue3 和 TypeScript"
+                      ],
+                      "candidateEvidence": [
+                        {
+                          "factId": "CF-004",
+                          "role": "positive"
+                        }
+                      ],
+                      "missingInformation": "未表明 TypeScript 的熟练程度",
+                      "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                    }
+                  ]
+                },
+                "dimension": {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练掌握 Vue3",
+                  "status": "met",
+                  "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                  "jdEvidence": [
+                    "熟练掌握 Vue3 和 TypeScript"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                }
+              }
+            }
+          ],
+          "rejectedItem": {
+            "collection": "matchItems",
+            "itemIndex": 1,
+            "dimensionIndex": 0,
+            "item": {
+              "requirementId": "REQ-002",
+              "aggregateStatus": "partial",
+              "dimensions": [
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练掌握 Vue3",
+                  "status": "met",
+                  "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+                  "jdEvidence": [
+                    "熟练掌握 Vue3 和 TypeScript"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-003",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": null,
+                  "verificationQuestion": null
+                },
+                {
+                  "dimensionType": "skill",
+                  "requirementFragment": "熟练掌握 TypeScript",
+                  "status": "partial",
+                  "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                  "jdEvidence": [
+                    "熟练掌握 Vue3 和 TypeScript"
+                  ],
+                  "candidateEvidence": [
+                    {
+                      "factId": "CF-004",
+                      "role": "positive"
+                    }
+                  ],
+                  "missingInformation": "未表明 TypeScript 的熟练程度",
+                  "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                }
+              ]
+            },
+            "dimension": {
+              "dimensionType": "skill",
+              "requirementFragment": "熟练掌握 Vue3",
+              "status": "met",
+              "reason": "CF-003 明确日常使用 Vue3，构成熟练使用的正证。",
+              "jdEvidence": [
+                "熟练掌握 Vue3 和 TypeScript"
+              ],
+              "candidateEvidence": [
+                {
+                  "factId": "CF-003",
+                  "role": "positive"
+                }
+              ],
+              "missingInformation": null,
+              "verificationQuestion": null
+            }
+          }
+        },
+        {
+          "stage": "repair",
+          "rejected": false,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\n  \"matchItems\": [\n    {\n      \"requirementId\": \"REQ-001\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"duration\",\n          \"requirementFragment\": \"3年以上前端开发经验\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。\",\n          \"jdEvidence\": [\"具有3年以上前端开发经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        },\n        {\n          \"dimensionType\": \"role\",\n          \"requirementFragment\": \"前端开发经验\",\n          \"status\": \"met\",\n          \"reason\": \"CF-002 明确为前端开发工作经验，与前端开发角色要求相符。\",\n          \"jdEvidence\": [\"具有3年以上前端开发经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-002\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-002\",\n      \"aggregateStatus\": \"partial\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练掌握 Vue3\",\n          \"status\": \"unknown\",\n          \"reason\": \"现有资料不足以确认“熟练掌握 Vue3”是否满足。\",\n          \"jdEvidence\": [\"熟练掌握 Vue3 和 TypeScript\"],\n          \"candidateEvidence\": [],\n          \"missingInformation\": \"未表明 Vue3 的熟练程度\",\n          \"verificationQuestion\": \"Vue3 的使用频率和熟练程度如何？\"\n        },\n        {\n          \"dimensionType\": \"skill\",\n          \"requirementFragment\": \"熟练掌握 TypeScript\",\n          \"status\": \"partial\",\n          \"reason\": \"CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。\",\n          \"jdEvidence\": [\"熟练掌握 Vue3 和 TypeScript\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-004\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": \"未表明 TypeScript 的熟练程度\",\n          \"verificationQuestion\": \"TypeScript 的使用频率和熟练程度如何？\"\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-003\",\n      \"aggregateStatus\": \"unmet\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"responsibility\",\n          \"requirementFragment\": \"独立上线项目经验\",\n          \"status\": \"unmet\",\n          \"reason\": \"CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。\",\n          \"jdEvidence\": [\"有独立上线项目经验\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-005\",\n              \"role\": \"counter\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    },\n    {\n      \"requirementId\": \"REQ-004\",\n      \"aggregateStatus\": \"met\",\n      \"dimensions\": [\n        {\n          \"dimensionType\": \"credential\",\n          \"requirementFragment\": \"本科及以上学历\",\n          \"status\": \"met\",\n          \"reason\": \"CF-001 明确为计算机本科，满足本科及以上学历要求。\",\n          \"jdEvidence\": [\"本科及以上学历\"],\n          \"candidateEvidence\": [\n            {\n              \"factId\": \"CF-001\",\n              \"role\": \"positive\"\n            }\n          ],\n          \"missingInformation\": null,\n          \"verificationQuestion\": null\n        }\n      ]\n    }\n  ]\n}",
+          "rawTextLength": 3141,
+          "artifactTruncated": false,
+          "finishReason": "stop",
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "matchItems": [
+              {
+                "requirementId": "REQ-001",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "duration",
+                    "requirementFragment": "3年以上前端开发经验",
+                    "status": "unmet",
+                    "reason": "CF-002 明确为1年前端开发工作经验，与3年以上要求直接冲突。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  },
+                  {
+                    "dimensionType": "role",
+                    "requirementFragment": "前端开发经验",
+                    "status": "met",
+                    "reason": "CF-002 明确为前端开发工作经验，与前端开发角色要求相符。",
+                    "jdEvidence": [
+                      "具有3年以上前端开发经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-002",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-002",
+                "aggregateStatus": "partial",
+                "dimensions": [
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 Vue3",
+                    "status": "unknown",
+                    "reason": "现有资料不足以确认“熟练掌握 Vue3”是否满足。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [],
+                    "missingInformation": "未表明 Vue3 的熟练程度",
+                    "verificationQuestion": "Vue3 的使用频率和熟练程度如何？"
+                  },
+                  {
+                    "dimensionType": "skill",
+                    "requirementFragment": "熟练掌握 TypeScript",
+                    "status": "partial",
+                    "reason": "CF-004 仅表明接触过 TypeScript，未表明熟练程度，只覆盖部分要求。",
+                    "jdEvidence": [
+                      "熟练掌握 Vue3 和 TypeScript"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-004",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": "未表明 TypeScript 的熟练程度",
+                    "verificationQuestion": "TypeScript 的使用频率和熟练程度如何？"
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-003",
+                "aggregateStatus": "unmet",
+                "dimensions": [
+                  {
+                    "dimensionType": "responsibility",
+                    "requirementFragment": "独立上线项目经验",
+                    "status": "unmet",
+                    "reason": "CF-005 明确项目由团队负责人统一上线，与独立上线要求直接冲突。",
+                    "jdEvidence": [
+                      "有独立上线项目经验"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-005",
+                        "role": "counter"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              },
+              {
+                "requirementId": "REQ-004",
+                "aggregateStatus": "met",
+                "dimensions": [
+                  {
+                    "dimensionType": "credential",
+                    "requirementFragment": "本科及以上学历",
+                    "status": "met",
+                    "reason": "CF-001 明确为计算机本科，满足本科及以上学历要求。",
+                    "jdEvidence": [
+                      "本科及以上学历"
+                    ],
+                    "candidateEvidence": [
+                      {
+                        "factId": "CF-001",
+                        "role": "positive"
+                      }
+                    ],
+                    "missingInformation": null,
+                    "verificationQuestion": null
+                  }
+                ]
+              }
+            ]
+          },
+          "parseError": null,
+          "validationLayer": null,
+          "failureStage": null,
+          "failureCategory": null,
+          "validationIssues": [],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": [],
+      "validatorDiagnostics": null,
+      "failureClassification": null
+    },
+    {
+      "stage": "recommendation",
+      "callState": "called",
+      "resultState": "failed",
+      "status": 502,
+      "latencyMs": 4387,
+      "requestId": "6046b0c4-12cf-49ac-a629-53b729de1993",
+      "diagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "questionsToConfirm",
+            "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "questionsToConfirm",
+            "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4383,
+        "outputCompletionTokens": 332,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "acceptanceDiagnostics": {
+        "upstreamAttempts": 2,
+        "jsonParsePassed": true,
+        "rawSchemaValidationPassed": true,
+        "recommendationRepairAttempted": true,
+        "recommendationRepairSucceeded": false,
+        "initialValidationIssues": [
+          {
+            "path": "questionsToConfirm",
+            "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference"
+          },
+          {
+            "path": "summary",
+            "message": "ambiguous status phrase attribution: 未满足",
+            "validationLayer": "semantic_validation",
+            "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+            "rule": "R-C"
+          }
+        ],
+        "repairValidationIssues": [
+          {
+            "path": "questionsToConfirm",
+            "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference"
+          }
+        ],
+        "finalSchemaValidationPassed": false,
+        "allowedLevelValidationPassed": false,
+        "referenceValidationPassed": false,
+        "statusFidelityPassed": false,
+        "unknownPreservationPassed": false,
+        "hardGapExplanationPassed": false,
+        "waiverEvidenceIntegrityPassed": false,
+        "matchCoreImmutable": true,
+        "fabricatedClaimCount": 0,
+        "unsupportedWaiverClaimCount": 0,
+        "unknownToUnmetDriftCount": 0,
+        "fabricatedFlexibilityClaimCount": 0,
+        "recommendationLevel": null,
+        "allowedRecommendationLevels": [],
+        "supportingRefCount": 0,
+        "counterRefCount": 0,
+        "latencyMs": 4383,
+        "outputCompletionTokens": 332,
+        "truncatedByLength": false,
+        "evidenceCaptureEnabled": true,
+        "initialAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "repairState": "rejected",
+        "repairAttempt": {
+          "called": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "parseResult": "passed",
+          "validationResult": "failed",
+          "rejectionReason": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation"
+        },
+        "outputEvidence": [
+          {
+            "stage": "initial",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 显示 MI-001 为 unmet（硬性要求未满足），MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。\",\"supportingMatchRefs\":[\"MI-004\",\"MI-002\"],\"counterMatchRefs\":[\"MI-001\",\"MI-003\"],\"limitations\":[{\"content\":\"MI-001 为 unmet，硬性要求未满足。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-003 为 unmet。\",\"matchItemRefs\":[\"MI-003\"]},{\"content\":\"MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"MI-002 中 Vue3 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-002 中 TypeScript 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-001 中前端开发经验的具体年限和项目情况如何？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"MI-003 中是否有独立上线项目的经验？\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 830,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "Match Core 显示 MI-001 为 unmet（硬性要求未满足），MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。",
+              "supportingMatchRefs": [
+                "MI-004",
+                "MI-002"
+              ],
+              "counterMatchRefs": [
+                "MI-001",
+                "MI-003"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为 unmet，硬性要求未满足。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unmet。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "MI-002 中 Vue3 的使用频率和熟练程度如何？",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "MI-002 中 TypeScript 的使用频率和熟练程度如何？",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "MI-001 中前端开发经验的具体年限和项目情况如何？",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "MI-003 中是否有独立上线项目的经验？",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": null,
+                "validationCode": null,
+                "rule": null,
+                "path": "questionsToConfirm",
+                "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+                "matchItemRefs": []
+              },
+              {
+                "validationLayer": "semantic_validation",
+                "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+                "rule": "R-C",
+                "path": "summary",
+                "message": "ambiguous status phrase attribution: 未满足",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          },
+          {
+            "stage": "repair",
+            "rejected": true,
+            "completionReceived": true,
+            "rawAvailable": true,
+            "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 显示 MI-001 为 unmet，MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。\",\"supportingMatchRefs\":[\"MI-004\",\"MI-002\"],\"counterMatchRefs\":[\"MI-001\",\"MI-003\"],\"limitations\":[{\"content\":\"MI-001 为 unmet，硬性要求未满足。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-003 为 unmet。\",\"matchItemRefs\":[\"MI-003\"]},{\"content\":\"MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"MI-002 中 Vue3 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-002 中 TypeScript 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-001 中前端开发经验的具体年限和项目情况如何？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"MI-003 中是否有独立上线项目的经验？\",\"matchItemRefs\":[\"MI-003\"]}]}",
+            "rawTextLength": 821,
+            "artifactTruncated": false,
+            "parseError": null,
+            "parsedOutputAvailable": true,
+            "parsedOutput": {
+              "recommendationLevel": "cautious",
+              "summary": "Match Core 显示 MI-001 为 unmet，MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。",
+              "supportingMatchRefs": [
+                "MI-004",
+                "MI-002"
+              ],
+              "counterMatchRefs": [
+                "MI-001",
+                "MI-003"
+              ],
+              "limitations": [
+                {
+                  "content": "MI-001 为 unmet，硬性要求未满足。",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "content": "MI-003 为 unmet。",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                },
+                {
+                  "content": "MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                }
+              ],
+              "questionsToConfirm": [
+                {
+                  "question": "MI-002 中 Vue3 的使用频率和熟练程度如何？",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "MI-002 中 TypeScript 的使用频率和熟练程度如何？",
+                  "matchItemRefs": [
+                    "MI-002"
+                  ]
+                },
+                {
+                  "question": "MI-001 中前端开发经验的具体年限和项目情况如何？",
+                  "matchItemRefs": [
+                    "MI-001"
+                  ]
+                },
+                {
+                  "question": "MI-003 中是否有独立上线项目的经验？",
+                  "matchItemRefs": [
+                    "MI-003"
+                  ]
+                }
+              ]
+            },
+            "finishReason": "stop",
+            "failureStage": "semantic_validation",
+            "failureCategory": "semantic_validation",
+            "validationIssues": [
+              {
+                "validationLayer": null,
+                "validationCode": null,
+                "rule": null,
+                "path": "questionsToConfirm",
+                "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+                "matchItemRefs": []
+              }
+            ],
+            "rejectedItem": null
+          }
+        ],
+        "recommendationNormalizationAttempted": false,
+        "recommendationNormalizationSucceeded": false,
+        "normalizationIssues": [],
+        "normalizationValidationIssues": [],
+        "normalizedRepairOutput": null
+      },
+      "error": {
+        "code": "AI_OUTPUT_INVALID",
+        "message": "本次分析生成失败，请重新尝试。",
+        "request_id": "6046b0c4-12cf-49ac-a629-53b729de1993",
+        "retryable": true
+      },
+      "attempts": {
+        "state": "known",
+        "count": 2
+      },
+      "repair": {
+        "state": "failed",
+        "attempts": 1
+      },
+      "fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "personalizedFallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "phase1Fallback": {
+        "state": "not_used",
+        "attempts": 0
+      },
+      "completionState": "failed",
+      "httpStatus": 502,
+      "rawAndRepairEvidence": [
+        {
+          "stage": "initial",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 显示 MI-001 为 unmet（硬性要求未满足），MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。\",\"supportingMatchRefs\":[\"MI-004\",\"MI-002\"],\"counterMatchRefs\":[\"MI-001\",\"MI-003\"],\"limitations\":[{\"content\":\"MI-001 为 unmet，硬性要求未满足。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-003 为 unmet。\",\"matchItemRefs\":[\"MI-003\"]},{\"content\":\"MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"MI-002 中 Vue3 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-002 中 TypeScript 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-001 中前端开发经验的具体年限和项目情况如何？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"MI-003 中是否有独立上线项目的经验？\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 830,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "Match Core 显示 MI-001 为 unmet（硬性要求未满足），MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。",
+            "supportingMatchRefs": [
+              "MI-004",
+              "MI-002"
+            ],
+            "counterMatchRefs": [
+              "MI-001",
+              "MI-003"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为 unmet，硬性要求未满足。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-003 为 unmet。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "content": "MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "MI-002 中 Vue3 的使用频率和熟练程度如何？",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "MI-002 中 TypeScript 的使用频率和熟练程度如何？",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "MI-001 中前端开发经验的具体年限和项目情况如何？",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "MI-003 中是否有独立上线项目的经验？",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": null,
+              "validationCode": null,
+              "rule": null,
+              "path": "questionsToConfirm",
+              "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+              "matchItemRefs": []
+            },
+            {
+              "validationLayer": "semantic_validation",
+              "validationCode": "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+              "rule": "R-C",
+              "path": "summary",
+              "message": "ambiguous status phrase attribution: 未满足",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        },
+        {
+          "stage": "repair",
+          "rejected": true,
+          "completionReceived": true,
+          "rawAvailable": true,
+          "rawText": "{\"recommendationLevel\":\"cautious\",\"summary\":\"Match Core 显示 MI-001 为 unmet，MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。\",\"supportingMatchRefs\":[\"MI-004\",\"MI-002\"],\"counterMatchRefs\":[\"MI-001\",\"MI-003\"],\"limitations\":[{\"content\":\"MI-001 为 unmet，硬性要求未满足。\",\"matchItemRefs\":[\"MI-001\"]},{\"content\":\"MI-003 为 unmet。\",\"matchItemRefs\":[\"MI-003\"]},{\"content\":\"MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。\",\"matchItemRefs\":[\"MI-002\"]}],\"questionsToConfirm\":[{\"question\":\"MI-002 中 Vue3 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-002 中 TypeScript 的使用频率和熟练程度如何？\",\"matchItemRefs\":[\"MI-002\"]},{\"question\":\"MI-001 中前端开发经验的具体年限和项目情况如何？\",\"matchItemRefs\":[\"MI-001\"]},{\"question\":\"MI-003 中是否有独立上线项目的经验？\",\"matchItemRefs\":[\"MI-003\"]}]}",
+          "rawTextLength": 821,
+          "artifactTruncated": false,
+          "parseError": null,
+          "parsedOutputAvailable": true,
+          "parsedOutput": {
+            "recommendationLevel": "cautious",
+            "summary": "Match Core 显示 MI-001 为 unmet，MI-003 为 unmet，MI-002 为 partial，MI-004 为 met。正向证据包括 MI-004 为 met、MI-002 部分维度为 partial；反证为 MI-001 和 MI-003 的 unmet。待确认项为 MI-002 的 unknown 维度。",
+            "supportingMatchRefs": [
+              "MI-004",
+              "MI-002"
+            ],
+            "counterMatchRefs": [
+              "MI-001",
+              "MI-003"
+            ],
+            "limitations": [
+              {
+                "content": "MI-001 为 unmet，硬性要求未满足。",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "content": "MI-003 为 unmet。",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              },
+              {
+                "content": "MI-002 为 partial，其中 Vue3 维度为 unknown，需确认。",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              }
+            ],
+            "questionsToConfirm": [
+              {
+                "question": "MI-002 中 Vue3 的使用频率和熟练程度如何？",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "MI-002 中 TypeScript 的使用频率和熟练程度如何？",
+                "matchItemRefs": [
+                  "MI-002"
+                ]
+              },
+              {
+                "question": "MI-001 中前端开发经验的具体年限和项目情况如何？",
+                "matchItemRefs": [
+                  "MI-001"
+                ]
+              },
+              {
+                "question": "MI-003 中是否有独立上线项目的经验？",
+                "matchItemRefs": [
+                  "MI-003"
+                ]
+              }
+            ]
+          },
+          "finishReason": "stop",
+          "failureStage": "semantic_validation",
+          "failureCategory": "semantic_validation",
+          "validationIssues": [
+            {
+              "validationLayer": null,
+              "validationCode": null,
+              "rule": null,
+              "path": "questionsToConfirm",
+              "message": "R-K MI-001 cautious hard unmet without waiver evidence requires strictness confirmation, not waiver inference",
+              "matchItemRefs": []
+            }
+          ],
+          "rejectedItem": null
+        }
+      ],
+      "normalization": null,
+      "validatorDiagnostics": null,
+      "failureClassification": "AI_OUTPUT_INVALID"
+    },
+    {
+      "stage": "strengthGap",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    },
+    {
+      "stage": "greeting",
+      "callState": "not_called",
+      "resultState": "not_run",
+      "status": null,
+      "latencyMs": null,
+      "requestId": null,
+      "diagnostics": null,
+      "acceptanceDiagnostics": null,
+      "error": null,
+      "attempts": {
+        "state": "not_run",
+        "count": null
+      },
+      "repair": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "fallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "personalizedFallback": {
+        "state": "not_run",
+        "attempts": null
+      },
+      "phase1Fallback": {
+        "state": "not_run",
+        "attempts": null
+      }
+    }
+  ],
+  "downstreamState": "stopped_after_recommendation",
+  "finalOutput": null,
+  "invariantAudit": {
+    "status": "not_run",
+    "values": null,
+    "passed": null
+  },
+  "expectation": {
+    "passed": false,
+    "checks": {
+      "outcome": false,
+      "requiredMatchStatuses": null,
+      "greetingPersonalizationStatus": null
+    }
+  },
+  "productScorecard": {
+    "status": "pending_final_product_review",
+    "scale": "1-5",
+    "dimensions": {
+      "requirementUnderstanding": null,
+      "candidateTruthfulness": null,
+      "matchReasoning": null,
+      "recommendationUsefulness": null,
+      "strengthGapActionability": null,
+      "uncertaintyDiscipline": null,
+      "greetingNaturalness": null,
+      "endToEndClarity": null
+    },
+    "average": null,
+    "minimum": null,
+    "notes": []
+  },
+  "passed": false
+}

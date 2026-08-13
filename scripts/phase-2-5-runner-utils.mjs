@@ -69,6 +69,12 @@ export function summarizeStageLifecycle(results, stageName, field) {
   return { called, completed, failed };
 }
 
+export function acceptedStageOutput(stage) {
+  return stage?.completionState === "completed" && stage.data
+    ? structuredClone(stage.data)
+    : null;
+}
+
 function everyEvidenceInRaw(evidence, rawText) {
   return evidence.every(
     (value) => typeof value === "string" && value.length > 0 && rawText.includes(value),
@@ -96,8 +102,11 @@ function outputModifiersAreSourced(outputText, sourceText) {
           outputText.lastIndexOf("\"", index - 1),
         );
         const beforeClause = outputText.slice(clauseStart + 1, index);
-        return !/(?:未|不|无|没有|尚未|无法|不能|不足以|待确认|是否|需.{0,4}(?:确认|提升)|需要.{0,4}提升)/.test(
-          beforeClause,
+        const afterClause = outputText.slice(index + value.length, index + value.length + 16);
+        return !(
+          /(?:未|不|无|没有|尚未|无法|不能|不足以|待确认|是否|需.{0,4}(?:确认|提升)|需要.{0,4}提升)/.test(
+            beforeClause,
+          ) || /^(?:程?度)?.{0,4}(?:不足|不明|未知|待确认)/.test(afterClause)
         );
       })
     ) {

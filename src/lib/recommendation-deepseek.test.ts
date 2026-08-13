@@ -180,6 +180,57 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     });
   });
 
+  it("adds a missing hard-unmet strictness question after repair and revalidates", async () => {
+    const fixture = RECOMMENDATION_FIXTURES[1];
+    const missingStrictness = {
+      recommendationLevel: "cautious" as const,
+      summary: "MI-001 为 unmet，硬性要求未满足。",
+      supportingMatchRefs: [],
+      counterMatchRefs: ["MI-001"],
+      limitations: [
+        {
+          content: "MI-001 硬性学历要求未满足。",
+          matchItemRefs: ["MI-001"],
+        },
+      ],
+      questionsToConfirm: [
+        {
+          question: "MI-001 的具体学历情况如何？",
+          matchItemRefs: ["MI-001"],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(missingStrictness));
+    let diagnostics: RecommendationDiagnostics | null = null;
+
+    const result = await analyzeRecommendationWithDeepSeek(
+      { matchCore: fixture.matchCore },
+      {
+        apiKey: "test-key",
+        fetchImpl,
+        captureRejectedEvidence: true,
+        onDiagnostics: (value) => {
+          diagnostics = value;
+        },
+      },
+    );
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.questionsToConfirm).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          question: "请向招聘方确认 MI-001 是否属于严格筛选门槛？",
+          matchItemRefs: ["MI-001"],
+        }),
+      ]),
+    );
+    expect(diagnostics).toMatchObject({
+      recommendationNormalizationAttempted: true,
+      recommendationNormalizationSucceeded: true,
+      normalizationValidationIssues: [],
+    });
+  });
+
   it("performs exactly one bounded repair for a forbidden level", async () => {
     const fixture = RECOMMENDATION_FIXTURES[2];
     const invalid = {

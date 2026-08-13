@@ -109,12 +109,42 @@ export function normalizeRejectedMatchReasons(
   for (const { itemIndex, dimensionIndex, codes } of grouped.values()) {
     const item = data.matchItems[itemIndex];
     const dimension = item?.dimensions[dimensionIndex];
-    if (!item || !dimension || dimension.status === "unmet") continue;
+    if (!item || !dimension) continue;
 
     const previousStatus = dimension.status;
     const removedCandidateFactRefs = dimension.candidateEvidence.map(
       (entry) => entry.factId,
     );
+    if (dimension.status === "unmet") {
+      if (
+        canonicalFacts.length === 0 ||
+        !codes.has("M-CANDIDATE-LINEAGE") ||
+        dimension.dimensionType !== "responsibility" ||
+        !/(?:独立|主导|负责)/.test(dimension.requirementFragment) ||
+        !/(?:团队负责人|由团队.{0,8}(?:负责|统一))/.test(dimension.reason)
+      ) {
+        continue;
+      }
+      dimension.status = "unknown";
+      dimension.reason = unknownReason();
+      dimension.candidateEvidence = [];
+      dimension.missingInformation ??= missingInformation(
+        dimension.requirementFragment,
+      );
+      dimension.verificationQuestion ??= verificationQuestion(
+        dimension.requirementFragment,
+      );
+      actions.push({
+        itemIndex,
+        dimensionIndex,
+        issueCodes: [...codes].sort(),
+        previousStatus,
+        normalizedStatus: "unknown",
+        removedCandidateFactRefs,
+        reasonRebuilt: true,
+      });
+      continue;
+    }
     const exactPositiveFact =
       dimension.status !== "unknown" &&
       dimension.candidateEvidence.length === 1 &&

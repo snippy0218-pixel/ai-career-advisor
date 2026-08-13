@@ -329,6 +329,15 @@ describe("Recommendation Core deterministic contract", () => {
     };
     expect(finalizeRawRecommendation(cautious, fixture.matchCore).issues).toEqual([]);
 
+    const naturalOrder = structuredClone(cautious);
+    naturalOrder.questionsToConfirm = [
+      {
+        question: "该学历要求是否为严格筛选门槛？",
+        matchItemRefs: ["MI-001"],
+      },
+    ];
+    expect(finalizeRawRecommendation(naturalOrder, fixture.matchCore).issues).toEqual([]);
+
     const invalid = finalizeRawRecommendation(
       {
         ...cautious,

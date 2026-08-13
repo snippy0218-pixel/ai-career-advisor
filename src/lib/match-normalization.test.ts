@@ -155,6 +155,51 @@ describe("Match rejected-reason normalization", () => {
     expect(result).toEqual({ data: input, applied: false, actions: [] });
   });
 
+  it("N4a conservatively downgrades a rejected unsupported unmet relation", () => {
+    const input = raw({
+      status: "unmet",
+      reason:
+        "CF-005 表明参与团队项目页面开发，且项目由团队负责人统一上线，明确否定独立上线职责。",
+      candidateEvidence: [{ factId: "CF-005", role: "counter" }],
+      missingInformation: null,
+      verificationQuestion: null,
+    });
+    input.matchItems[0].aggregateStatus = "unmet";
+    const result = normalizeRejectedMatchReasons(
+      input,
+      [
+        reasonIssue(
+          "M-CANDIDATE-LINEAGE referenced Candidate Facts do not support assertion: 且项目由团队负责人统一上线",
+        ),
+      ],
+      [
+        {
+          factId: "CF-005",
+          statement: "项目经历：参与团队项目页面开发",
+          sourceType: "profile_stated",
+          pfEvidence: ["PF-004"],
+          semanticTags: ["project_experience"],
+        },
+      ],
+    );
+
+    expect(result.data.matchItems[0]).toMatchObject({ aggregateStatus: "unknown" });
+    expect(result.data.matchItems[0].dimensions[0]).toMatchObject({
+      status: "unknown",
+      reason: "现有资料无法确认该维度是否满足。",
+      candidateEvidence: [],
+    });
+    expect(result.actions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          previousStatus: "unmet",
+          normalizedStatus: "unknown",
+          removedCandidateFactRefs: ["CF-005"],
+        }),
+      ]),
+    );
+  });
+
   it("N5 does not hide reference, status, schema, or non-reason failures", () => {
     const input = raw();
     const result = normalizeRejectedMatchReasons(input, [

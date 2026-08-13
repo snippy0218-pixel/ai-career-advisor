@@ -26,6 +26,7 @@
 | ISSUE-047 Phase 2.5 direct Strength Match-scope preservation | P1 | DETERMINISTIC CLOSED / SG-B-only direct strength rewrite preserves referenced Match scope and reruns SG-A～SG-N | replacement Phase 2 matrix |
 | ISSUE-048 Phase 2.5 Match terminal aggregate and compound-domain projection | P1 | DETERMINISTIC CLOSED / aggregate-only repair is recalculated from dimension truth; compound-domain omission requires all conservative domain terms | replacement Phase 2 matrix |
 | ISSUE-049 Phase 2.5 Strength/Gap terminal type recovery | P1 | DETERMINISTIC CLOSED / invalid SG-E/SG-F repair gaps are conservatively rewritten, converted, or removed, then SG-A～SG-N reruns | replacement Phase 2 matrix |
+| ISSUE-050 Phase 2.5 failed-chain accepted-stage output preservation | P1 | DETERMINISTIC CLOSED / every completed upstream stage is cloned into the run artifact even when a later stage fails | replacement Phase 2 matrix artifact audit |
 
 ## ISSUE-040～045 baseline evidence
 
@@ -54,6 +55,15 @@
 - ISSUE-048 is distinct terminal Match behavior: one repair left only a stale aggregate, while a separate conservative compound-domain omission guard treated one generic token as the whole compound domain.
 - ISSUE-049 covers Strength/Gap repair outputs whose type or expression remained incompatible with the referenced final Match status. Recovery is limited to fact-free unknown/evidence boundaries or removal of an optional inapplicable gap, followed by the unchanged full validator.
 - Complete adjudication: `PHASE-2-5-BASELINE-5-STABILIZATION.md`. Focused `161/161`, relevant targeted `228/228`, full `625/625`, lint and production build PASS; diff/scope/secret, immutable commit, and the new Phase 2 `14×3` matrix remain.
+
+## Baseline 6 additional evidence
+
+- `phase-2-5-baseline-6-8b8cae6` is a complete fixed Phase 2 batch: `35/42` PASS, `39` complete chains, downstream-after-failure `0`; there was no run 4 or partial composition.
+- ISSUE-044 exact negative-proficiency outputs failed only runner X-F; all other X-A～X-J invariants and fixture expectations passed on those four complete chains.
+- ISSUE-042 received one missing strictness question and one valid natural direct-question order. The bounded fix adds no waiver assertion and reruns the complete Recommendation validator.
+- ISSUE-048 received an unsupported team-delivery counter relation. Recovery is restricted to a responsibility dimension with a team-leader/centralized-delivery clause already rejected by M-CANDIDATE-LINEAGE; all previously protected qualification and cross-dimension failures remain fail-closed.
+- ISSUE-050 was discovered during failed-chain adjudication: completed upstream stage outputs were held in memory but excluded by `stageEvidence`. The new artifact field is acceptance-only and contains de-identified structured output.
+- Complete adjudication: `PHASE-2-5-BASELINE-6-STABILIZATION.md`. Focused `139/139`, full `630/630`, lint, production build, diff/scope/secret/process PASS; immutable commit and a new complete Phase 2 matrix remain.
 
 ## ISSUE-039 closure evidence
 

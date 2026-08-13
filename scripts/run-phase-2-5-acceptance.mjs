@@ -16,6 +16,7 @@ import {
 } from "./phase-2-5-fixtures.mjs";
 import {
   adjudicatePhase2Expectation,
+  acceptedStageOutput,
   buildProductScorecardTemplate,
   inspectPhase1Result,
   inspectPhase2Invariants,
@@ -149,6 +150,7 @@ function stageEvidence(stage) {
     httpStatus: stage.status,
     latencyMs: stage.latencyMs,
     requestId: stage.requestId,
+    output: acceptedStageOutput(stage),
     rawAndRepairEvidence: stage.acceptanceDiagnostics?.outputEvidence ?? null,
     normalization: stage.acceptanceDiagnostics?.normalizationActions ?? stage.acceptanceDiagnostics?.normalizedRepairOutput ?? null,
     validatorDiagnostics: stage.acceptanceDiagnostics?.validationIssues ?? stage.acceptanceDiagnostics?.issues ?? null,

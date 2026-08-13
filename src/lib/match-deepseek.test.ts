@@ -851,6 +851,64 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     });
   });
+
+  it("normalizes an unsupported team-delivery unmet relation to unknown and revalidates", async () => {
+    const requirement = "有独立上线项目经验";
+    const request = buildMatchFixture(
+      [{ content: requirement, requirementType: "core_requirement" }],
+      [
+        {
+          statement: "项目经历：参与团队项目页面开发",
+          semanticTags: ["project_experience"],
+        },
+      ],
+    );
+    const invalid = {
+      matchItems: [
+        {
+          requirementId: "REQ-001",
+          aggregateStatus: "unmet",
+          dimensions: [
+            {
+              dimensionType: "responsibility",
+              requirementFragment: "独立上线项目经验",
+              status: "unmet",
+              reason:
+                "CF-001 表明参与团队项目页面开发，且项目由团队负责人统一上线，明确否定独立上线职责。",
+              jdEvidence: [requirement],
+              candidateEvidence: [{ factId: "CF-001", role: "counter" }],
+              missingInformation: null,
+              verificationQuestion: null,
+            },
+          ],
+        },
+      ],
+    };
+    const fetchImpl = vi.fn(async () => completion(invalid));
+    let diagnostics: MatchDiagnostics | null = null;
+
+    const result = await analyzeMatchWithDeepSeek(request, {
+      apiKey: "test-key",
+      fetchImpl,
+      captureRejectedEvidence: true,
+      onDiagnostics: (value) => {
+        diagnostics = value;
+      },
+    });
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.matchItems[0]).toMatchObject({ status: "unknown" });
+    expect(result.matchItems[0].requirementDimensions[0]).toMatchObject({
+      status: "unknown",
+      candidateFactRefs: [],
+      candidateEvidenceRole: null,
+    });
+    expect(diagnostics).toMatchObject({
+      matchNormalizationAttempted: true,
+      matchNormalizationSucceeded: true,
+      normalizationValidationIssues: [],
+    });
+  });
 });
 
 describe("Phase 2.4 batch-3 Match generation-contract recovery", () => {

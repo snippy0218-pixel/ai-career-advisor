@@ -5,6 +5,7 @@ import { GREETING_FIXTURES } from "../src/test/greeting-fixtures.ts";
 import { validAnalysis } from "../src/test/fixtures.ts";
 import {
   adjudicatePhase2Expectation,
+  acceptedStageOutput,
   buildProductScorecardTemplate,
   inspectPhase1Result,
   inspectPhase2Invariants,
@@ -123,6 +124,22 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(true);
+
+    result.strengthGap.gaps.at(-1).statement =
+      "候选人仅有基础应用证据，技能熟练度不足，需要学习或补强。";
+    expect(
+      inspectPhase2Invariants(rawInputs(result), result).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
+  });
+
+  it("preserves a completed stage output for failed-chain artifact continuity", () => {
+    const data = { schemaVersion: "candidate-profile-v2", nested: { value: 1 } };
+    const output = acceptedStageOutput({ completionState: "completed", data });
+    expect(output).toEqual(data);
+    expect(output).not.toBe(data);
+    expect(acceptedStageOutput({ completionState: "failed", data })).toBeNull();
   });
 
   it("fails expected status and fallback mismatches", () => {
