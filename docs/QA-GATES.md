@@ -54,7 +54,17 @@ Phase 2.5 is **AUTHORIZED / IN PROGRESS** as of 2026-08-13. The governing addend
 - Gate F: eight-dimension average >=4.0/5, minimum dimension >=3.0/5, P0=0, systemic/release-blocking P1=0.
 - `hrSafeFallbackRate` and OBS-006: mandatory report-only metrics; non-blocking absent a hard correctness failure.
 
-Current Phase 2.5 disposition: **BASELINE-21 COMPLETE STABILIZATION EVIDENCE / NEW COMMITTED REPLACEMENT REQUIRED**.
+Current Phase 2.5 disposition: **PASS / CLOSE — BASELINE-22 42/42 COMPLETE**.
+
+Final Phase 2.5 evidence: `phase-2-5-baseline-22-6479978` executed the complete frozen Phase 2
+`14×3` replacement matrix on the frozen implementation baseline `6479978` with **42/42 PASS**,
+42 complete chains, downstream-after-failure 0, no run 4, no infrastructure failure, and
+preflight 5/5 with model calls 0. Every per-run artifact passes X-A～X-J and fixture
+expectation adjudication; summary SHA-256 `372EBEED43233FE53953F2E108B8096E864B550754EA554A5699EDE1BD9E2B83`.
+Deterministic gate: focused 38/38, full 33 files / 652 tests, lint, production build +
+TypeScript, and diff/scope/secret audit PASS. Gate F engineering review PASS (average 4.45 /
+minimum 4.1); human PO/QA product-score confirmation is the only remaining release step.
+Full record: `PHASE-2-5-FINAL-ACCEPTANCE.md`.
 
 Current evidence: baseline-2 Phase 1 `30/30` accepted. Phase 2 baseline-4 is a valid, complete, non-passing `21/42` batch with `26` complete chains and downstream-after-failure `0`; baseline-3 is zero-call preflight evidence. Updated stabilization focused suites `312/312` plus integration/boundary `40/40`; full automated suite `33 files / 618 tests`; lint zero warnings; production build and TypeScript PASS. Commit/diff/scope/secret audit and the new full Phase 2 matrix remain.
 

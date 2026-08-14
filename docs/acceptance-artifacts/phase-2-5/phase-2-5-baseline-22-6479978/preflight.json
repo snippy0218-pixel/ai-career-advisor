@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "available": true,
+  "error": null,
+  "modelCalls": 0,
+  "capabilities": [
+    {
+      "module": "profile",
+      "path": "/api/profile/analyze",
+      "status": 200,
+      "enabled": true,
+      "rejectedOutputCapture": true,
+      "error": null
+    },
+    {
+      "module": "match",
+      "path": "/api/match/analyze",
+      "status": 200,
+      "enabled": true,
+      "rejectedOutputCapture": true,
+      "error": null
+    },
+    {
+      "module": "recommendation",
+      "path": "/api/recommendation/analyze",
+      "status": 200,
+      "enabled": true,
+      "rejectedOutputCapture": true,
+      "error": null
+    },
+    {
+      "module": "strengthGap",
+      "path": "/api/strength-gap/analyze",
+      "status": 200,
+      "enabled": true,
+      "rejectedOutputCapture": true,
+      "error": null
+    },
+    {
+      "module": "greeting",
+      "path": "/api/greeting/analyze",
+      "status": 200,
+      "enabled": true,
+      "rejectedOutputCapture": true,
+      "error": null
+    }
+  ]
+}

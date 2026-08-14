@@ -1,13 +1,13 @@
 # AI 求职顾问项目交接文档（Codex Handoff）
 
-> 更新日期：2026-08-13
+> 更新日期：2026-08-14
 > 用途：让一个**没有当前 conversation history、但可读取本仓库**的新 Codex thread 能准确继续当前任务。
 > 工作协议：`docs/CODEX-OPERATING-PROTOCOL.md` 为后续 thread 的**固定工作协议**（自主事项、停止升级条件、禁止事项、Issue 处理原则、冻结 Pass Gate）。
 > 事实来源：以仓库当前状态为准（`docs/验收执行报告.md`、`docs/analysis-schema.md`、`docs/测试案例.md`、`docs/更新日志.md`、`src/`）。
 
 ## 1. 当前主线任务与下一步
 
-**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = **AUTHORIZED / IN PROGRESS — BASELINE-21 STABILIZED**。** baseline-2 Phase 1 30/30 已接受；baseline-20 不完整 infrastructure batch 永久排除。PO / QA 恢复余额并授权的新 baseline-21 已从头完整执行 14×3：40/42、41 complete chains、downstream-after-failure 0、无 run 4。两项确定性假拒绝已用 exact artifact 固化并窄修复，focused 97/97、full 652/652、lint/build/diff/scope/secret PASS。下一步提交新 immutable baseline 并从头执行完整 replacement；不得复用 baseline-20/21 结果。最新证据见 `PHASE-2-5-BASELINE-21-STABILIZATION.md`。
+**当前状态：Phase 1 = PASS / CLOSED；Phase 2.0 Contract = PASS / CLOSED；Phase 2.1 Candidate Profile Foundation = PASS / CLOSED；ISSUE-025 = CLOSED；Phase 2.2A Match Core Foundation = PASS / CLOSED；Phase 2.2B-1 Recommendation Core = PASS / CLOSED；ISSUE-026 = CLOSED；Phase 2.2B-2 Strength + Gap Core = PASS / CLOSED；ISSUE-027 = CLOSED；Phase 2.3 Personalized Greeting = PASS / CLOSED；Phase 2 Core Feature Development = COMPLETE；Phase 2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = **PASS / CLOSED（baseline-22 42/42；最终 human PO/QA Gate F 产品评分确认为唯一剩余人工步骤）**。** baseline-2 Phase 1 30/30 已接受；baseline-20 不完整 infrastructure batch 与 baseline-21 40/42 均永久保留为 stabilization evidence。frozen baseline `6479978…` 上完整执行的新 replacement `phase-2-5-baseline-22-6479978` = Phase 2 14×3 **42/42 PASS**、42 complete chains、downstream-after-failure 0、无 run 4、无 infrastructure failure；全部 X-A～X-J 与 fixture expectation PASS；summary SHA-256 `372EBEED43233FE53953F2E108B8096E864B550754EA554A5699EDE1BD9E2B83`。最终验收见 `PHASE-2-5-FINAL-ACCEPTANCE.md`。
 
 - Product Owner / QA 已正式判定 Phase 2.3 Personalized Greeting PASS / CLOSED，并接受 12/12 preflight、36/36 clean matrix、PG-A～PG-M、333/333、lint/build 与 upstream regression 0；
 - Phase 2.4 仅治理 backlog、robustness、failure path、cross-module consistency、latency/repair/fallback、input/error、evidence/diagnostics 与小型 raw-input full-chain integration；不得增加用户功能；

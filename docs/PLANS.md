@@ -4,7 +4,7 @@
 
 ## Current plan
 
-- Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = AUTHORIZED / IN PROGRESS。
+- Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = PASS / CLOSED（baseline-22 42/42；最终 human PO/QA Gate F 产品评分确认为唯一剩余人工步骤）。
 - 目标：交付统一 `JD + Candidate Profile -> Personalized Match Result` 用户流，冻结并执行 Phase 1 10×3 与 Phase 2 14×3 最终矩阵，完成 Release Gate。
 - 详细执行状态：`PHASE-2-5-AUTONOMOUS-PLAN.md`。
 - Issue 状态：`ISSUE-LEDGER.md`。
@@ -33,6 +33,7 @@
 - baseline-19（`aea8eb7…`）完整执行为 40/42 PASS、40 complete chains、downstream-after-failure 0；baseline-18 三项目标均 3/3 PASS。TC-P2-05 R1 与 TC-P2-14 R1 均被 Strength/Gap 同义边界假拒绝：SG-H 漏 `提供`，SG-E 漏 `但尚不足以`。窄修复 focused `57/57`、full `648/648`、lint/build PASS；下一步提交 immutable baseline 并完整 replacement。
 - baseline-20（`2a2a56d…`）前 10 个内容样本均 PASS，随后 TC-P2-04 R2 在 Match 收到 DeepSeek `AI_BALANCE_INSUFFICIENT`（retryable=false、completion 0 token），runner 立即停批且后续调度 0。该不完整 infrastructure batch 永久保留并排除；补足 API 账户余额后必须从头执行完整 14×3 replacement，不得复用前 10 条。
 - PO / QA 已确认余额恢复并授权从头 replacement。baseline-21（`2a2a56d…`）记录独立 execution/billing 起点并完整执行 14×3：40/42 PASS、41 complete chains、失败后下游调用 0、无 run 4。两项失败均为确定性边界假拒绝：R-C 漏识别 described single owner + 显式复数 `均`，X-F 漏识别 `正式工作背景未说明`。exact/focused `97/97`、full `652/652`、lint/build/diff/scope/secret PASS；baseline-21 永久保留为 stabilization evidence，下一步提交新 immutable baseline 并从头执行完整 replacement，不复用任何历史结果。
+- baseline-22（`6479978…`）为最终 frozen baseline 上的完整 replacement：Phase 2 14×3 = **42/42 PASS**、42 complete chains、失败后下游调用 0、无 run 4、无 infrastructure failure；五路 capability preflight 5/5 且 model calls=0；全部 42 条 X-A～X-J 与 fixture expectation PASS；summary SHA-256 `372EBEED43233FE53953F2E108B8096E864B550754EA554A5699EDE1BD9E2B83`。ISSUE-040～050 获得最终 runtime closure evidence。最终验收见 `PHASE-2-5-FINAL-ACCEPTANCE.md`；推荐 **PASS / CLOSE PHASE 2.5**，唯一剩余步骤为 human PO/QA Gate F 产品评分确认。
 
 ## Execution discipline
 

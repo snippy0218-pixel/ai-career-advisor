@@ -162,6 +162,25 @@
 - TC-P2-06 R3 is ISSUE-044-adjacent: the completed chain failed only X-F because `正式工作背景未说明` was not recognized as an uncertainty suffix. The correction accepts only nearby `未说明/未表明`; an unsupported positive formal-work claim remains rejected.
 - Summary SHA-256 is `93c55006c2cd41e919982be4aaf597e664a0942a3aace593da8d2d98ea5ffb05`. Exact/focused `97/97`, full `652/652`, lint/build/diff/scope/secret PASS. See `PHASE-2-5-BASELINE-21-STABILIZATION.md`.
 
+## Baseline 22 final acceptance evidence
+
+- `phase-2-5-baseline-22-6479978` is the final complete replacement matrix on the frozen
+  implementation baseline `6479978`: Phase 2 `14×3` = **42/42 PASS**, 42 complete chains,
+  downstream-after-failure `0`, no run 4, no cherry-pick, no infrastructure failure, and no
+  reuse of baseline-20/21 samples.
+- Preflight: five route capability probes `5/5` enabled with `rejectedOutputCapture=true` and
+  model calls `0`. All 42 per-run artifacts pass `X-A～X-J` invariant audit and fixture
+  expectation adjudication; summary SHA-256 `372EBEED43233FE53953F2E108B8096E864B550754EA554A5699EDE1BD9E2B83`.
+- ISSUE-040～050: runtime closure confirmed — every deterministic fix from baselines 2～21 now
+  has complete full-chain runtime evidence at 42/42. No new Issue is created.
+- OBS-002 / OBS-005 / OBS-006 and `hrSafeFallbackRate` remain report-only and non-blocking;
+  personalized safe fallback 19/42, Phase 1 fallback 3/42 (frozen for TC-P2-13), all safety
+  guards pass.
+- Deterministic gate: focused 38/38, full `652/652`, lint, production build + TypeScript,
+  diff/scope/secret PASS. Final disposition: **PASS / CLOSE PHASE 2.5** (human PO/QA Gate F
+  product-score confirmation is the only remaining release step). See
+  `PHASE-2-5-FINAL-ACCEPTANCE.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.
