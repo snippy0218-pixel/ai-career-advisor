@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
 import { finalizeRawPersonalizedGreeting } from "../src/lib/greeting-schema.ts";
@@ -167,6 +169,44 @@ describe("Phase 2.5 runner utilities", () => {
         "X-F_modifier_integrity"
       ],
     ).toBe(true);
+  });
+
+  it("X-F accepts the exact baseline-21 formal-work uncertainty suffix", () => {
+    const artifact = JSON.parse(
+      readFileSync(
+        new URL(
+          "../docs/acceptance-artifacts/phase-2-5/phase-2-5-baseline-21-2a2a56d/phase2/TC-P2-06-R3.json",
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    );
+    const manifest = JSON.parse(
+      readFileSync(
+        new URL(
+          "../docs/acceptance-artifacts/phase-2-5/phase-2-5-baseline-21-2a2a56d/fixture-manifest.json",
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    );
+    const fixture = manifest.phase2.find((entry) => entry.id === "TC-P2-06");
+    if (!artifact.finalOutput || !fixture) throw new Error("missing baseline-21 replay");
+
+    expect(
+      inspectPhase2Invariants(fixture, artifact.finalOutput).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(true);
+
+    const unsupported = structuredClone(artifact.finalOutput);
+    unsupported.recommendation.limitations[1].content =
+      "MI-003 为 partial，候选人具备正式工作背景。";
+    expect(
+      inspectPhase2Invariants(fixture, unsupported).values[
+        "X-F_modifier_integrity"
+      ],
+    ).toBe(false);
   });
 
   it("preserves a completed stage output for failed-chain artifact continuity", () => {

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "phase-2-5-execution-start-v1",
+  "runId": "phase-2-5-baseline-21-2a2a56d",
+  "recordedAtUtc": "2026-08-14T02:16:57.3299157Z",
+  "recordedAtLocal": "2026-08-14T10:16:57.3328443+08:00",
+  "repositoryHead": "a2b8d5fd43b948f563505983d2fb118c60a938c0",
+  "frozenImplementationCommit": "2a2a56db434a61e8ad22ea4c4e506de42df2663e",
+  "sourceAndRunnerDiffFromFrozenImplementation": "none; repository HEAD adds only retained baseline-20 artifacts and status documentation",
+  "fixtureManifestSha256": "f8460a83c0fab597f96d8ba2182dfccef8ceb12e4ed4afc08f5b051a38dfae41",
+  "worktreeCleanBeforeStart": true,
+  "modelConfiguration": {
+    "provider": "DeepSeek",
+    "model": "deepseek-v4-flash",
+    "baseUrl": "https://api.deepseek.com",
+    "frozenConfigurationUnchanged": true
+  },
+  "billingIsolation": {
+    "dedicatedAcceptanceKeyAvailable": false,
+    "credentialSource": "DEEPSEEK_API_KEY",
+    "credentialValuePersisted": false,
+    "providerUsageCounterSnapshotAvailable": false,
+    "startingPoint": "recordedAtUtc plus isolated runId and artifact root"
+  },
+  "preExecutionModelCallsThisReplacement": 0,
+  "excludedPriorBatch": {
+    "runId": "phase-2-5-baseline-20-2a2a56d",
+    "successfulSamplesReused": 0,
+    "composedIntoReplacement": false,
+    "retainedPermanently": true
+  },
+  "deterministicGate": {
+    "focused": "38/38 PASS",
+    "full": "648/648 PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "phase-2-5-launch-preflight-failure-v1",
+  "runId": "phase-2-5-baseline-21-2a2a56d",
+  "failedAt": "production_server_launch",
+  "failure": "Start-Process split the unquoted repository-local Next CLI path at the workspace space and Node attempted to load D:\\AI",
+  "providerRequests": 0,
+  "modelCalls": 0,
+  "contentSamples": 0,
+  "runnerStarted": false,
+  "port3000Bound": false,
+  "disposition": "pre-content infrastructure launch failure retained; retry with an explicitly quoted local CLI argument is allowed"
+}

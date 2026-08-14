@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "phase-2-5-launch-preflight-failure-v1",
+  "runId": "phase-2-5-baseline-21-2a2a56d",
+  "failedAt": "production_server_launch",
+  "failure": "npm.cmd launched, but the elevated environment did not resolve the local next executable inside npm run start",
+  "providerRequests": 0,
+  "modelCalls": 0,
+  "contentSamples": 0,
+  "runnerStarted": false,
+  "port3000Bound": false,
+  "disposition": "pre-content infrastructure launch failure retained; retry with absolute Node and the repository-local Next CLI is allowed"
+}

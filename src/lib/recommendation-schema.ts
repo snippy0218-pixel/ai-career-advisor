@@ -453,6 +453,22 @@ function prefixGroupTargetRefs(
   return uniqueRefs(group);
 }
 
+function describedSingleTargetRef(
+  text: string,
+  claimStart: number,
+  occurrences: Array<{ ref: string; start: number; end: number }>,
+) {
+  const owner = [...occurrences]
+    .filter((occurrence) => occurrence.end <= claimStart)
+    .sort((left, right) => right.end - left.end)[0];
+  if (!owner) return [];
+  return /^\s*(?:为|是)[^，。；;！？!?]{0,24}$/.test(
+    text.slice(owner.end, claimStart),
+  )
+    ? [owner.ref]
+    : [];
+}
+
 function describedPrefixGroupTargetRefs(
   text: string,
   claimStart: number,
@@ -544,6 +560,11 @@ export function inspectRecommendationStatusClaimIntegrity(
             start,
             refOccurrences,
           );
+          const describedSingleRef = describedSingleTargetRef(
+            fragment,
+            start,
+            refOccurrences,
+          );
           const describedPrefixRefs = describedPrefixGroupTargetRefs(
             fragment,
             start,
@@ -561,6 +582,8 @@ export function inspectRecommendationStatusClaimIntegrity(
                 ? describedPrefixRefs
               : prefixRefs.length > 0
                 ? prefixRefs
+                : describedSingleRef.length > 0
+                  ? describedSingleRef
                 : requirementRefs.length === 1
                   ? requirementRefs
                   : source.structuredRefs.length === 1
@@ -575,10 +598,22 @@ export function inspectRecommendationStatusClaimIntegrity(
               ...refOccurrences.map((occurrence) => occurrence.ref),
               ...requirementTargets.map((occurrence) => occurrence.ref),
             ]);
+            const hasExplicitPluralStatusOwner =
+              /(?:均|都|两者|二者|上述(?:要求|项目|条目)).{0,12}$/.test(
+                fragment.slice(0, start),
+              );
+            const groupedStatusMatchesEveryPossibleRef =
+              possibleRefs.size > 1 &&
+              hasExplicitPluralStatusOwner &&
+              [...possibleRefs].every((ref) => byRef.get(ref)?.status === kind);
             const unknownCannotContradictPossibleRefs =
               kind === "unknown" &&
               [...possibleRefs].every((ref) => byRef.get(ref)?.status !== "met");
-            if (possibleRefs.size > 1 && !unknownCannotContradictPossibleRefs) {
+            if (
+              possibleRefs.size > 1 &&
+              !groupedStatusMatchesEveryPossibleRef &&
+              !unknownCannotContradictPossibleRefs
+            ) {
               addStatusIssue(
                 issues,
                 source.path,

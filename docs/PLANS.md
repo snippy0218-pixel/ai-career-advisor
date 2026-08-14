@@ -32,6 +32,7 @@
 - baseline-18 implementation `a16c088…` 的首个 attempt 因 sandbox 网络在内容样本前 fail-fast 并独立保留；同 commit 的 authorized-network replacement 完整执行为 39/42 PASS、40 complete chains、downstream-after-failure 0。失败收敛为 Recommendation 对 `未完全满足` 的 negation 漏判（2 条）与 runner X-F 对 `熟练程度…未明确` 的 uncertainty 漏判（1 条）；窄修复 focused `106/106`、full `646/646`、lint/build PASS。下一步提交 immutable baseline 并完整 replacement。
 - baseline-19（`aea8eb7…`）完整执行为 40/42 PASS、40 complete chains、downstream-after-failure 0；baseline-18 三项目标均 3/3 PASS。TC-P2-05 R1 与 TC-P2-14 R1 均被 Strength/Gap 同义边界假拒绝：SG-H 漏 `提供`，SG-E 漏 `但尚不足以`。窄修复 focused `57/57`、full `648/648`、lint/build PASS；下一步提交 immutable baseline 并完整 replacement。
 - baseline-20（`2a2a56d…`）前 10 个内容样本均 PASS，随后 TC-P2-04 R2 在 Match 收到 DeepSeek `AI_BALANCE_INSUFFICIENT`（retryable=false、completion 0 token），runner 立即停批且后续调度 0。该不完整 infrastructure batch 永久保留并排除；补足 API 账户余额后必须从头执行完整 14×3 replacement，不得复用前 10 条。
+- PO / QA 已确认余额恢复并授权从头 replacement。baseline-21（`2a2a56d…`）记录独立 execution/billing 起点并完整执行 14×3：40/42 PASS、41 complete chains、失败后下游调用 0、无 run 4。两项失败均为确定性边界假拒绝：R-C 漏识别 described single owner + 显式复数 `均`，X-F 漏识别 `正式工作背景未说明`。exact/focused `97/97`、full `652/652`、lint/build/diff/scope/secret PASS；baseline-21 永久保留为 stabilization evidence，下一步提交新 immutable baseline 并从头执行完整 replacement，不复用任何历史结果。
 
 ## Execution discipline
 

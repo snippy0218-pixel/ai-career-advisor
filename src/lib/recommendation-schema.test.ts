@@ -1180,6 +1180,69 @@ describe("ISSUE-031 autonomous batch-2 described-prefix attribution", () => {
   });
 });
 
+describe("Phase 2.5 baseline-21 homogeneous grouped status replay", () => {
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../docs/acceptance-artifacts/phase-2-5/phase-2-5-baseline-21-2a2a56d/phase2/TC-P2-02-R3.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as {
+    stages: Array<{
+      stage: string;
+      output?: Parameters<typeof finalizeRawRecommendation>[1] | null;
+      acceptanceDiagnostics?: {
+        outputEvidence?: Array<{ stage: string; rawText?: string }>;
+      } | null;
+    }>;
+  };
+  const matchCore = artifact.stages.find((stage) => stage.stage === "match")?.output;
+  const evidence = artifact.stages.find((stage) => stage.stage === "recommendation")
+    ?.acceptanceDiagnostics?.outputEvidence;
+
+  it.each(["initial", "repair"] as const)(
+    "accepts the exact %s output when every structured ref is unmet",
+    (stageName) => {
+      const rawText = evidence?.find((entry) => entry.stage === stageName)?.rawText;
+      if (!rawText || !matchCore) throw new Error("missing baseline-21 Recommendation replay");
+      const result = finalizeRawRecommendation(
+        rawRecommendationSchema.parse(JSON.parse(rawText)),
+        matchCore,
+      );
+      expect(result.issues).toEqual([]);
+      expect(result.data?.recommendationLevel).toBe("not_recommended");
+    },
+  );
+
+  it("still fail-closes the same grouped sentence for mixed statuses", () => {
+    if (!matchCore) throw new Error("missing baseline-21 Match output");
+    const mixed = structuredClone(matchCore);
+    mixed.matchItems[0].status = "met";
+    const raw = rawRecommendationSchema.parse({
+      recommendationLevel: "not_recommended",
+      summary: "基于当前 Match Core 给出建议。",
+      supportingMatchRefs: [],
+      counterMatchRefs: ["MI-001", "MI-002"],
+      limitations: [
+        {
+          content: "均构成硬门槛未满足。",
+          matchItemRefs: ["MI-001", "MI-002"],
+        },
+      ],
+      questionsToConfirm: [],
+    });
+    expect(
+      inspectRecommendationStatusClaimIntegrity(raw, mixed),
+    ).toEqual([
+      expect.objectContaining({
+        validationCode: "R-C_AMBIGUOUS_STATUS_ATTRIBUTION",
+      }),
+    ]);
+  });
+});
+
 describe("ISSUE-031 final acceptance batch-1 exact attribution replay", () => {
   const load = (run: 1 | 3) => {
     const artifact = JSON.parse(

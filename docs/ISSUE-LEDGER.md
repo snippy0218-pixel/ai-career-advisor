@@ -155,6 +155,13 @@
 - The incomplete batch is excluded from content acceptance and cannot be combined with later evidence. Infrastructure artifact SHA-256 is `42a33deb451a48040a6a8386fca8580bb7cd567d5a4ce4ceeabab2a7f4c0c490`.
 - External blocker: sufficient DeepSeek account balance is required before one fresh complete baseline-20 replacement. See `PHASE-2-5-BASELINE-20-INFRASTRUCTURE-STOP.md`.
 
+## Baseline 21 additional evidence
+
+- Product Owner / QA restored the provider balance and authorized a fresh matrix. `phase-2-5-baseline-21-2a2a56d` completed all `42/42` scheduled executions at `40/42` PASS, with `41` complete chains, downstream-after-failure `0`, and no run 4. Baseline-20 samples were not reused.
+- TC-P2-02 R3 is ISSUE-031-adjacent: a described single owner followed by an explicit plural `均` status conclusion was rejected. The bounded correction requires every possible structured MI to have the claimed status; mixed-status groups remain fail-closed.
+- TC-P2-06 R3 is ISSUE-044-adjacent: the completed chain failed only X-F because `正式工作背景未说明` was not recognized as an uncertainty suffix. The correction accepts only nearby `未说明/未表明`; an unsupported positive formal-work claim remains rejected.
+- Summary SHA-256 is `93c55006c2cd41e919982be4aaf597e664a0942a3aace593da8d2d98ea5ffb05`. Exact/focused `97/97`, full `652/652`, lint/build/diff/scope/secret PASS. See `PHASE-2-5-BASELINE-21-STABILIZATION.md`.
+
 ## ISSUE-039 closure evidence
 
 - Reproduction: `phase-2-5-baseline-1-0373ad4` scheduled 72 local HTTP requests after five capability probes passed, but every JD adapter returned `AI_SERVICE_UNAVAILABLE` within 5～35 ms with zero completion tokens; all downstream calls were 0.

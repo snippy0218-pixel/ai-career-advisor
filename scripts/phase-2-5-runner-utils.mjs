@@ -113,7 +113,10 @@ function outputModifiersAreSourced(outputText, sourceText) {
         return !(
           /(?:未|不|无|没有|缺少|尚未|无法|不能|不足以|待确认|是否|需.{0,4}(?:确认|提升)|需要.{0,4}提升)/.test(
             beforeClause,
-          ) || /^(?:程?度)?.{0,12}(?:不足|不明|未明确|未知|待确认)/.test(afterClause)
+          ) ||
+          /^(?:(?:程?度)?.{0,12}|.{0,6})(?:不足|不明|未说明|未表明|未明确|未知|待确认)/.test(
+            afterClause,
+          )
         );
       })
     ) {
