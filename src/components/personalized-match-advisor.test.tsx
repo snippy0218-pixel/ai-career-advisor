@@ -177,7 +177,7 @@ describe("saved profile prefill", () => {
     await waitFor(() =>
       expect(screen.getByLabelText("候选人资料")).toHaveValue(profileText),
     );
-    expect(screen.getByText(/已加载「我的候选人档案」/)).toBeInTheDocument();
+    expect(screen.getByText(/已加载「我的个人档案」/)).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -212,5 +212,39 @@ describe("saved profile prefill", () => {
       target: { value: edited },
     });
     expect(screen.getByLabelText("候选人资料")).toHaveValue(edited);
+  });
+});
+
+describe("profile entry card", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  it("shows the unsaved state with an add-profile link when nothing is stored", async () => {
+    render(<PersonalizedMatchAdvisor />);
+    expect(await screen.findByText("我的个人档案")).toBeInTheDocument();
+    expect(screen.getByText("尚未设置")).toBeInTheDocument();
+    const addLink = screen.getByRole("link", {
+      name: "添加我的个人信息",
+    });
+    expect(addLink).toHaveAttribute("href", "/profile");
+  });
+
+  it("shows the saved state with update time and an edit link", async () => {
+    localStorage.setItem(
+      CANDIDATE_PROFILE_STORAGE_KEY,
+      JSON.stringify({
+        schemaVersion: CANDIDATE_PROFILE_STORAGE_VERSION,
+        updatedAt: "2026-08-16T00:00:00.000Z",
+        rawText: profileText,
+        rawTextSha256: sha256Hex(profileText),
+      }),
+    );
+    render(<PersonalizedMatchAdvisor />);
+    expect(await screen.findByText("已保存")).toBeInTheDocument();
+    expect(screen.getAllByText(/更新于/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("我的个人档案").length).toBeGreaterThan(0);
+    const editLink = screen.getByRole("link", { name: "编辑我的信息" });
+    expect(editLink).toHaveAttribute("href", "/profile");
   });
 });

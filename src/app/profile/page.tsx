@@ -18,13 +18,13 @@ export default function ProfilePage() {
         </nav>
 
         <p className="mt-10 text-xs font-semibold tracking-[0.2em] text-emerald-700 uppercase">
-          Phase 3.1 · Persistent Candidate Profile
+          我的个人档案 · 本地保存
         </p>
         <h1 className="mt-2 text-2xl font-semibold text-slate-950 sm:text-3xl">
-          我的候选人档案
+          我的个人档案
         </h1>
         <p className="mt-2 text-sm leading-6 text-slate-500">
-          查看、编辑并保存在本浏览器的原始候选人资料；后续「个性化岗位匹配」会自动载入。资料只保存在当前浏览器，不会上传或写入服务器。
+          保存后，AI 会在岗位分析时自动参考你的背景。查看、编辑并保存在本浏览器的原始个人信息；资料只保存在当前浏览器，不会上传或写入服务器。
         </p>
 
         <div className="mt-6">

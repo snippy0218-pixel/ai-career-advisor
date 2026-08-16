@@ -46,7 +46,7 @@ describe("ProfileManager", () => {
   it("shows an empty editor when no profile is saved", async () => {
     render(<ProfileManager />);
     expect(
-      await screen.findByRole("heading", { name: "创建候选人档案" }),
+      await screen.findByRole("heading", { name: "创建个人档案" }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText("候选人档案内容")).toHaveValue("");
     expect(screen.getByRole("button", { name: "保存档案" })).toBeDisabled();
@@ -104,7 +104,7 @@ describe("ProfileManager", () => {
     );
     expect(confirmSpy).toHaveBeenCalled();
     expect(
-      await screen.findByRole("heading", { name: "创建候选人档案" }),
+      await screen.findByRole("heading", { name: "创建个人档案" }),
     ).toBeInTheDocument();
     expect(localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY)).toBeNull();
   });
@@ -172,7 +172,7 @@ describe("ProfileManager", () => {
     });
     render(<ProfileManager />);
     expect(
-      await screen.findByRole("heading", { name: "创建候选人档案" }),
+      await screen.findByRole("heading", { name: "创建个人档案" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent(
       "当前浏览器无法使用本地存储",

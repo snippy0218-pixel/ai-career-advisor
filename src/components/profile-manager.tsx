@@ -253,7 +253,7 @@ export function ProfileManager() {
         <section className="rounded-[28px] border border-white/80 bg-white/90 p-5 shadow-[0_24px_80px_rgba(31,52,42,0.10)] sm:p-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="text-xl font-semibold text-slate-950">
-              {loaded ? "编辑候选人档案" : "创建候选人档案"}
+              {loaded ? "编辑个人档案" : "创建个人档案"}
             </h2>
             <p
               className={`text-xs tabular-nums ${

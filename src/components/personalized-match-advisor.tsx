@@ -357,6 +357,40 @@ export function PersonalizedMatchAdvisor() {
           </p>
         </header>
 
+        <section className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-white/80 bg-white/80 p-5 shadow-sm">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-base font-semibold text-slate-950">
+                我的个人档案
+              </p>
+              {savedProfile.status === "loaded" ? (
+                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+                  已保存
+                </span>
+              ) : (
+                <span className="rounded-full bg-slate-200 px-2.5 py-0.5 text-xs font-medium text-slate-600">
+                  尚未设置
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              {savedProfile.status === "loaded"
+                ? `更新于 ${new Date(
+                    savedProfile.updatedAt ?? "",
+                  ).toLocaleDateString("zh-CN")}；保存后，AI 会在岗位分析时自动参考你的背景。`
+                : "保存后，AI 会在岗位分析时自动参考你的背景。"}
+            </p>
+          </div>
+          <Link
+            href="/profile"
+            className="shrink-0 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500"
+          >
+            {savedProfile.status === "loaded"
+              ? "编辑我的信息"
+              : "添加我的个人信息"}
+          </Link>
+        </section>
+
         <section className="mt-8 rounded-[30px] border border-white/80 bg-white/90 p-5 shadow-[0_24px_80px_rgba(31,52,42,0.10)] backdrop-blur sm:p-8">
           <div className="grid gap-6 lg:grid-cols-2">
             <label className="block">
@@ -399,7 +433,7 @@ export function PersonalizedMatchAdvisor() {
                 <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-emerald-800">
                   <span className="inline-flex items-center gap-1.5 font-medium">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-                    已加载「我的候选人档案」
+                    已加载「我的个人档案」
                     <span className="text-emerald-700/70">
                       更新于{" "}
                       {new Date(savedProfile.updatedAt ?? "").toLocaleDateString(
@@ -431,8 +465,8 @@ export function PersonalizedMatchAdvisor() {
                     className="font-semibold text-emerald-700 underline-offset-2 hover:underline"
                   >
                     {savedProfile.status === "invalid"
-                      ? "去「我的候选人档案」修复"
-                      : "在「我的候选人档案」中保存"}
+                      ? "去「我的个人档案」修复"
+                      : "在「我的个人档案」中保存"}
                   </Link>
                 </div>
               ) : null}
