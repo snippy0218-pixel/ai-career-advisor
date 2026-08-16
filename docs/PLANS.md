@@ -5,6 +5,7 @@
 ## Current plan
 
 - Phase：2.4 Quality & Robustness = PASS / CLOSED；Phase 2.5 Final Regression / Release Gate = PASS / CLOSED（baseline-22 42/42；最终 human PO/QA Gate F 产品评分确认为唯一剩余人工步骤）。
+- Phase：3.1 Persistent Candidate Profile = AUTHORIZED / IN PROGRESS（localStorage 本地持久化候选人档案；方案与 checklist 见 `PHASE-3-1-PLAN.md` / `PHASE-3-1-CHECKLIST.md`）。
 - 目标：交付统一 `JD + Candidate Profile -> Personalized Match Result` 用户流，冻结并执行 Phase 1 10×3 与 Phase 2 14×3 最终矩阵，完成 Release Gate。
 - 详细执行状态：`PHASE-2-5-AUTONOMOUS-PLAN.md`。
 - Issue 状态：`ISSUE-LEDGER.md`。
