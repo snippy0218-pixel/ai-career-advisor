@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { AnalysisResult } from "./analysis-result";
 import { JdInputForm } from "./jd-input-form";
+import { ProfileEntryCard } from "./profile-entry-card";
 import {
   MAX_JD_LENGTH,
   MIN_JD_LENGTH,
@@ -150,6 +151,8 @@ export function JobAnalyzer() {
             加上我的资料，查看个性化匹配
           </Link>
         </header>
+
+        <ProfileEntryCard />
 
         <JdInputForm
           jdText={jdText}
