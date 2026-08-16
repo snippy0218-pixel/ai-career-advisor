@@ -49,7 +49,7 @@ describe("ProfileManager", () => {
       await screen.findByRole("heading", { name: "创建个人档案" }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText("候选人档案内容")).toHaveValue("");
-    expect(screen.getByRole("button", { name: "保存档案" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "保存个人档案" })).toBeDisabled();
   });
 
   it("displays the saved profile in view mode", async () => {
@@ -73,12 +73,14 @@ describe("ProfileManager", () => {
     const textarea = screen.getByLabelText("候选人档案内容");
     const edited = `${validText}\n工作经历：暂无正式工作经历`;
     fireEvent.change(textarea, { target: { value: edited } });
-    fireEvent.click(screen.getByRole("button", { name: "保存档案" }));
+    fireEvent.click(screen.getByRole("button", { name: "保存个人档案" }));
     expect(
       await screen.findByRole("heading", { name: "当前档案" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("档案已保存到本浏览器，后续「个性化岗位匹配」会自动载入。"),
+      screen.getByText(
+        "个人档案已保存到本浏览器，后续「个性化岗位匹配」会自动载入。",
+      ),
     ).toBeInTheDocument();
     const stored = JSON.parse(
       localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY) ?? "null",
@@ -91,8 +93,61 @@ describe("ProfileManager", () => {
     render(<ProfileManager />);
     const textarea = await screen.findByLabelText("候选人档案内容");
     fireEvent.change(textarea, { target: { value: "太短" } });
-    expect(screen.getByRole("button", { name: "保存档案" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "保存个人档案" })).toBeDisabled();
     expect(localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY)).toBeNull();
+  });
+
+  it("saves the raw profile without any AI call", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    render(<ProfileManager />);
+    const textarea = await screen.findByLabelText("候选人档案内容");
+    fireEvent.change(textarea, { target: { value: validText } });
+    fireEvent.click(screen.getByRole("button", { name: "保存个人档案" }));
+    expect(
+      await screen.findByRole("heading", { name: "当前档案" }),
+    ).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+    const stored = JSON.parse(
+      localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY) ?? "null",
+    );
+    expect(stored.rawText).toBe(validText);
+  });
+
+  it("AI structuring failure does not block saving", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            data: null,
+            error: {
+              code: "AI_OUTPUT_INVALID",
+              message: "本次分析生成失败，请重新尝试。",
+            },
+          }),
+          {
+            status: 502,
+            headers: { "Content-Type": "application/json" },
+          },
+        ),
+      ),
+    );
+    render(<ProfileManager />);
+    const textarea = await screen.findByLabelText("候选人档案内容");
+    fireEvent.change(textarea, { target: { value: validText } });
+    fireEvent.click(screen.getByRole("button", { name: "开始结构化" }));
+    expect(
+      await screen.findByText("本次分析生成失败，请重新尝试。"),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "保存个人档案" }));
+    expect(
+      await screen.findByRole("heading", { name: "当前档案" }),
+    ).toBeInTheDocument();
+    const stored = JSON.parse(
+      localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY) ?? "null",
+    );
+    expect(stored.rawText).toBe(validText);
   });
 
   it("clears the profile only after confirmation", async () => {

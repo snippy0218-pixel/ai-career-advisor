@@ -121,7 +121,7 @@ export function ProfileManager() {
       setEditing(false);
       setDraft(null);
       setNotice(
-        "档案已保存到本浏览器，后续「个性化岗位匹配」会自动载入。",
+        "个人档案已保存到本浏览器，后续「个性化岗位匹配」会自动载入。",
       );
       setError(null);
     } else if (result.status === "invalid") {
@@ -288,7 +288,7 @@ export function ProfileManager() {
               disabled={!canSave}
               className="rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              保存档案
+              保存个人档案
             </button>
             {loaded ? (
               <button
@@ -310,13 +310,13 @@ export function ProfileManager() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-xs font-semibold tracking-[0.16em] text-sky-700 uppercase">
-              AI 辅助（可选）
+              高级功能 · 可选
             </p>
             <h2 className="mt-2 text-lg font-semibold text-slate-950">
               用 AI 结构化当前档案
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">
-              只整理「你写出的内容」为可追溯事实，不会补全或推断；结果仅本次展示，不会写入本地档案。
+              只整理「你写出的内容」为可追溯事实，不会补全或推断；结果仅本次展示，不会写入本地档案。即使结构化失败，已保存的原始档案仍可直接用于岗位分析。
             </p>
           </div>
           <button

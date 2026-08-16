@@ -213,6 +213,35 @@ describe("saved profile prefill", () => {
     });
     expect(screen.getByLabelText("候选人资料")).toHaveValue(edited);
   });
+
+  it("completes the full match flow using only a saved raw profile", async () => {
+    storeProfile();
+    const fixture = completeFixture();
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValueOnce(success(validAnalysis))
+        .mockResolvedValueOnce(success(fixture.candidateProfile))
+        .mockResolvedValueOnce(success(fixture.matchCore))
+        .mockResolvedValueOnce(success(fixture.recommendation))
+        .mockResolvedValueOnce(success(fixture.strengthGap))
+        .mockResolvedValueOnce(success(fixture.greeting)),
+    );
+    render(<PersonalizedMatchAdvisor />);
+    await waitFor(() =>
+      expect(screen.getByLabelText("候选人资料")).toHaveValue(profileText),
+    );
+    fireEvent.change(screen.getByLabelText("招聘 JD"), {
+      target: { value: sampleJd },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "开始个性化匹配" }));
+    expect(await screen.findByTestId("personalized-match-result")).toBeInTheDocument();
+    const stored = JSON.parse(
+      localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY) ?? "null",
+    );
+    expect(stored.lastAnalysis).toBeUndefined();
+  });
 });
 
 describe("profile entry card", () => {
