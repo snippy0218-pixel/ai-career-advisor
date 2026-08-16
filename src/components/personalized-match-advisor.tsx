@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 
 import {
   MAX_JD_LENGTH,
   MIN_JD_LENGTH,
 } from "@/lib/analysis-schema";
+import {
+  clearProfile,
+  getProfileStorageSnapshot,
+  invalidateProfileStorageSnapshot,
+  subscribeToProfileStorage,
+} from "@/lib/candidate-profile-storage";
 import {
   PERSONALIZED_MATCH_STAGES,
   PersonalizedMatchFlowError,
@@ -238,11 +244,19 @@ function ResultView({ result }: { result: PersonalizedMatchResult }) {
 
 export function PersonalizedMatchAdvisor() {
   const [jdText, setJdText] = useState("");
-  const [profileText, setProfileText] = useState("");
+  const [profileOverride, setProfileOverride] = useState<string | null>(null);
   const [currentStage, setCurrentStage] = useState<PersonalizedMatchStage | null>(null);
   const [result, setResult] = useState<PersonalizedMatchResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const savedProfile = useSyncExternalStore(
+    subscribeToProfileStorage,
+    getProfileStorageSnapshot,
+    getProfileStorageSnapshot,
+  );
+  const profileText =
+    profileOverride ??
+    (savedProfile.status === "loaded" ? (savedProfile.rawText ?? "") : "");
 
   const jdLength = jdText.trim().length;
   const profileLength = profileText.trim().length;
@@ -270,6 +284,21 @@ export function PersonalizedMatchAdvisor() {
     setter(value);
     setError(null);
     if (result) setResult(null);
+  }
+
+  function onRemoveSavedProfile() {
+    if (
+      !window.confirm(
+        "确定清除本浏览器中保存的候选人档案？此操作无法撤销。",
+      )
+    ) {
+      return;
+    }
+    const cleared = clearProfile();
+    if (cleared.status === "cleared") {
+      invalidateProfileStorageSnapshot();
+      updateInput(setProfileOverride, "");
+    }
   }
 
   async function submit() {
@@ -360,12 +389,53 @@ export function PersonalizedMatchAdvisor() {
               <textarea
                 aria-label="候选人资料"
                 value={profileText}
-                onChange={(event) => updateInput(setProfileText, event.target.value)}
+                onChange={(event) => updateInput(setProfileOverride, event.target.value)}
                 disabled={isLoading}
                 rows={14}
                 placeholder="例如：统计学本科；在课程项目中使用 SQL；尚无正式全职数据分析经验……"
                 className="mt-4 w-full resize-y rounded-2xl border border-slate-200 bg-[#fbfcfa] px-4 py-4 text-sm leading-7 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100 disabled:cursor-wait disabled:opacity-70"
               />
+              {savedProfile.status === "loaded" ? (
+                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-emerald-800">
+                  <span className="inline-flex items-center gap-1.5 font-medium">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                    已加载「我的候选人档案」
+                    <span className="text-emerald-700/70">
+                      更新于{" "}
+                      {new Date(savedProfile.updatedAt ?? "").toLocaleDateString(
+                        "zh-CN",
+                      )}
+                    </span>
+                  </span>
+                  <Link
+                    href="/profile"
+                    className="font-semibold underline-offset-2 hover:underline"
+                  >
+                    编辑档案
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={onRemoveSavedProfile}
+                    className="font-semibold text-rose-600 underline-offset-2 hover:underline"
+                  >
+                    清除已保存档案
+                  </button>
+                </div>
+              ) : savedProfile.status === "empty" || savedProfile.status === "invalid" ? (
+                <div className="mt-3 text-xs text-slate-500">
+                  {savedProfile.status === "invalid"
+                    ? "本机档案数据不完整，尚未载入。"
+                    : "还没有常用资料？"}{" "}
+                  <Link
+                    href="/profile"
+                    className="font-semibold text-emerald-700 underline-offset-2 hover:underline"
+                  >
+                    {savedProfile.status === "invalid"
+                      ? "去「我的候选人档案」修复"
+                      : "在「我的候选人档案」中保存"}
+                  </Link>
+                </div>
+              ) : null}
             </label>
           </div>
 

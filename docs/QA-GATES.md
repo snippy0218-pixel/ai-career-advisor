@@ -105,3 +105,13 @@ Latest content disposition: `phase-2-5-baseline-5-83a1810` is a complete, non-pa
 Newest content disposition: `phase-2-5-baseline-6-8b8cae6` is a complete, non-passing Phase 2 batch at 35/42 with 39 complete chains and downstream-after-failure 0. All results are retained. ISSUE-042/044/048 extensions and ISSUE-050 focused `139/139`, full `630/630`, lint, production build, diff/scope/secret/process PASS; immutable commit and a new replacement matrix remain. See `PHASE-2-5-BASELINE-6-STABILIZATION.md`.
 
 Latest content disposition: `phase-2-5-baseline-7-13900bf` is a complete, non-passing Phase 2 batch at 39/42 with 40 complete chains and downstream-after-failure 0. ISSUE-050 artifact preservation is runtime-verified. ISSUE-042/044 adjacent focused `103/103`, full `631/631`, lint, production build, diff/scope/secret/process PASS; immutable commit and a new complete replacement matrix remain. See `PHASE-2-5-BASELINE-7-STABILIZATION.md`.
+
+## Phase 3.1 Release Gate — Persistent Candidate Profile
+
+Phase 3.1 is **AUTHORIZED / IN PROGRESS** as of 2026-08-16. Governing docs: `PHASE-3-1-PLAN.md` / `PHASE-3-1-CHECKLIST.md`。
+
+- Product Gate：`/profile` 提供查看 / 编辑 / 保存 / 清除「我的候选人档案」；`/personalized-match` 挂载时预填已保存档案且不自动触发分析；AI 结构化为辅助能力。
+- Data Gate：localStorage 只持久化 `{ schemaVersion, updatedAt, rawText, rawTextSha256 }`；不保存 `candidate-profile-v2` 派生数据；损坏数据 fail-safe 且不覆盖。
+- Contract Gate：`candidate-profile-v2` 与 match / recommendation / strength-gap / greeting API contract 不变；Phase 2.5 acceptance tests 与 artifacts 不变。
+- Deterministic Gate：`npm test`、`npm run lint`、`npm run build` + TypeScript、diff / scope / secret PASS。
+- Regression Gate：既有 652 项全绿 + 新增 storage / completeness / ProfileManager / prefill 测试全绿。

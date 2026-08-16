@@ -8,9 +8,14 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { PersonalizedMatchAdvisor } from "./personalized-match-advisor";
+import {
+  CANDIDATE_PROFILE_STORAGE_KEY,
+  CANDIDATE_PROFILE_STORAGE_VERSION,
+  sha256Hex,
+} from "@/lib/candidate-profile-storage";
 import { finalizeRawPersonalizedGreeting } from "@/lib/greeting-schema";
 import { sampleJd, validAnalysis } from "@/test/fixtures";
 import { GREETING_FIXTURES } from "@/test/greeting-fixtures";
@@ -144,5 +149,68 @@ describe("PersonalizedMatchAdvisor", () => {
     await waitFor(() =>
       expect(screen.queryByTestId("personalized-match-result")).not.toBeInTheDocument(),
     );
+  });
+});
+
+describe("saved profile prefill", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  function storeProfile() {
+    localStorage.setItem(
+      CANDIDATE_PROFILE_STORAGE_KEY,
+      JSON.stringify({
+        schemaVersion: CANDIDATE_PROFILE_STORAGE_VERSION,
+        updatedAt: "2026-08-16T00:00:00.000Z",
+        rawText: profileText,
+        rawTextSha256: sha256Hex(profileText),
+      }),
+    );
+  }
+
+  it("prefills the profile textarea from a saved profile without analyzing", async () => {
+    storeProfile();
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    render(<PersonalizedMatchAdvisor />);
+    await waitFor(() =>
+      expect(screen.getByLabelText("候选人资料")).toHaveValue(profileText),
+    );
+    expect(screen.getByText(/已加载「我的候选人档案」/)).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("shows a create-profile link when nothing is saved", async () => {
+    render(<PersonalizedMatchAdvisor />);
+    expect(await screen.findByText(/还没有常用资料？/)).toBeInTheDocument();
+    expect(screen.getByLabelText("候选人资料")).toHaveValue("");
+  });
+
+  it("clears the saved profile and textarea after confirmation", async () => {
+    storeProfile();
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    render(<PersonalizedMatchAdvisor />);
+    await waitFor(() =>
+      expect(screen.getByLabelText("候选人资料")).toHaveValue(profileText),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "清除已保存档案" }));
+    await waitFor(() =>
+      expect(screen.getByLabelText("候选人资料")).toHaveValue(""),
+    );
+    expect(localStorage.getItem(CANDIDATE_PROFILE_STORAGE_KEY)).toBeNull();
+  });
+
+  it("keeps the textarea editable after prefill", async () => {
+    storeProfile();
+    render(<PersonalizedMatchAdvisor />);
+    await waitFor(() =>
+      expect(screen.getByLabelText("候选人资料")).toHaveValue(profileText),
+    );
+    const edited = `${profileText} 补充说明`;
+    fireEvent.change(screen.getByLabelText("候选人资料"), {
+      target: { value: edited },
+    });
+    expect(screen.getByLabelText("候选人资料")).toHaveValue(edited);
   });
 });

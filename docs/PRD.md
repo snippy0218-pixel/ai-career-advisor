@@ -185,3 +185,36 @@ Phase 1 没有用户经历和职业偏好，因此投递建议不是“人岗匹
 - 使用 5–10 条脱敏 JD 完成轻量回归；
 - README 包含环境变量和本地运行说明；
 - 不要求 Phase 1 内公开部署。
+
+## 9. Phase 3.1 — Persistent Candidate Profile（第一版本地持久化）
+
+> 状态：AUTHORIZED / IN PROGRESS（2026-08-16）
+> 目标：让用户保存自己的候选人原始资料，后续分析自动载入，从「一次性 JD 分析工具」升级为长期使用的 AI 求职助手的第一步。
+
+### 9.1 功能范围
+
+1. 「我的候选人档案」页面（`/profile`）：
+   - 查看当前档案（原始文本、更新时间、字符数）；
+   - 编辑档案；
+   - 保存档案（localStorage，本浏览器）；
+   - 清除档案（带确认）。
+2. `/personalized-match` 挂载时自动读取已保存档案并**预填**资料文本框；用户可继续编辑、清除，仍手动提交，**不自动触发分析**。
+3. 轻量 Profile Completeness 提示（教育背景 / 技能 / 项目 / 工作与实习经历 / 求职目标）：仅前端提示，不影响分析流程，无评分模型。
+4. AI 结构化分析（`candidate-profile-v2`）降级为辅助能力，仅本次展示，不写入本地档案。
+
+### 9.2 数据与隐私
+
+- localStorage key：`ai-career-advisor:candidate-profile:v1`；
+- 只持久化 `{ schemaVersion, updatedAt, rawText, rawTextSha256 }`；
+- **不保存**结构化派生数据（避免 Candidate truth boundary 复杂化）；
+- 数据只存在于当前浏览器，不写入服务器；分析请求仍走既有服务端 API；
+- 提供清除入口与隐私提示。
+
+### 9.3 明确不做（Phase 3.1）
+
+- 用户注册、登录、多用户系统；
+- 云端同步、服务端存储、数据库；
+- 导入导出、跨标签页实时同步；
+- 直接编辑结构化 JSON；
+- 修改 Candidate Profile v2 或 match/recommendation/greeting API contract；
+- 修改既有 acceptance tests。
