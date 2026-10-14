@@ -188,7 +188,7 @@ Phase 1 没有用户经历和职业偏好，因此投递建议不是“人岗匹
 
 ## 9. Phase 3.1 — Persistent Candidate Profile（第一版本地持久化）
 
-> 状态：AUTHORIZED / IN PROGRESS（2026-08-16）
+> 状态：COMPLETE / CLOSED（2026-08-16 授权并完成；实现提交 `b39c041` → `a9e071a`，验证证据见 `PHASE-3-1-CHECKLIST.md` §7）
 > 目标：让用户保存自己的候选人原始资料，后续分析自动载入，从「一次性 JD 分析工具」升级为长期使用的 AI 求职助手的第一步。
 
 ### 9.1 功能范围

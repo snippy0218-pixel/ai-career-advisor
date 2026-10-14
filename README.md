@@ -49,6 +49,8 @@
 | 3 · 语义 | 领域规则校验 | JD 中写明的学历 / 年限阈值被误判为候选人已满足的事实 |
 | 4 · 证据 | JD 原文回溯 | 结论无法定位到 JD 原文片段 |
 
+> 这四层是**概念分层**。实际执行是一条固定顺序的流水线：`JSON.parse` → Raw Schema → evidence 标准化与原文匹配 → 语义约束清理 → 必要时的定向修复（最多一次）→ Final Schema → 原文证据校验；Zod 契约在流水线中出现两次（Raw / Final），因此实际步骤数多于 4。完整顺序见 [`docs/analysis-schema.md`](docs/analysis-schema.md) 第 10 节「校验顺序」。
+
 **任何一层失败 → 拒绝该结果并保全原始输出用于诊断**，绝不把未经验证的内容返回给前端。
 
 配套机制：
@@ -161,7 +163,7 @@ AI Career Advisor/
 - DeepSeek API Key 只在 Next.js 服务端读取，不会下发到前端；
 - 个人档案只保存在当前浏览器 localStorage，不写服务器、无数据库；
 - 服务端不把完整 JD 写入日志；
-- 模型原始响应只有通过 JSON、Zod、证据三重校验后才返回页面。
+- 模型原始响应只有通过结构、契约、语义、证据四层校验后才返回页面（完整校验顺序见 [`docs/analysis-schema.md`](docs/analysis-schema.md) 第 10 节）。
 
 ## 项目文档
 

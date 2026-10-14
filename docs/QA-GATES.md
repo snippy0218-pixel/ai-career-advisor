@@ -108,7 +108,7 @@ Latest content disposition: `phase-2-5-baseline-7-13900bf` is a complete, non-pa
 
 ## Phase 3.1 Release Gate — Persistent Candidate Profile
 
-Phase 3.1 is **AUTHORIZED / IN PROGRESS** as of 2026-08-16. Governing docs: `PHASE-3-1-PLAN.md` / `PHASE-3-1-CHECKLIST.md`。
+Phase 3.1 is **COMPLETE / CLOSED**（2026-08-16 授权；实现提交 `b39c041` → `a9e071a`；本节 5 项 Gate 的实现验证证据见 `PHASE-3-1-CHECKLIST.md` §7；未记录独立的 human PO/QA 产品评分）。Governing docs: `PHASE-3-1-PLAN.md` / `PHASE-3-1-CHECKLIST.md`。
 
 - Product Gate：`/profile` 提供查看 / 编辑 / 保存 / 清除「我的候选人档案」；`/personalized-match` 挂载时预填已保存档案且不自动触发分析；AI 结构化为辅助能力。
 - Data Gate：localStorage 只持久化 `{ schemaVersion, updatedAt, rawText, rawTextSha256 }`；不保存 `candidate-profile-v2` 派生数据；损坏数据 fail-safe 且不覆盖。
