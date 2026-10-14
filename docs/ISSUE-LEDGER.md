@@ -27,6 +27,7 @@
 | ISSUE-048 Phase 2.5 Match terminal aggregate and compound-domain projection | P1 | DETERMINISTIC CLOSED / aggregate-only repair is recalculated from dimension truth; compound-domain omission requires all conservative domain terms | replacement Phase 2 matrix |
 | ISSUE-049 Phase 2.5 Strength/Gap terminal type recovery | P1 | DETERMINISTIC CLOSED / invalid SG-E/SG-F repair gaps are conservatively rewritten, converted, or removed, then SG-A～SG-N reruns | replacement Phase 2 matrix |
 | ISSUE-050 Phase 2.5 failed-chain accepted-stage output preservation | P1 | DETERMINISTIC CLOSED / every completed upstream stage is cloned into the run artifact even when a later stage fails | replacement Phase 2 matrix artifact audit |
+| ISSUE-051 Profile semantic normalization robustness | P2 | OPEN / real-chain acceptance reproduction recorded on 2026-10-14; frozen fixtures and canonical-format profiles unaffected | prefix-based semantic normalization fallback (design only, not scheduled) |
 
 ## ISSUE-040～045 baseline evidence
 
@@ -199,3 +200,28 @@
 - Batch-2 adjacent evidence: a legal terminal evidence-force boundary was split between Match lineage and M-K, while explicit `CF-xxx` factual narration could omit its CF from structured refs and evade dimension-local review. Cycle 3 centralizes evidence-force semantics and requires explicit CF narration ownership; this exhausts the 3-cycle budget for the broad lineage/status lexical root.
 - Batch-3 final evidence: run 1/3 repairs both narrate positive CF-003 facts inside an `unknown` dimension while refs correctly remain `[]`, which the frozen prompt explicitly forbids; lineage correctly rejects both. Both repairs also upgrade assistance into `个人交付/个人职责` evidence and are correctly rejected by M-K. Legal CF-004 explicit-negative scope boundaries are accepted, so original ISSUE-037 behavior is not observed.
 - Superseding Gate: per-cycle stop condition is obsolete. ISSUE-033 now covers the full Match generation-contract path. v1.5 removes the contradictory repair example, aligns raw/repair status language, adds field-level ownership actions, and provides bounded terminal normalization followed by all existing validators. Exact batch-3 failures and generalized semantic controls pass; E2E pending.
+
+## ISSUE-051 record (2026-10-14, real-chain acceptance)
+
+- **Severity**: P2. **Status**: OPEN, record-only. This entry intentionally contains no production
+  code change, no test change, and no acceptance-gate adjustment.
+- **Discovery context**: real-chain final acceptance on 2026-10-14 (local production build +
+  live DeepSeek API; input = one real JD posting and one de-identified natural-language
+  candidate profile).
+- **Reproduction**: when the candidate profile's project lines are written as free-form
+  sentences without the canonical `项目经历：` prefix and explicit `该项目` back-reference, the
+  Profile stage rejects the chain with `AI_OUTPUT_INVALID` (observed request_id
+  `876b39f9-6333-401f-bf75-f1b834852842`; server log records the same code with request_id
+  `1b0bc7a3-f733-474a-bbab-b150756edea5`). The rejection reason is that canonical atomic claims
+  omit explicit `project_experience` semantics.
+- **Non-failing inputs**: all frozen fixtures pass, and rewriting the same profile into the
+  canonical prefix form (`项目经历：… 该项目…`) passes the identical chain end-to-end
+  (6/6 stages HTTP 200, ~39 s). The failure is therefore limited to free-form profile
+  variants and is nondeterministic across model outputs, not a regression of frozen gates.
+- **Impact**: a real user pasting an unstructured profile may hit a Profile-stage rejection
+  where a semantically equivalent canonical profile would pass. UX/robustness issue only —
+  the failure is fail-closed and no unverified content is released.
+- **Follow-up direction (not scheduled)**: add a bounded semantic normalization fallback for
+  prefix categories such as `项目经历`, so free-form profiles degrade safely instead of failing
+  the Profile stage. Any future fix must go through the existing full validation pipeline and
+  must not weaken the four-layer gates.
