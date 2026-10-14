@@ -27,3 +27,6 @@ pnpm-debug.log*
 Thumbs.db
 .idea/
 .vscode/
+
+# WorkBuddy local workspace (personal notes / memory, not for publishing)
+/.workbuddy/

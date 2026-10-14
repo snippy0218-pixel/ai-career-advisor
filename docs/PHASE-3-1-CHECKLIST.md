@@ -1,17 +1,17 @@
 # Phase 3.1 Implementation Checklist — Persistent Candidate Profile
 
-> Status: IN PROGRESS（checklist 先于编码提交）
+> Status: COMPLETE / CLOSED（全部 checklist 项已完成；Commit 2 已提交，工作树 clean）
 > Governing plan: `PHASE-3-1-PLAN.md`（已获 Product Owner 批准）
-> Frozen implementation baseline: `6479978`（Phase 2.5 最终验收基线；当前 HEAD `67928df` 为其证据提交）
+> Frozen implementation baseline: `6479978`（Phase 2.5 最终验收基线，证据提交 `67928df`；Phase 3.1 实现位于其后的 `b39c041` → `a9e071a`）
 
 ## 1. 冻结原则（不得违反）
 
-- [ ] raw profile text 是唯一 truth source；`candidate-profile-v2` 契约不修改；
-- [ ] match / recommendation / strength-gap / greeting 核心 API contract 不修改；
-- [ ] personalized-match 不自动触发分析；已保存 Profile 仅**预填**文本框，仍由用户手动提交；
-- [ ] localStorage 只持久化 `{ schemaVersion, updatedAt, rawText, rawTextSha256 }`，不保存结构化派生数据；
-- [ ] 既有 acceptance tests 与 Phase 2.5 acceptance artifacts 不修改；
-- [ ] 不引入用户注册 / 登录 / 云端同步 / 多用户 / 数据库。
+- [x] raw profile text 是唯一 truth source；`candidate-profile-v2` 契约不修改；
+- [x] match / recommendation / strength-gap / greeting 核心 API contract 不修改；
+- [x] personalized-match 不自动触发分析；已保存 Profile 仅**预填**文本框，仍由用户手动提交；
+- [x] localStorage 只持久化 `{ schemaVersion, updatedAt, rawText, rawTextSha256 }`，不保存结构化派生数据；
+- [x] 既有 acceptance tests 与 Phase 2.5 acceptance artifacts 不修改；
+- [x] 不引入用户注册 / 登录 / 云端同步 / 多用户 / 数据库。
 
 ## 2. 文档前置（Commit 1）
 
