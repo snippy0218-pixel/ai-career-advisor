@@ -85,7 +85,7 @@
 测试规模     36 个测试文件 / 701 个测试用例，全部通过（vitest，本机约 40 秒）
 缺陷闭环     23 个 P1 级缺陷，每个都包含：复现样本 → 根因分析 → 有界修复 → 全量回归证据
 基线验收     Phase 2.5 阶段从 Baseline 4 到 Baseline 21，近 20 轮冻结基线验收
-代码规模     src 下 89 个文件 / 30,938 行 TypeScript（.tsx / .ts）
+代码规模     src 下 89 个文件 / 30,945 行 TypeScript（.tsx / .ts）
 开发周期     2026-08-08 → 2026-08-16，119 次提交
 ```
 
@@ -192,6 +192,8 @@ AI Career Advisor/
 - [技术方案](docs/技术方案.md)
 - [Prompt 设计](docs/Prompt设计.md)
 - [验收执行报告](docs/验收执行报告.md)
+- [缺陷闭环记录](docs/ISSUE-LEDGER.md)
+- [质量 Gate](docs/QA-GATES.md)
 - [更新日志](docs/更新日志.md)
 - [项目长期规则](PROJECT_RULES.md)
 
