@@ -9,6 +9,7 @@ import {
   finalRecommendationSchema,
   inspectRecommendationStatusClaimIntegrity,
   rawRecommendationSchema,
+  type RawRecommendation,
 } from "./recommendation-schema";
 import { RECOMMENDATION_FIXTURES } from "@/test/recommendation-fixtures";
 import { buildRecommendationMatchCore } from "@/test/recommendation-fixtures";
@@ -826,7 +827,7 @@ describe("ISSUE-031 exact runtime MI/status attribution", () => {
       },
     ],
   };
-  const statusRaw = (summary: string) => ({
+  const statusRaw = (summary: string): RawRecommendation => ({
     recommendationLevel: "try" as const,
     summary,
     supportingMatchRefs: [],

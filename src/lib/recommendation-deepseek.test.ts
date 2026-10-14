@@ -26,9 +26,9 @@ function completion(payload: unknown, finishReason = "stop") {
 describe("analyzeRecommendationWithDeepSeek", () => {
   it("E28-R1 accepts a legal output without manufacturing rejection evidence", async () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     const before = JSON.stringify(fixture.matchCore);
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -66,7 +66,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -108,7 +108,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     const fixture = RECOMMENDATION_FIXTURES[3];
     const invalid = { ...fixture.validRaw, summary: "MI-001 已满足。" };
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     await expect(
       analyzeRecommendationWithDeepSeek(
@@ -149,7 +149,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       summary: "MI-001 与 MI-002 的状态综合来看，整体已满足。",
     };
     const fetchImpl = vi.fn(async () => completion(ambiguous));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -201,7 +201,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(missingStrictness));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -242,7 +242,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -306,7 +306,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(validRaw));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore },
@@ -355,7 +355,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(validRaw));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     const result = await analyzeRecommendationWithDeepSeek(
       { matchCore },
@@ -389,7 +389,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(ambiguous))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -426,7 +426,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
     const fetchImpl = vi.fn(async () => completion(invalid));
 
     let caught: unknown;
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
     try {
       await analyzeRecommendationWithDeepSeek(
         { matchCore: fixture.matchCore },
@@ -463,7 +463,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
   it("EC4 preserves truncated Recommendation raw", async () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
     const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
     await expect(
       analyzeRecommendationWithDeepSeek(
         { matchCore: fixture.matchCore },
@@ -491,7 +491,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
   it("E28-R8 does not assign an R-C rule to a provider failure", async () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
     const fetchImpl = vi.fn(async () => new Response("unavailable", { status: 503 }));
-    let diagnostics: RecommendationDiagnostics | null = null;
+    let diagnostics: RecommendationDiagnostics | null | undefined;
 
     await expect(
       analyzeRecommendationWithDeepSeek(
@@ -518,7 +518,7 @@ describe("analyzeRecommendationWithDeepSeek", () => {
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {
     const fixture = RECOMMENDATION_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     await analyzeRecommendationWithDeepSeek(
       { matchCore: fixture.matchCore },
       { apiKey: "test-key", fetchImpl },

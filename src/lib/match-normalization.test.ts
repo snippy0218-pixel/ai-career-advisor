@@ -1,9 +1,15 @@
 import { describe, expect, it } from "vitest";
 
 import { normalizeRejectedMatchReasons } from "./match-normalization";
-import { rawMatchCoreSchema, type MatchValidationIssue } from "./match-schema";
+import {
+  rawMatchCoreSchema,
+  type MatchValidationIssue,
+  type RawMatchCore,
+} from "./match-schema";
 
-function dimension(overrides: Record<string, unknown> = {}) {
+type MatchDimension = RawMatchCore["matchItems"][number]["dimensions"][number];
+
+function dimension(overrides: Partial<MatchDimension> = {}): MatchDimension {
   return {
     dimensionType: "responsibility",
     requirementFragment: "对个人交付结果负责",
@@ -17,7 +23,7 @@ function dimension(overrides: Record<string, unknown> = {}) {
   };
 }
 
-function raw(overrides: Record<string, unknown> = {}) {
+function raw(overrides: Partial<MatchDimension> = {}) {
   return rawMatchCoreSchema.parse({
     matchItems: [
       {

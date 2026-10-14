@@ -70,7 +70,7 @@ function analysisWithRequirement(jdText: string, evidence: string) {
 
 async function classifyRequirement(requirementLine: string, evidence: string) {
   const jdText = requirementJd(requirementLine);
-  const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+  const fetchMock = vi.fn<typeof fetch>();
   fetchMock.mockResolvedValue(
     successfulResponse(analysisWithRequirement(jdText, evidence)),
   );
@@ -85,7 +85,7 @@ async function classifyRequirement(requirementLine: string, evidence: string) {
 
 describe("DeepSeek adapter", () => {
   it("sends a non-thinking JSON request and returns validated data", async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse());
 
     const result = await analyzeJobWithDeepSeek(
@@ -102,7 +102,7 @@ describe("DeepSeek adapter", () => {
   });
 
   it("retries one rate-limit response and then succeeds", async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(new Response("busy", { status: 429 }))
       .mockResolvedValueOnce(successfulResponse());
@@ -117,7 +117,7 @@ describe("DeepSeek adapter", () => {
   });
 
   it("retries an empty response only once", async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(
       new Response(JSON.stringify({ choices: [] }), { status: 200 }),
     );
@@ -127,7 +127,7 @@ describe("DeepSeek adapter", () => {
         { jdText: sampleJd },
         { fetchImpl: fetchMock, apiKey: "test-key", timeoutMs: 2_000 },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_EMPTY_RESPONSE" });
+    ).rejects.toMatchObject({ code: "AI_EMPTY_RESPONSE" } satisfies Partial<ApiError>);
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
@@ -135,7 +135,7 @@ describe("DeepSeek adapter", () => {
     const invalid = structuredClone(validAnalysis);
     invalid.coreResponsibilities[0].evidence = ["JD 中不存在的职责"];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(invalid))
       .mockResolvedValueOnce(
@@ -180,7 +180,7 @@ describe("DeepSeek adapter", () => {
     const invalid = structuredClone(validAnalysis);
     invalid.coreResponsibilities[0].evidence = ["JD 中不存在的职责"];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(invalid))
       .mockResolvedValueOnce(
@@ -199,7 +199,7 @@ describe("DeepSeek adapter", () => {
           onDiagnostics: diagnostics,
         },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_OUTPUT_INVALID" });
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" } satisfies Partial<ApiError>);
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(diagnostics).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -213,7 +213,7 @@ describe("DeepSeek adapter", () => {
   it("removes a risk signal whose evidence is empty", async () => {
     const analysis = structuredClone(validAnalysis);
     analysis.roleProfile.riskSignals = [riskSignal([])];
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -226,7 +226,7 @@ describe("DeepSeek adapter", () => {
   });
 
   it("accepts an empty riskSignals array", async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse());
 
     await expect(
@@ -255,7 +255,7 @@ describe("DeepSeek adapter", () => {
         verificationQuestion: null,
       },
     ];
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -277,7 +277,7 @@ describe("DeepSeek adapter", () => {
       evidence: [],
       verificationQuestion: null,
     });
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -302,7 +302,7 @@ describe("DeepSeek adapter", () => {
       verificationQuestion: null,
     });
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -354,7 +354,7 @@ describe("DeepSeek adapter", () => {
   it("removes non-core evidence that does not exist in the JD", async () => {
     const analysis = structuredClone(validAnalysis);
     analysis.roleProfile.riskSignals = [riskSignal(["JD 中不存在的风险描述"])];
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -369,7 +369,7 @@ describe("DeepSeek adapter", () => {
     const analysis = structuredClone(validAnalysis);
     analysis.applicationAdvice.reasons[0].evidence = [];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -388,7 +388,7 @@ describe("DeepSeek adapter", () => {
           onDiagnostics: diagnostics,
         },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_OUTPUT_INVALID" });
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" } satisfies Partial<ApiError>);
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(diagnostics).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -409,7 +409,7 @@ describe("DeepSeek adapter", () => {
       verificationQuestion: null,
     });
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -441,7 +441,7 @@ describe("DeepSeek adapter", () => {
       riskSignal(distinctValidEvidence.slice(0, 4)),
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -477,7 +477,7 @@ describe("DeepSeek adapter", () => {
       ]),
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -514,7 +514,7 @@ describe("DeepSeek adapter", () => {
       ]),
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -543,7 +543,7 @@ describe("DeepSeek adapter", () => {
     analysis.roleProfile.riskSignals = [
       riskSignal([" \t负责活动策划、执行与复盘  "]),
     ];
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -562,7 +562,7 @@ describe("DeepSeek adapter", () => {
       riskSignal(["无效一", "无效二", "无效三", "无效四"]),
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -591,7 +591,7 @@ describe("DeepSeek adapter", () => {
     analysis.applicationAdvice.reasons[0].evidence =
       distinctValidEvidence.slice(0, 4);
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -625,7 +625,7 @@ describe("DeepSeek adapter", () => {
       "您好，我具备优秀的文档能力，也长期使用AI工具，希望进一步了解该岗位。";
     const repairedGreeting = structuredClone(validAnalysis.hrGreeting);
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -668,7 +668,7 @@ describe("DeepSeek adapter", () => {
     invalidRepair.safeGreeting =
       "您好，我熟悉AI工具并长期使用大模型，希望进一步沟通。";
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -705,7 +705,7 @@ describe("DeepSeek adapter", () => {
     analysis.hrGreeting.safeGreeting =
       "您好，我是计算机专业应届生，希望进一步沟通。";
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -727,7 +727,7 @@ describe("DeepSeek adapter", () => {
           onDiagnostics: diagnostics,
         },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_OUTPUT_INVALID" });
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" } satisfies Partial<ApiError>);
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(diagnostics).toHaveBeenCalledWith(
@@ -868,7 +868,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     const jdLine = "1.本科及以上，电子信息、自\n动化等相关专业";
     const evidence = "本科及以上，电子信息、自动化等相关专业";
     const jdText = requirementJd(jdLine);
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(
       successfulResponse(analysisWithRequirement(jdText, evidence)),
     );
@@ -920,7 +920,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     const jdOriginalEvidence =
       "本科及以上，2026.9-2027.8 期间己获得或即将获得博士/硕士学位";
     const jdText = requirementJd(jdLine);
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValueOnce(
       successfulResponse(analysisWithRequirement(jdText, evidence)),
     );
@@ -953,7 +953,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     const jdLine = "1.本科及以上，有相关实习经验";
     const evidence = "JD 中不存在的学历要求";
     const jdText = requirementJd(jdLine);
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(
         successfulResponse(analysisWithRequirement(jdText, evidence)),
@@ -967,7 +967,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
         { jdText },
         { fetchImpl: fetchMock, apiKey: "test-key", timeoutMs: 2_000 },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_OUTPUT_INVALID" });
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" } satisfies Partial<ApiError>);
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
@@ -975,7 +975,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
     const jdLine = "1.本科及以上，有相关实习经验";
     const evidence = "JD 中不存在的学历要求";
     const jdText = requirementJd(jdLine);
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(
         successfulResponse(analysisWithRequirement(jdText, evidence)),
@@ -997,7 +997,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
         { jdText },
         { fetchImpl: fetchMock, apiKey: "test-key", timeoutMs: 2_000 },
       ),
-    ).rejects.toMatchObject<ApiError>({ code: "AI_OUTPUT_INVALID" });
+    ).rejects.toMatchObject({ code: "AI_OUTPUT_INVALID" } satisfies Partial<ApiError>);
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
@@ -1014,7 +1014,7 @@ describe("ISSUE-012 requirement evidence span recovery and targeted repair", () 
       },
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock
       .mockResolvedValueOnce(successfulResponse(analysis))
       .mockResolvedValueOnce(
@@ -1175,7 +1175,7 @@ describe("ISSUE-016 section-level preferred scope", () => {
         verificationQuestion: null,
       },
     ];
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -1309,7 +1309,7 @@ describe("Phase 2.4 requirement completeness and deduplication", () => {
     );
     const analysis = analysisWithRequirement(jdText, "统招本科及以上学历");
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(
@@ -1362,7 +1362,7 @@ describe("Phase 2.4 requirement completeness and deduplication", () => {
       },
     ];
     const diagnostics = vi.fn();
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+    const fetchMock = vi.fn<typeof fetch>();
     fetchMock.mockResolvedValue(successfulResponse(analysis));
 
     const result = await analyzeJobWithDeepSeek(

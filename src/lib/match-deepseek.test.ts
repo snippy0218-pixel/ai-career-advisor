@@ -44,10 +44,10 @@ function completion(payload: unknown, finishReason = "stop") {
 
 describe("analyzeMatchWithDeepSeek", () => {
   it("returns a validated immutable match result", async () => {
-    const fetchImpl = vi.fn(async () => completion(validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(validRaw));
     const request = MATCH_CORE_FIXTURES[0].request;
     const before = JSON.stringify(request.candidateProfile);
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -92,7 +92,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalidRaw))
       .mockResolvedValueOnce(completion(validRaw));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
       apiKey: "test-key",
@@ -187,7 +187,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     await expect(
       analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
@@ -223,7 +223,7 @@ describe("analyzeMatchWithDeepSeek", () => {
 
   it("preserves partial raw when finish_reason=length fails before validation", async () => {
     const fetchImpl = vi.fn(async () => completion(validRaw, "length"));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     await expect(
       analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
@@ -267,7 +267,7 @@ describe("analyzeMatchWithDeepSeek", () => {
         { status: 200, headers: { "Content-Type": "application/json" } },
       ),
     );
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     await expect(
       analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
@@ -292,7 +292,7 @@ describe("analyzeMatchWithDeepSeek", () => {
 
   it("classifies provider failure with no model raw", async () => {
     const fetchImpl = vi.fn(async () => new Response("unavailable", { status: 503 }));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
     await expect(
       analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
         apiKey: "test-key",
@@ -331,7 +331,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalidInitial))
       .mockResolvedValueOnce(completion(validRaw, "length"));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
     await expect(
       analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
         apiKey: "test-key",
@@ -358,7 +358,7 @@ describe("analyzeMatchWithDeepSeek", () => {
   });
 
   it("keeps deepseek-v4-flash as the default runtime model", async () => {
-    const fetchImpl = vi.fn(async () => completion(validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(validRaw));
     await analyzeMatchWithDeepSeek(MATCH_CORE_FIXTURES[0].request, {
       apiKey: "test-key",
       fetchImpl,
@@ -412,7 +412,7 @@ describe("analyzeMatchWithDeepSeek", () => {
         completion({ matchItems: completeRaw.matchItems.slice(0, 3) }),
       )
       .mockResolvedValueOnce(completion(completeRaw));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -487,7 +487,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(repaired));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -563,7 +563,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -642,7 +642,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -701,7 +701,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(valid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -790,7 +790,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(repaired));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -827,7 +827,7 @@ describe("analyzeMatchWithDeepSeek", () => {
   it("G33-20 remains fail-closed when repair reuses employment evidence for responsibility", async () => {
     const { request, invalid } = dimensionLocalRepairFixture();
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     await expect(
       analyzeMatchWithDeepSeek(request, {
@@ -885,7 +885,7 @@ describe("analyzeMatchWithDeepSeek", () => {
       ],
     };
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: MatchDiagnostics | null = null;
+    let diagnostics: MatchDiagnostics | null | undefined;
 
     const result = await analyzeMatchWithDeepSeek(request, {
       apiKey: "test-key",
@@ -975,7 +975,7 @@ describe("Phase 2.4 batch-3 Match generation-contract recovery", () => {
         .fn()
         .mockResolvedValueOnce(completion(outputs.initial))
         .mockResolvedValueOnce(completion(outputs.repair));
-      let diagnostics: MatchDiagnostics | null = null;
+      let diagnostics: MatchDiagnostics | null | undefined;
 
       const result = await analyzeMatchWithDeepSeek(request(), {
         apiKey: "test-key",

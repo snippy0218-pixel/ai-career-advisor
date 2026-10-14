@@ -33,9 +33,9 @@ function invalidOwnershipRaw(index = 3) {
 describe("analyzeGreetingWithDeepSeek", () => {
   it("returns a validated personalized Greeting without mutating upstreams", async () => {
     const fixture = GREETING_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     const before = JSON.stringify(fixture.request);
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
 
     const result = await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
@@ -76,7 +76,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalidOwnershipRaw()))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
 
     const result = await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
@@ -100,7 +100,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
     const fixture = GREETING_FIXTURES[3];
     const invalid = invalidOwnershipRaw();
     const fetchImpl = vi.fn(async () => completion(invalid));
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
 
     const result = await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
@@ -128,7 +128,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
   it("uses the Phase 1 non-personalized fallback when no safe fact exists", async () => {
     const fixture = GREETING_FIXTURES[11];
     const fetchImpl = vi.fn();
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
 
     const result = await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
@@ -154,7 +154,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
 
   it("does not pass unrelated Profile injection evidence to the model", async () => {
     const fixture = GREETING_FIXTURES[10];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
       fetchImpl,
@@ -176,7 +176,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
 
     await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "sk-fake-secret-123456",
@@ -204,7 +204,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
   it("EC4 preserves truncated Greeting raw before safe fallback", async () => {
     const fixture = GREETING_FIXTURES[0];
     const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
-    let diagnostics: GreetingDiagnostics | null = null;
+    let diagnostics: GreetingDiagnostics | null | undefined;
     const result = await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
       fetchImpl,
@@ -226,7 +226,7 @@ describe("analyzeGreetingWithDeepSeek", () => {
 
   it("uses the authorized runtime model and bounded temperature", async () => {
     const fixture = GREETING_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     await analyzeGreetingWithDeepSeek(fixture.request, {
       apiKey: "test-key",
       fetchImpl,

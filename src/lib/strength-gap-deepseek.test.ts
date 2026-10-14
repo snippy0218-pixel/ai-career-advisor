@@ -44,9 +44,9 @@ function candidateUpgradeOutput() {
 describe("analyzeStrengthGapWithDeepSeek", () => {
   it("returns validated Strength+Gap without mutating Match Core", async () => {
     const fixture = STRENGTH_GAP_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     const before = JSON.stringify(fixture.matchCore);
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     const result = await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -81,7 +81,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     const result = await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -112,7 +112,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     const fixture = STRENGTH_GAP_FIXTURES[4];
     const fetchImpl = vi.fn(async () => completion({ strengths: [], gaps: [] }));
     let caught: unknown;
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     try {
       await analyzeStrengthGapWithDeepSeek(
@@ -141,7 +141,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
 
   it("uses the authorized runtime model and bounded temperature", async () => {
     const fixture = STRENGTH_GAP_FIXTURES[0];
-    const fetchImpl = vi.fn(async () => completion(fixture.validRaw));
+    const fetchImpl = vi.fn<typeof fetch>(async () => completion(fixture.validRaw));
     await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
       { apiKey: "test-key", fetchImpl },
@@ -166,7 +166,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
         gaps: fixture.validRaw.gaps,
       }),
     );
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     const result = await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -199,7 +199,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(rejected))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -239,7 +239,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
     const fixture = STRENGTH_GAP_FIXTURES[6];
     const rejected = candidateUpgradeOutput();
     const fetchImpl = vi.fn(async () => completion(rejected));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
     const result = await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
       {
@@ -281,7 +281,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completionText(malformed))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -322,7 +322,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
       .fn()
       .mockResolvedValueOnce(completion(invalid))
       .mockResolvedValueOnce(completion(fixture.validRaw));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
 
     await analyzeStrengthGapWithDeepSeek(
       { matchCore: fixture.matchCore },
@@ -347,7 +347,7 @@ describe("analyzeStrengthGapWithDeepSeek", () => {
   it("EC4 preserves truncated Strength/Gap raw", async () => {
     const fixture = STRENGTH_GAP_FIXTURES[0];
     const fetchImpl = vi.fn(async () => completion(fixture.validRaw, "length"));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
     await expect(
       analyzeStrengthGapWithDeepSeek(
         { matchCore: fixture.matchCore },
@@ -403,7 +403,7 @@ describe("ISSUE-038 exact final acceptance run-2 repair normalization", () => {
   it("accepts the exact raw repair only after removing the rejected optional relation", async () => {
     if (!repairRaw) throw new Error("missing run-2 Strength/Gap repair raw");
     const fetchImpl = vi.fn(async () => completionText(repairRaw));
-    let diagnostics: StrengthGapDiagnostics | null = null;
+    let diagnostics: StrengthGapDiagnostics | null | undefined;
     const final = await analyzeStrengthGapWithDeepSeek(
       { matchCore: result.failureContext.matchCore },
       {
